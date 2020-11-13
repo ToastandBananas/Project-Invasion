@@ -1,22 +1,23 @@
 ﻿using UnityEngine;
-using System.Collections.Generic;
+using UnityEngine.EventSystems;
 
 public class DefenderButton : MonoBehaviour
 {
-    List<DefenderButton> buttons = new List<DefenderButton>();
+    [SerializeField] Defender defenderPrefab;
+    
+    DefenderSpawner defenderSpawner;
 
     void Start()
     {
-        var buttons = FindObjectsOfType<DefenderButton>();
+        defenderSpawner = FindObjectOfType<DefenderSpawner>();
     }
 
     public void SelectDefender()
     {
-        foreach(DefenderButton button in buttons)
-        {
-            button.GetComponent<SpriteRenderer>().color = new Color32(61, 61, 61, 255);
-        }
+        // Deselects the button so that the color goes back to its normal color
+        EventSystem.current.SetSelectedGameObject(null);
 
         Debug.Log("You clicked on " + transform.parent.name);
+        defenderSpawner.SetSelectedDefender(defenderPrefab);
     }
 }

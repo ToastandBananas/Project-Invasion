@@ -2,11 +2,16 @@
 
 public class DefenderSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject defender;
+    Defender defender;
 
     void OnMouseDown()
     {
         SpawnDefender(GetSquareClicked());
+    }
+
+    public void SetSelectedDefender (Defender defenderToSelect)
+    {
+        defender = defenderToSelect;
     }
 
     Vector2 GetSquareClicked()
@@ -26,6 +31,6 @@ public class DefenderSpawner : MonoBehaviour
 
     void SpawnDefender(Vector2 gridPos)
     {
-        GameObject newDefender = Instantiate(defender, gridPos, Quaternion.identity);
+        Defender newDefender = Instantiate(defender, gridPos, Quaternion.identity);
     }
 }
