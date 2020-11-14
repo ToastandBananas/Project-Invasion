@@ -31,4 +31,9 @@ public class CurrencyDisplay : MonoBehaviour
             UpdateDisplay();
         }
     }
+
+    public bool HaveEnoughGold(int goldAmount)
+    {
+        return gold >= goldAmount;
+    }
 }
