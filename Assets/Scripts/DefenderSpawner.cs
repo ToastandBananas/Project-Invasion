@@ -1,18 +1,21 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class DefenderSpawner : MonoBehaviour
 {
     Defender defender;
     CurrencyDisplay currencyDisplay;
+    List<Vector2> gridCellsOccupied;
 
     void Start()
     {
         currencyDisplay = FindObjectOfType<CurrencyDisplay>();
+        gridCellsOccupied = new List<Vector2>();
     }
 
     void OnMouseDown()
     {
-        AttemptToPlaceDefenderAt(GetSquareClicked());
+        SpawnDefender(GetSquareClicked());
     }
 
     public void SetSelectedDefender (Defender defenderToSelect)
@@ -47,8 +50,38 @@ public class DefenderSpawner : MonoBehaviour
         return new Vector2(newX, newY);
     }
 
-    void SpawnDefender(Vector2 gridPos)
+    void SpawnDefender(Vector2 coordinates)
     {
-        Defender newDefender = Instantiate(defender, gridPos, Quaternion.identity);
+        if (!defender)
+        {
+            return;
+        }
+        else if (!IsCellOccupied(coordinates))
+        {
+            if (currencyDisplay.HaveEnoughGold(defender.GetGoldCost()))
+            {
+                AddCell(coordinates);
+                currencyDisplay.SpendGold(defender.GetGoldCost());
+                Defender newDefender = Instantiate(defender, SnapToGrid(coordinates), Quaternion.identity);
+            }
+        }
+    }
+
+    public bool IsCellOccupied(Vector2 gridPosition)
+    {
+        if (gridCellsOccupied.Contains(gridPosition))
+        {
+            return true;
+        }
+        return false;
+    }
+    public void AddCell(Vector2 gridPosition)
+    {
+        gridCellsOccupied.Add(gridPosition);
+    }
+
+    public void RemoveCell(Vector2 gridPosition)
+    {
+        gridCellsOccupied.Remove(gridPosition);
     }
 }
