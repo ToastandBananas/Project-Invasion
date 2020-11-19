@@ -11,12 +11,10 @@ public class LevelLoader : MonoBehaviour
     {
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentSceneIndex == 0)
-        {
-            StartCoroutine(WaitForTime());
-        }
+            StartCoroutine(WaitToLoadNextScene());
     }
 
-    IEnumerator WaitForTime()
+    IEnumerator WaitToLoadNextScene()
     {
         yield return new WaitForSeconds(waitTime);
         LoadNextScene();

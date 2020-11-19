@@ -7,10 +7,17 @@ public class Attacker : MonoBehaviour
     Health currentTargetsHealth;
 
     Animator anim;
+    LevelController levelController;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        levelController = FindObjectOfType<LevelController>();
+    }
+
+    void OnDestroy()
+    {
+        levelController.AttackerKilled();
     }
 
     void Update()
