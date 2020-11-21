@@ -5,12 +5,12 @@ public class CastleHealth : MonoBehaviour
 {
     [SerializeField] int health = 5;
     Text healthText;
-    LevelLoader levelLoader;
+    LevelController levelController;
 
     void Start()
     {
         healthText = GetComponent<Text>();
-        levelLoader = FindObjectOfType<LevelLoader>();
+        levelController = FindObjectOfType<LevelController>();
         UpdateDisplay();
     }
 
@@ -25,6 +25,6 @@ public class CastleHealth : MonoBehaviour
         UpdateDisplay();
 
         if (health <= 0)
-            levelLoader.LoadLoseScreen(); // Load lose screen
+            levelController.HandleLoseCondition(); // Load lose screen
     }
 }

@@ -17,7 +17,8 @@ public class Attacker : MonoBehaviour
 
     void OnDestroy()
     {
-        levelController.AttackerKilled();
+        if (levelController != null)
+            levelController.AttackerKilled();
     }
 
     void Update()
