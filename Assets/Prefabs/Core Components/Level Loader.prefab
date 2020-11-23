@@ -43,4 +43,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3957423237701479e750250da9c09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionsMenuCanvas: {fileID: 0}
   waitTime: 7

@@ -4,11 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+    [SerializeField] GameObject optionsMenuCanvas;
     [SerializeField] int waitTime = 7;
     int currentSceneIndex;
 
     void Start()
     {
+        if (optionsMenuCanvas != null)
+            CloseOptionsMenu();
+
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentSceneIndex == 0)
             StartCoroutine(WaitToLoadNextScene());
@@ -40,6 +44,16 @@ public class LevelLoader : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void OpenOptionsMenu()
+    {
+        optionsMenuCanvas.SetActive(true);
+    }
+
+    public void CloseOptionsMenu()
+    {
+        optionsMenuCanvas.SetActive(false);
     }
 
     public void QuitGame()
