@@ -4,11 +4,18 @@ using UnityEngine;
 public class DefenderSpawner : MonoBehaviour
 {
     Defender defender;
+    GameObject defendersParent;
+    const string DEFENDERS_PARENT_NAME = "Defenders";
+
     CurrencyDisplay currencyDisplay;
     List<Vector2> gridCellsOccupied;
 
     void Start()
     {
+        defendersParent = GameObject.Find(DEFENDERS_PARENT_NAME);
+        if (defendersParent == null)
+            defendersParent = new GameObject(DEFENDERS_PARENT_NAME);
+
         currencyDisplay = FindObjectOfType<CurrencyDisplay>();
         gridCellsOccupied = new List<Vector2>();
     }
@@ -63,6 +70,7 @@ public class DefenderSpawner : MonoBehaviour
                 AddCell(coordinates);
                 currencyDisplay.SpendGold(defender.GetGoldCost());
                 Defender newDefender = Instantiate(defender, SnapToGrid(coordinates), Quaternion.identity);
+                newDefender.transform.SetParent(defendersParent.transform);
             }
         }
     }

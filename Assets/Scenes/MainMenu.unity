@@ -360,27 +360,27 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2242204807411396168, guid: 7508c77b3abc8794eb4847b37e9dea1e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2242204807411396168, guid: 7508c77b3abc8794eb4847b37e9dea1e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2242204807411396168, guid: 7508c77b3abc8794eb4847b37e9dea1e, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2242204807930041254, guid: 7508c77b3abc8794eb4847b37e9dea1e, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2242204807930041254, guid: 7508c77b3abc8794eb4847b37e9dea1e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2242204808190659651, guid: 7508c77b3abc8794eb4847b37e9dea1e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2242204808621561306, guid: 7508c77b3abc8794eb4847b37e9dea1e, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -392,11 +392,15 @@ PrefabInstance:
       objectReference: {fileID: 1566424793}
     - target: {fileID: 2242204809017622257, guid: 7508c77b3abc8794eb4847b37e9dea1e, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8568558285955436033, guid: 7508c77b3abc8794eb4847b37e9dea1e, type: 3}
       propertyPath: m_Name
       value: Options Canvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 8568558285955436033, guid: 7508c77b3abc8794eb4847b37e9dea1e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8568558285955436045, guid: 7508c77b3abc8794eb4847b37e9dea1e, type: 3}
       propertyPath: m_Pivot.x

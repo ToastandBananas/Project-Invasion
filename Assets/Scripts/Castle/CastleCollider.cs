@@ -9,8 +9,9 @@ public class CastleCollider : MonoBehaviour
         castleHealth = FindObjectOfType<CastleHealth>();
     }
 
-    void OnTriggerEnter2D()
+    void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        castleHealth.TakeHealth(1);
+        castleHealth.TakeHealth(1f);
+        Destroy(otherCollider.gameObject);
     }
 }
