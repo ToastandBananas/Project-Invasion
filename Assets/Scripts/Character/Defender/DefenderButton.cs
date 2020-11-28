@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class DefenderButton : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class DefenderButton : MonoBehaviour
     void Start()
     {
         defenderSpawner = FindObjectOfType<DefenderSpawner>();
+
+        SetCost();
     }
 
     public void SelectDefender()
@@ -19,5 +22,14 @@ public class DefenderButton : MonoBehaviour
 
         // Debug.Log("You clicked on " + transform.parent.name);
         defenderSpawner.SetSelectedDefender(defenderPrefab);
+    }
+
+    void SetCost()
+    {
+        Text costText = transform.parent.GetComponentInChildren<Text>();
+        if (costText == null)
+            Debug.LogError(name + " has no cost text.");
+        else
+            costText.text = " " + defenderPrefab.GetGoldCost().ToString();
     }
 }
