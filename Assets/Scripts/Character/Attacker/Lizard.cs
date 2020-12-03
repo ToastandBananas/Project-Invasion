@@ -11,9 +11,7 @@ public class Lizard : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        GameObject otherObject = collision.gameObject;
-
-        if (otherObject.GetComponent<Defender>())
-            attackerScript.Attack(otherObject);
+        if (collision.gameObject == attackerScript.currentTarget)
+            attackerScript.Attack();
     }
 }

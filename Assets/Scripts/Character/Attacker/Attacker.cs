@@ -2,9 +2,15 @@
 
 public class Attacker : MonoBehaviour
 {
+    [SerializeField] float attackDamage = 10f;
     float currentSpeed = 1f;
-    GameObject currentTarget;
+    float distanceToTarget;
+
+    public GameObject currentTarget;
     Health currentTargetsHealth;
+    public Squad currentTargetsSquad;
+
+    [SerializeField] Vector3 attackOffset = new Vector3(0.1f, 0);
 
     Animator anim;
     LevelController levelController;
@@ -23,7 +29,10 @@ public class Attacker : MonoBehaviour
 
     void Update()
     {
-        transform.Translate(Vector2.left * currentSpeed * Time.deltaTime);
+        if (currentTarget != null && currentSpeed > 0)
+            MoveTowardsTarget();
+        else
+            transform.Translate(Vector2.left * currentSpeed * Time.deltaTime);
     }
 
     void FixedUpdate()
@@ -36,19 +45,26 @@ public class Attacker : MonoBehaviour
         currentSpeed = speed;
     }
 
-    public void Attack(GameObject target)
+    public void MoveTowardsTarget()
+    {
+        transform.position = Vector2.MoveTowards(transform.position, currentTarget.transform.position + attackOffset, currentSpeed * Time.deltaTime);
+        //if (Vector2.Distance(transform.position, currentTarget.transform.position) <= attackOffset.x)
+            //Attack();
+    }
+
+    public void Attack(/*GameObject target*/)
     {
         anim.SetBool("isAttacking", true);
-        currentTarget = target;
+        //currentTarget = target;
         currentTargetsHealth = currentTarget.GetComponent<Health>();
     }
 
-    public void StrikeCurrentTarget(float damage)
+    public void StrikeCurrentTarget()
     {
         if (currentTarget == null) return;
         
-        if (currentTargetsHealth)
-            currentTargetsHealth.DealDamage(damage);
+        if (currentTargetsHealth != null)
+            currentTargetsHealth.DealDamage(attackDamage);
     }
 
     void UpdateAnimationState()

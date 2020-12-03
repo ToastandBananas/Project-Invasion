@@ -95,6 +95,7 @@ GameObject:
   - component: {fileID: 3105807361236145710}
   - component: {fileID: 1483221795583170607}
   - component: {fileID: 6085679992385402180}
+  - component: {fileID: -7401408436904904116}
   m_Layer: 0
   m_Name: Knight2
   m_TagString: Untagged
@@ -149,6 +150,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldCost: 50
+  attackOffset: {x: -0.1, y: 0, z: 0}
+  unitPosition: {x: 0, y: 0}
+  attackerBeingAttackedBy: {fileID: 0}
+  squad: {fileID: 0}
 --- !u!61 &1483221795583170607
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -189,3 +194,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 75
   deathVFX: {fileID: 1906222994913036, guid: 740c2b3187d56c341b8cb78e8aa925c5, type: 3}
+--- !u!114 &-7401408436904904116
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7088848866846861546}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bbf5517ab82e53498af85bc1d270620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

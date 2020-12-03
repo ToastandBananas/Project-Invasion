@@ -19,6 +19,6 @@ public class Fox : MonoBehaviour
         if (otherObject.GetComponent<Gravestone>())
             anim.SetTrigger("jumpTrigger");
         else if (otherObject.GetComponent<Defender>())
-            attackerScript.Attack(otherObject);
+            attackerScript.Attack();
     }
 }
