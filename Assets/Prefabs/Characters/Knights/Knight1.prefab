@@ -68,10 +68,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldCost: 50
+  isAttacking: 0
+  attackOffsetX: -0.1
   attackOffset: {x: -0.1, y: 0, z: 0}
   unitPosition: {x: 0, y: 0}
-  attackerBeingAttackedBy: {fileID: 0}
+  targetAttacker: {fileID: 0}
+  currentTargetsHealth: {fileID: 0}
   squad: {fileID: 0}
+  health: {fileID: 0}
 --- !u!61 &8338873122512256675
 BoxCollider2D:
   m_ObjectHideFlags: 0

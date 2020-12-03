@@ -197,6 +197,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d50838625fd1747af4a0c585ac3685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDamage: 20
+  attackOffset: {x: 0.1, y: 0, z: 0}
+  isAttacking: 0
+  currentTarget: {fileID: 0}
+  currentDefenderAttacking: {fileID: 0}
+  currentTargetsHealth: {fileID: 0}
+  currentTargetsSquad: {fileID: 0}
+  health: {fileID: 0}
 --- !u!114 &5832479960797769940
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -221,5 +229,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 300
+  health: 120
   deathVFX: {fileID: 1906222994913036, guid: 740c2b3187d56c341b8cb78e8aa925c5, type: 3}

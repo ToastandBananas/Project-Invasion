@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Squad : MonoBehaviour
 {
+    [SerializeField] int goldCost = 100;
+
     // Does not count the leader, unless it's a squad size of One
     enum MaxSquadSize { Sixteen, Fifteen, Twelve, Nine, Eight, Seven, Five, Four, Three, Two, One }
     [SerializeField] MaxSquadSize maxSquadSize;
@@ -10,9 +12,9 @@ public class Squad : MonoBehaviour
     public Transform leaderParent, unitsParent;
     public List<Defender> units;
     public Defender leader;
-
-    public bool underAttack = false;
+    
     public int attackerCount = 0;
+    public List<Attacker> attackersInRange;
 
     // Squads with a max of 12 units
     Vector2[] twelveLeaderPositions = { new Vector2(-0.3f, 0), new Vector2(-0.1f, 0), new Vector2(0.1f, 0) };
@@ -25,6 +27,7 @@ public class Squad : MonoBehaviour
         leaderParent = transform.GetChild(0);
         unitsParent = transform.GetChild(1);
         units = new List<Defender>();
+        attackersInRange = new List<Attacker>();
 
         leader = leaderParent.GetChild(0).GetComponent<Defender>();
         for (int i = 0; i < unitsParent.childCount; i++)
@@ -34,6 +37,11 @@ public class Squad : MonoBehaviour
 
         AssignUnitPositions();
         AssignLeaderPosition();
+    }
+
+    public int GetGoldCost()
+    {
+        return goldCost;
     }
 
     public void AssignUnitPositions()
@@ -70,17 +78,31 @@ public class Squad : MonoBehaviour
     {
         if (collision.TryGetComponent<Attacker>(out Attacker attacker))
         {
-            underAttack = true;
             attackerCount++;
+            attackersInRange.Add(attacker);
             attacker.currentTargetsSquad = this;
 
+            int totalDefendersAttackingAttacker = 0;
             foreach (Defender defender in units)
             {
-                if (defender.attackerBeingAttackedBy == null)
-                {
-                    defender.attackerBeingAttackedBy = attacker;
-                    attacker.currentTarget = defender.gameObject;
+                if (totalDefendersAttackingAttacker == attacker.maxOpponents)
                     return;
+
+                if (defender.targetAttacker == null && totalDefendersAttackingAttacker == 0)
+                {
+                    // Send in the first defender
+                    defender.targetAttacker = attacker;
+                    attacker.currentTarget = defender.gameObject;
+                    attacker.currentDefenderAttacking = defender;
+                    attacker.opponents.Add(defender);
+                    totalDefendersAttackingAttacker++;
+                }
+                else if (totalDefendersAttackingAttacker > 0 && totalDefendersAttackingAttacker < attacker.maxOpponents)
+                {
+                    // Send in the maximum defenders possible per the attacker type
+                    defender.targetAttacker = attacker;
+                    attacker.opponents.Add(defender);
+                    totalDefendersAttackingAttacker++;
                 }
             }
         }

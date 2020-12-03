@@ -9,9 +9,18 @@ public class Knight : MonoBehaviour
         defenderScript = GetComponent<Defender>();
     }
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void Update()
+    {
+        if (defenderScript.isAttacking == false && defenderScript.targetAttacker != null
+            && Vector2.Distance(transform.position, defenderScript.targetAttacker.transform.position) <= defenderScript.attackOffset.x)
+        {
+            defenderScript.Attack();
+        }
+    }
+
+    /*void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject == defenderScript.attackerBeingAttackedBy.gameObject)
             defenderScript.Attack();
-    }
+    }*/
 }

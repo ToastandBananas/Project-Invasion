@@ -3,23 +3,32 @@
 public class Defender : MonoBehaviour
 {
     [SerializeField] int goldCost = 100;
-    [SerializeField] Vector3 attackOffset = new Vector3(-0.1f, 0);
+    public bool isAttacking = false;
+    float currentSpeed = 0f;
+
+    float randomAttackOffsetY;
+    [SerializeField] float attackOffsetX = -0.1f;
+    public Vector3 attackOffset;
     public Vector2 unitPosition;
     Vector2 currentLocalPosition;
 
-    public Attacker attackerBeingAttackedBy;
 
-    float currentSpeed = 0f;
-    Health currentTargetsHealth;
+    public Attacker targetAttacker;
+    public Health currentTargetsHealth;
 
     CurrencyDisplay currencyDisplay;
     Animator anim;
     public Squad squad;
+    public Health health;
 
     void Start()
     {
+        randomAttackOffsetY = Random.Range(-0.15f, 0.15f);
+        attackOffset = new Vector3(attackOffsetX, randomAttackOffsetY);
+
         currencyDisplay = FindObjectOfType<CurrencyDisplay>();
         anim = GetComponent<Animator>();
+        health = GetComponent<Health>();
         squad = transform.parent.parent.GetComponent<Squad>();
 
         SetMovementSpeed(.25f);
@@ -27,10 +36,15 @@ public class Defender : MonoBehaviour
 
     void Update()
     {
-        if (squad.underAttack == false)
+        if (squad.attackersInRange.Count == 0)
             MoveUnitIntoPosition();
-        else if (attackerBeingAttackedBy != null && currentSpeed > 0)
+        else if (targetAttacker != null && currentSpeed > 0)
             MoveTowardsAttacker();
+    }
+
+    void FixedUpdate()
+    {
+        UpdateAnimationState();
     }
 
     public void AddGold(int amount)
@@ -48,18 +62,22 @@ public class Defender : MonoBehaviour
         currentLocalPosition = transform.localPosition;
         if (currentLocalPosition != unitPosition)
         {
-            if (unitPosition.x < transform.localPosition.x - 0.001f && transform.localScale.x != -1)
+            if (unitPosition.x <= transform.localPosition.x - 0.001f && transform.localScale.x != -1)
                 transform.localScale = new Vector2(-1, 1);
             else if (unitPosition.x >= transform.localPosition.x && transform.localScale.x != 1)
                 transform.localScale = new Vector2(1, 1);
 
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.parent.position.x, transform.parent.position.y) + unitPosition, currentSpeed * Time.deltaTime);
         }
+        else if (transform.localScale.x != 1)
+            transform.localScale = new Vector2(1, 1);
     }
 
     public void MoveTowardsAttacker()
     {
-        transform.position = Vector2.MoveTowards(transform.position, attackerBeingAttackedBy.transform.position + attackOffset, currentSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, targetAttacker.transform.position + attackOffset, currentSpeed * Time.deltaTime);
+        //if (Vector2.Distance(transform.position, attackerBeingAttackedBy.transform.position) <= attackOffset.x)
+            //Attack();
     }
 
     public void SetMovementSpeed(float speed)
@@ -71,15 +89,25 @@ public class Defender : MonoBehaviour
 
     public void Attack()
     {
+        isAttacking = true;
         anim.SetBool("isAttacking", true);
-        currentTargetsHealth = attackerBeingAttackedBy.GetComponent<Health>();
+        currentTargetsHealth = targetAttacker.health;
     }
 
     public void StrikeCurrentTarget(float damage)
     {
-        if (attackerBeingAttackedBy == null) return;
+        if (targetAttacker == null) return;
 
         if (currentTargetsHealth)
             currentTargetsHealth.DealDamage(damage);
+    }
+
+    void UpdateAnimationState()
+    {
+        if (targetAttacker == null)
+        {
+            isAttacking = false;
+            anim.SetBool("isAttacking", false);
+        }
     }
 }

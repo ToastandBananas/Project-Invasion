@@ -4,11 +4,24 @@ using UnityEngine;
 public class DefenderSpawner : MonoBehaviour
 {
     Defender defender;
+    Squad squad;
     GameObject defendersParent;
     const string DEFENDERS_PARENT_NAME = "Defenders";
 
     CurrencyDisplay currencyDisplay;
     List<Vector2> gridCellsOccupied;
+
+    #region Singleton
+    public static DefenderSpawner instance;
+
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
+    #endregion
 
     void Start()
     {
@@ -22,12 +35,13 @@ public class DefenderSpawner : MonoBehaviour
 
     void OnMouseDown()
     {
-        SpawnDefender(GetSquareClicked());
+        SpawnSquad(GetSquareClicked());
     }
 
-    public void SetSelectedDefender (Defender defenderToSelect)
+    public void SetSelectedSquad (Squad squadToSelect/*Defender defenderToSelect*/)
     {
-        defender = defenderToSelect;
+        // defender = defenderToSelect;
+        squad = squadToSelect;
     }
 
     void AttemptToPlaceDefenderAt(Vector2 gridPos)
@@ -37,7 +51,7 @@ public class DefenderSpawner : MonoBehaviour
         // If we have enough currency, spawn defender and spend currency
         if (currencyDisplay.HaveEnoughGold(defenderGoldCost))
         {
-            SpawnDefender(gridPos);
+            SpawnSquad(gridPos);
             currencyDisplay.SpendGold(defenderGoldCost);
         }
     }
@@ -57,20 +71,24 @@ public class DefenderSpawner : MonoBehaviour
         return new Vector2(newX, newY);
     }
 
-    void SpawnDefender(Vector2 coordinates)
+    void SpawnSquad(Vector2 coordinates)
     {
-        if (!defender)
+        if (!squad/*!defender*/)
         {
             return;
         }
         else if (!IsCellOccupied(coordinates))
         {
-            if (currencyDisplay.HaveEnoughGold(defender.GetGoldCost()))
+            if (currencyDisplay.HaveEnoughGold(squad.GetGoldCost()/*defender.GetGoldCost()*/))
             {
                 AddCell(coordinates);
-                currencyDisplay.SpendGold(defender.GetGoldCost());
-                Defender newDefender = Instantiate(defender, SnapToGrid(coordinates), Quaternion.identity);
-                newDefender.transform.SetParent(defendersParent.transform);
+                // currencyDisplay.SpendGold(defender.GetGoldCost());
+                // Defender newDefender = Instantiate(defender, SnapToGrid(coordinates), Quaternion.identity);
+                // newDefender.transform.SetParent(defendersParent.transform);
+
+                currencyDisplay.SpendGold(squad.GetGoldCost());
+                Squad newSquad = Instantiate(squad, SnapToGrid(coordinates), Quaternion.identity);
+                newSquad.transform.SetParent(defendersParent.transform);
             }
         }
     }
@@ -83,6 +101,7 @@ public class DefenderSpawner : MonoBehaviour
         }
         return false;
     }
+
     public void AddCell(Vector2 gridPosition)
     {
         gridCellsOccupied.Add(gridPosition);

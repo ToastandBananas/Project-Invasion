@@ -1,22 +1,29 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 public class Attacker : MonoBehaviour
 {
     [SerializeField] float attackDamage = 10f;
+    public Vector3 attackOffset = new Vector3(0.1f, 0);
+    public bool isAttacking = false;
+    public int maxOpponents = 2;
     float currentSpeed = 1f;
     float distanceToTarget;
 
+    public List<Defender> opponents;
     public GameObject currentTarget;
-    Health currentTargetsHealth;
+    public Defender currentDefenderAttacking;
+    public Health currentTargetsHealth;
     public Squad currentTargetsSquad;
 
-    [SerializeField] Vector3 attackOffset = new Vector3(0.1f, 0);
-
+    public Health health;
     Animator anim;
     LevelController levelController;
 
     void Start()
     {
+        opponents = new List<Defender>();
+        health = GetComponent<Health>();
         anim = GetComponent<Animator>();
         levelController = FindObjectOfType<LevelController>();
     }
@@ -52,11 +59,12 @@ public class Attacker : MonoBehaviour
             //Attack();
     }
 
-    public void Attack(/*GameObject target*/)
+    public void Attack()
     {
+        isAttacking = true;
         anim.SetBool("isAttacking", true);
-        //currentTarget = target;
-        currentTargetsHealth = currentTarget.GetComponent<Health>();
+        currentDefenderAttacking = currentTarget.GetComponent<Defender>();
+        currentTargetsHealth = currentDefenderAttacking.health;
     }
 
     public void StrikeCurrentTarget()
@@ -70,6 +78,9 @@ public class Attacker : MonoBehaviour
     void UpdateAnimationState()
     {
         if (currentTarget == null)
+        {
+            isAttacking = false;
             anim.SetBool("isAttacking", false);
+        }
     }
 }
