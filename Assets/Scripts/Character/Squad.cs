@@ -97,7 +97,7 @@ public class Squad : MonoBehaviour
                     attacker.opponents.Add(defender);
                     totalDefendersAttackingAttacker++;
                 }
-                else if (totalDefendersAttackingAttacker > 0 && totalDefendersAttackingAttacker < attacker.maxOpponents)
+                else if (defender.targetAttacker == null && totalDefendersAttackingAttacker > 0 && totalDefendersAttackingAttacker < attacker.maxOpponents)
                 {
                     // Send in the maximum defenders possible per the attacker type
                     defender.targetAttacker = attacker;

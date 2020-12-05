@@ -55,8 +55,6 @@ public class Attacker : MonoBehaviour
     public void MoveTowardsTarget()
     {
         transform.position = Vector2.MoveTowards(transform.position, currentTarget.transform.position + attackOffset, currentSpeed * Time.deltaTime);
-        //if (Vector2.Distance(transform.position, currentTarget.transform.position) <= attackOffset.x)
-            //Attack();
     }
 
     public void Attack()

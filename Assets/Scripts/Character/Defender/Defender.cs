@@ -4,6 +4,7 @@ public class Defender : MonoBehaviour
 {
     [SerializeField] int goldCost = 100;
     public bool isAttacking = false;
+    public bool isMoving = false;
     float currentSpeed = 0f;
 
     float randomAttackOffsetY;
@@ -38,7 +39,7 @@ public class Defender : MonoBehaviour
     {
         if (squad.attackersInRange.Count == 0)
             MoveUnitIntoPosition();
-        else if (targetAttacker != null && currentSpeed > 0)
+        else if (targetAttacker != null)
             MoveTowardsAttacker();
     }
 
@@ -60,8 +61,11 @@ public class Defender : MonoBehaviour
     public void MoveUnitIntoPosition()
     {
         currentLocalPosition = transform.localPosition;
-        if (currentLocalPosition != unitPosition)
+        if (currentLocalPosition != unitPosition && Vector2.Distance(transform.localPosition, unitPosition) > 0.05f)
         {
+            isMoving = true;
+            anim.SetBool("isMoving", true);
+
             if (unitPosition.x <= transform.localPosition.x - 0.001f && transform.localScale.x != -1)
                 transform.localScale = new Vector2(-1, 1);
             else if (unitPosition.x >= transform.localPosition.x && transform.localScale.x != 1)
@@ -70,21 +74,30 @@ public class Defender : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.parent.position.x, transform.parent.position.y) + unitPosition, currentSpeed * Time.deltaTime);
         }
         else if (transform.localScale.x != 1)
+        {
+            isMoving = false;
+            anim.SetBool("isMoving", false);
             transform.localScale = new Vector2(1, 1);
+        }
+        else
+        {
+            isMoving = false;
+            anim.SetBool("isMoving", false);
+        }
     }
 
     public void MoveTowardsAttacker()
     {
+        isMoving = true;
+        anim.SetBool("isMoving", true);
         transform.position = Vector2.MoveTowards(transform.position, targetAttacker.transform.position + attackOffset, currentSpeed * Time.deltaTime);
-        //if (Vector2.Distance(transform.position, attackerBeingAttackedBy.transform.position) <= attackOffset.x)
-            //Attack();
     }
 
     public void SetMovementSpeed(float speed)
     {
         currentSpeed = speed;
-        if (currentSpeed == 0)
-            transform.localScale = Vector2.one;
+        if (currentSpeed == 0 && transform.localScale.x != 1)
+            transform.localScale = new Vector2(1, 1);
     }
 
     public void Attack()
