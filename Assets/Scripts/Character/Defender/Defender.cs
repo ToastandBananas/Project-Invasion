@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Defender : MonoBehaviour
 {
@@ -32,20 +33,27 @@ public class Defender : MonoBehaviour
         health = GetComponent<Health>();
         squad = transform.parent.parent.GetComponent<Squad>();
 
-        SetMovementSpeed(.25f);
-    }
+        SetMovementSpeed(0.25f);
 
-    void Update()
-    {
-        if (squad.attackersInRange.Count == 0)
-            MoveUnitIntoPosition();
-        else if (targetAttacker != null)
-            MoveTowardsAttacker();
+        StartCoroutine(Movement());
     }
 
     void FixedUpdate()
     {
         UpdateAnimationState();
+    }
+
+    IEnumerator Movement()
+    {
+        while (health.isDead == false)
+        {
+            if (squad.attackersInRange.Count == 0)
+                MoveUnitIntoPosition();
+            else if (targetAttacker != null)
+                MoveTowardsAttacker();
+
+            yield return null;
+        }
     }
 
     public void AddGold(int amount)

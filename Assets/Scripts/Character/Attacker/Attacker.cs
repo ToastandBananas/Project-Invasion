@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Attacker : MonoBehaviour
@@ -26,6 +27,8 @@ public class Attacker : MonoBehaviour
         health = GetComponent<Health>();
         anim = GetComponent<Animator>();
         levelController = FindObjectOfType<LevelController>();
+
+        StartCoroutine(Movement());
     }
 
     void OnDestroy()
@@ -34,17 +37,22 @@ public class Attacker : MonoBehaviour
             levelController.AttackerKilled();
     }
 
-    void Update()
-    {
-        if (currentTarget != null && currentSpeed > 0)
-            MoveTowardsTarget();
-        else
-            transform.Translate(Vector2.left * currentSpeed * Time.deltaTime);
-    }
-
     void FixedUpdate()
     {
         UpdateAnimationState();
+    }
+
+    IEnumerator Movement()
+    {
+        while (health.isDead == false)
+        {
+            if (currentTarget != null && currentSpeed > 0)
+                MoveTowardsTarget();
+            else
+                transform.Translate(Vector2.left * currentSpeed * Time.deltaTime);
+
+            yield return null;
+        }
     }
 
     public void SetMovementSpeed(float speed)

@@ -4,14 +4,19 @@ public class Health : MonoBehaviour
 {
     [SerializeField] float health = 100f;
     [SerializeField] GameObject deathVFX;
+    public bool isDead = false;
 
     Attacker attacker;
     Defender defender;
+    Animator anim;
+    BoxCollider2D boxCollider;
 
     void Start()
     {
         TryGetComponent<Attacker>(out attacker);
         TryGetComponent<Defender>(out defender);
+        anim = GetComponent<Animator>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     public void DealDamage(float damage)
@@ -25,8 +30,18 @@ public class Health : MonoBehaviour
 
             FindNewTargetForOpponent();
 
-            Destroy(gameObject);
+            Die();
         }
+    }
+
+    void Die()
+    {
+        isDead = true;
+        anim.SetBool("isDead", true);
+        boxCollider.enabled = false;
+
+        float randomRotation = Random.Range(-70f, 70f);
+        transform.eulerAngles = new Vector3(0, 0, randomRotation);
     }
 
     void TriggerDeathVFX()
