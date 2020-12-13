@@ -10,6 +10,7 @@ public class Health : MonoBehaviour
     Defender defender;
     Animator anim;
     BoxCollider2D boxCollider;
+    Transform deadCharactersParent;
 
     void Start()
     {
@@ -17,6 +18,7 @@ public class Health : MonoBehaviour
         TryGetComponent<Defender>(out defender);
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
+        deadCharactersParent = GameObject.Find("Dead Characters").transform;
     }
 
     public void DealDamage(float damage)
@@ -24,7 +26,7 @@ public class Health : MonoBehaviour
         health -= damage;
 
         // If the character is going to die
-        if (health <= 0)
+        if (health <= 0 && isDead == false)
         {
             TriggerDeathVFX();
 
@@ -42,6 +44,7 @@ public class Health : MonoBehaviour
 
         float randomRotation = Random.Range(-70f, 70f);
         transform.eulerAngles = new Vector3(0, 0, randomRotation);
+        transform.SetParent(deadCharactersParent);
     }
 
     void TriggerDeathVFX()
@@ -58,30 +61,43 @@ public class Health : MonoBehaviour
         if (attacker != null)
         {
             attacker.currentTargetsSquad.attackerCount--;
-            attacker.currentDefenderAttacking.squad.attackersInRange.Remove(attacker);
-
-            foreach (Defender opponent in attacker.opponents)
+            if (attacker.currentDefenderAttacking != null)
             {
-                opponent.targetAttacker = null;
-                opponent.currentTargetsHealth = null;
-                opponent.isAttacking = false;
-            }
+                if (attacker.currentDefenderAttacking.squad.attackersInRange.Contains(attacker))
+                    attacker.currentDefenderAttacking.squad.attackersInRange.Remove(attacker);
 
-            // Find new target if possible (for the defender that killed this attacker)
-            if (attacker.currentDefenderAttacking.squad.attackersInRange.Count > 0)
+                foreach (Defender opponent in attacker.opponents)
+                {
+                    opponent.targetAttacker = null;
+                    opponent.currentTargetsHealth = null;
+                    opponent.isAttacking = false;
+                }
+
+                // Find new target if possible (for the defender that killed this attacker)
+                if (attacker.currentDefenderAttacking.squad.attackersInRange.Count > 0)
+                {
+                    foreach (Defender opponent in attacker.opponents)
+                    {
+                        int randomTargetIndex = Random.Range(0, opponent.squad.attackersInRange.Count);
+                        opponent.targetAttacker = opponent.squad.attackersInRange[randomTargetIndex];
+                        opponent.currentTargetsHealth = opponent.squad.attackersInRange[randomTargetIndex].health;
+                        opponent.squad.attackersInRange[randomTargetIndex].opponents.Add(opponent);
+                    }
+                }
+                else // If there are no more attackers nearby, reorganize the squad
+                {
+                    attacker.currentDefenderAttacking.squad.AssignUnitPositions();
+                    attacker.currentDefenderAttacking.squad.AssignLeaderPosition();
+                }
+            }
+            else
             {
                 foreach (Defender opponent in attacker.opponents)
                 {
-                    int randomTargetIndex = Random.Range(0, opponent.squad.attackersInRange.Count);
-                    opponent.targetAttacker = opponent.squad.attackersInRange[randomTargetIndex];
-                    opponent.currentTargetsHealth = opponent.squad.attackersInRange[randomTargetIndex].health;
-                    opponent.squad.attackersInRange[randomTargetIndex].opponents.Add(opponent);
+                    opponent.targetAttacker = null;
+                    opponent.currentTargetsHealth = null;
+                    opponent.isAttacking = false;
                 }
-            }
-            else // If there are no more attackers nearby, reorganize the squad
-            {
-                attacker.currentDefenderAttacking.squad.AssignUnitPositions();
-                attacker.currentDefenderAttacking.squad.AssignLeaderPosition();
             }
         }
 
@@ -97,54 +113,57 @@ public class Health : MonoBehaviour
                 defender.squad.Retreat();
             }
 
-            defender.targetAttacker.currentTarget = null;
-            defender.targetAttacker.currentDefenderAttacking = null;
-            defender.targetAttacker.currentTargetsHealth = null;
-            defender.targetAttacker.isAttacking = false;
-
-            if (defender.targetAttacker.opponents.Contains(defender))
-                defender.targetAttacker.opponents.Remove(defender);
-
-            // Remove any opponents missing in the list (will happen if another attacker kills the defender)
-            for (int i = 0; i < defender.targetAttacker.opponents.Count; i++)
+            if (defender.targetAttacker != null)
             {
-                if (defender.targetAttacker.opponents[i] == null)
-                    defender.targetAttacker.opponents.Remove(defender.targetAttacker.opponents[i]);
-            }
+                defender.targetAttacker.currentTarget = null;
+                defender.targetAttacker.currentDefenderAttacking = null;
+                defender.targetAttacker.currentTargetsHealth = null;
+                defender.targetAttacker.isAttacking = false;
 
-            if (defender.targetAttacker.opponents.Count > 0) // If the attacker already has another defender (opponent) attacking him
-            {
-                defender.targetAttacker.currentTarget = defender.targetAttacker.opponents[0].gameObject;
-                defender.targetAttacker.currentDefenderAttacking = defender.targetAttacker.opponents[0];
-                defender.targetAttacker.currentTargetsHealth = defender.targetAttacker.opponents[0].health;
-            }
-            else if (defender.squad.units.Count > 0 || defender.squad.leader != null)
-            {
-                // Find a new target if possible (for the attacker who killed this defender)
-                int randomTargetIndex = Random.Range(0, defender.squad.units.Count);
-                if (defender.squad.leader != null) randomTargetIndex++;
+                if (defender.targetAttacker.opponents.Contains(defender))
+                    defender.targetAttacker.opponents.Remove(defender);
 
-                if (randomTargetIndex == defender.squad.units.Count || defender.squad.units.Count == 0)
+                // Remove any opponents missing in the list (will happen if another attacker kills the defender)
+                for (int i = 0; i < defender.targetAttacker.opponents.Count; i++)
                 {
-                    // Attack the squad's leader
-                    defender.targetAttacker.currentTarget = defender.squad.leader.gameObject;
-                    defender.targetAttacker.currentDefenderAttacking = defender.squad.leader;
-                    defender.targetAttacker.currentTargetsHealth = defender.squad.leader.health;
-                    defender.targetAttacker.opponents.Add(defender.squad.leader);
-
-                    defender.squad.leader.targetAttacker = defender.targetAttacker;
-                    defender.squad.leader.currentTargetsHealth = defender.targetAttacker.health;
+                    if (defender.targetAttacker.opponents[i] == null)
+                        defender.targetAttacker.opponents.Remove(defender.targetAttacker.opponents[i]);
                 }
-                else
-                {
-                    // Attack a random unit in the squad
-                    defender.targetAttacker.currentTarget = defender.squad.units[randomTargetIndex].gameObject;
-                    defender.targetAttacker.currentDefenderAttacking = defender.squad.units[randomTargetIndex];
-                    defender.targetAttacker.currentTargetsHealth = defender.squad.units[randomTargetIndex].health;
-                    defender.targetAttacker.opponents.Add(defender.squad.units[randomTargetIndex]);
 
-                    defender.squad.units[randomTargetIndex].targetAttacker = defender.targetAttacker;
-                    defender.squad.units[randomTargetIndex].currentTargetsHealth = defender.targetAttacker.health;
+                if (defender.targetAttacker.opponents.Count > 0) // If the attacker already has another defender (opponent) attacking him
+                {
+                    defender.targetAttacker.currentTarget = defender.targetAttacker.opponents[0].gameObject;
+                    defender.targetAttacker.currentDefenderAttacking = defender.targetAttacker.opponents[0];
+                    defender.targetAttacker.currentTargetsHealth = defender.targetAttacker.opponents[0].health;
+                }
+                else if (defender.squad.units.Count > 0 || defender.squad.leader != null)
+                {
+                    // Find a new target if possible (for the attacker who killed this defender)
+                    int randomTargetIndex = Random.Range(0, defender.squad.units.Count);
+                    if (defender.squad.leader != null) randomTargetIndex++;
+
+                    if (randomTargetIndex == defender.squad.units.Count || defender.squad.units.Count == 0)
+                    {
+                        // Attack the squad's leader
+                        defender.targetAttacker.currentTarget = defender.squad.leader.gameObject;
+                        defender.targetAttacker.currentDefenderAttacking = defender.squad.leader;
+                        defender.targetAttacker.currentTargetsHealth = defender.squad.leader.health;
+                        defender.targetAttacker.opponents.Add(defender.squad.leader);
+
+                        defender.squad.leader.targetAttacker = defender.targetAttacker;
+                        defender.squad.leader.currentTargetsHealth = defender.targetAttacker.health;
+                    }
+                    else
+                    {
+                        // Attack a random unit in the squad
+                        defender.targetAttacker.currentTarget = defender.squad.units[randomTargetIndex].gameObject;
+                        defender.targetAttacker.currentDefenderAttacking = defender.squad.units[randomTargetIndex];
+                        defender.targetAttacker.currentTargetsHealth = defender.squad.units[randomTargetIndex].health;
+                        defender.targetAttacker.opponents.Add(defender.squad.units[randomTargetIndex]);
+
+                        defender.squad.units[randomTargetIndex].targetAttacker = defender.targetAttacker;
+                        defender.squad.units[randomTargetIndex].currentTargetsHealth = defender.targetAttacker.health;
+                    }
                 }
             }
 

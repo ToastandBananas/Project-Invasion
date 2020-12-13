@@ -8,6 +8,7 @@ public class AttackerSpawner : MonoBehaviour
 
     public Attacker[] attackerPrefabs;
 
+    Vector3 randomSpawnOffset;
     bool spawn = true;
     int spawnIndex = 0;
 
@@ -23,19 +24,25 @@ public class AttackerSpawner : MonoBehaviour
         }
     }
 
-    public void StopSpawning()
-    {
-        spawn = false;
-    }
-
     void SpawnAttacker()
     {
-        Attacker newAttacker = Instantiate(attackerPrefabs[spawnIndex], transform.position, transform.rotation);
+        // If the enemy is large (such as a boss), spawn in the center of the lane, otherwise set a random y position
+        if (attackerPrefabs[spawnIndex].isLarge == false)
+            randomSpawnOffset = new Vector3(0, Random.Range(-0.35f, 0.35f));
+        else
+            randomSpawnOffset = Vector3.zero;
+
+        Attacker newAttacker = Instantiate(attackerPrefabs[spawnIndex], transform.position + randomSpawnOffset, transform.rotation);
         newAttacker.transform.SetParent(transform);
         spawnIndex++;
 
         if (spawnIndex == attackerPrefabs.Length)
             StopSpawning();
+    }
+
+    public void StopSpawning()
+    {
+        spawn = false;
     }
 
     void ShuffleArray<T>(T[] arr)

@@ -6,6 +6,7 @@ public class Attacker : MonoBehaviour
 {
     [SerializeField] float attackDamage = 10f;
     public Vector3 attackOffset = new Vector3(0.1f, 0);
+    public bool isLarge = false;
     public bool isAttacking = false;
     public int maxOpponents = 2;
     float currentSpeed = 1f;
@@ -62,7 +63,7 @@ public class Attacker : MonoBehaviour
 
     public void MoveTowardsTarget()
     {
-        transform.position = Vector2.MoveTowards(transform.position, currentTarget.transform.position + attackOffset, currentSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, currentTarget.transform.position/* + attackOffset*/, currentSpeed * Time.deltaTime);
     }
 
     public void Attack()
@@ -76,9 +77,19 @@ public class Attacker : MonoBehaviour
     public void StrikeCurrentTarget()
     {
         if (currentTarget == null) return;
-        
+
         if (currentTargetsHealth != null)
+        {
+            if (currentTargetsHealth.isDead)
+            {
+                currentTarget = null;
+                currentTargetsHealth = null;
+                currentDefenderAttacking = null;
+                return;
+            }
+                
             currentTargetsHealth.DealDamage(attackDamage);
+        }
     }
 
     void UpdateAnimationState()

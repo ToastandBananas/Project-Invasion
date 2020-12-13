@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3178030342601762844}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.05, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 3244782049944173947}
@@ -150,10 +150,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldCost: 50
+  isAttacking: 0
+  isMoving: 0
+  attackOffsetX: -0.1
   attackOffset: {x: -0.1, y: 0, z: 0}
   unitPosition: {x: 0, y: 0}
-  attackerBeingAttackedBy: {fileID: 0}
+  targetAttacker: {fileID: 0}
+  currentTargetsHealth: {fileID: 0}
   squad: {fileID: 0}
+  health: {fileID: 0}
 --- !u!61 &2997345685612941142
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -194,6 +199,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   deathVFX: {fileID: 1906222994913036, guid: 740c2b3187d56c341b8cb78e8aa925c5, type: 3}
+  isDead: 0
 --- !u!114 &-1786544958824295306
 MonoBehaviour:
   m_ObjectHideFlags: 0
