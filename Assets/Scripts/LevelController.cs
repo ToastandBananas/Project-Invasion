@@ -42,7 +42,8 @@ public class LevelController : MonoBehaviour
 
     IEnumerator HandleWinCondition()
     {
-        winCanvas.SetActive(true);
+        if (winCanvas != null)
+            winCanvas.SetActive(true);
         audioSource.Play();
         yield return new WaitForSeconds(audioSource.clip.length);
         FindObjectOfType<LevelLoader>().LoadNextScene();

@@ -17,7 +17,7 @@ public class Skeleton : MonoBehaviour
             this.enabled = false;
 
         if (attackerScript.isAttacking == false && attackerScript.currentDefenderAttacking != null
-            && Vector2.Distance(transform.position, attackerScript.currentDefenderAttacking.transform.position) <= Mathf.Abs(attackerScript.attackOffset.x) + 0.05f)
+            && Vector2.Distance(transform.position, attackerScript.currentDefenderAttacking.transform.position) <= 0.125f/*Mathf.Abs(attackerScript.currentDefenderAttacking.attackOffset.x) + 0.025f*/)
         {
             // Debug.Log(name + " is attacking " + defenderScript.targetAttacker.name);
             attackerScript.Attack();

@@ -5,10 +5,10 @@ using UnityEngine;
 public class Attacker : MonoBehaviour
 {
     [SerializeField] float attackDamage = 10f;
-    public Vector3 attackOffset = new Vector3(0.1f, 0);
     public bool isLarge = false;
     public bool isAttacking = false;
     public int maxOpponents = 2;
+    public float minAttackDistance = 0.125f;
     float currentSpeed = 1f;
     float distanceToTarget;
 
@@ -47,7 +47,18 @@ public class Attacker : MonoBehaviour
     {
         while (health.isDead == false)
         {
-            if (currentTarget != null && currentSpeed > 0)
+            if (opponents.Count > 0)
+            {
+                for (int i = 0; i < opponents.Count; i++)
+                {
+                    if (opponents[i].health.isDead)
+                    {
+                        opponents[i].health.FindNewTargetForOpponent();
+                    }
+                }
+            }
+
+            if (currentTarget != null && Vector2.Distance(transform.position, currentTarget.transform.position) > minAttackDistance)
                 MoveTowardsTarget();
             else
                 transform.Translate(Vector2.left * currentSpeed * Time.deltaTime);
@@ -63,7 +74,7 @@ public class Attacker : MonoBehaviour
 
     public void MoveTowardsTarget()
     {
-        transform.position = Vector2.MoveTowards(transform.position, currentTarget.transform.position/* + attackOffset*/, currentSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, currentTarget.transform.position/* + new Vector3(-currentDefenderAttacking.attackOffsetX, 0)*/, currentSpeed * Time.deltaTime);
     }
 
     public void Attack()
@@ -72,6 +83,23 @@ public class Attacker : MonoBehaviour
         anim.SetBool("isAttacking", true);
         currentDefenderAttacking = currentTarget.GetComponent<Defender>();
         currentTargetsHealth = currentDefenderAttacking.health;
+    }
+
+    public void StopAttacking()
+    {
+        isAttacking = false;
+        anim.SetBool("isAttacking", false);
+        if (opponents.Count > 0)
+        {
+            foreach (Defender defender in opponents)
+            {
+                if (defender.health.isDead)
+                {
+                    opponents.Remove(defender);
+                    return;
+                }
+            }
+        }
     }
 
     public void StrikeCurrentTarget()

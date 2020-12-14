@@ -13,7 +13,6 @@ public class Squad : MonoBehaviour
     public List<Defender> units;
     public Defender leader;
     
-    public int attackerCount = 0;
     public List<Attacker> attackersInRange;
 
     // Squads with a max of 12 units
@@ -78,31 +77,75 @@ public class Squad : MonoBehaviour
     {
         if (collision.TryGetComponent<Attacker>(out Attacker attacker))
         {
-            attackerCount++;
             attackersInRange.Add(attacker);
             attacker.currentTargetsSquad = this;
 
             int totalDefendersAttackingAttacker = 0;
-            foreach (Defender defender in units)
+            if (units.Count > 0)
             {
-                if (totalDefendersAttackingAttacker == attacker.maxOpponents)
-                    return;
+                foreach (Defender defender in units)
+                {
+                    if (totalDefendersAttackingAttacker == attacker.maxOpponents)
+                        return;
 
-                if (defender.targetAttacker == null && totalDefendersAttackingAttacker == 0)
-                {
-                    // Send in the first defender
-                    defender.targetAttacker = attacker;
-                    attacker.currentTarget = defender.gameObject;
-                    attacker.currentDefenderAttacking = defender;
-                    attacker.opponents.Add(defender);
-                    totalDefendersAttackingAttacker++;
+                    if (defender.targetAttacker == null && totalDefendersAttackingAttacker == 0)
+                    {
+                        // Send in the first defender
+                        defender.targetAttacker = attacker;
+                        attacker.currentTarget = defender.gameObject;
+                        attacker.currentDefenderAttacking = defender;
+                        attacker.opponents.Add(defender);
+                        totalDefendersAttackingAttacker++;
+                    }
+                    else if (defender.targetAttacker == null && totalDefendersAttackingAttacker > 0 && totalDefendersAttackingAttacker < attacker.maxOpponents)
+                    {
+                        // Send in the maximum defenders possible per the attacker type
+                        defender.targetAttacker = attacker;
+                        attacker.opponents.Add(defender);
+                        totalDefendersAttackingAttacker++;
+                    }
+                    else if (totalDefendersAttackingAttacker == 0)
+                    {
+                        attacker.opponents.Add(defender);
+                        attacker.currentTarget = defender.gameObject;
+                        return;
+                    }
                 }
-                else if (defender.targetAttacker == null && totalDefendersAttackingAttacker > 0 && totalDefendersAttackingAttacker < attacker.maxOpponents)
+            }
+            else
+            {
+                if (leader.targetAttacker == null)
+                    leader.targetAttacker = attacker;
+
+                attacker.currentTarget = leader.gameObject;
+                attacker.currentDefenderAttacking = leader;
+                attacker.opponents.Add(leader);
+                totalDefendersAttackingAttacker++;
+            }
+        }
+    }
+
+    void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.TryGetComponent<Attacker>(out Attacker attacker))
+        {
+            if (attackersInRange.Contains(attacker))
+                attackersInRange.Remove(attacker);
+
+            if (attacker.currentTargetsSquad = this)
+                attacker.currentTargetsSquad = null;
+
+            if (leader != null && leader.targetAttacker != null && leader.targetAttacker == attacker)
+                leader.targetAttacker.health.FindNewTargetForOpponent();
+            else
+            {
+                if (units.Count > 0)
                 {
-                    // Send in the maximum defenders possible per the attacker type
-                    defender.targetAttacker = attacker;
-                    attacker.opponents.Add(defender);
-                    totalDefendersAttackingAttacker++;
+                    foreach (Defender unit in units)
+                    {
+                        if (unit.targetAttacker != null && unit.targetAttacker == attacker)
+                            unit.targetAttacker.health.FindNewTargetForOpponent();
+                    }
                 }
             }
         }

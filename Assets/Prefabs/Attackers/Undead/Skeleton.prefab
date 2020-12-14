@@ -10,8 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 2238607923871026741}
   - component: {fileID: 2238607923871026739}
+  - component: {fileID: 901553203869511188}
   - component: {fileID: 5449419278271563190}
-  - component: {fileID: 3990281759353943400}
   - component: {fileID: 2238607923871026742}
   - component: {fileID: 6051484160024838631}
   - component: {fileID: 8302164516711837458}
@@ -56,6 +56,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &901553203869511188
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2238607923871026738}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &5449419278271563190
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -82,27 +103,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.08433533, y: 0.105644226}
   m_EdgeRadius: 0
---- !u!50 &3990281759353943400
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2238607923871026738}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &2238607923871026742
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,7 +116,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 20
-  attackOffset: {x: 0.1, y: 0, z: 0}
+  isLarge: 0
   isAttacking: 0
   maxOpponents: 2
   opponents: []

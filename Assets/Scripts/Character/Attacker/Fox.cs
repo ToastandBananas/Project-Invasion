@@ -14,7 +14,7 @@ public class Fox : MonoBehaviour
     void Update()
     {
         if (attackerScript.isAttacking == false && attackerScript.currentTarget != null
-            && Vector2.Distance(transform.position, attackerScript.currentTarget.transform.position) <= attackerScript.attackOffset.x)
+            && Vector2.Distance(transform.position, attackerScript.currentTarget.transform.position) <= 0.125f)//Mathf.Abs(attackerScript.currentDefenderAttacking.attackOffset.x))
         {
             attackerScript.Attack();
         }

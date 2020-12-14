@@ -17,7 +17,7 @@ public class Knight : MonoBehaviour
             this.enabled = false;
 
         if (defenderScript.isAttacking == false && defenderScript.targetAttacker != null
-            && Vector2.Distance(transform.position, defenderScript.targetAttacker.transform.position) <= Mathf.Abs(defenderScript.attackOffset.x) + 0.05f)
+            && Vector2.Distance(transform.position, defenderScript.targetAttacker.transform.position) <= 0.125f/*Mathf.Abs(defenderScript.attackOffset.x) + 0.05f*/)
         {
             // Debug.Log(name + " is attacking " + defenderScript.targetAttacker.name);
             defenderScript.Attack();

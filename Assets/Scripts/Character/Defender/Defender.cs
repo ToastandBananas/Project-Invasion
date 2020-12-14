@@ -6,14 +6,14 @@ public class Defender : MonoBehaviour
     [SerializeField] int goldCost = 100;
     public bool isAttacking = false;
     public bool isMoving = false;
+    public float minAttackDistance = 0.125f;
     float currentSpeed = 0f;
 
     float randomAttackOffsetY;
-    [SerializeField] float attackOffsetX = -0.1f;
-    public Vector3 attackOffset;
+    //public float attackOffsetX = -0.1f;
+    //public Vector3 attackOffset;
     public Vector2 unitPosition;
     Vector2 currentLocalPosition;
-
 
     public Attacker targetAttacker;
     public Health currentTargetsHealth;
@@ -26,7 +26,7 @@ public class Defender : MonoBehaviour
     void Start()
     {
         randomAttackOffsetY = Random.Range(-0.15f, 0.15f);
-        attackOffset = new Vector3(attackOffsetX, randomAttackOffsetY);
+        //attackOffset = new Vector3(attackOffsetX, randomAttackOffsetY);
 
         currencyDisplay = FindObjectOfType<CurrencyDisplay>();
         anim = GetComponent<Animator>();
@@ -47,7 +47,15 @@ public class Defender : MonoBehaviour
     {
         while (health.isDead == false)
         {
-            if (squad.attackersInRange.Count == 0)
+            if (targetAttacker != null && targetAttacker.health.isDead)
+            {
+                targetAttacker.health.FindNewTargetForOpponent();
+                //targetAttacker = null;
+                //currentTargetsHealth = null;
+                //StopAttacking();
+            }
+
+            if (squad.attackersInRange.Count == 0 || (targetAttacker == null && Vector2.Distance(transform.localPosition, unitPosition) > 0.025f))
                 MoveUnitIntoPosition();
             else if (targetAttacker != null)
                 MoveTowardsAttacker();
@@ -69,7 +77,7 @@ public class Defender : MonoBehaviour
     public void MoveUnitIntoPosition()
     {
         currentLocalPosition = transform.localPosition;
-        if (currentLocalPosition != unitPosition && Vector2.Distance(transform.localPosition, unitPosition) > 0.05f)
+        if (currentLocalPosition != unitPosition && Vector2.Distance(transform.localPosition, unitPosition) > 0.025f)
         {
             isMoving = true;
             anim.SetBool("isMoving", true);
@@ -98,7 +106,11 @@ public class Defender : MonoBehaviour
     {
         isMoving = true;
         anim.SetBool("isMoving", true);
-        transform.position = Vector2.MoveTowards(transform.position, targetAttacker.transform.position + attackOffset, currentSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, targetAttacker.transform.position/* + attackOffset*/, currentSpeed * Time.deltaTime);
+        if (transform.position.x <= targetAttacker.transform.position.x && transform.localScale.x != -1)
+            transform.localScale = new Vector2(1, 1);
+        else if (transform.position.x > targetAttacker.transform.position.x && transform.localScale.x != 1)
+            transform.localScale = new Vector2(-1, 1);
     }
 
     public void SetMovementSpeed(float speed)
@@ -113,6 +125,12 @@ public class Defender : MonoBehaviour
         isAttacking = true;
         anim.SetBool("isAttacking", true);
         currentTargetsHealth = targetAttacker.health;
+    }
+
+    public void StopAttacking()
+    {
+        isAttacking = false;
+        anim.SetBool("isAttacking", false);
     }
 
     public void StrikeCurrentTarget(float damage)

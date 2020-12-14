@@ -300,7 +300,7 @@ PrefabInstance:
       objectReference: {fileID: 4304900082513925076, guid: 7bfbb6ab7ac421f428d2ce9545758e3a, type: 3}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerPrefabs.Array.size
-      value: 4
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerPrefabs.Array.data[0]
@@ -316,6 +316,38 @@ PrefabInstance:
       objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerPrefabs.Array.data[3]
+      value: 
+      objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: attackerPrefabs.Array.data[4]
+      value: 
+      objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: attackerPrefabs.Array.data[5]
+      value: 
+      objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: attackerPrefabs.Array.data[6]
+      value: 
+      objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: attackerPrefabs.Array.data[7]
+      value: 
+      objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: attackerPrefabs.Array.data[8]
+      value: 
+      objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: attackerPrefabs.Array.data[9]
+      value: 
+      objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: attackerPrefabs.Array.data[10]
+      value: 
+      objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: attackerPrefabs.Array.data[11]
       value: 
       objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
     m_RemovedComponents: []

@@ -79,6 +79,6 @@ AnimationClip:
     functionName: SetMovementSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0.25
+    floatParameter: 0.5
     intParameter: 0
     messageOptions: 0
