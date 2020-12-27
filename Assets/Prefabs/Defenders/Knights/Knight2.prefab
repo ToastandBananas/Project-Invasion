@@ -178,6 +178,7 @@ MonoBehaviour:
   goldCost: 50
   isAttacking: 0
   isMoving: 0
+  minAttackDistance: 0.125
   unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
   currentTargetsHealth: {fileID: 0}

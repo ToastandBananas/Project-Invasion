@@ -13,7 +13,7 @@ public class Attacker : MonoBehaviour
     float distanceToTarget;
 
     public List<Defender> opponents;
-    public GameObject currentTarget;
+    //public GameObject currentTarget;
     public Defender currentDefenderAttacking;
     public Health currentTargetsHealth;
     public Squad currentTargetsSquad;
@@ -58,7 +58,7 @@ public class Attacker : MonoBehaviour
                 }
             }
 
-            if (currentTarget != null && Vector2.Distance(transform.position, currentTarget.transform.position) > minAttackDistance)
+            if (currentDefenderAttacking != null && Vector2.Distance(transform.position, currentDefenderAttacking.transform.position) > minAttackDistance)
                 MoveTowardsTarget();
             else
                 transform.Translate(Vector2.left * currentSpeed * Time.deltaTime);
@@ -74,14 +74,18 @@ public class Attacker : MonoBehaviour
 
     public void MoveTowardsTarget()
     {
-        transform.position = Vector2.MoveTowards(transform.position, currentTarget.transform.position/* + new Vector3(-currentDefenderAttacking.attackOffsetX, 0)*/, currentSpeed * Time.deltaTime);
+        transform.position = Vector2.MoveTowards(transform.position, currentDefenderAttacking.transform.position/* + new Vector3(-currentDefenderAttacking.attackOffsetX, 0)*/, currentSpeed * Time.deltaTime);
+        if (transform.position.x <= currentDefenderAttacking.transform.position.x && transform.localScale.x != -1)
+            transform.localScale = new Vector2(1, 1);
+        else if (transform.position.x > currentDefenderAttacking.transform.position.x && transform.localScale.x != 1)
+            transform.localScale = new Vector2(-1, 1);
     }
 
     public void Attack()
     {
         isAttacking = true;
         anim.SetBool("isAttacking", true);
-        currentDefenderAttacking = currentTarget.GetComponent<Defender>();
+        // currentDefenderAttacking = currentTarget.GetComponent<Defender>();
         currentTargetsHealth = currentDefenderAttacking.health;
     }
 
@@ -89,28 +93,18 @@ public class Attacker : MonoBehaviour
     {
         isAttacking = false;
         anim.SetBool("isAttacking", false);
-        if (opponents.Count > 0)
-        {
-            foreach (Defender defender in opponents)
-            {
-                if (defender.health.isDead)
-                {
-                    opponents.Remove(defender);
-                    return;
-                }
-            }
-        }
     }
 
     public void StrikeCurrentTarget()
     {
-        if (currentTarget == null) return;
+        if (currentDefenderAttacking == null) return;
 
         if (currentTargetsHealth != null)
         {
             if (currentTargetsHealth.isDead)
             {
-                currentTarget = null;
+                // currentTarget = null;
+                opponents.Remove(currentDefenderAttacking);
                 currentTargetsHealth = null;
                 currentDefenderAttacking = null;
                 return;
@@ -122,7 +116,7 @@ public class Attacker : MonoBehaviour
 
     void UpdateAnimationState()
     {
-        if (currentTarget == null)
+        if (currentDefenderAttacking == null)
         {
             isAttacking = false;
             anim.SetBool("isAttacking", false);

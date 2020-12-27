@@ -71,7 +71,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
@@ -119,6 +119,7 @@ MonoBehaviour:
   isLarge: 0
   isAttacking: 0
   maxOpponents: 2
+  minAttackDistance: 0.125
   opponents: []
   currentTarget: {fileID: 0}
   currentDefenderAttacking: {fileID: 0}
