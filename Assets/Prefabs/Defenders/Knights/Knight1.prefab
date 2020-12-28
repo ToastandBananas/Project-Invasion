@@ -96,7 +96,7 @@ MonoBehaviour:
   goldCost: 50
   isAttacking: 0
   isMoving: 0
-  minAttackDistance: 0.125
+  minAttackDistance: 0.115
   unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
   currentTargetsHealth: {fileID: 0}
@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bbf5517ab82e53498af85bc1d270620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDistance: 0.125
 --- !u!1 &8519604517331245545
 GameObject:
   m_ObjectHideFlags: 0

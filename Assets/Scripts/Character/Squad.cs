@@ -86,7 +86,6 @@ public class Squad : MonoBehaviour
                     {
                         // Send in the first defender
                         defender.targetAttacker = attacker;
-                        //attacker.currentTarget = defender.gameObject;
                         attacker.currentDefenderAttacking = defender;
                         attacker.opponents.Add(defender);
                         totalDefendersAttackingAttacker++;
@@ -98,12 +97,6 @@ public class Squad : MonoBehaviour
                         attacker.opponents.Add(defender);
                         totalDefendersAttackingAttacker++;
                     }
-                    /*else if (totalDefendersAttackingAttacker == 0)
-                    {
-                        attacker.opponents.Add(defender);
-                        attacker.currentTarget = defender.gameObject;
-                        return;
-                    }*/
                 }
 
                 if (attacker.currentDefenderAttacking == null) // If the attacker's current target is still null at this point, attack a random defender
@@ -113,13 +106,11 @@ public class Squad : MonoBehaviour
                     if (random == units.Count) // Attack the leader of the squad
                     {
                         attacker.opponents.Add(leader);
-                        //attacker.currentTarget = leader.gameObject;
                         attacker.currentDefenderAttacking = leader;
                     }
                     else // Attack a random unit from the squad
                     {
                         attacker.opponents.Add(units[random]);
-                        //attacker.currentTarget = units[random].gameObject;
                         attacker.currentDefenderAttacking = units[random];
                     }
                 }
@@ -128,8 +119,7 @@ public class Squad : MonoBehaviour
             {
                 if (leader.targetAttacker == null)
                     leader.targetAttacker = attacker;
-
-                //attacker.currentTarget = leader.gameObject;
+                
                 attacker.currentDefenderAttacking = leader;
                 attacker.opponents.Add(leader);
                 totalDefendersAttackingAttacker++;

@@ -121,7 +121,6 @@ MonoBehaviour:
   maxOpponents: 2
   minAttackDistance: 0.125
   opponents: []
-  currentTarget: {fileID: 0}
   currentDefenderAttacking: {fileID: 0}
   currentTargetsHealth: {fileID: 0}
   currentTargetsSquad: {fileID: 0}
@@ -138,6 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef9c877f4d5a1e419e6bb3c217c071a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDistance: 0.115
 --- !u!114 &8302164516711837458
 MonoBehaviour:
   m_ObjectHideFlags: 0

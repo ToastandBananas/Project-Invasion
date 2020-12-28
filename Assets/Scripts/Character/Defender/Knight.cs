@@ -5,8 +5,6 @@ public class Knight : MonoBehaviour
     Defender defenderScript;
     Health health;
 
-    public float attackDistance = 0.125f;
-
     void Start()
     {
         defenderScript = GetComponent<Defender>();
@@ -19,7 +17,7 @@ public class Knight : MonoBehaviour
             this.enabled = false;
 
         if (defenderScript.isAttacking == false && defenderScript.targetAttacker != null
-            && Vector2.Distance(transform.position, defenderScript.targetAttacker.transform.position) <= attackDistance/*Mathf.Abs(defenderScript.attackOffset.x) + 0.05f*/)
+            && Vector2.Distance(transform.position, defenderScript.targetAttacker.transform.position) <= defenderScript.minAttackDistance)
         {
             // Debug.Log(name + " is attacking " + defenderScript.targetAttacker.name);
             defenderScript.Attack();

@@ -30,8 +30,8 @@ public class Health : MonoBehaviour
         // If the character is going to die
         if (health <= 0 && isDead == false)
         {
-            TriggerDeathVFX();
-
+            // TriggerDeathVFX();
+            
             FindNewTargetForOpponent();
 
             Die();
@@ -145,9 +145,12 @@ public class Health : MonoBehaviour
         if (randomTargetIndex >= theDefender.squad.attackersInRange.Count && randomTargetIndex > 0)
             randomTargetIndex = theDefender.squad.attackersInRange.Count - 1;
 
-        theDefender.targetAttacker = theDefender.squad.attackersInRange[randomTargetIndex];
-        theDefender.currentTargetsHealth = theDefender.squad.attackersInRange[randomTargetIndex].health;
-        theDefender.squad.attackersInRange[randomTargetIndex].opponents.Add(theDefender);
+        if (theDefender.squad.attackersInRange[randomTargetIndex].opponents.Contains(theDefender) == false)
+        {
+            theDefender.targetAttacker = theDefender.squad.attackersInRange[randomTargetIndex];
+            theDefender.currentTargetsHealth = theDefender.squad.attackersInRange[randomTargetIndex].health;
+            theDefender.squad.attackersInRange[randomTargetIndex].opponents.Add(theDefender);
+        }
     }
 
     void FindNewTargetForAttackers()
@@ -163,6 +166,8 @@ public class Health : MonoBehaviour
 
         foreach (Attacker attacker in defender.squad.attackersInRange) // For each attacker in range of the defender who died...
         {
+            Defender theCurrentDefenderBeingAttacked = attacker.currentDefenderAttacking;
+
             if (attacker.opponents.Contains(defender))
                 attacker.opponents.Remove(defender);
 
@@ -173,18 +178,14 @@ public class Health : MonoBehaviour
                     attacker.opponents.Remove(attacker.opponents[i]);
             }
 
-            if (attacker.currentDefenderAttacking == defender || attacker.currentDefenderAttacking == null) // If the attacker was fighting the defender who died
+            if (theCurrentDefenderBeingAttacked == defender || theCurrentDefenderBeingAttacked == null) // If the attacker was fighting the defender who died (or if it became null somehow)
             {
-                Defender theCurrentDefenderBeingAttacked = attacker.currentDefenderAttacking;
-
-                //attacker.currentTarget = null;
                 attacker.currentDefenderAttacking = null;
                 attacker.currentTargetsHealth = null;
                 attacker.isAttacking = false;
 
                 if (attacker.opponents.Count > 0) // If the attacker already has another defender (opponent) attacking him
                 {
-                    // attacker.currentTarget = attacker.opponents[0].gameObject;
                     attacker.currentDefenderAttacking = attacker.opponents[0];
                     attacker.currentTargetsHealth = attacker.opponents[0].health;
                     if (Vector2.Distance(attacker.transform.position, attacker.opponents[0].transform.position) > attacker.minAttackDistance)
@@ -196,10 +197,9 @@ public class Health : MonoBehaviour
                     int randomTargetIndex = Random.Range(0, defender.squad.units.Count);
                     if (defender.squad.leader != null) randomTargetIndex++;
 
-                    if (randomTargetIndex == defender.squad.units.Count || defender.squad.units.Count == 0)
+                    if ((randomTargetIndex == defender.squad.units.Count || defender.squad.units.Count == 0) && attacker.opponents.Contains(defender.squad.leader) == false)
                     {
                         // Attack the squad's leader
-                        // attacker.currentTarget = defender.squad.leader.gameObject;
                         attacker.currentDefenderAttacking = defender.squad.leader;
                         attacker.currentTargetsHealth = defender.squad.leader.health;
                         attacker.opponents.Add(defender.squad.leader);
@@ -210,10 +210,9 @@ public class Health : MonoBehaviour
                         if (Vector2.Distance(attacker.transform.position, defender.squad.leader.transform.position) > attacker.minAttackDistance)
                             attacker.StopAttacking();
                     }
-                    else
+                    else if (attacker.opponents.Contains(defender.squad.units[randomTargetIndex]) == false)
                     {
                         // Attack a random unit in the squad
-                        // attacker.currentTarget = defender.squad.units[randomTargetIndex].gameObject;
                         attacker.currentDefenderAttacking = defender.squad.units[randomTargetIndex];
                         attacker.currentTargetsHealth = defender.squad.units[randomTargetIndex].health;
                         attacker.opponents.Add(defender.squad.units[randomTargetIndex]);
@@ -225,26 +224,26 @@ public class Health : MonoBehaviour
                             attacker.StopAttacking();
                     }
                 }
-
-                // Send in another defender if the attacker can fight multiple opponents
-                if (theCurrentDefenderBeingAttacked == defender && attacker.maxOpponents < attacker.opponents.Count)
+            }
+            
+            // Send in another defender if the attacker can fight multiple opponents
+            if (theCurrentDefenderBeingAttacked == defender && attacker.maxOpponents > attacker.opponents.Count)
+            {
+                foreach (Defender potentialOpponent in defender.squad.units)
                 {
-                    foreach (Defender potentialOpponent in defender.squad.units)
+                    if (potentialOpponent.targetAttacker == null && attacker.opponents.Contains(potentialOpponent) == false)
                     {
-                        if (potentialOpponent.targetAttacker == null)
-                        {
-                            potentialOpponent.targetAttacker = attacker;
-                            attacker.opponents.Add(defender);
-                            if (attacker.maxOpponents == attacker.opponents.Count)
-                                return;
-                        }
+                        potentialOpponent.targetAttacker = attacker;
+                        attacker.opponents.Add(potentialOpponent);
+                        if (attacker.maxOpponents == attacker.opponents.Count)
+                            return;
                     }
+                }
 
-                    if (attacker.maxOpponents < attacker.opponents.Count && defender.squad.leader != null && attacker.opponents.Contains(defender.squad.leader) == false)
-                    {
-                        defender.squad.leader.targetAttacker = attacker;
-                        attacker.opponents.Add(defender.squad.leader);
-                    }
+                if (attacker.maxOpponents > attacker.opponents.Count && defender.squad.leader != null && attacker.opponents.Contains(defender.squad.leader) == false)
+                {
+                    defender.squad.leader.targetAttacker = attacker;
+                    attacker.opponents.Add(defender.squad.leader);
                 }
             }
         }
