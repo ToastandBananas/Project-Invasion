@@ -19,22 +19,14 @@ public class Attacker : MonoBehaviour
 
     [HideInInspector] public Health health;
     Animator anim;
-    LevelController levelController;
 
     void Start()
     {
         opponents = new List<Defender>();
         health = GetComponent<Health>();
         anim = GetComponent<Animator>();
-        levelController = FindObjectOfType<LevelController>();
 
         StartCoroutine(Movement());
-    }
-
-    void OnDestroy()
-    {
-        if (levelController != null)
-            levelController.AttackerKilled();
     }
 
     void FixedUpdate()
@@ -116,5 +108,74 @@ public class Attacker : MonoBehaviour
             isAttacking = false;
             anim.SetBool("isAttacking", false);
         }
+    }
+
+    public void FindNewTargetForDefenders(Attacker attacker)
+    {
+        if (attacker.currentDefenderAttacking != null)
+        {
+            // Remove the dead attacker from the attackersInRange list
+            if (attacker.currentDefenderAttacking.squad.attackersInRange.Contains(attacker))
+                attacker.currentDefenderAttacking.squad.attackersInRange.Remove(attacker);
+
+            foreach (Defender opponent in attacker.opponents)
+            {
+                opponent.targetAttacker = null;
+                opponent.targetAttackersHealth = null;
+                opponent.StopAttacking();
+            }
+
+            // Find new target if possible (for the defender that killed this attacker)
+            if (attacker.currentDefenderAttacking.squad.attackersInRange.Count > 0)
+            {
+                foreach (Defender opponent in attacker.opponents)
+                {
+                    FindNewRandomTargetForDefender(opponent);
+                }
+            }
+            else // If there are no more attackers nearby, reorganize the squad
+            {
+                attacker.currentDefenderAttacking.squad.AssignUnitPositions();
+                attacker.currentDefenderAttacking.squad.AssignLeaderPosition();
+            }
+        }
+        else
+        {
+            foreach (Defender opponent in attacker.opponents)
+            {
+                // Remove the dead attacker from the attackersInRange list
+                if (opponent.squad.attackersInRange.Contains(attacker))
+                    opponent.squad.attackersInRange.Remove(attacker);
+
+                opponent.targetAttacker = null;
+                opponent.targetAttackersHealth = null;
+                opponent.StopAttacking();
+            }
+
+            foreach (Defender opponent in attacker.opponents)
+            {
+                // Find a new target for each defender that was fighting the attacker that died
+                if (opponent.squad.attackersInRange.Count > 0)
+                    FindNewRandomTargetForDefender(opponent);
+                else
+                {
+                    opponent.squad.AssignUnitPositions();
+                    opponent.squad.AssignLeaderPosition();
+                    return;
+                }
+            }
+        }
+    }
+
+    void FindNewRandomTargetForDefender(Defender theDefender)
+    {
+        int randomTargetIndex = Random.Range(0, theDefender.squad.attackersInRange.Count);
+        if (randomTargetIndex >= theDefender.squad.attackersInRange.Count && randomTargetIndex > 0)
+            randomTargetIndex = theDefender.squad.attackersInRange.Count - 1;
+
+        theDefender.targetAttacker = theDefender.squad.attackersInRange[randomTargetIndex];
+        theDefender.targetAttackersHealth = theDefender.squad.attackersInRange[randomTargetIndex].health;
+        if (theDefender.squad.attackersInRange[randomTargetIndex].opponents.Contains(theDefender) == false)
+            theDefender.squad.attackersInRange[randomTargetIndex].opponents.Add(theDefender);
     }
 }

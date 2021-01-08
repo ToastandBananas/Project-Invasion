@@ -20,7 +20,7 @@ public class LevelController : MonoBehaviour
         foreach (AttackerSpawner spawner in attackerSpawners)
         {
             // Tally up the total number of attackers that will be in this level
-            numberOfAttackers += spawner.attackerPrefabs.Length;
+            numberOfAttackers += spawner.attackerPrefabsWave1.Length;
         }
     }
     

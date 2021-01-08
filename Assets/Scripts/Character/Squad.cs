@@ -99,19 +99,23 @@ public class Squad : MonoBehaviour
                     }
                 }
 
-                if (attacker.currentDefenderAttacking == null) // If the attacker's current target is still null at this point, attack a random defender
+                if (attacker.currentDefenderAttacking == null) // If the attacker's current target is still null at this point (because each unit already has a target), attack any random defender
                 {
-                    int random = Random.Range(0, units.Count + 1);
+                    int random = Random.Range(0, units.Count + 1); // We add one to account for the leader
 
                     if (random == units.Count) // Attack the leader of the squad
                     {
                         attacker.opponents.Add(leader);
                         attacker.currentDefenderAttacking = leader;
+                        if (leader.targetAttacker == null) // If the leader doesn't have a target, set its target to the attacker
+                            leader.targetAttacker = attacker;
                     }
                     else // Attack a random unit from the squad
                     {
                         attacker.opponents.Add(units[random]);
                         attacker.currentDefenderAttacking = units[random];
+                        if (units[random].targetAttacker == null) // If the unit doesn't have a target, set its target to the attacker
+                            units[random].targetAttacker = attacker;
                     }
                 }
             }
