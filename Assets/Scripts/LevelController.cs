@@ -5,6 +5,11 @@ public class LevelController : MonoBehaviour
 {
     [SerializeField] GameObject winCanvas, loseCanvas;
 
+    [Header("Wave Info")]
+    public int waveNumber = 1;
+    [SerializeField] int maxWaves = 5;
+    public float waveDelay = 10f;
+
     int numberOfAttackers = 0;
     AudioSource audioSource;
     AttackerSpawner[] attackerSpawners;
@@ -20,7 +25,7 @@ public class LevelController : MonoBehaviour
         foreach (AttackerSpawner spawner in attackerSpawners)
         {
             // Tally up the total number of attackers that will be in this level
-            numberOfAttackers += spawner.attackerPrefabsWave1.Length;
+            numberOfAttackers += spawner.totalAttackerCount;
         }
     }
     
@@ -47,5 +52,77 @@ public class LevelController : MonoBehaviour
         audioSource.Play();
         yield return new WaitForSeconds(audioSource.clip.length);
         FindObjectOfType<LevelLoader>().LoadNextScene();
+    }
+
+    public void CheckIfWaveComplete()
+    {
+        bool waveComplete = true;
+
+        if (waveNumber == 1)
+        {
+            foreach (AttackerSpawner spawner in attackerSpawners)
+            {
+                if (spawner.attackerPrefabsWave1.Count > 0)
+                {
+                    waveComplete = false;
+                    break;
+                }
+            }
+        }
+        else if (waveNumber == 2)
+        {
+            foreach (AttackerSpawner spawner in attackerSpawners)
+            {
+                if (spawner.attackerPrefabsWave2.Count > 0)
+                {
+                    waveComplete = false;
+                    break;
+                }
+            }
+        }
+        else if (waveNumber == 3)
+        {
+            foreach (AttackerSpawner spawner in attackerSpawners)
+            {
+                if (spawner.attackerPrefabsWave3.Count > 0)
+                {
+                    waveComplete = false;
+                    break;
+                }
+            }
+        }
+        else if (waveNumber == 4)
+        {
+            foreach (AttackerSpawner spawner in attackerSpawners)
+            {
+                if (spawner.attackerPrefabsWave4.Count > 0)
+                {
+                    waveComplete = false;
+                    break;
+                }
+            }
+        }
+        else if (waveNumber == 5)
+        {
+            foreach (AttackerSpawner spawner in attackerSpawners)
+            {
+                if (spawner.attackerPrefabsWave5.Count > 0)
+                {
+                    waveComplete = false;
+                    break;
+                }
+            }
+        }
+
+        if (waveComplete)
+        {
+            waveNumber++;
+            foreach (AttackerSpawner spawner in attackerSpawners)
+            {
+                spawner.nextWaveDelayed = true;
+                if (waveNumber > maxWaves)
+                    spawner.StopSpawning();
+            }
+        }
     }
 }

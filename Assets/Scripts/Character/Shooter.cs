@@ -9,6 +9,7 @@ public class Shooter : MonoBehaviour
 
     AttackerSpawner myLaneSpawner;
     Animator anim;
+    Defender defender;
     bool isAttackerInLane;
 
     void Start()
@@ -18,6 +19,8 @@ public class Shooter : MonoBehaviour
             projectilesParent = new GameObject(PROJECTILES_PARENT_NAME);
 
         anim = GetComponent<Animator>();
+        defender = GetComponent<Defender>();
+
         SetLaneSpawner();
     }
 
@@ -42,7 +45,7 @@ public class Shooter : MonoBehaviour
 
         foreach (AttackerSpawner spawner in attackerSpawners)
         {
-            bool isCloseEnough = (Mathf.Abs(spawner.transform.position.y - transform.position.y) <= Mathf.Epsilon);
+            bool isCloseEnough = (Mathf.Abs(spawner.transform.position.y - defender.squad.transform.position.y) <= Mathf.Epsilon);
 
             if (isCloseEnough) myLaneSpawner = spawner;
         }
