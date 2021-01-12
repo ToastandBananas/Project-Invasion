@@ -2,15 +2,18 @@
 
 public class Shooter : MonoBehaviour
 {
-    [SerializeField] GameObject projectile, gun;
+    [SerializeField] Projectile projectile;
+    [SerializeField] GameObject gun;
+
+    [HideInInspector] public AttackerSpawner myLaneSpawner;
 
     GameObject projectilesParent;
     const string PROJECTILES_PARENT_NAME = "Projectiles";
 
-    AttackerSpawner myLaneSpawner;
     Animator anim;
     Defender defender;
     bool isAttackerInLane;
+    int randomIndex;
 
     void Start()
     {
@@ -28,15 +31,19 @@ public class Shooter : MonoBehaviour
     {
         // Set animation state
         if (IsAttackerInLane())
-            anim.SetBool("isAttacking", true);
+            anim.SetBool("isShooting", true);
         else
-            anim.SetBool("isAttacking", false);
+            anim.SetBool("isShooting", false);
     }
 
     public void Fire()
     {
-        GameObject newProjectile = Instantiate(projectile, gun.transform.position, transform.rotation);
+        Projectile newProjectile = Instantiate(projectile, gun.transform.position, transform.rotation);
         newProjectile.transform.SetParent(projectilesParent.transform);
+        newProjectile.myShooter = this;
+
+        randomIndex = Random.Range(0, myLaneSpawner.transform.childCount);
+        newProjectile.targetTransform = myLaneSpawner.transform.GetChild(randomIndex).transform;
     }
 
     void SetLaneSpawner()

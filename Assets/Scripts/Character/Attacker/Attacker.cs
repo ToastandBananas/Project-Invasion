@@ -10,14 +10,15 @@ public class Attacker : MonoBehaviour
     public int maxOpponents = 2;
     public float minAttackDistance = 0.115f;
     float currentSpeed = 1f;
-    float distanceToTarget;
 
     public List<Defender> opponents;
     public Defender currentDefenderAttacking;
     public Health currentTargetsHealth;
     public Squad currentTargetsSquad;
 
+    [HideInInspector] public AttackerSpawner myAttackerSpawner;
     [HideInInspector] public Health health;
+
     Animator anim;
 
     void Start()

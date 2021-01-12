@@ -94,6 +94,7 @@ public class AttackerSpawner : MonoBehaviour
 
             Attacker newAttacker = Instantiate(attackerPrefabsList[randomIndex], transform.position + randomSpawnOffset, transform.rotation);
             newAttacker.transform.SetParent(transform);
+            newAttacker.myAttackerSpawner = this;
             attackerCountsList[randomIndex]--;
 
             if (attackerCountsList[randomIndex] <= 0)

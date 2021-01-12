@@ -12,6 +12,7 @@ public class Squad : MonoBehaviour
     public Transform leaderParent, unitsParent;
     public List<Defender> units;
     public Defender leader;
+    public bool isRangedSquad;
     
     public List<Attacker> attackersInRange;
 

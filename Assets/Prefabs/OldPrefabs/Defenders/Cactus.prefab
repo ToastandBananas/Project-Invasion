@@ -124,6 +124,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldCost: 50
+  isAttacking: 0
+  isMoving: 0
+  minAttackDistance: 0.115
+  unitPosition: {x: 0, y: 0}
+  targetAttacker: {fileID: 0}
+  targetAttackersHealth: {fileID: 0}
+  squad: {fileID: 0}
+  health: {fileID: 0}
 --- !u!114 &6420258331658326862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -136,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b26245d63fd4d349897dca7a8f0c7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectile: {fileID: 4196577294803095347, guid: 9d51f5fb2519d48448b077a22fa11a35, type: 3}
+  projectile: {fileID: 8861009181820864862, guid: 9d51f5fb2519d48448b077a22fa11a35, type: 3}
   gun: {fileID: 2369573570419696715}
 --- !u!114 &181057791225365487
 MonoBehaviour:
@@ -152,6 +160,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   deathVFX: {fileID: 1906222994913036, guid: 740c2b3187d56c341b8cb78e8aa925c5, type: 3}
+  isDead: 0
 --- !u!1 &5179406984729053646
 GameObject:
   m_ObjectHideFlags: 0
