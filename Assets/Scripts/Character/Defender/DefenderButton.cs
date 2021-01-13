@@ -4,7 +4,6 @@ using UnityEngine.UI;
 
 public class DefenderButton : MonoBehaviour
 {
-    // [SerializeField] Defender defenderPrefab;
     [SerializeField] Squad squadPrefab;
     
     DefenderSpawner defenderSpawner;

@@ -16,8 +16,12 @@ public class Squad : MonoBehaviour
     
     public List<Attacker> attackersInRange;
 
-    // Squads with a max of 12 units
-    Vector2[] fourLeaderPositions = { new Vector2(-0.15f, 0)};
+    // Squads with a max of 3 units (plus the leader)
+    Vector2[] threeLeaderPositions = { new Vector2(-0.15f, 0) };
+    Vector2[] threeUnitPositions = { new Vector2(0.05f, 0f), new Vector2(0f, 0.25f), new Vector2(0f, -0.25f) };
+
+    // Squads with a max of 4 units (plus the leader)
+    Vector2[] fourLeaderPositions = { new Vector2(-0.15f, 0) };
     Vector2[] fourUnitPositions   = { new Vector2(0.05f, 0.1f), new Vector2(0.05f, -0.1f), new Vector2(0.05f, 0.3f), new Vector2(0.05f, -0.3f) };
 
     void Start()
@@ -44,7 +48,14 @@ public class Squad : MonoBehaviour
 
     public void AssignUnitPositions()
     {
-        if (maxSquadSize == MaxSquadSize.Four)
+        if (maxSquadSize == MaxSquadSize.Three)
+        {
+            for (int i = 0; i < units.Count; i++)
+            {
+                units[i].unitPosition = threeUnitPositions[i];
+            }
+        }
+        else if (maxSquadSize == MaxSquadSize.Four)
         {
             for (int i = 0; i < units.Count; i++)
             {
@@ -57,7 +68,9 @@ public class Squad : MonoBehaviour
     {
         if (leader != null)
         {
-            if (maxSquadSize == MaxSquadSize.Four)
+            if (maxSquadSize == MaxSquadSize.Three)
+                leader.unitPosition = threeLeaderPositions[0];
+            else if (maxSquadSize == MaxSquadSize.Four)
                 leader.unitPosition = fourLeaderPositions[0];
         }
     }

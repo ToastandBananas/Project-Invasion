@@ -68,7 +68,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0355711, y: 0.044143975}
+  m_Offset: {x: -0.0355711, y: -0.00529176}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -79,7 +79,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.08280516, y: 0.11307418}
+  m_Size: {x: 0.08280516, y: 0.10941231}
   m_EdgeRadius: 0
 --- !u!114 &5491820783421960354
 MonoBehaviour:
@@ -99,7 +99,7 @@ MonoBehaviour:
   minAttackDistance: 0.115
   unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
-  currentTargetsHealth: {fileID: 0}
+  targetAttackersHealth: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
 --- !u!114 &3699842353619162056
@@ -129,7 +129,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bbf5517ab82e53498af85bc1d270620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDistance: 0.125
 --- !u!1 &8519604517331245545
 GameObject:
   m_ObjectHideFlags: 0

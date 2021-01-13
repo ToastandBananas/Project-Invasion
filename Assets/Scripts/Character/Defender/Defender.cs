@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Defender : MonoBehaviour
 {
-    [SerializeField] int goldCost = 100;
     public bool isAttacking = false;
     public bool isMoving = false;
     public float minAttackDistance = 0.115f;
@@ -21,6 +20,11 @@ public class Defender : MonoBehaviour
     public Squad squad;
     [HideInInspector] public Health health;
 
+    void Awake()
+    {
+        squad = transform.parent.parent.GetComponent<Squad>();
+    }
+
     void Start()
     {
         randomAttackOffsetY = Random.Range(-0.15f, 0.15f);
@@ -28,7 +32,6 @@ public class Defender : MonoBehaviour
         currencyDisplay = FindObjectOfType<CurrencyDisplay>();
         anim = GetComponent<Animator>();
         health = GetComponent<Health>();
-        squad = transform.parent.parent.GetComponent<Squad>();
 
         SetMovementSpeed(0.25f);
 
@@ -56,11 +59,6 @@ public class Defender : MonoBehaviour
     public void AddGold(int amount)
     {
         currencyDisplay.AddGold(amount);
-    }
-
-    public int GetGoldCost()
-    {
-        return goldCost;
     }
 
     public void MoveUnitIntoPosition()

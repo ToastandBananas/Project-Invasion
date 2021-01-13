@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
@@ -27,13 +28,21 @@ public class Shooter : MonoBehaviour
         SetLaneSpawner();
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        // Set animation state
         if (IsAttackerInLane())
-            anim.SetBool("isShooting", true);
+        {
+            if (anim.GetBool("isShooting") == false)
+                StartCoroutine(StartShooting());
+        }
         else
             anim.SetBool("isShooting", false);
+    }
+
+    IEnumerator StartShooting()
+    {
+        yield return new WaitForSeconds(Random.Range(0f, 1.5f));
+        anim.SetBool("isShooting", true);
     }
 
     public void Fire()

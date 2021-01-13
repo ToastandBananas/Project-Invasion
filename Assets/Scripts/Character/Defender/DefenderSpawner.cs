@@ -38,7 +38,7 @@ public class DefenderSpawner : MonoBehaviour
         SpawnSquad(GetSquareClicked());
     }
 
-    public void SetSelectedSquad (Squad squadToSelect/*Defender defenderToSelect*/)
+    public void SetSelectedSquad (Squad squadToSelect)
     {
         // defender = defenderToSelect;
         squad = squadToSelect;
@@ -46,13 +46,13 @@ public class DefenderSpawner : MonoBehaviour
 
     void AttemptToPlaceDefenderAt(Vector2 gridPos)
     {
-        int defenderGoldCost = defender.GetGoldCost();
+        int squadGoldCost = squad.GetGoldCost();
 
         // If we have enough currency, spawn defender and spend currency
-        if (currencyDisplay.HaveEnoughGold(defenderGoldCost))
+        if (currencyDisplay.HaveEnoughGold(squadGoldCost))
         {
             SpawnSquad(gridPos);
-            currencyDisplay.SpendGold(defenderGoldCost);
+            currencyDisplay.SpendGold(squadGoldCost);
         }
     }
 
@@ -73,19 +73,16 @@ public class DefenderSpawner : MonoBehaviour
 
     void SpawnSquad(Vector2 coordinates)
     {
-        if (!squad/*!defender*/)
+        if (!squad)
         {
             return;
         }
         else if (!IsCellOccupied(coordinates))
         {
-            if (currencyDisplay.HaveEnoughGold(squad.GetGoldCost()/*defender.GetGoldCost()*/))
+            if (currencyDisplay.HaveEnoughGold(squad.GetGoldCost()))
             {
                 AddCell(coordinates);
-                // currencyDisplay.SpendGold(defender.GetGoldCost());
-                // Defender newDefender = Instantiate(defender, SnapToGrid(coordinates), Quaternion.identity);
-                // newDefender.transform.SetParent(defendersParent.transform);
-
+                
                 currencyDisplay.SpendGold(squad.GetGoldCost());
                 Squad newSquad = Instantiate(squad, SnapToGrid(coordinates), Quaternion.identity);
                 newSquad.transform.SetParent(defendersParent.transform);

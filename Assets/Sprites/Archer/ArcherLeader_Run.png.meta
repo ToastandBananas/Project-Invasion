@@ -1,13 +1,19 @@
 fileFormatVersion: 2
-guid: 5c9a9571f5992ec4e8f9ec36fbcb3549
+guid: d2fd96b1aaedef94c88f4430342cd0a1
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5010267649447182859
-    second: Archer_Idle_0
+      213: 5511679031295625409
+    second: ArcherLeader_Run_0
   - first:
-      213: 5009889085332176800
-    second: Archer_Idle_1
+      213: -4844792273628551018
+    second: ArcherLeader_Run_1
+  - first:
+      213: 6266701283297593288
+    second: ArcherLeader_Run_2
+  - first:
+      213: 808253055183434798
+    second: ArcherLeader_Run_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -52,7 +58,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 60
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -107,7 +113,49 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Archer_Idle_0
+      name: ArcherLeader_Run_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c8485870ea6d7c40800000000000000
+      internalID: 5511679031295625409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArcherLeader_Run_1
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69820df8817d3ccb0800000000000000
+      internalID: -4844792273628551018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: ArcherLeader_Run_2
       rect:
         serializedVersion: 2
         x: 0
@@ -115,20 +163,20 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5fdb11d4e14f77ab0800000000000000
-      internalID: -5010267649447182859
+      spriteID: 8c700706d9bc7f650800000000000000
+      internalID: 6266701283297593288
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Archer_Idle_1
+      name: ArcherLeader_Run_3
       rect:
         serializedVersion: 2
         x: 16
@@ -136,14 +184,14 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0afb45f5493b68540800000000000000
-      internalID: 5009889085332176800
+      spriteID: e2435d21fdd773b00800000000000000
+      internalID: 808253055183434798
       vertices: []
       indices: 
       edges: []
