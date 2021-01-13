@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1807769460393828022}
   - component: {fileID: 1807769460393828023}
   m_Layer: 0
-  m_Name: Squad - Archers
+  m_Name: Squad - Archers Lvl 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,13 +72,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60145fa9133d01408a07d606ee4e6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldCost: 100
+  goldCost: 200
   maxSquadSize: 8
   leaderParent: {fileID: 0}
   unitsParent: {fileID: 0}
   units: []
   leader: {fileID: 0}
-  isRangedSquad: 0
+  shouldRetreatWhenEnemyNear: 1
+  isRangedUnit: 1
   attackersInRange: []
 --- !u!1 &1807769460739276552
 GameObject:

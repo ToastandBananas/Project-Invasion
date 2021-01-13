@@ -30,7 +30,7 @@ public class Shooter : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (IsAttackerInLane())
+        if (defender.isRetreating == false && IsAttackerInLane())
         {
             if (anim.GetBool("isShooting") == false)
                 StartCoroutine(StartShooting());
@@ -52,7 +52,10 @@ public class Shooter : MonoBehaviour
         newProjectile.myShooter = this;
 
         randomIndex = Random.Range(0, myLaneSpawner.transform.childCount);
-        newProjectile.targetTransform = myLaneSpawner.transform.GetChild(randomIndex).transform;
+        if (myLaneSpawner.transform.GetChild(randomIndex) != null)
+            newProjectile.targetTransform = myLaneSpawner.transform.GetChild(randomIndex).transform;
+        else
+            Destroy(newProjectile.gameObject);
     }
 
     void SetLaneSpawner()

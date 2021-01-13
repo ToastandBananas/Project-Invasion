@@ -424,7 +424,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerCountsWave1.Array.data[0]
-      value: 1
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerCountsWave1.Array.data[1]

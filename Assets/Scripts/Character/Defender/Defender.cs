@@ -5,6 +5,7 @@ public class Defender : MonoBehaviour
 {
     public bool isAttacking = false;
     public bool isMoving = false;
+    public bool isRetreating = false;
     public float minAttackDistance = 0.115f;
     float currentSpeed = 0f;
 
@@ -45,12 +46,49 @@ public class Defender : MonoBehaviour
 
     IEnumerator Movement()
     {
-        while (health.isDead == false)
+        while (health.isDead == false && isRetreating == false)
         {
             if (squad.attackersInRange.Count == 0 || (targetAttacker == null && Vector2.Distance(transform.localPosition, unitPosition) > 0.025f))
                 MoveUnitIntoPosition();
             else if (targetAttacker != null)
                 MoveTowardsAttacker();
+
+            yield return null;
+        }
+    }
+
+    public IEnumerator Retreat()
+    {
+        isRetreating = true;
+        isAttacking = false;
+        isMoving = true;
+
+        targetAttacker = null;
+        targetAttackersHealth = null;
+
+        anim.SetBool("isMoving", true);
+        anim.SetBool("isAttacking", false);
+        if (squad.isRangedUnit)
+            anim.SetBool("isShooting", false);
+
+        
+        while (transform.position.x > -1.25f)
+        {
+            if (transform.localScale.x != -1)
+                transform.localScale = new Vector2(-1, 1); // Flip the sprite
+
+            if (transform.position.x > 0.25f || (transform.position.x <= 0.25 && transform.position.y >= 2.9f && transform.position.y <= 3.1f))
+                transform.Translate(Vector2.left * currentSpeed * 2 * Time.deltaTime); // Retreat double the speed
+            else if (transform.position.x <= 0.25f && transform.position.y < 2.9f)
+                transform.Translate(Vector2.up * currentSpeed * 2 * Time.deltaTime);
+            else if (transform.position.x <= 0.25f && transform.position.y > 3.1f)
+                transform.Translate(Vector2.down * currentSpeed * 2 * Time.deltaTime);
+
+            if (transform.position.x <= -1.25f)
+            {
+                Destroy(squad.gameObject); // Destroy the squad
+                break;
+            }
 
             yield return null;
         }
@@ -76,16 +114,12 @@ public class Defender : MonoBehaviour
 
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.parent.position.x, transform.parent.position.y) + unitPosition, currentSpeed * Time.deltaTime);
         }
-        else if (transform.localScale.x != 1)
-        {
-            isMoving = false;
-            anim.SetBool("isMoving", false);
-            transform.localScale = new Vector2(1, 1);
-        }
         else
         {
             isMoving = false;
             anim.SetBool("isMoving", false);
+            if (transform.localScale.x != 1)
+                transform.localScale = new Vector2(1, 1);
         }
     }
 
