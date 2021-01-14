@@ -25,7 +25,6 @@ public class Shooter : MonoBehaviour
         projectilesParent = GameObject.Find(PROJECTILES_PARENT_NAME).transform;
         if (projectilesParent == null)
             projectilesParent = new GameObject(PROJECTILES_PARENT_NAME).transform;
-
     }
 
     void FixedUpdate()
@@ -47,19 +46,21 @@ public class Shooter : MonoBehaviour
 
     public void Fire()
     {
-        Projectile newProjectile = Instantiate(projectile, gun.transform.position, transform.rotation);
+        Projectile newProjectile = ObjectPool.instance.GetPooledArrow().GetComponent<Projectile>();
 
+        newProjectile.gameObject.SetActive(true);
         newProjectile.transform.position = gun.transform.position;
         newProjectile.transform.rotation = transform.rotation;
-        newProjectile.transform.SetParent(projectilesParent.transform);
         newProjectile.myShooter = this;
-        newProjectile.gameObject.SetActive(true);
 
         randomIndex = Random.Range(0, defender.squad.myLaneSpawner.transform.childCount);
         if (defender.squad.myLaneSpawner.transform.childCount > randomIndex)
+        {
             newProjectile.targetTransform = defender.squad.myLaneSpawner.transform.GetChild(randomIndex).transform;
+            StartCoroutine(newProjectile.ShootProjectile());
+        }
         else
-            Destroy(newProjectile.gameObject);
+            newProjectile.Deactivate();
     }
 
     bool IsAttackerInLane()

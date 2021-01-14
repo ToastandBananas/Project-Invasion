@@ -45,7 +45,6 @@ public class ObjectPool : MonoBehaviour
 
         GameObject temp = Instantiate(arrow);
         temp.transform.SetParent(projectilesParent);
-        temp.SetActive(false);
         pooledArrows.Add(temp);
         return temp;
     }

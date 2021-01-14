@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
+    public Sprite defaultSprite;
+
     [Tooltip("The sprite that will be used when the projectile hits the ground")]
     public Sprite groundedSprite;
 
@@ -20,25 +22,25 @@ public class Projectile : MonoBehaviour
 
     [HideInInspector] public Shooter myShooter;
 
+    Rigidbody2D rb;
     SpriteRenderer sr;
     BoxCollider2D boxCollider;
+
     bool moveProjectile = true;
     Vector3 startPos, nextPos;
     float x0, x1, dist, nextX, baseY, arc, arcHeight;
 
     void Awake()
     {
+        rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    void Start()
-    {
-        StartCoroutine(ShootProjectile());
-    }
-
     public IEnumerator ShootProjectile()
     {
+        moveProjectile = true;
+
         // Cache our start position, which is really the only thing we need
         // (in addition to our current position, and the target).
         startPos = transform.position;
@@ -70,8 +72,6 @@ public class Projectile : MonoBehaviour
             offset = new Vector3(offsetXFromMiss, offsetYFromMiss);
         }
 
-        // transform.Translate(Vector2.right * speed * Time.deltaTime); // Old method (shoot in a straight line)
-
         while (moveProjectile)
         {
             // Compute the next position, with arc added in
@@ -88,7 +88,7 @@ public class Projectile : MonoBehaviour
             transform.position = nextPos;
 
             // Do something when we reach the target
-            if (nextPos == targetTransform.position + offset && gameObject.activeInHierarchy) Arrived();
+            if (nextPos == targetTransform.position + offset && gameObject.activeInHierarchy) StartCoroutine(Arrived());
 
             yield return null;
         }
@@ -105,12 +105,13 @@ public class Projectile : MonoBehaviour
             {
                 // Reduce health
                 health.DealDamage(damage);
-                Destroy(gameObject);
+                moveProjectile = false;
+                Deactivate();
             }
         }
     }
 
-    void Arrived()
+    IEnumerator Arrived()
     {
         moveProjectile = false;
         boxCollider.enabled = false;
@@ -120,9 +121,21 @@ public class Projectile : MonoBehaviour
             sr.sprite = groundedSprite;
             sr.sortingOrder = 1;
             transform.localScale = new Vector2(0.8f, 0.8f);
-            
-            Destroy(gameObject, 10f);
+
+            yield return new WaitForSeconds(10f);
+            Deactivate();
         }
+    }
+
+    public void Deactivate()
+    {
+        transform.localScale = new Vector2(1f, 1f);
+        boxCollider.enabled = true;
+
+        sr.sprite = defaultSprite;
+        sr.sortingOrder = 6;
+
+        gameObject.SetActive(false);
     }
     
     /// This is a 2D version of Quaternion.LookAt; it returns a quaternion

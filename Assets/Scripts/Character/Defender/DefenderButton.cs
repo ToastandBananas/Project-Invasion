@@ -21,7 +21,6 @@ public class DefenderButton : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
 
         // Debug.Log("You clicked on " + transform.parent.name);
-        // defenderSpawner.SetSelectedSquad(defenderPrefab);
         defenderSpawner.SetSelectedSquad(squadPrefab);
     }
 
