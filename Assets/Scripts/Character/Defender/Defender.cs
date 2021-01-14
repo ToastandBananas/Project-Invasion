@@ -6,6 +6,7 @@ public class Defender : MonoBehaviour
     public bool isAttacking = false;
     public bool isMoving = false;
     public bool isRetreating = false;
+
     public float minAttackDistance = 0.115f;
     float currentSpeed = 0f;
 
@@ -16,10 +17,11 @@ public class Defender : MonoBehaviour
     public Attacker targetAttacker;
     public Health targetAttackersHealth;
 
-    CurrencyDisplay currencyDisplay;
-    Animator anim;
     public Squad squad;
     [HideInInspector] public Health health;
+
+    CurrencyDisplay currencyDisplay;
+    Animator anim;
 
     void Awake()
     {
@@ -33,8 +35,6 @@ public class Defender : MonoBehaviour
         currencyDisplay = FindObjectOfType<CurrencyDisplay>();
         anim = GetComponent<Animator>();
         health = GetComponent<Health>();
-
-        SetMovementSpeed(0.25f);
 
         StartCoroutine(Movement());
     }

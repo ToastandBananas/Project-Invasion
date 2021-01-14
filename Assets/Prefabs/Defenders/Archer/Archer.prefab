@@ -207,9 +207,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196f04268b983b64d8dbb8adb663fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldCost: 50
   isAttacking: 0
   isMoving: 0
+  isRetreating: 0
   minAttackDistance: 0.115
   unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
@@ -243,6 +243,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af119b89ce650254db165d5ea56bddbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  archerLevel: 1
 --- !u!114 &5632136959205302496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -258,3 +259,4 @@ MonoBehaviour:
   projectile: {fileID: 7535175012245836844, guid: 030021fc88bb4814488664fc77012d66, type: 3}
   gun: {fileID: 1133215682364186197}
   myLaneSpawner: {fileID: 0}
+  accuracy: 50

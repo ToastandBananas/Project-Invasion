@@ -144,8 +144,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29ee197f118552f45ac391aa3db355b5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  normalSprite: {fileID: 21300000, guid: ca3815e080a7251479524b0e8b811bd5, type: 3}
+  groundedSprite: {fileID: 21300000, guid: 3f0ef69bfb4e6b247902a70b4b2b21ca, type: 3}
   damage: 10
   speed: 3
-  arcHeight: 1
+  arcMultiplier: 0.1
   targetTransform: {fileID: 0}
   myShooter: {fileID: 0}

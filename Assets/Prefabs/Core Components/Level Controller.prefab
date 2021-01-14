@@ -47,6 +47,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   winCanvas: {fileID: 0}
   loseCanvas: {fileID: 0}
+  waveNumber: 1
+  maxWaves: 5
+  waveDelay: 10
 --- !u!114 &1272668471027025273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -59,6 +62,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6b3957423237701479e750250da9c09c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  optionsMenuCanvas: {fileID: 0}
   waitTime: 7
 --- !u!82 &1740122421
 AudioSource:

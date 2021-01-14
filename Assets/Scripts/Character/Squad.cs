@@ -17,6 +17,8 @@ public class Squad : MonoBehaviour
     
     public List<Attacker> attackersInRange;
 
+    [HideInInspector] public AttackerSpawner myLaneSpawner;
+
     // Squads with a max of 3 units (plus the leader)
     Vector2[] threeLeaderPositions = { new Vector2(-0.15f, 0) };
     Vector2[] threeUnitPositions = { new Vector2(0.05f, 0f), new Vector2(0f, 0.25f), new Vector2(0f, -0.25f) };
@@ -31,6 +33,8 @@ public class Squad : MonoBehaviour
         unitsParent = transform.GetChild(1);
         units = new List<Defender>();
         attackersInRange = new List<Attacker>();
+
+        SetLaneSpawner();
 
         leader = leaderParent.GetChild(0).GetComponent<Defender>();
         for (int i = 0; i < unitsParent.childCount; i++)
@@ -76,6 +80,18 @@ public class Squad : MonoBehaviour
         }
     }
 
+    void SetLaneSpawner()
+    {
+        AttackerSpawner[] attackerSpawners = FindObjectsOfType<AttackerSpawner>();
+
+        foreach (AttackerSpawner spawner in attackerSpawners)
+        {
+            bool isCloseEnough = (Mathf.Abs(spawner.transform.position.y - transform.position.y) <= Mathf.Epsilon);
+
+            if (isCloseEnough) myLaneSpawner = spawner;
+        }
+    }
+
     public void Retreat()
     {
         // Retreat all units (likely because the squad leader died)
@@ -90,6 +106,30 @@ public class Squad : MonoBehaviour
         foreach (Defender unit in units)
         {
             StartCoroutine(unit.Retreat());
+        }
+
+        for (int i = 0; i < myLaneSpawner.transform.childCount; i++)
+        {
+            Attacker attacker = myLaneSpawner.transform.GetChild(i).GetComponent<Attacker>();
+            if (attacker != null && attacker.currentTargetsSquad == this)
+            {
+                attacker.currentDefenderAttacking = null;
+                attacker.currentTargetsHealth = null;
+                attacker.currentTargetsSquad = null;
+                attacker.StopAttacking();
+
+                if (leader != null && attacker.opponents.Contains(leader))
+                    attacker.opponents.Remove(leader);
+
+                if (units.Count > 0)
+                {
+                    foreach (Defender unit in units)
+                    {
+                        if (attacker.opponents.Contains(unit))
+                            attacker.opponents.Remove(unit);
+                    }
+                }
+            }
         }
     }
 

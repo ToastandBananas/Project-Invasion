@@ -209,6 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isAttacking: 0
   isMoving: 0
+  isRetreating: 0
   minAttackDistance: 0.115
   unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
@@ -258,3 +259,4 @@ MonoBehaviour:
   projectile: {fileID: 7535175012245836844, guid: 030021fc88bb4814488664fc77012d66, type: 3}
   gun: {fileID: 1949777702134079504}
   myLaneSpawner: {fileID: 0}
+  accuracy: 75
