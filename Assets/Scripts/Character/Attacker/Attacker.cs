@@ -170,13 +170,16 @@ public class Attacker : MonoBehaviour
 
     void FindNewRandomTargetForDefender(Defender theDefender)
     {
-        int randomTargetIndex = Random.Range(0, theDefender.squad.attackersInRange.Count);
-        if (randomTargetIndex >= theDefender.squad.attackersInRange.Count && randomTargetIndex > 0)
-            randomTargetIndex = theDefender.squad.attackersInRange.Count - 1;
+        if (theDefender.squad.attackersInRange.Count > 0)
+        {
+            int randomTargetIndex = Random.Range(0, theDefender.squad.attackersInRange.Count);
+            if (randomTargetIndex >= theDefender.squad.attackersInRange.Count && randomTargetIndex > 0)
+                randomTargetIndex = theDefender.squad.attackersInRange.Count - 1;
 
-        theDefender.targetAttacker = theDefender.squad.attackersInRange[randomTargetIndex];
-        theDefender.targetAttackersHealth = theDefender.squad.attackersInRange[randomTargetIndex].health;
-        if (theDefender.squad.attackersInRange[randomTargetIndex].opponents.Contains(theDefender) == false)
-            theDefender.squad.attackersInRange[randomTargetIndex].opponents.Add(theDefender);
+            theDefender.targetAttacker = theDefender.squad.attackersInRange[randomTargetIndex];
+            theDefender.targetAttackersHealth = theDefender.squad.attackersInRange[randomTargetIndex].health;
+            if (theDefender.squad.attackersInRange[randomTargetIndex].opponents.Contains(theDefender) == false)
+                theDefender.squad.attackersInRange[randomTargetIndex].opponents.Add(theDefender);
+        }
     }
 }

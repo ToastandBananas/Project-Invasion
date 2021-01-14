@@ -21,8 +21,7 @@ public class Projectile : MonoBehaviour
     public Transform targetTransform;
 
     [HideInInspector] public Shooter myShooter;
-
-    Rigidbody2D rb;
+    
     SpriteRenderer sr;
     BoxCollider2D boxCollider;
 
@@ -32,7 +31,6 @@ public class Projectile : MonoBehaviour
 
     void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
     }
@@ -119,7 +117,7 @@ public class Projectile : MonoBehaviour
         if (groundedSprite != null)
         {
             sr.sprite = groundedSprite;
-            sr.sortingOrder = 1;
+            sr.sortingOrder = 2;
             transform.localScale = new Vector2(0.8f, 0.8f);
 
             yield return new WaitForSeconds(10f);

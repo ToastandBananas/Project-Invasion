@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  deathVFX: {fileID: 1906222994913036, guid: 740c2b3187d56c341b8cb78e8aa925c5, type: 3}
+  damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isDead: 0
 --- !u!114 &1611350180487338400
 MonoBehaviour:
@@ -258,5 +258,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   projectile: {fileID: 7535175012245836844, guid: 030021fc88bb4814488664fc77012d66, type: 3}
   gun: {fileID: 1133215682364186197}
-  myLaneSpawner: {fileID: 0}
+  projectilePrefab: {fileID: 2907018548143264321, guid: 030021fc88bb4814488664fc77012d66, type: 3}
+  defender: {fileID: 0}
   accuracy: 50

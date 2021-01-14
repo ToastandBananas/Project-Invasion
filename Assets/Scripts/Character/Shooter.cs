@@ -6,12 +6,15 @@ public class Shooter : MonoBehaviour
     [SerializeField] Projectile projectile;
     [SerializeField] GameObject gun;
 
+    public GameObject projectilePrefab;
+    ObjectPool projectileObjectPool;
+
     [HideInInspector] public Defender defender;
 
     [Range(0f, 100f)] public float accuracy = 100f;
 
-    Transform projectilesParent;
     const string PROJECTILES_PARENT_NAME = "Projectiles";
+    Transform projectilesParent;
 
     Animator anim;
     bool isAttackerInLane;
@@ -23,8 +26,19 @@ public class Shooter : MonoBehaviour
         defender = GetComponent<Defender>();
 
         projectilesParent = GameObject.Find(PROJECTILES_PARENT_NAME).transform;
-        if (projectilesParent == null)
-            projectilesParent = new GameObject(PROJECTILES_PARENT_NAME).transform;
+
+        // Find which object pool to use
+        for (int i = 0; i < projectilesParent.childCount; i++)
+        {
+            if (projectilesParent.GetChild(i).TryGetComponent<ObjectPool>(out ObjectPool objPool))
+            {
+                if (objPool.objectToPool == projectilePrefab)
+                {
+                    projectileObjectPool = objPool;
+                    return;
+                }
+            }
+        }
     }
 
     void FixedUpdate()
@@ -46,7 +60,7 @@ public class Shooter : MonoBehaviour
 
     public void Fire()
     {
-        Projectile newProjectile = ObjectPool.instance.GetPooledArrow().GetComponent<Projectile>();
+        Projectile newProjectile = projectileObjectPool.GetPooledObject().GetComponent<Projectile>();
 
         newProjectile.gameObject.SetActive(true);
         newProjectile.transform.position = gun.transform.position;

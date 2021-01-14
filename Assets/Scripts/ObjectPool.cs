@@ -3,49 +3,33 @@ using UnityEngine;
 
 public class ObjectPool : MonoBehaviour
 {
-    public GameObject arrow;
-    public int amountOfArrowsToPool = 50;
-    public List<GameObject> pooledArrows = new List<GameObject>();
-
-    Transform projectilesParent;
-    const string PROJECTILES_PARENT_NAME = "Projectiles";
-
-    #region Singleton
-    public static ObjectPool instance;
-
-    void Awake()
-    {
-        instance = this;
-    }
-    #endregion
+    public GameObject objectToPool;
+    public int amountToPool = 50;
+    public List<GameObject> pooledObjects = new List<GameObject>();
     
     void Start()
     {
-        projectilesParent = GameObject.Find(PROJECTILES_PARENT_NAME).transform;
-        if (projectilesParent == null)
-            projectilesParent = new GameObject(PROJECTILES_PARENT_NAME).transform;
-
         GameObject temp;
-        for (int i = 0; i < amountOfArrowsToPool; i++)
+        for (int i = 0; i < amountToPool; i++)
         {
-            temp = Instantiate(arrow);
-            temp.transform.SetParent(projectilesParent);
+            temp = Instantiate(objectToPool);
+            temp.transform.SetParent(transform);
             temp.SetActive(false);
-            pooledArrows.Add(temp);
+            pooledObjects.Add(temp);
         }
     }
 
-    public GameObject GetPooledArrow()
+    public GameObject GetPooledObject()
     {
-        for (int i = 0; i < pooledArrows.Count; i++)
+        for (int i = 0; i < pooledObjects.Count; i++)
         {
-            if (pooledArrows[i].activeInHierarchy == false)
-                return pooledArrows[i];
+            if (pooledObjects[i].activeInHierarchy == false)
+                return pooledObjects[i];
         }
 
-        GameObject temp = Instantiate(arrow);
-        temp.transform.SetParent(projectilesParent);
-        pooledArrows.Add(temp);
+        GameObject temp = Instantiate(objectToPool);
+        temp.transform.SetParent(transform);
+        pooledObjects.Add(temp);
         return temp;
     }
 }

@@ -116,9 +116,10 @@ public class Squad : MonoBehaviour
                 attacker.currentDefenderAttacking = null;
                 attacker.currentTargetsHealth = null;
                 attacker.currentTargetsSquad = null;
+                attacker.opponents.Clear();
                 attacker.StopAttacking();
 
-                if (leader != null && attacker.opponents.Contains(leader))
+                /*if (leader != null && attacker.opponents.Contains(leader))
                     attacker.opponents.Remove(leader);
 
                 if (units.Count > 0)
@@ -128,7 +129,7 @@ public class Squad : MonoBehaviour
                         if (attacker.opponents.Contains(unit))
                             attacker.opponents.Remove(unit);
                     }
-                }
+                }*/
             }
         }
     }

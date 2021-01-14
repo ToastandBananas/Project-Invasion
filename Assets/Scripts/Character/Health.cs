@@ -1,9 +1,10 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 
 public class Health : MonoBehaviour
 {
     [SerializeField] float health = 100f;
-    [SerializeField] GameObject deathVFX;
+    [SerializeField] GameObject damageEffect;
     public bool isDead = false;
 
     LevelController levelController;
@@ -14,6 +15,10 @@ public class Health : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Transform deadCharactersParent;
 
+    const string EFFECTS_PARENT_NAME = "Effects";
+    Transform effectsParent;
+    ObjectPool damageEffectObjectPool;
+
     void Start()
     {
         levelController = FindObjectOfType<LevelController>();
@@ -23,19 +28,32 @@ public class Health : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         deadCharactersParent = GameObject.Find("Dead Characters").transform;
+
+        // Find which object pool to use for damage effects (blood, etc.)
+        effectsParent = GameObject.Find(EFFECTS_PARENT_NAME).transform;
+        for (int i = 0; i < effectsParent.childCount; i++)
+        {
+            if (effectsParent.GetChild(i).TryGetComponent<ObjectPool>(out ObjectPool objPool))
+            {
+                if (objPool.objectToPool == damageEffect)
+                {
+                    damageEffectObjectPool = objPool;
+                    return;
+                }
+            }
+        }
     }
 
     public void DealDamage(float damage)
     {
         health -= damage;
+        if (damageEffect != null)
+            StartCoroutine(TriggerDamageEffect());
 
         // If the character is going to die
         if (health <= 0 && isDead == false)
         {
-            // TriggerDeathVFX();
-            
             FindNewTargetForOpponent();
-
             Die();
         }
     }
@@ -59,12 +77,15 @@ public class Health : MonoBehaviour
         }
     }
 
-    void TriggerDeathVFX()
+    IEnumerator TriggerDamageEffect()
     {
-        if (deathVFX == false) return;
+        GameObject damageEffect = damageEffectObjectPool.GetPooledObject();
+        damageEffect.transform.position = transform.position;
+        damageEffect.SetActive(true);
 
-        GameObject deathVFXObject = Instantiate(deathVFX, transform.position, transform.rotation);
-        Destroy(deathVFXObject, 1.5f);
+        yield return new WaitForSeconds(20f);
+        damageEffect.SetActive(false);
+        damageEffect.GetComponent<ParticleSystem>().Clear();
     }
 
     public void FindNewTargetForOpponent()

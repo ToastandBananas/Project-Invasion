@@ -22,6 +22,7 @@ public class Defender : MonoBehaviour
 
     CurrencyDisplay currencyDisplay;
     Animator anim;
+    SpriteRenderer sr;
 
     void Awake()
     {
@@ -35,6 +36,7 @@ public class Defender : MonoBehaviour
         currencyDisplay = FindObjectOfType<CurrencyDisplay>();
         anim = GetComponent<Animator>();
         health = GetComponent<Health>();
+        sr = transform.GetComponentInChildren<SpriteRenderer>();
 
         StartCoroutine(Movement());
     }
@@ -59,6 +61,7 @@ public class Defender : MonoBehaviour
 
     public IEnumerator Retreat()
     {
+        sr.sortingOrder = 3;
         isRetreating = true;
         isAttacking = false;
         isMoving = true;
@@ -182,13 +185,15 @@ public class Defender : MonoBehaviour
 
     public void FindNewTargetForAttackers(Defender defender)
     {
+        targetAttacker = null;
+        targetAttackersHealth = null;
+
         if (transform.parent == defender.squad.unitsParent) // Remove the defender from the units list
             defender.squad.units.Remove(defender);
         else if (transform.parent == defender.squad.leaderParent)
         {
-            // The leader was killed, so retreat the remaining units in the squad
+            defender.squad.Retreat(); // The leader was killed, so retreat the remaining units in the squad
             defender.squad.leader = null;
-            defender.squad.Retreat();
         }
 
         foreach (Attacker attacker in defender.squad.attackersInRange) // For each attacker in range of the defender who died...
