@@ -3,12 +3,13 @@ using UnityEngine;
 
 public class Defender : MonoBehaviour
 {
+    [SerializeField] float attackDamage = 10f;
+    public float minAttackDistance = 0.115f;
+    float currentSpeed = 0f;
+
     public bool isAttacking = false;
     public bool isMoving = false;
     public bool isRetreating = false;
-
-    public float minAttackDistance = 0.115f;
-    float currentSpeed = 0f;
 
     float randomAttackOffsetY;
     public Vector2 unitPosition;
@@ -161,7 +162,7 @@ public class Defender : MonoBehaviour
         anim.SetBool("isAttacking", false);
     }
 
-    public void StrikeCurrentTarget(float damage)
+    public void StrikeCurrentTarget()
     {
         if (targetAttacker == null) return;
 
@@ -171,7 +172,7 @@ public class Defender : MonoBehaviour
             transform.localScale = new Vector2(-1, 1);
 
         if (targetAttackersHealth)
-            targetAttackersHealth.DealDamage(damage);
+            targetAttackersHealth.DealDamage(attackDamage);
     }
 
     void UpdateAnimationState()

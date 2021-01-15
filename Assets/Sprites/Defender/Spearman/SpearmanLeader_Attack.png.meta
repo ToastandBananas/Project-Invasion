@@ -1,43 +1,31 @@
 fileFormatVersion: 2
-guid: 1bcbd3a9f8f9a4443bac1cd77df3c36a
+guid: 383ca40e30175fa4895b356945ed86b4
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -4931541286253664743
-    second: Skeleton_Attack_0
+      213: 4093487173642573484
+    second: SpearmanLeader_Attack_0
   - first:
-      213: 6703666654972841543
-    second: Skeleton_Attack_1
+      213: -943930972665158058
+    second: SpearmanLeader_Attack_1
   - first:
-      213: 5374936872560645210
-    second: Skeleton_Attack_2
+      213: 6322177945294546024
+    second: SpearmanLeader_Attack_2
   - first:
-      213: -5799585484308707375
-    second: Skeleton_Attack_3
+      213: 3177313802956679388
+    second: SpearmanLeader_Attack_3
   - first:
-      213: 4528416531530387699
-    second: Skeleton_Attack_4
+      213: -6272919657305138042
+    second: SpearmanLeader_Attack_4
   - first:
-      213: 3317778627300228566
-    second: Skeleton_Attack_5
+      213: -2017322250257112819
+    second: SpearmanLeader_Attack_5
   - first:
-      213: 3574055037946763860
-    second: Skeleton_Attack_6
+      213: 7080024707841070532
+    second: SpearmanLeader_Attack_6
   - first:
-      213: -7049450497556206644
-    second: Skeleton_Attack_7
-  - first:
-      213: -7527875019862153025
-    second: Skeleton_Attack_8
-  - first:
-      213: 4887612240251634235
-    second: Skeleton_Attack_9
-  - first:
-      213: -5224370241317367402
-    second: Skeleton_Attack_10
-  - first:
-      213: -3115140441847709555
-    second: Skeleton_Attack_11
+      213: 801943313919535953
+    second: SpearmanLeader_Attack_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -82,7 +70,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 80
+  spritePixelsToUnits: 60
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -137,96 +125,12 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Skeleton_Attack_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 9166dad1455af8bb0800000000000000
-      internalID: -4931541286253664743
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skeleton_Attack_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 74e894e1e45380d50800000000000000
-      internalID: 6703666654972841543
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skeleton_Attack_2
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a545023ab9c979a40800000000000000
-      internalID: 5374936872560645210
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skeleton_Attack_3
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 1d78443cabbb38fa0800000000000000
-      internalID: -5799585484308707375
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skeleton_Attack_4
+      name: SpearmanLeader_Attack_0
       rect:
         serializedVersion: 2
         x: 0
         y: 16
-        width: 16
+        width: 24
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -235,19 +139,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3f010e4c7da28de30800000000000000
-      internalID: 4528416531530387699
+      spriteID: ca6559d65ecfec830800000000000000
+      internalID: 4093487173642573484
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skeleton_Attack_5
+      name: SpearmanLeader_Attack_1
       rect:
         serializedVersion: 2
-        x: 16
+        x: 24
         y: 16
-        width: 16
+        width: 24
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -256,40 +160,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6ddfc9b451e1b0e20800000000000000
-      internalID: 3317778627300228566
+      spriteID: 656edc118cb76e2f0800000000000000
+      internalID: -943930972665158058
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skeleton_Attack_6
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 16
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 45a1380fe18999130800000000000000
-      internalID: 3574055037946763860
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skeleton_Attack_7
+      name: SpearmanLeader_Attack_2
       rect:
         serializedVersion: 2
         x: 48
         y: 16
-        width: 16
+        width: 24
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -298,19 +181,40 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ccb267f3f125b2e90800000000000000
-      internalID: -7049450497556206644
+      spriteID: 864271c4853ecb750800000000000000
+      internalID: 6322177945294546024
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skeleton_Attack_8
+      name: SpearmanLeader_Attack_3
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 16
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd8ad25d116181c20800000000000000
+      internalID: 3177313802956679388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearmanLeader_Attack_4
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 16
+        width: 24
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -319,19 +223,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fb86497cd8d978790800000000000000
-      internalID: -7527875019862153025
+      spriteID: 68c13c99ecc12f8a0800000000000000
+      internalID: -6272919657305138042
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skeleton_Attack_9
+      name: SpearmanLeader_Attack_5
       rect:
         serializedVersion: 2
-        x: 16
+        x: 24
         y: 0
-        width: 16
+        width: 24
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -340,40 +244,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: b32cc04df6944d340800000000000000
-      internalID: 4887612240251634235
+      spriteID: d01eee30a180104e0800000000000000
+      internalID: -2017322250257112819
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Skeleton_Attack_10
-      rect:
-        serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 691182702fe4f77b0800000000000000
-      internalID: -5224370241317367402
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Skeleton_Attack_11
+      name: SpearmanLeader_Attack_6
       rect:
         serializedVersion: 2
         x: 48
         y: 0
-        width: 16
+        width: 24
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -382,8 +265,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d80c63ad54cc4c4d0800000000000000
-      internalID: -3115140441847709555
+      spriteID: 4c51bdfc5fc414260800000000000000
+      internalID: 7080024707841070532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SpearmanLeader_Attack_7
+      rect:
+        serializedVersion: 2
+        x: 72
+        y: 0
+        width: 24
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15b6c24f133112b00800000000000000
+      internalID: 801943313919535953
       vertices: []
       indices: 
       edges: []

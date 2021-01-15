@@ -5,11 +5,12 @@ using UnityEngine;
 public class Attacker : MonoBehaviour
 {
     [SerializeField] float attackDamage = 10f;
+    public float minAttackDistance = 0.115f;
+    float currentSpeed = 1f;
+
     public bool isLarge = false;
     public bool isAttacking = false;
     public int maxOpponents = 2;
-    public float minAttackDistance = 0.115f;
-    float currentSpeed = 1f;
 
     public List<Defender> opponents;
     public Defender currentDefenderAttacking;

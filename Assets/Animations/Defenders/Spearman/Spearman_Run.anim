@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Skeleton_Run
+  m_Name: Spearman_Run
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,13 +20,13 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: -5846131983562829939, guid: 119a25a7723c914469846fefc139175f, type: 3}
+      value: {fileID: -3893496242503398132, guid: 9c1e0b69da29a4143af981b0876101a3, type: 3}
     - time: 0.14285715
-      value: {fileID: -2505961970151276596, guid: 119a25a7723c914469846fefc139175f, type: 3}
+      value: {fileID: 4110603036359555796, guid: 9c1e0b69da29a4143af981b0876101a3, type: 3}
     - time: 0.2857143
-      value: {fileID: 8813437678759004933, guid: 119a25a7723c914469846fefc139175f, type: 3}
+      value: {fileID: -2129895372320316904, guid: 9c1e0b69da29a4143af981b0876101a3, type: 3}
     - time: 0.42857143
-      value: {fileID: 6608406990268500849, guid: 119a25a7723c914469846fefc139175f, type: 3}
+      value: {fileID: -6752303663036018267, guid: 9c1e0b69da29a4143af981b0876101a3, type: 3}
     attribute: m_Sprite
     path: Body
     classID: 212
@@ -46,10 +46,10 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: -5846131983562829939, guid: 119a25a7723c914469846fefc139175f, type: 3}
-    - {fileID: -2505961970151276596, guid: 119a25a7723c914469846fefc139175f, type: 3}
-    - {fileID: 8813437678759004933, guid: 119a25a7723c914469846fefc139175f, type: 3}
-    - {fileID: 6608406990268500849, guid: 119a25a7723c914469846fefc139175f, type: 3}
+    - {fileID: -3893496242503398132, guid: 9c1e0b69da29a4143af981b0876101a3, type: 3}
+    - {fileID: 4110603036359555796, guid: 9c1e0b69da29a4143af981b0876101a3, type: 3}
+    - {fileID: -2129895372320316904, guid: 9c1e0b69da29a4143af981b0876101a3, type: 3}
+    - {fileID: -6752303663036018267, guid: 9c1e0b69da29a4143af981b0876101a3, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
@@ -79,6 +79,6 @@ AnimationClip:
     functionName: SetMovementSpeed
     data: 
     objectReferenceParameter: {fileID: 0}
-    floatParameter: 0.5
+    floatParameter: 0.25
     intParameter: 0
     messageOptions: 0
