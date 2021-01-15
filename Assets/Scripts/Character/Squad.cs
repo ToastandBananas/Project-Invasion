@@ -95,19 +95,8 @@ public class Squad : MonoBehaviour
     public void Retreat()
     {
         // Retreat all units (likely because the squad leader died)
-        // TODO
-        GetComponent<BoxCollider2D>().enabled = false;
-        attackersInRange.Clear();
 
-        // Run back to the castle
-        if (leader != null)
-            StartCoroutine(leader.Retreat());
-
-        foreach (Defender unit in units)
-        {
-            StartCoroutine(unit.Retreat());
-        }
-
+        // First clear out current target data for attackers who are attacking this squad
         for (int i = 0; i < myLaneSpawner.transform.childCount; i++)
         {
             Attacker attacker = myLaneSpawner.transform.GetChild(i).GetComponent<Attacker>();
@@ -118,19 +107,19 @@ public class Squad : MonoBehaviour
                 attacker.currentTargetsSquad = null;
                 attacker.opponents.Clear();
                 attacker.StopAttacking();
-
-                /*if (leader != null && attacker.opponents.Contains(leader))
-                    attacker.opponents.Remove(leader);
-
-                if (units.Count > 0)
-                {
-                    foreach (Defender unit in units)
-                    {
-                        if (attacker.opponents.Contains(unit))
-                            attacker.opponents.Remove(unit);
-                    }
-                }*/
             }
+        }
+
+        GetComponent<BoxCollider2D>().enabled = false;
+        attackersInRange.Clear();
+
+        // Run back to the castle
+        if (leader != null)
+            StartCoroutine(leader.Retreat());
+
+        foreach (Defender unit in units)
+        {
+            StartCoroutine(unit.Retreat());
         }
     }
 
