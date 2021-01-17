@@ -118,7 +118,7 @@ public class Projectile : MonoBehaviour
         {
             sr.sprite = groundedSprite;
             sr.sortingOrder = 2;
-            transform.localScale = new Vector2(0.8f, 0.8f);
+            transform.localScale = new Vector2(0.9f, 0.9f);
 
             yield return new WaitForSeconds(10f);
             Deactivate();

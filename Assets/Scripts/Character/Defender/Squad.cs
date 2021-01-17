@@ -3,21 +3,26 @@ using UnityEngine;
 
 public class Squad : MonoBehaviour
 {
+    [Header("Squad Cost")]
     [SerializeField] int goldCost = 100;
 
     // Does not count the leader, unless it's a squad size of One
     enum MaxSquadSize { Sixteen, Fifteen, Twelve, Nine, Eight, Seven, Five, Four, Three, Two, One }
-    [SerializeField] MaxSquadSize maxSquadSize;
+    [Header("Squad Size")][SerializeField] MaxSquadSize maxSquadSize;
 
-    public Transform leaderParent, unitsParent;
-    public List<Defender> units;
-    public Defender leader;
+    [Header("Ranged Squads Only:")]
     public bool shouldRetreatWhenEnemyNear;
     public bool isRangedUnit;
-    
-    public List<Attacker> attackersInRange;
+    public int shootRange;
 
+    [HideInInspector] public Defender leader;
+    [HideInInspector] public List<Defender> units;
+    [HideInInspector] public List<Attacker> attackersNearby;
+
+    [HideInInspector] public Transform leaderParent;
+    [HideInInspector] public Transform unitsParent;
     [HideInInspector] public AttackerSpawner myLaneSpawner;
+    [HideInInspector] public RangeCollider rangeCollider;
 
     // Squads with a max of 3 units (plus the leader)
     Vector2[] threeLeaderPositions = { new Vector2(-0.15f, 0) };
@@ -32,7 +37,8 @@ public class Squad : MonoBehaviour
         leaderParent = transform.GetChild(0);
         unitsParent = transform.GetChild(1);
         units = new List<Defender>();
-        attackersInRange = new List<Attacker>();
+        attackersNearby = new List<Attacker>();
+        rangeCollider = GetComponentInChildren<RangeCollider>();
 
         SetLaneSpawner();
 
@@ -111,7 +117,9 @@ public class Squad : MonoBehaviour
         }
 
         GetComponent<BoxCollider2D>().enabled = false;
-        attackersInRange.Clear();
+        attackersNearby.Clear();
+        if (rangeCollider != null)
+            rangeCollider.attackersInRange.Clear();
 
         // Run back to the castle
         if (leader != null)
@@ -131,7 +139,7 @@ public class Squad : MonoBehaviour
                 Retreat();
             else
             {
-                attackersInRange.Add(attacker);
+                attackersNearby.Add(attacker);
                 attacker.currentTargetsSquad = this;
 
                 int totalDefendersAttackingAttacker = 0;
@@ -196,8 +204,8 @@ public class Squad : MonoBehaviour
     {
         if (collision.TryGetComponent<Attacker>(out Attacker attacker))
         {
-            if (attackersInRange.Contains(attacker))
-                attackersInRange.Remove(attacker);
+            if (attackersNearby.Contains(attacker))
+                attackersNearby.Remove(attacker);
 
             if (attacker.currentTargetsSquad = this)
                 attacker.currentTargetsSquad = null;

@@ -117,8 +117,11 @@ public class Attacker : MonoBehaviour
         if (attacker.currentDefenderAttacking != null)
         {
             // Remove the dead attacker from the attackersInRange list
-            if (attacker.currentDefenderAttacking.squad.attackersInRange.Contains(attacker))
-                attacker.currentDefenderAttacking.squad.attackersInRange.Remove(attacker);
+            if (attacker.currentDefenderAttacking.squad.attackersNearby.Contains(attacker))
+                attacker.currentDefenderAttacking.squad.attackersNearby.Remove(attacker);
+
+            if (attacker.currentDefenderAttacking.squad.rangeCollider != null && attacker.currentDefenderAttacking.squad.rangeCollider.attackersInRange.Contains(attacker))
+                attacker.currentDefenderAttacking.squad.rangeCollider.attackersInRange.Remove(attacker);
 
             foreach (Defender opponent in attacker.opponents)
             {
@@ -128,7 +131,7 @@ public class Attacker : MonoBehaviour
             }
 
             // Find new target if possible (for the defender that killed this attacker)
-            if (attacker.currentDefenderAttacking.squad.attackersInRange.Count > 0)
+            if (attacker.currentDefenderAttacking.squad.attackersNearby.Count > 0)
             {
                 foreach (Defender opponent in attacker.opponents)
                 {
@@ -146,8 +149,11 @@ public class Attacker : MonoBehaviour
             foreach (Defender opponent in attacker.opponents)
             {
                 // Remove the dead attacker from the attackersInRange list
-                if (opponent.squad.attackersInRange.Contains(attacker))
-                    opponent.squad.attackersInRange.Remove(attacker);
+                if (opponent.squad.attackersNearby.Contains(attacker))
+                    opponent.squad.attackersNearby.Remove(attacker);
+
+                if (opponent.squad.rangeCollider != null && opponent.squad.rangeCollider.attackersInRange.Contains(attacker))
+                    opponent.squad.rangeCollider.attackersInRange.Remove(attacker);
 
                 opponent.targetAttacker = null;
                 opponent.targetAttackersHealth = null;
@@ -157,7 +163,7 @@ public class Attacker : MonoBehaviour
             foreach (Defender opponent in attacker.opponents)
             {
                 // Find a new target for each defender that was fighting the attacker that died
-                if (opponent.squad.attackersInRange.Count > 0)
+                if (opponent.squad.attackersNearby.Count > 0)
                     FindNewRandomTargetForDefender(opponent);
                 else
                 {
@@ -171,16 +177,16 @@ public class Attacker : MonoBehaviour
 
     void FindNewRandomTargetForDefender(Defender theDefender)
     {
-        if (theDefender.squad.attackersInRange.Count > 0)
+        if (theDefender.squad.attackersNearby.Count > 0)
         {
-            int randomTargetIndex = Random.Range(0, theDefender.squad.attackersInRange.Count);
-            if (randomTargetIndex >= theDefender.squad.attackersInRange.Count && randomTargetIndex > 0)
-                randomTargetIndex = theDefender.squad.attackersInRange.Count - 1;
+            int randomTargetIndex = Random.Range(0, theDefender.squad.attackersNearby.Count);
+            if (randomTargetIndex >= theDefender.squad.attackersNearby.Count && randomTargetIndex > 0)
+                randomTargetIndex = theDefender.squad.attackersNearby.Count - 1;
 
-            theDefender.targetAttacker = theDefender.squad.attackersInRange[randomTargetIndex];
-            theDefender.targetAttackersHealth = theDefender.squad.attackersInRange[randomTargetIndex].health;
-            if (theDefender.squad.attackersInRange[randomTargetIndex].opponents.Contains(theDefender) == false)
-                theDefender.squad.attackersInRange[randomTargetIndex].opponents.Add(theDefender);
+            theDefender.targetAttacker = theDefender.squad.attackersNearby[randomTargetIndex];
+            theDefender.targetAttackersHealth = theDefender.squad.attackersNearby[randomTargetIndex].health;
+            if (theDefender.squad.attackersNearby[randomTargetIndex].opponents.Contains(theDefender) == false)
+                theDefender.squad.attackersNearby[randomTargetIndex].opponents.Add(theDefender);
         }
     }
 }

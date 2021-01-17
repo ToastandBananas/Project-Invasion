@@ -51,7 +51,7 @@ public class Defender : MonoBehaviour
     {
         while (health.isDead == false && isRetreating == false)
         {
-            if (squad.attackersInRange.Count == 0 || (targetAttacker == null && Vector2.Distance(transform.localPosition, unitPosition) > 0.025f))
+            if (squad.attackersNearby.Count == 0 || (targetAttacker == null && Vector2.Distance(transform.localPosition, unitPosition) > 0.025f))
                 MoveUnitIntoPosition();
             else if (targetAttacker != null)
                 MoveTowardsAttacker();
@@ -197,7 +197,7 @@ public class Defender : MonoBehaviour
             defender.squad.leader = null;
         }
 
-        foreach (Attacker attacker in defender.squad.attackersInRange) // For each attacker in range of the defender who died...
+        foreach (Attacker attacker in defender.squad.attackersNearby) // For each attacker in range of the defender who died...
         {
             Defender theCurrentDefenderBeingAttacked = attacker.currentDefenderAttacking;
 

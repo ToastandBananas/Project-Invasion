@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
-    [SerializeField] Projectile projectile;
     [SerializeField] GameObject gun;
 
     public GameObject projectilePrefab;
@@ -43,7 +42,7 @@ public class Shooter : MonoBehaviour
 
     void FixedUpdate()
     {
-        if (defender.isRetreating == false && IsAttackerInLane())
+        if (defender.isRetreating == false && defender.squad.rangeCollider.attackersInRange.Count > 0 && defender.squad.attackersNearby.Count == 0)
         {
             if (anim.GetBool("isShooting") == false)
                 StartCoroutine(StartShooting());
@@ -67,10 +66,12 @@ public class Shooter : MonoBehaviour
         newProjectile.transform.rotation = transform.rotation;
         newProjectile.myShooter = this;
 
-        randomIndex = Random.Range(0, defender.squad.myLaneSpawner.transform.childCount);
-        if (defender.squad.myLaneSpawner.transform.childCount > randomIndex)
+        // randomIndex = Random.Range(0, defender.squad.myLaneSpawner.transform.childCount);
+        randomIndex = Random.Range(0, defender.squad.rangeCollider.attackersInRange.Count);
+        // if (defender.squad.myLaneSpawner.transform.childCount > randomIndex)
+        if (defender.squad.rangeCollider.attackersInRange.Count > randomIndex)
         {
-            newProjectile.targetTransform = defender.squad.myLaneSpawner.transform.GetChild(randomIndex).transform;
+            newProjectile.targetTransform = defender.squad.rangeCollider.attackersInRange[randomIndex].transform;
             StartCoroutine(newProjectile.ShootProjectile());
         }
         else
