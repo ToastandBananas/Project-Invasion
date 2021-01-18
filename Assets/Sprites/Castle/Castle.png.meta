@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b190763cb035cd54aacdc3ec801300ef
+guid: 3c38088553fbe8b4bbfb3d6dd0724d7d
 TextureImporter:
   internalIDToNameTable:
   - first:
@@ -20,6 +20,12 @@ TextureImporter:
   - first:
       213: -5260175630729947354
     second: Castle_5
+  - first:
+      213: -6935640475148911074
+    second: Castle_6
+  - first:
+      213: 4606979011566258888
+    second: Castle_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -185,8 +191,8 @@ TextureImporter:
       name: Castle_3
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
+        x: 144
+        y: 48
         width: 48
         height: 48
       alignment: 0
@@ -206,7 +212,7 @@ TextureImporter:
       name: Castle_4
       rect:
         serializedVersion: 2
-        x: 48
+        x: 0
         y: 0
         width: 48
         height: 48
@@ -227,7 +233,7 @@ TextureImporter:
       name: Castle_5
       rect:
         serializedVersion: 2
-        x: 96
+        x: 48
         y: 0
         width: 48
         height: 48
@@ -240,6 +246,48 @@ TextureImporter:
       bones: []
       spriteID: 627dc2a222a1007b0800000000000000
       internalID: -5260175630729947354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Castle_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1e7de40cb7afbf90800000000000000
+      internalID: -6935640475148911074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Castle_7
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 0
+        width: 48
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ca461090074fef30800000000000000
+      internalID: 4606979011566258888
       vertices: []
       indices: 
       edges: []
