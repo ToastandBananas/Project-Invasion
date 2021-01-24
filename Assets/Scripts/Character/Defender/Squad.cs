@@ -6,9 +6,11 @@ public class Squad : MonoBehaviour
     [Header("Squad Cost")]
     [SerializeField] int goldCost = 100;
 
-    // Does not count the leader, unless it's a squad size of One
-    enum MaxSquadSize { Sixteen, Fifteen, Twelve, Nine, Eight, Seven, Five, Four, Three, Two, One }
-    [Header("Squad Size")][SerializeField] MaxSquadSize maxSquadSize;
+    int maxUnitCount;
+    enum SquadFormation { Line, StaggeredLine, Wedge, Scattered }
+    [Header("Squad Formation")][SerializeField] SquadFormation squadFormation;
+    //enum MaxSquadSize { Sixteen, Fifteen, Twelve, Nine, Eight, Seven, Five, Four, Three, Two, One }
+    //[Header("Squad Size")][SerializeField] MaxSquadSize maxSquadSize;
 
     [Header("Ranged Squads Only:")]
     public bool shouldRetreatWhenEnemyNear;
@@ -24,13 +26,20 @@ public class Squad : MonoBehaviour
     [HideInInspector] public AttackerSpawner myLaneSpawner;
     [HideInInspector] public RangeCollider rangeCollider;
 
-    // Squads with a max of 3 units (plus the leader)
-    Vector2[] threeLeaderPositions = { new Vector2(-0.15f, 0) };
-    Vector2[] threeUnitPositions = { new Vector2(0.05f, 0f), new Vector2(0f, 0.25f), new Vector2(0f, -0.25f) };
+    #region Formation Positions
+    // Line formation positions:
+    // 3 units
+    Vector2[] leaderPositions_Line_Three = { new Vector2(-0.15f, 0) };
+    Vector2[] unitPositions_Line_Three   = { new Vector2(0.05f, 0f), new Vector2(0.05f, 0.25f), new Vector2(0f, -0.25f) };
+    // 4 units
+    Vector2[] leaderPositions_Line_Four = { new Vector2(-0.15f, 0) };
+    Vector2[] unitPositions_Line_Four   = { new Vector2(0.05f, 0.1f), new Vector2(0.05f, -0.1f), new Vector2(0.05f, 0.3f), new Vector2(0.05f, -0.3f) };
 
-    // Squads with a max of 4 units (plus the leader)
-    Vector2[] fourLeaderPositions = { new Vector2(-0.15f, 0) };
-    Vector2[] fourUnitPositions   = { new Vector2(0.05f, 0.1f), new Vector2(0.05f, -0.1f), new Vector2(0.05f, 0.3f), new Vector2(0.05f, -0.3f) };
+    // Wedge formation positions:
+    // 3 units
+    Vector2[] leaderPositions_Wedge_Three = { new Vector2(-0.15f, 0) };
+    Vector2[] unitPositions_Wedge_Three   = { new Vector2(0.05f, 0f), new Vector2(0f, 0.25f), new Vector2(0f, -0.25f) };
+    #endregion
 
     void Start()
     {
@@ -48,6 +57,8 @@ public class Squad : MonoBehaviour
             units.Add(unitsParent.GetChild(i).GetComponent<Defender>());
         }
 
+        maxUnitCount = units.Count;
+
         AssignUnitPositions();
         AssignLeaderPosition();
     }
@@ -59,19 +70,24 @@ public class Squad : MonoBehaviour
 
     public void AssignUnitPositions()
     {
-        if (maxSquadSize == MaxSquadSize.Three)
+        if (squadFormation == SquadFormation.Line)
         {
-            for (int i = 0; i < units.Count; i++)
-            {
-                units[i].unitPosition = threeUnitPositions[i];
-            }
+            if (maxUnitCount == 3) AssignPositions(unitPositions_Line_Three);
+            else if (maxUnitCount == 4) AssignPositions(unitPositions_Line_Four);
+            else Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
         }
-        else if (maxSquadSize == MaxSquadSize.Four)
+        else if (squadFormation == SquadFormation.StaggeredLine)
         {
-            for (int i = 0; i < units.Count; i++)
-            {
-                units[i].unitPosition = fourUnitPositions[i];
-            }
+            Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+        }
+        else if (squadFormation == SquadFormation.Wedge)
+        {
+            if (maxUnitCount == 3) AssignPositions(unitPositions_Wedge_Three);
+            else Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+        }
+        else if (squadFormation == SquadFormation.Scattered)
+        {
+            Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
         }
     }
 
@@ -79,10 +95,33 @@ public class Squad : MonoBehaviour
     {
         if (leader != null)
         {
-            if (maxSquadSize == MaxSquadSize.Three)
-                leader.unitPosition = threeLeaderPositions[0];
-            else if (maxSquadSize == MaxSquadSize.Four)
-                leader.unitPosition = fourLeaderPositions[0];
+            if (squadFormation == SquadFormation.Line)
+            {
+                if (maxUnitCount == 3) leader.unitPosition = leaderPositions_Line_Three[0];
+                if (maxUnitCount == 4) leader.unitPosition = leaderPositions_Line_Four[0];
+                else Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+            }
+            else if (squadFormation == SquadFormation.StaggeredLine)
+            {
+                Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+            }
+            else if (squadFormation == SquadFormation.Wedge)
+            {
+                if (maxUnitCount == 3) leader.unitPosition = leaderPositions_Wedge_Three[0];
+                else Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+            }
+            else if (squadFormation == SquadFormation.Scattered)
+            {
+                Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+            }
+        }
+    }
+
+    void AssignPositions(Vector2[] formationPositionsArray)
+    {
+        for (int i = 0; i < units.Count; i++)
+        {
+            units[i].unitPosition = formationPositionsArray[i];
         }
     }
 
