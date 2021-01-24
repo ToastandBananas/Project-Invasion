@@ -11,7 +11,10 @@ public class CastleCollider : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        castleHealth.TakeHealth(1f);
-        Destroy(otherCollider.gameObject);
+        if (otherCollider.GetComponent<Attacker>())
+        {
+            castleHealth.TakeHealth(1f);
+            Destroy(otherCollider.gameObject);
+        }
     }
 }

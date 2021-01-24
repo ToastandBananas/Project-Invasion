@@ -65,10 +65,8 @@ public class Shooter : MonoBehaviour
         newProjectile.transform.position = gun.transform.position;
         newProjectile.transform.rotation = transform.rotation;
         newProjectile.myShooter = this;
-
-        // randomIndex = Random.Range(0, defender.squad.myLaneSpawner.transform.childCount);
+        
         randomIndex = Random.Range(0, defender.squad.rangeCollider.attackersInRange.Count);
-        // if (defender.squad.myLaneSpawner.transform.childCount > randomIndex)
         if (defender.squad.rangeCollider.attackersInRange.Count > randomIndex)
         {
             newProjectile.targetTransform = defender.squad.rangeCollider.attackersInRange[randomIndex].transform;
@@ -78,11 +76,11 @@ public class Shooter : MonoBehaviour
             newProjectile.Deactivate();
     }
 
-    bool IsAttackerInLane()
+    /*bool IsAttackerInLane()
     {
         if (defender.squad.myLaneSpawner.transform.childCount <= 0)
             return false;
         else
             return true;
-    }
+    }*/
 }

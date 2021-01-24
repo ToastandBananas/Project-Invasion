@@ -88,7 +88,7 @@ public class Defender : MonoBehaviour
             else if (transform.position.x <= 0.25f && transform.position.y > 3.1f)
                 transform.Translate(Vector2.down * currentSpeed * 2 * Time.deltaTime);
 
-            if (transform.position.x <= -1.25f)
+            if (transform.position.x <= -2.25f)
             {
                 Destroy(squad.gameObject); // Destroy the squad
                 break;

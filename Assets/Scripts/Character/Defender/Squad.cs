@@ -51,7 +51,8 @@ public class Squad : MonoBehaviour
 
         SetLaneSpawner();
 
-        leader = leaderParent.GetChild(0).GetComponent<Defender>();
+        if (leaderParent.childCount > 0)
+            leader = leaderParent.GetChild(0).GetComponent<Defender>();
         for (int i = 0; i < unitsParent.childCount; i++)
         {
             units.Add(unitsParent.GetChild(i).GetComponent<Defender>());

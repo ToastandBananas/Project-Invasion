@@ -54,8 +54,8 @@ public class Projectile : MonoBehaviour
         if (random > myShooter.accuracy)
         {
             float offsetXFromMiss, offsetYFromMiss;
-            offsetXFromMiss = Random.Range(0.2f, 0.75f);
-            offsetYFromMiss = Random.Range(0.2f, 0.75f);
+            offsetXFromMiss = Random.Range(0.1f, 0.4f);
+            offsetYFromMiss = Random.Range(0.1f, 0.4f);
 
             // Randomize whether the offsets will be negative or positive values
             int randomX, randomY;
@@ -94,7 +94,8 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Attacker attacker = collision.GetComponent<Attacker>();
+
+        collision.TryGetComponent<Attacker>(out Attacker attacker);
         if (attacker && attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner)
         {
             Health health = collision.GetComponent<Health>();
@@ -131,7 +132,7 @@ public class Projectile : MonoBehaviour
         boxCollider.enabled = true;
 
         sr.sprite = defaultSprite;
-        sr.sortingOrder = 6;
+        sr.sortingOrder = 7;
 
         gameObject.SetActive(false);
     }
