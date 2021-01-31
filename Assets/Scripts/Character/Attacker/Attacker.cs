@@ -6,6 +6,7 @@ public class Attacker : MonoBehaviour
 {
     [SerializeField] float attackDamage = 10f;
     public float minAttackDistance = 0.115f;
+    public float runSpeed = 0.5f;
     float currentSpeed = 1f;
 
     public bool isLarge = false;
@@ -56,6 +57,16 @@ public class Attacker : MonoBehaviour
     public void SetMovementSpeed(float speed)
     {
         currentSpeed = speed;
+    }
+
+    public void StopMoving()
+    {
+        SetMovementSpeed(0f);
+    }
+
+    public void SetRunSpeed()
+    {
+        SetMovementSpeed(runSpeed);
     }
 
     public void MoveTowardsTarget()

@@ -175,10 +175,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196f04268b983b64d8dbb8adb663fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackDamage: 10
+  minAttackDistance: 0.115
+  runSpeed: 0.25
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
-  minAttackDistance: 0.115
   unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
   targetAttackersHealth: {fileID: 0}

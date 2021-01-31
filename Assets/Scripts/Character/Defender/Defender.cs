@@ -5,6 +5,7 @@ public class Defender : MonoBehaviour
 {
     [SerializeField] float attackDamage = 10f;
     public float minAttackDistance = 0.115f;
+    public float runSpeed = 0.5f;
     float currentSpeed = 0f;
 
     public bool isAttacking = false;
@@ -147,6 +148,16 @@ public class Defender : MonoBehaviour
         currentSpeed = speed;
         if (currentSpeed == 0 && transform.localScale.x != 1 && isAttacking == false)
             transform.localScale = new Vector2(1, 1);
+    }
+
+    public void StopMoving()
+    {
+        SetMovementSpeed(0f);
+    }
+
+    public void SetRunSpeed()
+    {
+        SetMovementSpeed(runSpeed);
     }
 
     public void Attack()

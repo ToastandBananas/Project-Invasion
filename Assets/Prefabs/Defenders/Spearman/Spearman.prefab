@@ -209,6 +209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 15
   minAttackDistance: 0.15
+  runSpeed: 0.25
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
