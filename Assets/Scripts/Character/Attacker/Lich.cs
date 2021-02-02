@@ -28,9 +28,4 @@ public class Lich : MonoBehaviour
     {
 
     }
-
-    public void ShootFireball()
-    {
-        // Put this in own script? AttackerShooter?
-    }
 }

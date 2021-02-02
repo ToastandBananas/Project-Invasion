@@ -20,6 +20,7 @@ public class Attacker : MonoBehaviour
 
     [HideInInspector] public AttackerSpawner myAttackerSpawner;
     [HideInInspector] public Health health;
+    [HideInInspector] public RangeCollider rangeCollider;
 
     Animator anim;
 
@@ -27,6 +28,7 @@ public class Attacker : MonoBehaviour
     {
         opponents = new List<Defender>();
         health = GetComponent<Health>();
+        rangeCollider = GetComponentInChildren<RangeCollider>();
         anim = GetComponent<Animator>();
 
         StartCoroutine(Movement());

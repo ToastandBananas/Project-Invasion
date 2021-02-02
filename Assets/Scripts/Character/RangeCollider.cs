@@ -4,28 +4,41 @@ using UnityEngine;
 public class RangeCollider : MonoBehaviour
 {
     public List<Attacker> attackersInRange = new List<Attacker>();
+    public List<Defender> defendersInRange = new List<Defender>();
 
+    Attacker attacker;
     Squad squad;
 
     void Start()
     {
+        attacker = transform.parent.GetComponent<Attacker>();
         squad = transform.parent.GetComponent<Squad>();
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Attacker>(out Attacker attacker))
+        if (squad != null && collision.TryGetComponent<Attacker>(out Attacker enemyAttacker))
         {
-            attackersInRange.Add(attacker);
+            attackersInRange.Add(enemyAttacker);
+        }
+        else if (collision.TryGetComponent<Defender>(out Defender enemyDefender))
+        {
+            if (attacker.myAttackerSpawner == enemyDefender.squad.myLaneSpawner)
+                defendersInRange.Add(enemyDefender);
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Attacker>(out Attacker attacker))
+        if (squad != null && collision.TryGetComponent<Attacker>(out Attacker enemyAttacker))
         {
-            if (attackersInRange.Contains(attacker))
-                attackersInRange.Remove(attacker);
+            if (attackersInRange.Contains(enemyAttacker))
+                attackersInRange.Remove(enemyAttacker);
+        }
+        else if (collision.TryGetComponent<Defender>(out Defender enemyDefender))
+        {
+            if (defendersInRange.Contains(enemyDefender))
+                defendersInRange.Remove(enemyDefender);
         }
     }
 }

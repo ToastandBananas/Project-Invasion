@@ -237,63 +237,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   archerLevel: 1
---- !u!1001 &61058652061370713
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 2042778729883364664, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_Name
-      value: Lich
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042778729883364671, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_RootOrder
-      value: 16
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042778729883364671, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042778729883364671, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042778729883364671, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042778729883364671, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042778729883364671, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042778729883364671, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042778729883364671, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042778729883364671, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042778729883364671, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2042778729883364671, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
 --- !u!114 &396454116422083486
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -914,24 +857,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
       propertyPath: attackerCountsWave1.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
       propertyPath: attackerPrefabsWave1.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
+      propertyPath: attackerCountsWave1.Array.data[0]
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
       propertyPath: attackerCountsWave1.Array.data[1]
-      value: 10
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
+      propertyPath: attackerCountsWave1.Array.data[2]
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
       propertyPath: attackerPrefabsWave1.Array.data[0]
       value: 
-      objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+      objectReference: {fileID: 2042778729883364668, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
     - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
       propertyPath: attackerPrefabsWave1.Array.data[1]
       value: 
       objectReference: {fileID: 5197312948701978234, guid: 604d2014944f09a4fbb650f5f1a18e7d, type: 3}
+    - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
+      propertyPath: attackerPrefabsWave1.Array.data[2]
+      value: 
+      objectReference: {fileID: 2042778729883364668, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
 --- !u!1 &1807769460869404290
@@ -1480,6 +1435,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackersInRange: []
+  defendersInRange: []
 --- !u!1001 &4748816188774015022
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1938,8 +1894,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b26245d63fd4d349897dca7a8f0c7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 1872056865747746792}
   projectilePrefab: {fileID: 2907018548143264321, guid: 030021fc88bb4814488664fc77012d66, type: 3}
+  attacker: {fileID: 0}
   defender: {fileID: 0}
   accuracy: 50
 --- !u!1001 &6548055886901381917
@@ -2060,8 +2016,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b26245d63fd4d349897dca7a8f0c7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 2046089091113149547}
   projectilePrefab: {fileID: 2907018548143264321, guid: 030021fc88bb4814488664fc77012d66, type: 3}
+  attacker: {fileID: 0}
   defender: {fileID: 0}
   accuracy: 50
 --- !u!1 &7184939361318425672
@@ -2182,6 +2138,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8050003295884613793, guid: ca56e0e2c7b77104c9c6ce6a74eedc7d, type: 3}
+      propertyPath: amountToPool
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca56e0e2c7b77104c9c6ce6a74eedc7d, type: 3}
 --- !u!4 &7687782693144336199
@@ -2281,8 +2241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b26245d63fd4d349897dca7a8f0c7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gun: {fileID: 3708060122773798355}
   projectilePrefab: {fileID: 2907018548143264321, guid: 030021fc88bb4814488664fc77012d66, type: 3}
+  attacker: {fileID: 0}
   defender: {fileID: 0}
   accuracy: 50
 --- !u!114 &8841276047446544478

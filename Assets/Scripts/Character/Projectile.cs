@@ -21,7 +21,8 @@ public class Projectile : MonoBehaviour
     public Transform targetTransform;
 
     [HideInInspector] public Shooter myShooter;
-    
+
+    Animator anim;
     SpriteRenderer sr;
     BoxCollider2D boxCollider;
 
@@ -31,6 +32,7 @@ public class Projectile : MonoBehaviour
 
     void Awake()
     {
+        anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
     }
@@ -86,7 +88,8 @@ public class Projectile : MonoBehaviour
             transform.position = nextPos;
 
             // Do something when we reach the target
-            if (nextPos == targetTransform.position + offset && gameObject.activeInHierarchy) StartCoroutine(Arrived());
+            if (nextPos == targetTransform.position + offset && gameObject.activeInHierarchy)
+                StartCoroutine(Arrived());
 
             yield return null;
         }
@@ -94,20 +97,17 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-
         collision.TryGetComponent<Attacker>(out Attacker attacker);
-        if (attacker && attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner)
+        collision.TryGetComponent<Defender>(out Defender defender);
+
+        if ((attacker != null && myShooter.defender != null && attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner)
+            || (defender != null && myShooter.attacker != null && defender.squad.myLaneSpawner == myShooter.attacker.myAttackerSpawner))
         {
             Health health = collision.GetComponent<Health>();
 
-            if (health)
-            {
-                // Reduce health
-                health.DealDamage(damage);
-                moveProjectile = false;
-                Deactivate();
-            }
+            if (health != null) StartCoroutine(HitTarget(health));
         }
+
     }
 
     IEnumerator Arrived()
@@ -120,10 +120,28 @@ public class Projectile : MonoBehaviour
             sr.sprite = groundedSprite;
             sr.sortingOrder = 2;
             transform.localScale = new Vector2(0.9f, 0.9f);
-
-            yield return new WaitForSeconds(10f);
-            Deactivate();
         }
+
+        if (anim != null)
+            anim.SetBool("hitTarget", true);
+
+        yield return new WaitForSeconds(10f);
+        Deactivate();
+    }
+
+    IEnumerator HitTarget(Health health)
+    {
+        // Reduce health
+        health.DealDamage(damage);
+        moveProjectile = false;
+
+        if (anim != null)
+        {
+            anim.SetBool("hitTarget", true);
+            yield return new WaitForSeconds(1f);
+        }
+
+        Deactivate();
     }
 
     public void Deactivate()
@@ -133,6 +151,13 @@ public class Projectile : MonoBehaviour
 
         sr.sprite = defaultSprite;
         sr.sortingOrder = 7;
+
+        if (anim != null)
+        {
+            anim.SetBool("hitTarget", false);
+            anim.Rebind();
+            anim.Update(0f);
+        }
 
         gameObject.SetActive(false);
     }
