@@ -10,9 +10,19 @@ public class LevelController : MonoBehaviour
     [SerializeField] int maxWaves = 5;
     public float waveDelay = 10f;
 
-    int numberOfAttackers = 0;
+    public int numberOfAttackers = 0;
+
     AudioSource audioSource;
     AttackerSpawner[] attackerSpawners;
+
+    #region Singleton
+    public static LevelController instance;
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+    }
+    #endregion
 
     void Start()
     {

@@ -100,8 +100,9 @@ public class Projectile : MonoBehaviour
         collision.TryGetComponent<Attacker>(out Attacker attacker);
         collision.TryGetComponent<Defender>(out Defender defender);
 
-        if ((attacker != null && myShooter.defender != null && attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner)
-            || (defender != null && myShooter.attacker != null && defender.squad.myLaneSpawner == myShooter.attacker.myAttackerSpawner))
+        if (gameObject.activeInHierarchy 
+            && ((attacker != null && myShooter.defender != null && attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner)
+            || (defender != null && myShooter.attacker != null && defender.squad.myLaneSpawner == myShooter.attacker.myAttackerSpawner)))
         {
             Health health = collision.GetComponent<Health>();
 

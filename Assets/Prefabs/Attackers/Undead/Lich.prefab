@@ -159,6 +159,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d22f23cd5f447146b0c68e7ba995f85, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  skeleton: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+  skeletonWarrior: {fileID: 5197312948701978234, guid: 604d2014944f09a4fbb650f5f1a18e7d, type: 3}
+  delayMin: 10
+  delayMax: 20
 --- !u!114 &8106335024500493336
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -52,7 +52,7 @@ public class AttackerSpawner : MonoBehaviour
 
     IEnumerator Start()
     {
-        levelController = FindObjectOfType<LevelController>();
+        levelController = LevelController.instance;
 
         SetSpawnDelays();
 
