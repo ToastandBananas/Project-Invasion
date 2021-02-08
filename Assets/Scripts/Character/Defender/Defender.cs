@@ -52,10 +52,13 @@ public class Defender : MonoBehaviour
     {
         while (health.isDead == false && isRetreating == false)
         {
-            if (squad.attackersNearby.Count == 0 || (targetAttacker == null && Vector2.Distance(transform.localPosition, unitPosition) > 0.025f))
-                MoveUnitIntoPosition();
-            else if (targetAttacker != null)
-                MoveTowardsAttacker();
+            if (squad.squadPlaced)
+            {
+                if (squad.attackersNearby.Count == 0 || (targetAttacker == null && Vector2.Distance(transform.localPosition, unitPosition) > 0.025f))
+                    MoveUnitIntoPosition();
+                else if (targetAttacker != null)
+                    MoveTowardsAttacker();
+            }
 
             yield return null;
         }

@@ -119,8 +119,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackDamage: 50
+  castleAttackDamage: 5
   minAttackDistance: 0.125
-  runSpeed: 0.25
+  runSpeed: 0.3
+  isAttackingCastle: 0
   isLarge: 0
   isAttacking: 0
   maxOpponents: 2
@@ -144,9 +146,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 3480619949053003782, guid: 9aa59a9ceb66ed147961e6baec8167dc, type: 3}
+  isShootingCastle: 0
   attacker: {fileID: 0}
   defender: {fileID: 0}
   accuracy: 100
+  shootDamage: 10
 --- !u!114 &4833348797080558139
 MonoBehaviour:
   m_ObjectHideFlags: 0

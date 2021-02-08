@@ -6,21 +6,26 @@ public class Shooter : MonoBehaviour
     public GameObject projectilePrefab;
     ObjectPool projectileObjectPool;
 
+    [HideInInspector] public bool isShootingCastle;
+
     [HideInInspector] public Attacker attacker;
     [HideInInspector] public Defender defender;
 
     [Range(0f, 100f)] public float accuracy = 100f;
+    public float shootDamage = 10f;
 
     const string PROJECTILES_PARENT_NAME = "Projectiles";
     Transform projectilesParent;
 
     GameObject gun;
     Animator anim;
+    CastleCollider castleCollider;
     int randomIndex;
 
     void Start()
     {
         anim = GetComponent<Animator>();
+        castleCollider = CastleCollider.instance;
         attacker = GetComponent<Attacker>();
         defender = GetComponent<Defender>();
 
@@ -43,8 +48,8 @@ public class Shooter : MonoBehaviour
 
     void FixedUpdate()
     {
-        if ((defender != null && defender.isRetreating == false && defender.squad.rangeCollider.attackersInRange.Count > 0 && defender.squad.attackersNearby.Count == 0)
-            || (attacker != null && attacker.rangeCollider.defendersInRange.Count > 0))
+        if ((defender != null && defender.squad.squadPlaced && defender.isRetreating == false && defender.squad.rangeCollider.attackersInRange.Count > 0 && defender.squad.attackersNearby.Count == 0)
+            || (attacker != null && (attacker.rangeCollider.defendersInRange.Count > 0 || isShootingCastle)))
         {
             if (anim.GetBool("isShooting") == false)
                 StartCoroutine(StartShooting());
@@ -67,7 +72,7 @@ public class Shooter : MonoBehaviour
         newProjectile.transform.position = gun.transform.position;
         newProjectile.transform.rotation = transform.rotation;
         newProjectile.myShooter = this;
-
+        
         if (defender != null)
             randomIndex = Random.Range(0, defender.squad.rangeCollider.attackersInRange.Count);
         else if (attacker != null)
@@ -75,12 +80,17 @@ public class Shooter : MonoBehaviour
 
         if (defender != null && defender.squad.rangeCollider.attackersInRange.Count > randomIndex)
         {
-            newProjectile.targetTransform = defender.squad.rangeCollider.attackersInRange[randomIndex].transform;
+            newProjectile.targetPos = defender.squad.rangeCollider.attackersInRange[randomIndex].transform.position;
             StartCoroutine(newProjectile.ShootProjectile());
         }
         else if (attacker != null && attacker.rangeCollider.defendersInRange.Count > randomIndex)
         {
-            newProjectile.targetTransform = attacker.rangeCollider.defendersInRange[randomIndex].transform;
+            newProjectile.targetPos = attacker.rangeCollider.defendersInRange[randomIndex].transform.position;
+            StartCoroutine(newProjectile.ShootProjectile());
+        }
+        else if (isShootingCastle)
+        {
+            newProjectile.targetPos = new Vector3(Random.Range(-0.2f, 0f), transform.position.y);
             StartCoroutine(newProjectile.ShootProjectile());
         }
         else

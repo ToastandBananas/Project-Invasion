@@ -115,9 +115,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d50838625fd1747af4a0c585ac3685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 50
+  attackDamage: 10
+  castleAttackDamage: 5
   minAttackDistance: 0.125
   runSpeed: 0.4
+  isAttackingCastle: 0
   isLarge: 0
   isAttacking: 0
   maxOpponents: 2
@@ -127,6 +129,7 @@ MonoBehaviour:
   currentTargetsSquad: {fileID: 0}
   myAttackerSpawner: {fileID: 0}
   health: {fileID: 0}
+  rangeCollider: {fileID: 0}
 --- !u!114 &345231622400987563
 MonoBehaviour:
   m_ObjectHideFlags: 0

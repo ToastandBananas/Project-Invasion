@@ -4,12 +4,14 @@ using UnityEngine;
 public class DefenderSpawner : MonoBehaviour
 {
     Defender defender;
-    Squad squad;
+    [HideInInspector] public Squad squad;
+    [HideInInspector] public Squad ghostImageSquad;
     GameObject defendersParent;
     const string DEFENDERS_PARENT_NAME = "Defenders";
 
     CurrencyDisplay currencyDisplay;
     List<Vector2> gridCellsOccupied;
+    Vector2 mouseHoverTilePos;
 
     #region Singleton
     public static DefenderSpawner instance;
@@ -33,18 +35,53 @@ public class DefenderSpawner : MonoBehaviour
         gridCellsOccupied = new List<Vector2>();
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(1))
+            ClearSelectedSquad();
+
+        // Keep ghost image of squad at mouse position
+        if (ghostImageSquad != null)
+        {
+            mouseHoverTilePos = GetSquareClicked();
+            if (IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x >= 0.5f && mouseHoverTilePos.x <= 7.5f && mouseHoverTilePos.y >= 0.5f && mouseHoverTilePos.y <= 5.5f)
+            {
+                ghostImageSquad.transform.position = SnapToGrid(mouseHoverTilePos);
+                ghostImageSquad.SetLaneSpawner();
+            }
+            else
+            {
+                Vector2 hoverPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                hoverPos = Camera.main.ScreenToWorldPoint(hoverPos);
+                ghostImageSquad.transform.position = hoverPos;
+            }
+        }
+    }
+
     void OnMouseDown()
     {
         SpawnSquad(GetSquareClicked());
     }
 
-    public void SetSelectedSquad (Squad squadToSelect)
+    public void SetSelectedSquad(Squad squadToSelect)
     {
-        // defender = defenderToSelect;
         squad = squadToSelect;
+
+        // Instantiate the squad
+        ghostImageSquad = Instantiate(squad, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
     }
 
-    void AttemptToPlaceDefenderAt(Vector2 gridPos)
+    public void ClearSelectedSquad()
+    {
+        squad = null;
+        if (ghostImageSquad != null)
+        {
+            Destroy(ghostImageSquad.gameObject);
+            ghostImageSquad = null;
+        }
+    }
+
+    /*void AttemptToPlaceDefenderAt(Vector2 gridPos)
     {
         int squadGoldCost = squad.GetGoldCost();
 
@@ -54,7 +91,7 @@ public class DefenderSpawner : MonoBehaviour
             SpawnSquad(gridPos);
             currencyDisplay.SpendGold(squadGoldCost);
         }
-    }
+    }*/
 
     Vector2 GetSquareClicked()
     {
@@ -73,11 +110,34 @@ public class DefenderSpawner : MonoBehaviour
 
     void SpawnSquad(Vector2 coordinates)
     {
-        if (!squad)
+        if (!ghostImageSquad)
         {
             return;
         }
         else if (!IsCellOccupied(coordinates))
+        {
+            if (currencyDisplay.HaveEnoughGold(squad.GetGoldCost()))
+            {
+                ghostImageSquad.squadPlaced = true;
+                ghostImageSquad.leader.GetComponentInChildren<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+                ghostImageSquad.leader.GetComponent<BoxCollider2D>().enabled = true;
+                for (int i = 0; i < ghostImageSquad.units.Count; i++)
+                {
+                    ghostImageSquad.units[i].GetComponentInChildren<SpriteRenderer>().color = new Color(1f, 1f, 1f, 1f);
+                    ghostImageSquad.units[i].GetComponent<BoxCollider2D>().enabled = true;
+                }
+
+                AddCell(coordinates);
+
+                currencyDisplay.SpendGold(ghostImageSquad.GetGoldCost());
+                ghostImageSquad.transform.SetParent(defendersParent.transform);
+                ghostImageSquad.GetComponent<BoxCollider2D>().enabled = true;
+
+                // Create a new ghost image squad in case the player wants to spawn another of the same squad
+                ghostImageSquad = Instantiate(squad, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+            }
+        }
+        /*else if (!IsCellOccupied(coordinates))
         {
             if (currencyDisplay.HaveEnoughGold(squad.GetGoldCost()))
             {
@@ -87,7 +147,7 @@ public class DefenderSpawner : MonoBehaviour
                 Squad newSquad = Instantiate(squad, SnapToGrid(coordinates), Quaternion.identity);
                 newSquad.transform.SetParent(defendersParent.transform);
             }
-        }
+        }*/
     }
 
     public bool IsCellOccupied(Vector2 gridPosition)

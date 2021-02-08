@@ -21,7 +21,11 @@ public class DefenderButton : MonoBehaviour
         EventSystem.current.SetSelectedGameObject(null);
 
         // Debug.Log("You clicked on " + transform.parent.name);
-        defenderSpawner.SetSelectedSquad(squadPrefab);
+        if (squadPrefab != defenderSpawner.squad && defenderSpawner.ghostImageSquad != null)
+            Destroy(defenderSpawner.ghostImageSquad.gameObject);
+
+        if (squadPrefab != defenderSpawner.squad)
+            defenderSpawner.SetSelectedSquad(squadPrefab);
     }
 
     void SetCost()

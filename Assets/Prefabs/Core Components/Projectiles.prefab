@@ -90,7 +90,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 3480619949053003782, guid: 9aa59a9ceb66ed147961e6baec8167dc, type: 3}
-  amountToPool: 10
+  amountToPool: 2
   pooledObjects: []
 --- !u!1 &7599516821781681348
 GameObject:

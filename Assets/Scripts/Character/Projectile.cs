@@ -8,8 +8,8 @@ public class Projectile : MonoBehaviour
     [Tooltip("The sprite that will be used when the projectile hits the ground")]
     public Sprite groundedSprite;
 
-    [Tooltip("Damage of the projectile")]
-    [SerializeField] float damage = 10f;
+    //[Tooltip("Damage of the projectile")]
+    //[SerializeField] float damage = 10f;
 
     [Tooltip("Horizontal speed, in units/sec")]
     public float speed = 5f;
@@ -18,7 +18,7 @@ public class Projectile : MonoBehaviour
     public float arcMultiplier = 0.1f;
 
     [Tooltip("Position we want to hit")]
-    public Transform targetTransform;
+    public Vector3 targetPos;
 
     [HideInInspector] public Shooter myShooter;
 
@@ -46,7 +46,7 @@ public class Projectile : MonoBehaviour
         startPos = transform.position;
 
         x0 = startPos.x;
-        x1 = targetTransform.position.x;
+        x1 = targetPos.x;
         dist = x1 - x0;
         arcHeight = dist * arcMultiplier;
 
@@ -76,10 +76,10 @@ public class Projectile : MonoBehaviour
         {
             // Compute the next position, with arc added in
             x0 = startPos.x;
-            x1 = targetTransform.position.x + offset.x;
+            x1 = targetPos.x + offset.x;
             dist = x1 - x0;
             nextX = Mathf.MoveTowards(transform.position.x, x1, speed * Time.deltaTime);
-            baseY = Mathf.Lerp(startPos.y, targetTransform.position.y + offset.y, (nextX - x0) / dist);
+            baseY = Mathf.Lerp(startPos.y, targetPos.y + offset.y, (nextX - x0) / dist);
             arc = arcHeight * (nextX - x0) * (nextX - x1) / (-0.25f * dist * dist);
             nextPos = new Vector3(nextX, baseY + arc, transform.position.z);
 
@@ -88,7 +88,7 @@ public class Projectile : MonoBehaviour
             transform.position = nextPos;
 
             // Do something when we reach the target
-            if (nextPos == targetTransform.position + offset && gameObject.activeInHierarchy)
+            if (nextPos == targetPos + offset && gameObject.activeInHierarchy)
                 StartCoroutine(Arrived());
 
             yield return null;
@@ -100,13 +100,21 @@ public class Projectile : MonoBehaviour
         collision.TryGetComponent<Attacker>(out Attacker attacker);
         collision.TryGetComponent<Defender>(out Defender defender);
 
-        if (gameObject.activeInHierarchy 
-            && ((attacker != null && myShooter.defender != null && attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner)
-            || (defender != null && myShooter.attacker != null && defender.squad.myLaneSpawner == myShooter.attacker.myAttackerSpawner)))
+        if (gameObject.activeInHierarchy)
         {
-            Health health = collision.GetComponent<Health>();
+            if ((attacker != null && myShooter.defender != null && attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner)
+                || (defender != null && myShooter.attacker != null && defender.squad.myLaneSpawner == myShooter.attacker.myAttackerSpawner))
+            {
+                Health health = collision.GetComponent<Health>();
 
-            if (health != null) StartCoroutine(HitTarget(health));
+                if (health != null) StartCoroutine(HitTarget(health));
+            }
+            else
+            {
+                collision.TryGetComponent<CastleCollider>(out CastleCollider castleCollider);
+                if (castleCollider != null)
+                    CastleHealth.instance.TakeHealth(myShooter.attacker.castleAttackDamage);
+            }
         }
 
     }
@@ -133,7 +141,7 @@ public class Projectile : MonoBehaviour
     IEnumerator HitTarget(Health health)
     {
         // Reduce health
-        health.DealDamage(damage);
+        health.DealDamage(myShooter.shootDamage);
         moveProjectile = false;
 
         if (anim != null)

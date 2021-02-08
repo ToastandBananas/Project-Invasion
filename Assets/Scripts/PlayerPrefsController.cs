@@ -38,6 +38,13 @@ public class PlayerPrefsController : MonoBehaviour
 
     public static float GetDifficulty()
     {
-        return PlayerPrefs.GetFloat(DIFFICULTY_KEY);
+        if (PlayerPrefs.GetFloat(DIFFICULTY_KEY) == 0f)
+            return 1f;
+        else if (PlayerPrefs.GetFloat(DIFFICULTY_KEY) == 1f)
+            return 0.75f;
+        else
+            return 0.5f;
+
+        // return PlayerPrefs.GetFloat(DIFFICULTY_KEY);
     }
 }

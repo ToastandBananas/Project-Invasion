@@ -17,6 +17,7 @@ public class Squad : MonoBehaviour
     public bool isRangedUnit;
     public int shootRange;
 
+    [HideInInspector] public bool squadPlaced;
     [HideInInspector] public Defender leader;
     [HideInInspector] public List<Defender> units;
     [HideInInspector] public List<Attacker> attackersNearby;
@@ -49,8 +50,6 @@ public class Squad : MonoBehaviour
         attackersNearby = new List<Attacker>();
         rangeCollider = GetComponentInChildren<RangeCollider>();
 
-        SetLaneSpawner();
-
         if (leaderParent.childCount > 0)
             leader = leaderParent.GetChild(0).GetComponent<Defender>();
         for (int i = 0; i < unitsParent.childCount; i++)
@@ -75,20 +74,20 @@ public class Squad : MonoBehaviour
         {
             if (maxUnitCount == 3) AssignPositions(unitPositions_Line_Three);
             else if (maxUnitCount == 4) AssignPositions(unitPositions_Line_Four);
-            else Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+            else LogFormationError();
         }
         else if (squadFormation == SquadFormation.StaggeredLine)
         {
-            Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+            LogFormationError();
         }
         else if (squadFormation == SquadFormation.Wedge)
         {
             if (maxUnitCount == 3) AssignPositions(unitPositions_Wedge_Three);
-            else Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+            else LogFormationError();
         }
         else if (squadFormation == SquadFormation.Scattered)
         {
-            Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+            LogFormationError();
         }
     }
 
@@ -100,20 +99,20 @@ public class Squad : MonoBehaviour
             {
                 if (maxUnitCount == 3) leader.unitPosition = leaderPositions_Line_Three[0];
                 if (maxUnitCount == 4) leader.unitPosition = leaderPositions_Line_Four[0];
-                else Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+                else LogFormationError();
             }
             else if (squadFormation == SquadFormation.StaggeredLine)
             {
-                Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+                LogFormationError();
             }
             else if (squadFormation == SquadFormation.Wedge)
             {
                 if (maxUnitCount == 3) leader.unitPosition = leaderPositions_Wedge_Three[0];
-                else Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+                else LogFormationError();
             }
             else if (squadFormation == SquadFormation.Scattered)
             {
-                Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+                LogFormationError();
             }
         }
     }
@@ -126,7 +125,12 @@ public class Squad : MonoBehaviour
         }
     }
 
-    void SetLaneSpawner()
+    void LogFormationError()
+    {
+        Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+    }
+
+    public void SetLaneSpawner()
     {
         AttackerSpawner[] attackerSpawners = FindObjectsOfType<AttackerSpawner>();
 
@@ -141,6 +145,7 @@ public class Squad : MonoBehaviour
     public void Retreat()
     {
         // Retreat all units (likely because the squad leader died)
+        DefenderSpawner.instance.RemoveCell(transform.position);
 
         // First clear out current target data for attackers who are attacking this squad
         for (int i = 0; i < myLaneSpawner.transform.childCount; i++)

@@ -3,17 +3,28 @@ using UnityEngine.UI;
 
 public class CastleHealth : MonoBehaviour
 {
-    [SerializeField] float baseHealth = 3;
+    [SerializeField] float baseHealth = 100f;
     [SerializeField] float health;
     Text healthText;
     LevelController levelController;
 
+    #region Singleton
+    public static CastleHealth instance;
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
+    #endregion
+
     void Start()
     {
-        health = baseHealth - PlayerPrefsController.GetDifficulty();
+        health = baseHealth * PlayerPrefsController.GetDifficulty();
 
         healthText = GetComponent<Text>();
-        levelController = FindObjectOfType<LevelController>();
+        levelController = LevelController.instance;
         UpdateDisplay();
     }
 
@@ -29,5 +40,10 @@ public class CastleHealth : MonoBehaviour
 
         if (health <= 0)
             levelController.HandleLoseCondition(); // Load lose screen
+    }
+
+    public float GetHealth()
+    {
+        return health;
     }
 }

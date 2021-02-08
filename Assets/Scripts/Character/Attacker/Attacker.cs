@@ -5,10 +5,12 @@ using UnityEngine;
 public class Attacker : MonoBehaviour
 {
     [SerializeField] float attackDamage = 10f;
+    [HideInInspector] public float castleAttackDamage = 5f;
     public float minAttackDistance = 0.115f;
     public float runSpeed = 0.5f;
     float currentSpeed = 1f;
 
+    [HideInInspector] public bool isAttackingCastle;
     public bool isLarge = false;
     public bool isAttacking = false;
     public int maxOpponents = 2;
@@ -23,6 +25,7 @@ public class Attacker : MonoBehaviour
     [HideInInspector] public RangeCollider rangeCollider;
 
     Animator anim;
+    CastleHealth castleHealth;
 
     void Start()
     {
@@ -30,6 +33,7 @@ public class Attacker : MonoBehaviour
         health = GetComponent<Health>();
         rangeCollider = GetComponentInChildren<RangeCollider>();
         anim = GetComponent<Animator>();
+        castleHealth = CastleHealth.instance;
 
         StartCoroutine(Movement());
     }
@@ -43,9 +47,9 @@ public class Attacker : MonoBehaviour
     {
         while (health.isDead == false)
         {
-            if (currentDefenderAttacking != null && Vector2.Distance(transform.position, currentDefenderAttacking.transform.position) > minAttackDistance && isAttacking == false)
+            if (currentDefenderAttacking != null && Vector2.Distance(transform.position, currentDefenderAttacking.transform.position) > minAttackDistance && isAttacking == false && isAttackingCastle == false)
                 MoveTowardsTarget();
-            else if (currentDefenderAttacking == null)
+            else if (currentDefenderAttacking == null && isAttackingCastle == false)
             {
                 transform.Translate(Vector2.left * currentSpeed * Time.deltaTime);
                 if (transform.localScale.x != 1)
@@ -84,45 +88,56 @@ public class Attacker : MonoBehaviour
     {
         isAttacking = true;
         anim.SetBool("isAttacking", true);
-        currentTargetsHealth = currentDefenderAttacking.health;
+        if (currentDefenderAttacking != null)
+            currentTargetsHealth = currentDefenderAttacking.health;
     }
 
     public void StopAttacking()
     {
         isAttacking = false;
+        isAttackingCastle = false;
         anim.SetBool("isAttacking", false);
     }
 
     public void StrikeCurrentTarget()
     {
-        if (currentDefenderAttacking == null) return;
+        if (currentDefenderAttacking == null && isAttackingCastle == false) return;
 
-        if (transform.position.x <= currentDefenderAttacking.transform.position.x)
-            transform.localScale = new Vector2(-1, 1);
-        else
-            transform.localScale = new Vector2(1, 1);
-
-        if (currentTargetsHealth != null)
+        if (currentDefenderAttacking != null)
         {
-            if (currentTargetsHealth.isDead)
+            if (transform.position.x <= currentDefenderAttacking.transform.position.x)
+                transform.localScale = new Vector2(-1, 1);
+            else
+                transform.localScale = new Vector2(1, 1);
+
+            if (currentTargetsHealth != null)
             {
-                opponents.Remove(currentDefenderAttacking);
-                currentTargetsHealth = null;
-                currentDefenderAttacking = null;
-                return;
+                if (currentTargetsHealth.isDead)
+                {
+                    opponents.Remove(currentDefenderAttacking);
+                    currentTargetsHealth = null;
+                    currentDefenderAttacking = null;
+                    return;
+                }
+
+                currentTargetsHealth.DealDamage(attackDamage);
             }
-                
-            currentTargetsHealth.DealDamage(attackDamage);
+        }
+        else if (isAttackingCastle)
+        {
+            castleHealth.TakeHealth(castleAttackDamage);
+            if (castleHealth.GetHealth() <= 0f)
+            {
+                StopAttacking();
+                CastleCollider.instance.enabled = false;
+            }
         }
     }
 
     void UpdateAnimationState()
     {
-        if (currentDefenderAttacking == null)
-        {
-            isAttacking = false;
-            anim.SetBool("isAttacking", false);
-        }
+        if (currentDefenderAttacking == null && isAttackingCastle == false)
+            StopAttacking();
     }
 
     public void FindNewTargetForDefenders(Attacker attacker)

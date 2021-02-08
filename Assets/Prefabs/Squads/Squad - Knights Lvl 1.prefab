@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 5053783063992260404}
   - component: {fileID: 5053783063992260407}
   m_Layer: 0
-  m_Name: Squad - Knights
+  m_Name: Squad - Knights Lvl 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -72,7 +72,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5053783063992260406}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -104,13 +104,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldCost: 100
-  maxSquadSize: 7
+  squadFormation: 0
+  shouldRetreatWhenEnemyNear: 0
+  isRangedUnit: 0
+  shootRange: 0
+  leader: {fileID: 0}
+  units: []
+  attackersNearby: []
   leaderParent: {fileID: 0}
   unitsParent: {fileID: 0}
-  units: []
-  leader: {fileID: 0}
-  isRangedSquad: 0
-  attackersInRange: []
+  myLaneSpawner: {fileID: 0}
+  rangeCollider: {fileID: 0}
 --- !u!1 &5053783065360583369
 GameObject:
   m_ObjectHideFlags: 0
