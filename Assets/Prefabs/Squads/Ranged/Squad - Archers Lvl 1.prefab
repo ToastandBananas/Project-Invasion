@@ -75,9 +75,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldCost: 200
   squadFormation: 2
+  castleWallVersionOfSquad: {fileID: 5993080609283387823, guid: 4e0209b586b82de45b29e048d2c5900d, type: 3}
   shouldRetreatWhenEnemyNear: 1
   isRangedUnit: 1
+  isCastleWallUnit: 0
   shootRange: 4
+  squadPlaced: 0
   leader: {fileID: 0}
   units: []
   attackersNearby: []
@@ -221,6 +224,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackersInRange: []
   defendersInRange: []
+  collider: {fileID: 0}
 --- !u!1001 &1431254732309238708
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -271,6 +275,10 @@ PrefabInstance:
     - target: {fileID: 144239302258781342, guid: 69b6d8ae18dd41643ba676809a92419d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224363278732917246, guid: 69b6d8ae18dd41643ba676809a92419d, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8100531867594960502, guid: 69b6d8ae18dd41643ba676809a92419d, type: 3}
       propertyPath: m_Name
@@ -334,6 +342,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224363278732917246, guid: 69b6d8ae18dd41643ba676809a92419d, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8100531867594960502, guid: 69b6d8ae18dd41643ba676809a92419d, type: 3}
       propertyPath: m_Name
       value: Archer (2)
@@ -396,6 +408,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 224363278732917246, guid: 69b6d8ae18dd41643ba676809a92419d, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8100531867594960502, guid: 69b6d8ae18dd41643ba676809a92419d, type: 3}
       propertyPath: m_Name
       value: Archer (0)
@@ -457,6 +473,10 @@ PrefabInstance:
     - target: {fileID: 1636650770992272091, guid: 7d0f827317e040143a2e40a774d2f45a, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1705708549613651899, guid: 7d0f827317e040143a2e40a774d2f45a, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 7267722404329115699, guid: 7d0f827317e040143a2e40a774d2f45a, type: 3}
       propertyPath: m_Name

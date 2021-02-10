@@ -18,6 +18,7 @@ public class Projectile : MonoBehaviour
     public float arcMultiplier = 0.1f;
 
     [Tooltip("Position we want to hit")]
+    public Transform target;
     public Vector3 targetPos;
 
     [HideInInspector] public Shooter myShooter;
@@ -74,6 +75,9 @@ public class Projectile : MonoBehaviour
 
         while (moveProjectile)
         {
+            if (target != null)
+                targetPos = target.position;
+
             // Compute the next position, with arc added in
             x0 = startPos.x;
             x1 = targetPos.x + offset.x;
@@ -102,14 +106,14 @@ public class Projectile : MonoBehaviour
 
         if (gameObject.activeInHierarchy)
         {
-            if ((attacker != null && myShooter.defender != null && attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner)
-                || (defender != null && myShooter.attacker != null && defender.squad.myLaneSpawner == myShooter.attacker.myAttackerSpawner))
+            if ((attacker != null && myShooter.defender != null && (attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner || myShooter.defender.squad.isCastleWallUnit)) // If shooting an attacker
+                || (defender != null && myShooter.attacker != null && defender.squad.myLaneSpawner == myShooter.attacker.myAttackerSpawner)) // If shooting a defender
             {
                 Health health = collision.GetComponent<Health>();
 
                 if (health != null) StartCoroutine(HitTarget(health));
             }
-            else
+            else if (myShooter.attacker != null) // If this is an attacker
             {
                 collision.TryGetComponent<CastleCollider>(out CastleCollider castleCollider);
                 if (castleCollider != null)

@@ -6,6 +6,17 @@ public class CurrencyDisplay : MonoBehaviour
     [SerializeField] int gold = 100;
     Text currencyText;
 
+    #region Singleton
+    public static CurrencyDisplay instance;
+    void Awake()
+    {
+        if (instance == null)
+            instance = this;
+        else
+            Destroy(gameObject);
+    }
+    #endregion
+
     void Start()
     {
         currencyText = GetComponent<Text>();

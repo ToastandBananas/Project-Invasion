@@ -390,11 +390,35 @@ PrefabInstance:
       objectReference: {fileID: 4304900082513925076, guid: 7bfbb6ab7ac421f428d2ce9545758e3a, type: 3}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: maxSpawnDelayWave1
-      value: 2
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: minSpawnDelayWave1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: minSpawnDelayWave2
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: maxSpawnPointsWave1
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: maxSpawnPointsWave2
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: maxSpawnPointsWave3
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: maxSpawnPointsWave4
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: maxSpawnPointsWave5
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerCounts.Array.size
@@ -450,7 +474,7 @@ PrefabInstance:
       objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerCountsWave1.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerCountsWave2.Array.size
@@ -470,7 +494,7 @@ PrefabInstance:
       objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerPrefabsWave1.Array.size
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerPrefabsWave2.Array.size
@@ -482,11 +506,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerCountsWave1.Array.data[0]
-      value: 20
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerCountsWave1.Array.data[1]
-      value: 0
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: attackerCountsWave1.Array.data[2]
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerCountsWave2.Array.data[0]
@@ -499,11 +527,15 @@ PrefabInstance:
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerPrefabsWave1.Array.data[0]
       value: 
-      objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+      objectReference: {fileID: 2042778729883364668, guid: 3e509a99b25f97f41a1a8897ce934c59, type: 3}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerPrefabsWave1.Array.data[1]
       value: 
       objectReference: {fileID: 2238607923871026742, guid: 62f437c1c9f4e284fbfbd541f9bb2108, type: 3}
+    - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
+      propertyPath: attackerPrefabsWave1.Array.data[2]
+      value: 
+      objectReference: {fileID: 5197312948701978234, guid: 604d2014944f09a4fbb650f5f1a18e7d, type: 3}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerPrefabsWave2.Array.data[0]
       value: 

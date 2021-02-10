@@ -6,6 +6,8 @@ public class RangeCollider : MonoBehaviour
     public List<Attacker> attackersInRange = new List<Attacker>();
     public List<Defender> defendersInRange = new List<Defender>();
 
+    [HideInInspector] public BoxCollider2D collider;
+
     Attacker attacker;
     Squad squad;
 
@@ -13,6 +15,7 @@ public class RangeCollider : MonoBehaviour
     {
         attacker = transform.parent.GetComponent<Attacker>();
         squad = transform.parent.GetComponent<Squad>();
+        collider = GetComponent<BoxCollider2D>();
     }
 
     void OnTriggerEnter2D(Collider2D collision)

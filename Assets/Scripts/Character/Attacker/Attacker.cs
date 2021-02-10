@@ -4,22 +4,30 @@ using UnityEngine;
 
 public class Attacker : MonoBehaviour
 {
+    /// <summary>
+    /// For use in AttackerSpawner script (each enemy has a point value...each time a group of attackers is spawned, 
+    /// there can only be a certain amount of points used, in order to prevent too many strong enemies from spawning at one time
+    /// </summary>
+    [Header("Spawn Info")]
+    public int spawnPoints = 20;
+    public bool isLarge;
+
+    [Header("Attack/Movement Info")]
     [SerializeField] float attackDamage = 10f;
-    [HideInInspector] public float castleAttackDamage = 5f;
+    public float castleAttackDamage = 5f;
     public float minAttackDistance = 0.115f;
+    public int maxOpponents = 2;
     public float runSpeed = 0.5f;
     float currentSpeed = 1f;
 
-    [HideInInspector] public bool isAttackingCastle;
-    public bool isLarge = false;
-    public bool isAttacking = false;
-    public int maxOpponents = 2;
-
+    [Header("Opponent Info")]
     public List<Defender> opponents;
     public Defender currentDefenderAttacking;
     public Health currentTargetsHealth;
     public Squad currentTargetsSquad;
 
+    [HideInInspector] public bool isAttacking = false;
+    [HideInInspector] public bool isAttackingCastle;
     [HideInInspector] public AttackerSpawner myAttackerSpawner;
     [HideInInspector] public Health health;
     [HideInInspector] public RangeCollider rangeCollider;

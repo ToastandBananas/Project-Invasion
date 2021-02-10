@@ -8,16 +8,19 @@ public class Squad : MonoBehaviour
 
     int maxUnitCount;
     enum SquadFormation { Line, StaggeredLine, Wedge, Scattered }
-    [Header("Squad Formation")][SerializeField] SquadFormation squadFormation;
-    //enum MaxSquadSize { Sixteen, Fifteen, Twelve, Nine, Eight, Seven, Five, Four, Three, Two, One }
-    //[Header("Squad Size")][SerializeField] MaxSquadSize maxSquadSize;
+    [Header("Squad Formation")]
+    [SerializeField] SquadFormation squadFormation;
 
     [Header("Ranged Squads Only:")]
+    public Squad castleWallVersionOfSquad;
     public bool shouldRetreatWhenEnemyNear;
     public bool isRangedUnit;
+    public bool isCastleWallUnit;
     public int shootRange;
 
-    [HideInInspector] public bool squadPlaced;
+    [Header("Other")]
+    public bool squadPlaced;
+
     [HideInInspector] public Defender leader;
     [HideInInspector] public List<Defender> units;
     [HideInInspector] public List<Attacker> attackersNearby;
@@ -31,7 +34,7 @@ public class Squad : MonoBehaviour
     // Line formation positions:
     // 3 units
     Vector2[] leaderPositions_Line_Three = { new Vector2(-0.15f, 0) };
-    Vector2[] unitPositions_Line_Three   = { new Vector2(0.05f, 0f), new Vector2(0.05f, 0.25f), new Vector2(0f, -0.25f) };
+    Vector2[] unitPositions_Line_Three   = { new Vector2(0.05f, 0f), new Vector2(0.05f, 0.25f), new Vector2(0.05f, -0.25f) };
     // 4 units
     Vector2[] leaderPositions_Line_Four = { new Vector2(-0.15f, 0) };
     Vector2[] unitPositions_Line_Four   = { new Vector2(0.05f, 0.1f), new Vector2(0.05f, -0.1f), new Vector2(0.05f, 0.3f), new Vector2(0.05f, -0.3f) };
@@ -173,6 +176,16 @@ public class Squad : MonoBehaviour
         foreach (Defender unit in units)
         {
             StartCoroutine(unit.Retreat());
+        }
+    }
+
+    public void SetSortingOrder(int sortingOrder)
+    {
+        if (leader != null)
+            leader.sr.sortingOrder = sortingOrder;
+        for (int i = 0; i < units.Count; i++)
+        {
+            units[i].sr.sortingOrder = sortingOrder;
         }
     }
 

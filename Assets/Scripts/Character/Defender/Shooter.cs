@@ -80,12 +80,14 @@ public class Shooter : MonoBehaviour
 
         if (defender != null && defender.squad.rangeCollider.attackersInRange.Count > randomIndex)
         {
-            newProjectile.targetPos = defender.squad.rangeCollider.attackersInRange[randomIndex].transform.position;
+            newProjectile.target = defender.squad.rangeCollider.attackersInRange[randomIndex].transform;
+            newProjectile.targetPos = newProjectile.target.position;
             StartCoroutine(newProjectile.ShootProjectile());
         }
         else if (attacker != null && attacker.rangeCollider.defendersInRange.Count > randomIndex)
         {
-            newProjectile.targetPos = attacker.rangeCollider.defendersInRange[randomIndex].transform.position;
+            newProjectile.target = attacker.rangeCollider.defendersInRange[randomIndex].transform;
+            newProjectile.targetPos = newProjectile.target.position;
             StartCoroutine(newProjectile.ShootProjectile());
         }
         else if (isShootingCastle)

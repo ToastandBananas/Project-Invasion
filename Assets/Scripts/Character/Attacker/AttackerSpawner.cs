@@ -4,41 +4,46 @@ using UnityEngine;
 
 public class AttackerSpawner : MonoBehaviour
 {
-    float minSpawnDelay = 1f;
-    float maxSpawnDelay = 5f;
+    float minSpawnDelay, maxSpawnDelay;
+    float maxSpawnPoints;
 
     [Header("Wave 1")]
+    [SerializeField] int maxSpawnPointsWave1 = 100;
     [SerializeField] float minSpawnDelayWave1 = 1f;
     [SerializeField] float maxSpawnDelayWave1 = 5f;
     public List<Attacker> attackerPrefabsWave1 = new List<Attacker>();
     [Range(0, 250)] public List<int> attackerCountsWave1 = new List<int>();
 
     [Header("Wave 2")]
+    [SerializeField] int maxSpawnPointsWave2 = 100;
     [SerializeField] float minSpawnDelayWave2 = 1f;
     [SerializeField] float maxSpawnDelayWave2 = 5f;
     public List<Attacker> attackerPrefabsWave2 = new List<Attacker>();
     [Range(0, 250)] public List<int> attackerCountsWave2 = new List<int>();
 
     [Header("Wave 3")]
+    [SerializeField] int maxSpawnPointsWave3 = 100;
     [SerializeField] float minSpawnDelayWave3 = 1f;
     [SerializeField] float maxSpawnDelayWave3 = 5f;
     public List<Attacker> attackerPrefabsWave3 = new List<Attacker>();
     [Range(0, 250)] public List<int> attackerCountsWave3 = new List<int>();
 
     [Header("Wave 4")]
+    [SerializeField] int maxSpawnPointsWave4 = 100;
     [SerializeField] float minSpawnDelayWave4 = 1f;
     [SerializeField] float maxSpawnDelayWave4 = 5f;
     public List<Attacker> attackerPrefabsWave4 = new List<Attacker>();
     [Range(0, 250)] public List<int> attackerCountsWave4 = new List<int>();
 
     [Header("Wave 5")]
+    [SerializeField] int maxSpawnPointsWave5 = 100;
     [SerializeField] float minSpawnDelayWave5 = 1f;
     [SerializeField] float maxSpawnDelayWave5 = 5f;
     public List<Attacker> attackerPrefabsWave5 = new List<Attacker>();
     [Range(0, 250)] public List<int> attackerCountsWave5 = new List<int>();
     
-    public int totalAttackerCount = 0;
-    public bool nextWaveDelayed = false;
+    [HideInInspector] public int totalAttackerCount = 0;
+    [HideInInspector] public bool startNextWaveDelay = false;
 
     Vector3 randomSpawnOffset;
     bool spawn = true;
@@ -58,53 +63,70 @@ public class AttackerSpawner : MonoBehaviour
 
         while (spawn)
         {
-            if (nextWaveDelayed)
+            if (startNextWaveDelay)
             {
                 yield return new WaitForSeconds(levelController.waveDelay);
-                nextWaveDelayed = false;
+                startNextWaveDelay = false;
                 SetSpawnDelays();
             }
 
             yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
 
             if (levelController.waveNumber == 1)
-                SpawnAttacker(attackerPrefabsWave1, attackerCountsWave1);
+                StartCoroutine(SpawnAttackers(attackerPrefabsWave1, attackerCountsWave1));
             else if (levelController.waveNumber == 2)
-                SpawnAttacker(attackerPrefabsWave2, attackerCountsWave2);
+                StartCoroutine(SpawnAttackers(attackerPrefabsWave2, attackerCountsWave2));
             else if (levelController.waveNumber == 3)
-                SpawnAttacker(attackerPrefabsWave3, attackerCountsWave3);
+                StartCoroutine(SpawnAttackers(attackerPrefabsWave3, attackerCountsWave3));
             else if (levelController.waveNumber == 4)
-                SpawnAttacker(attackerPrefabsWave4, attackerCountsWave4);
+                StartCoroutine(SpawnAttackers(attackerPrefabsWave4, attackerCountsWave4));
             else if (levelController.waveNumber == 5)
-                SpawnAttacker(attackerPrefabsWave5, attackerCountsWave5);
+                StartCoroutine(SpawnAttackers(attackerPrefabsWave5, attackerCountsWave5));
         }
     }
 
-    void SpawnAttacker(List<Attacker> attackerPrefabsList, List<int> attackerCountsList)
+    IEnumerator SpawnAttackers(List<Attacker> attackerPrefabsList, List<int> attackerCountsList)
     {
         if (attackerPrefabsList.Count > 0)
         {
-            int randomIndex = Random.Range(0, attackerPrefabsList.Count);
-
-            // If the enemy is large (such as a boss), spawn in the center of the lane, otherwise set a random y position
-            if (attackerPrefabsList[randomIndex].isLarge == false)
-                randomSpawnOffset = new Vector3(0, Random.Range(-0.35f, 0.35f));
-            else
-                randomSpawnOffset = Vector3.zero;
-
-            Attacker newAttacker = Instantiate(attackerPrefabsList[randomIndex], transform.position + randomSpawnOffset, transform.rotation);
-            newAttacker.transform.SetParent(transform);
-            newAttacker.myAttackerSpawner = this;
-            attackerCountsList[randomIndex]--;
-
-            if (attackerCountsList[randomIndex] <= 0)
+            SetMaxSpawnPoints();
+            
+            int spawnPoints;
+            for (int i = 0; i < maxSpawnPoints; i += spawnPoints)
             {
-                attackerPrefabsList.Remove(attackerPrefabsList[randomIndex]);
-                attackerCountsList.Remove(attackerCountsList[randomIndex]);
-            }
+                // Choose a random enemy to spawn from our list of enemies for this wave
+                int randomIndex = Random.Range(0, attackerPrefabsList.Count);
 
-            if (attackerPrefabsList.Count == 0)
-                levelController.CheckIfWaveComplete();
+                // If the enemy is large (such as a boss), spawn in the center of the lane, otherwise set a random y position
+                if (attackerPrefabsList[randomIndex].isLarge == false)
+                    randomSpawnOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.35f, 0.35f));
+                else
+                    randomSpawnOffset = Vector3.zero;
+
+                // Spawn the new attacker
+                Attacker newAttacker = Instantiate(attackerPrefabsList[randomIndex], transform.position + randomSpawnOffset, transform.rotation);
+                newAttacker.transform.SetParent(transform);
+                newAttacker.myAttackerSpawner = this;
+                attackerCountsList[randomIndex]--;
+                spawnPoints = newAttacker.spawnPoints;
+
+                // If the maximum amount of this attacker has been spawned, remove it from our list of attackers for this wave
+                if (attackerCountsList[randomIndex] <= 0)
+                {
+                    attackerPrefabsList.Remove(attackerPrefabsList[randomIndex]);
+                    attackerCountsList.Remove(attackerCountsList[randomIndex]);
+                }
+
+                // If there are no more enemies in the wave, complete the wave and move to the next
+                if (attackerPrefabsList.Count == 0)
+                {
+                    levelController.CheckIfWaveComplete();
+                    yield break;
+                }
+                
+                // Wait a tiny bit so that attackers don't spawn at exactly the same time
+                yield return new WaitForSeconds(Random.Range(0f, 0.75f));
+            }
         }
     }
 
@@ -179,5 +201,19 @@ public class AttackerSpawner : MonoBehaviour
             minSpawnDelay = minSpawnDelayWave5;
             maxSpawnDelay = maxSpawnDelayWave5;
         }
+    }
+    
+    void SetMaxSpawnPoints()
+    {
+        if (levelController.waveNumber == 1)
+            maxSpawnPoints = maxSpawnPointsWave1;
+        else if (levelController.waveNumber == 2)
+            maxSpawnPoints = maxSpawnPointsWave1;
+        else if (levelController.waveNumber == 3)
+            maxSpawnPoints = maxSpawnPointsWave1;
+        else if (levelController.waveNumber == 4)
+            maxSpawnPoints = maxSpawnPointsWave1;
+        else if (levelController.waveNumber == 5)
+            maxSpawnPoints = maxSpawnPointsWave1;
     }
 }

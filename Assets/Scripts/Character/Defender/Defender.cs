@@ -19,26 +19,26 @@ public class Defender : MonoBehaviour
     public Attacker targetAttacker;
     public Health targetAttackersHealth;
 
+    public SpriteRenderer sr;
     public Squad squad;
     [HideInInspector] public Health health;
 
     CurrencyDisplay currencyDisplay;
     Animator anim;
-    SpriteRenderer sr;
 
     void Awake()
     {
         squad = transform.parent.parent.GetComponent<Squad>();
+        sr = transform.GetComponentInChildren<SpriteRenderer>();
     }
 
     void Start()
     {
         randomAttackOffsetY = Random.Range(-0.15f, 0.15f);
 
-        currencyDisplay = FindObjectOfType<CurrencyDisplay>();
+        currencyDisplay = CurrencyDisplay.instance;
         anim = GetComponent<Animator>();
         health = GetComponent<Health>();
-        sr = transform.GetComponentInChildren<SpriteRenderer>();
 
         StartCoroutine(Movement());
     }

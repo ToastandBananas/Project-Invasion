@@ -108,6 +108,7 @@ MonoBehaviour:
   shouldRetreatWhenEnemyNear: 0
   isRangedUnit: 0
   shootRange: 0
+  squadPlaced: 0
   leader: {fileID: 0}
   units: []
   attackersNearby: []
@@ -204,6 +205,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5903347010114429140, guid: 540f1c02e4bc506468c5d2caa130b201, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 540f1c02e4bc506468c5d2caa130b201, type: 3}
 --- !u!4 &8939733054701468036 stripped
@@ -221,6 +226,10 @@ PrefabInstance:
     - target: {fileID: 381804095270899302, guid: 16bafcbcea7b7094cb7f2b997a1ba724, type: 3}
       propertyPath: m_Name
       value: Knight1 (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519604517331245550, guid: 16bafcbcea7b7094cb7f2b997a1ba724, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8585794915657256078, guid: 16bafcbcea7b7094cb7f2b997a1ba724, type: 3}
       propertyPath: m_RootOrder
@@ -284,6 +293,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight1 (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 8519604517331245550, guid: 16bafcbcea7b7094cb7f2b997a1ba724, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8585794915657256078, guid: 16bafcbcea7b7094cb7f2b997a1ba724, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -346,6 +359,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Knight1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8519604517331245550, guid: 16bafcbcea7b7094cb7f2b997a1ba724, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8585794915657256078, guid: 16bafcbcea7b7094cb7f2b997a1ba724, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -407,6 +424,10 @@ PrefabInstance:
     - target: {fileID: 381804095270899302, guid: 16bafcbcea7b7094cb7f2b997a1ba724, type: 3}
       propertyPath: m_Name
       value: Knight1 (0)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8519604517331245550, guid: 16bafcbcea7b7094cb7f2b997a1ba724, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8585794915657256078, guid: 16bafcbcea7b7094cb7f2b997a1ba724, type: 3}
       propertyPath: m_RootOrder

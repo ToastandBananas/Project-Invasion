@@ -129,7 +129,7 @@ public class LevelController : MonoBehaviour
             waveNumber++;
             foreach (AttackerSpawner spawner in attackerSpawners)
             {
-                spawner.nextWaveDelayed = true;
+                spawner.startNextWaveDelay = true;
                 if (waveNumber > maxWaves)
                     spawner.StopSpawning();
             }

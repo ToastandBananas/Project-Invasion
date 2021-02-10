@@ -72,6 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackersInRange: []
   defendersInRange: []
+  collider: {fileID: 0}
 --- !u!1 &5465530739727653615
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,9 +179,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldCost: 150
   squadFormation: 0
+  castleWallVersionOfSquad: {fileID: 9176416422350433636, guid: f0938f4bb2cd03843ab8bbc5a0fbc55f, type: 3}
   shouldRetreatWhenEnemyNear: 0
   isRangedUnit: 1
+  isCastleWallUnit: 0
   shootRange: 2
+  squadPlaced: 0
   leader: {fileID: 0}
   units: []
   attackersNearby: []
@@ -273,6 +277,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 803094444214727072, guid: b6564e2fd30a3fa42aa9f9c970a3fb7f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8670253651978937896, guid: b6564e2fd30a3fa42aa9f9c970a3fb7f, type: 3}
       propertyPath: m_Name
       value: Spearman (2)
@@ -334,6 +342,10 @@ PrefabInstance:
     - target: {fileID: 736413251386909888, guid: b6564e2fd30a3fa42aa9f9c970a3fb7f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 803094444214727072, guid: b6564e2fd30a3fa42aa9f9c970a3fb7f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8670253651978937896, guid: b6564e2fd30a3fa42aa9f9c970a3fb7f, type: 3}
       propertyPath: m_Name
@@ -397,6 +409,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 803094444214727072, guid: b6564e2fd30a3fa42aa9f9c970a3fb7f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 8670253651978937896, guid: b6564e2fd30a3fa42aa9f9c970a3fb7f, type: 3}
       propertyPath: m_Name
       value: Spearman (1)
@@ -415,6 +431,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5465530739727653608}
     m_Modifications:
+    - target: {fileID: 753536011093886555, guid: 45d3b7bf5bb23a045ad540541ae3556b, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
+      objectReference: {fileID: 0}
     - target: {fileID: 822030994121675579, guid: 45d3b7bf5bb23a045ad540541ae3556b, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -520,6 +540,10 @@ PrefabInstance:
     - target: {fileID: 736413251386909888, guid: b6564e2fd30a3fa42aa9f9c970a3fb7f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 803094444214727072, guid: b6564e2fd30a3fa42aa9f9c970a3fb7f, type: 3}
+      propertyPath: m_Color.a
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 8670253651978937896, guid: b6564e2fd30a3fa42aa9f9c970a3fb7f, type: 3}
       propertyPath: m_Name
