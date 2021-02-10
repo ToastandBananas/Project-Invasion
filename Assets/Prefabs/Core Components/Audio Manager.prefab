@@ -1,0 +1,141 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4947832131471980850
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4947832131471980852}
+  - component: {fileID: 4947832131471980853}
+  m_Layer: 0
+  m_Name: Audio Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4947832131471980852
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4947832131471980850}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4947832131471980853
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4947832131471980850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 440e7f8bd0a864947ac4947eed426a1a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  masterAudioMixerGroup: {fileID: 0}
+  windSounds: []
+  defaultPickUpSounds: []
+  clothingPickUpSounds: []
+  armorPickUpSounds: []
+  sharpWeaponPickUpSounds: []
+  bluntWeaponPickUpSounds: []
+  ringPickUpSounds: []
+  goldSounds: []
+  eatFoodSounds: []
+  drinkSounds: []
+  humanMaleGruntSounds:
+  - soundName: Human Male Grunt 1
+    clip: {fileID: 8300000, guid: 3bba2c9e539a8c04faf44e00b56d705c, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  humanMaleDeathSounds:
+  - soundName: Human Male Death 1
+    clip: {fileID: 8300000, guid: deb04e766d16cbf4c99f89ea2e5f9e6b, type: 3}
+    volume: 1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  footstepsStandard: []
+  footstepsStone: []
+  chestSounds: []
+  searchBodySounds: []
+  arrowHitFleshSounds: []
+  arrowHitArmorSounds: []
+  arrowHitWallSounds: []
+  bowDrawSounds: []
+  bowReleaseSounds: []
+  swordSlashOpponentSounds:
+  - soundName: Sword Hit 1
+    clip: {fileID: 8300000, guid: 063c956152926a14ebcc83275d810bb8, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Sword Hit 2
+    clip: {fileID: 8300000, guid: e2973a2c88c4bb64392d4d6b4e7c6f0f, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Sword Hit 3
+    clip: {fileID: 8300000, guid: 86caf2fe79739bd4e9e85398a5bfca15, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Sword Hit 4
+    clip: {fileID: 8300000, guid: 9c4cecb839ef68346947c65755fc0a4d, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  swordStabOpponentSounds:
+  - soundName: Sword Stab 1
+    clip: {fileID: 8300000, guid: ae936a4419d1f7845af167803230ba36, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Sword Stab 2
+    clip: {fileID: 8300000, guid: f12f6010b29754b428310f211506ca2f, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  bluntHitFleshSounds:
+  - soundName: Blunt Hit Flesh 1
+    clip: {fileID: 8300000, guid: e664b85affa9ef54aa53e5054e2808d8, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Blunt Hit Flesh 2
+    clip: {fileID: 8300000, guid: b2e8f676a36b10d44a3b735da831fda6, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  bluntHitArmorSounds: []
