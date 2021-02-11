@@ -207,17 +207,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196f04268b983b64d8dbb8adb663fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  weaponType: 2
   attackDamage: 10
   minAttackDistance: 0.115
   runSpeed: 0.35
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
-  unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
   targetAttackersHealth: {fileID: 0}
+  sr: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
+  unitPosition: {x: 0, y: 0}
 --- !u!114 &5079731735080055768
 MonoBehaviour:
   m_ObjectHideFlags: 0

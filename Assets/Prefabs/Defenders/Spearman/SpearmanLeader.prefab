@@ -207,17 +207,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196f04268b983b64d8dbb8adb663fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  meleeWeaponType: 2
   attackDamage: 45
   minAttackDistance: 0.15
   runSpeed: 0.25
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
-  unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
   targetAttackersHealth: {fileID: 0}
+  sr: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
+  unitPosition: {x: 0, y: 0}
 --- !u!114 &7166968303109932599
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,11 +233,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2907018548143264321, guid: 7f5ff0e8ebe31d14ca5b8c0a968d9e33, type: 3}
+  rangedWeaponType: 2
+  accuracy: 75
+  shootDamage: 14
   isShootingCastle: 0
   attacker: {fileID: 0}
   defender: {fileID: 0}
-  accuracy: 75
-  shootDamage: 14
 --- !u!114 &5698976770226293885
 MonoBehaviour:
   m_ObjectHideFlags: 0

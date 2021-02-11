@@ -74,36 +74,113 @@ MonoBehaviour:
   footstepsStone: []
   chestSounds: []
   searchBodySounds: []
-  arrowHitFleshSounds: []
-  arrowHitArmorSounds: []
-  arrowHitWallSounds: []
-  bowDrawSounds: []
-  bowReleaseSounds: []
+  arrowHitOpponentSounds:
+  - soundName: Arrow Hit 1
+    clip: {fileID: 8300000, guid: 9540e2bca8137a645943ff694e78b40c, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Arrow Hit 2
+    clip: {fileID: 8300000, guid: 3373aac9de9062b46ba8b5e1feae1e57, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  arrowHitWallSounds:
+  - soundName: Arrow Hit Wall 1
+    clip: {fileID: 8300000, guid: d52d347f49883c64ead3a46cd984e26b, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Arrow Hit Wall 2
+    clip: {fileID: 8300000, guid: 5675267da86fcf24b9e10a71dff181cb, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  bowDrawSounds:
+  - soundName: Draw Bow 1
+    clip: {fileID: 8300000, guid: 343c7dec1505a384aaca9c8df2c2dc1b, type: 3}
+    volume: 1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Draw Bow 2
+    clip: {fileID: 8300000, guid: 0d80d6f8b73456d4bae2a0e2da2ba11a, type: 3}
+    volume: 1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Draw Bow 3
+    clip: {fileID: 8300000, guid: c5fcb6a1f9112524caddb047cbb8f449, type: 3}
+    volume: 1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Draw Bow 4
+    clip: {fileID: 8300000, guid: 9a5818f4dad618e4da5cbc6ac85423c2, type: 3}
+    volume: 1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  bowReleaseSounds:
+  - soundName: Bow Release 1
+    clip: {fileID: 8300000, guid: 55baed65f618f594a81d3b922ff395d2, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Bow Release 2
+    clip: {fileID: 8300000, guid: 1be5ef0ab73b0f843b76fea897840fe0, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  throwSounds:
+  - soundName: Throw 1
+    clip: {fileID: 8300000, guid: 3ff24fcbd590c364c95179bc56a0ec55, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
   swordSlashOpponentSounds:
   - soundName: Sword Hit 1
     clip: {fileID: 8300000, guid: 063c956152926a14ebcc83275d810bb8, type: 3}
-    volume: 0.1
+    volume: 0.05
     pitch: 1
     randomVolumeAddOn: 0.1
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Sword Hit 2
     clip: {fileID: 8300000, guid: e2973a2c88c4bb64392d4d6b4e7c6f0f, type: 3}
-    volume: 0.1
+    volume: 0.05
     pitch: 1
     randomVolumeAddOn: 0.1
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Sword Hit 3
     clip: {fileID: 8300000, guid: 86caf2fe79739bd4e9e85398a5bfca15, type: 3}
-    volume: 0.1
+    volume: 0.05
     pitch: 1
     randomVolumeAddOn: 0.1
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Sword Hit 4
     clip: {fileID: 8300000, guid: 9c4cecb839ef68346947c65755fc0a4d, type: 3}
-    volume: 0.1
+    volume: 0.05
     pitch: 1
     randomVolumeAddOn: 0.1
     randomPitchAddOn: 0.25
@@ -111,31 +188,44 @@ MonoBehaviour:
   swordStabOpponentSounds:
   - soundName: Sword Stab 1
     clip: {fileID: 8300000, guid: ae936a4419d1f7845af167803230ba36, type: 3}
-    volume: 0.1
+    volume: 0.05
     pitch: 1
     randomVolumeAddOn: 0.1
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Sword Stab 2
     clip: {fileID: 8300000, guid: f12f6010b29754b428310f211506ca2f, type: 3}
-    volume: 0.1
+    volume: 0.05
     pitch: 1
     randomVolumeAddOn: 0.1
     randomPitchAddOn: 0.25
     loop: 0
-  bluntHitFleshSounds:
-  - soundName: Blunt Hit Flesh 1
+  bluntHitOpponentSounds:
+  - soundName: Blunt Hit 1
     clip: {fileID: 8300000, guid: e664b85affa9ef54aa53e5054e2808d8, type: 3}
-    volume: 0.1
+    volume: 0.05
     pitch: 1
     randomVolumeAddOn: 0.1
     randomPitchAddOn: 0.25
     loop: 0
-  - soundName: Blunt Hit Flesh 2
+  - soundName: Blunt Hit 2
     clip: {fileID: 8300000, guid: b2e8f676a36b10d44a3b735da831fda6, type: 3}
-    volume: 0.1
+    volume: 0.05
     pitch: 1
     randomVolumeAddOn: 0.1
     randomPitchAddOn: 0.25
     loop: 0
-  bluntHitArmorSounds: []
+  - soundName: Blunt Hit 3
+    clip: {fileID: 8300000, guid: cef9bfc300205244597db8aa4d854408, type: 3}
+    volume: 0.05
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Blunt Hit 4
+    clip: {fileID: 8300000, guid: ce1b13db5f520a4448521a613eb53e97, type: 3}
+    volume: 0.05
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.25
+    loop: 0

@@ -6,24 +6,26 @@ public class Shooter : MonoBehaviour
     public GameObject projectilePrefab;
     ObjectPool projectileObjectPool;
 
-    [HideInInspector] public bool isShootingCastle;
-
-    [HideInInspector] public Attacker attacker;
-    [HideInInspector] public Defender defender;
-
+    public RangedWeaponType rangedWeaponType;
     [Range(0f, 100f)] public float accuracy = 100f;
     public float shootDamage = 10f;
+
+    [HideInInspector] public bool isShootingCastle;
+    [HideInInspector] public Attacker attacker;
+    [HideInInspector] public Defender defender;
 
     const string PROJECTILES_PARENT_NAME = "Projectiles";
     Transform projectilesParent;
 
     GameObject gun;
+    AudioManager audioManager;
     Animator anim;
     CastleCollider castleCollider;
     int randomIndex;
 
     void Start()
     {
+        audioManager = AudioManager.instance;
         anim = GetComponent<Animator>();
         castleCollider = CastleCollider.instance;
         attacker = GetComponent<Attacker>();
@@ -97,6 +99,11 @@ public class Shooter : MonoBehaviour
         }
         else
             newProjectile.Deactivate();
+    }
+
+    public void PlayDrawBowSound()
+    {
+        audioManager.PlayRandomSound(audioManager.bowDrawSounds);
     }
 
     /*bool IsAttackerInLane()

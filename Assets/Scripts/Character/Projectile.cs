@@ -23,6 +23,7 @@ public class Projectile : MonoBehaviour
 
     [HideInInspector] public Shooter myShooter;
 
+    AudioManager audioManager;
     Animator anim;
     SpriteRenderer sr;
     BoxCollider2D boxCollider;
@@ -33,6 +34,7 @@ public class Projectile : MonoBehaviour
 
     void Awake()
     {
+        audioManager = AudioManager.instance;
         anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
         boxCollider = GetComponent<BoxCollider2D>();
@@ -72,6 +74,8 @@ public class Projectile : MonoBehaviour
 
             offset = new Vector3(offsetXFromMiss, offsetYFromMiss);
         }
+
+        audioManager.PlayShootOrThrowSound(myShooter.rangedWeaponType);
 
         while (moveProjectile)
         {
@@ -117,10 +121,12 @@ public class Projectile : MonoBehaviour
             {
                 collision.TryGetComponent<CastleCollider>(out CastleCollider castleCollider);
                 if (castleCollider != null)
+                {
                     CastleHealth.instance.TakeHealth(myShooter.attacker.castleAttackDamage);
+                    audioManager.PlayRangedHitSound(true);
+                }
             }
         }
-
     }
 
     IEnumerator Arrived()
@@ -138,6 +144,8 @@ public class Projectile : MonoBehaviour
         if (anim != null)
             anim.SetBool("hitTarget", true);
 
+        audioManager.PlayRangedHitSound(true);
+
         yield return new WaitForSeconds(10f);
         Deactivate();
     }
@@ -147,6 +155,8 @@ public class Projectile : MonoBehaviour
         // Reduce health
         health.DealDamage(myShooter.shootDamage);
         moveProjectile = false;
+
+        audioManager.PlayRangedHitSound(false);
 
         if (anim != null)
         {

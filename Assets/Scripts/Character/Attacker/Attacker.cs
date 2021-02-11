@@ -13,6 +13,7 @@ public class Attacker : MonoBehaviour
     public bool isLarge;
 
     [Header("Attack/Movement Info")]
+    [SerializeField] MeleeWeaponType meleeWeaponType;
     [SerializeField] float attackDamage = 10f;
     public float castleAttackDamage = 5f;
     public float minAttackDistance = 0.115f;
@@ -21,7 +22,7 @@ public class Attacker : MonoBehaviour
     float currentSpeed = 1f;
 
     [Header("Opponent Info")]
-    public List<Defender> opponents;
+    public List<Defender> opponents = new List<Defender>();
     public Defender currentDefenderAttacking;
     public Health currentTargetsHealth;
     public Squad currentTargetsSquad;
@@ -32,14 +33,15 @@ public class Attacker : MonoBehaviour
     [HideInInspector] public Health health;
     [HideInInspector] public RangeCollider rangeCollider;
 
+    AudioManager audioManager;
     Animator anim;
     CastleHealth castleHealth;
 
     void Start()
     {
-        opponents = new List<Defender>();
         health = GetComponent<Health>();
         rangeCollider = GetComponentInChildren<RangeCollider>();
+        audioManager = AudioManager.instance;
         anim = GetComponent<Animator>();
         castleHealth = CastleHealth.instance;
 
@@ -140,6 +142,8 @@ public class Attacker : MonoBehaviour
                 CastleCollider.instance.enabled = false;
             }
         }
+
+        audioManager.PlayMeleeHitSound(meleeWeaponType);
     }
 
     void UpdateAnimationState()

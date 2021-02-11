@@ -3,28 +3,31 @@ using UnityEngine;
 
 public class Defender : MonoBehaviour
 {
+    [Header("Attack/Movement Info")]
+    [SerializeField] MeleeWeaponType meleeWeaponType;
     [SerializeField] float attackDamage = 10f;
     public float minAttackDistance = 0.115f;
     public float runSpeed = 0.5f;
     float currentSpeed = 0f;
 
-    public bool isAttacking = false;
-    public bool isMoving = false;
-    public bool isRetreating = false;
+    [HideInInspector] public bool isAttacking = false;
+    [HideInInspector] public bool isMoving = false;
+    [HideInInspector] public bool isRetreating = false;
+
+    [HideInInspector] public Attacker targetAttacker;
+    [HideInInspector] public Health targetAttackersHealth;
+
+    [HideInInspector] public SpriteRenderer sr;
+    [HideInInspector] public Squad squad;
+    [HideInInspector] public Health health;
 
     float randomAttackOffsetY;
     public Vector2 unitPosition;
     Vector2 currentLocalPosition;
 
-    public Attacker targetAttacker;
-    public Health targetAttackersHealth;
-
-    public SpriteRenderer sr;
-    public Squad squad;
-    [HideInInspector] public Health health;
-
-    CurrencyDisplay currencyDisplay;
+    AudioManager audioManager;
     Animator anim;
+    CurrencyDisplay currencyDisplay;
 
     void Awake()
     {
@@ -36,6 +39,7 @@ public class Defender : MonoBehaviour
     {
         randomAttackOffsetY = Random.Range(-0.15f, 0.15f);
 
+        audioManager = AudioManager.instance;
         currencyDisplay = CurrencyDisplay.instance;
         anim = GetComponent<Animator>();
         health = GetComponent<Health>();
@@ -187,6 +191,8 @@ public class Defender : MonoBehaviour
 
         if (targetAttackersHealth)
             targetAttackersHealth.DealDamage(attackDamage);
+
+        audioManager.PlayMeleeHitSound(meleeWeaponType);
     }
 
     void UpdateAnimationState()
