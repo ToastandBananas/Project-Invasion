@@ -390,11 +390,11 @@ PrefabInstance:
       objectReference: {fileID: 4304900082513925076, guid: 7bfbb6ab7ac421f428d2ce9545758e3a, type: 3}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: maxSpawnDelayWave1
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: minSpawnDelayWave1
-      value: 5
+      value: 7.5
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: minSpawnDelayWave2
@@ -510,11 +510,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerCountsWave1.Array.data[1]
-      value: 10
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerCountsWave1.Array.data[2]
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 8200955703372590280, guid: ce56189e53c34954787794b162637679, type: 3}
       propertyPath: attackerCountsWave2.Array.data[0]

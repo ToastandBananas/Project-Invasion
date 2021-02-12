@@ -233,7 +233,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2907018548143264321, guid: 7f5ff0e8ebe31d14ca5b8c0a968d9e33, type: 3}
-  rangedWeaponType: 2
+  rangedWeaponType: 3
   accuracy: 75
   shootDamage: 14
   isShootingCastle: 0

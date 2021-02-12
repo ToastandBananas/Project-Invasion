@@ -3,16 +3,16 @@ using UnityEngine;
 using UnityEngine.Audio;
 
 [System.Serializable]
-public class Sound {
-
+public class Sound
+{
     public string soundName;
     public AudioClip clip;
 
     [Range(0f, 2f)] public float volume = 1f;
-    [Range(0f, 2f)] public float pitch = 1f;
+    [Range(0f, 2f)] public float pitch  = 1f;
 
     [Range(0f, 0.25f)] public float randomVolumeAddOn = 0.25f;
-    [Range(0f, 0.25f)] public float randomPitchAddOn = 0.25f;
+    [Range(0f, 0.25f)] public float randomPitchAddOn  = 0.25f;
 
     public bool loop = false;
 
@@ -27,8 +27,8 @@ public class Sound {
 
     public void Play(Vector3 soundPosition)
     {
-        source.volume = volume * (1 + Random.Range(-randomVolumeAddOn, randomVolumeAddOn));
-        source.pitch = pitch * (1 + Random.Range(-randomPitchAddOn, randomPitchAddOn));
+        source.volume = volume * (1 + Random.Range(-randomVolumeAddOn, randomVolumeAddOn)) * PlayerPrefsController.GetMasterVolume();
+        source.pitch  = pitch * (1 + Random.Range(-randomPitchAddOn, randomPitchAddOn));
         
         source.Play();
     }
@@ -53,28 +53,8 @@ public class AudioManager : MonoBehaviour
     [Header("Ambient Sounds")]
     public Sound[] windSounds;
 
-    [Header("Inventory Sounds")]
-    public Sound[] defaultPickUpSounds;
-    public Sound[] clothingPickUpSounds;
-    public Sound[] armorPickUpSounds;
-    public Sound[] sharpWeaponPickUpSounds;
-    public Sound[] bluntWeaponPickUpSounds;
-    public Sound[] ringPickUpSounds;
-    public Sound[] goldSounds;
-    public Sound[] eatFoodSounds;
-    public Sound[] drinkSounds;
-
-    [Header("Human Sounds")]
-    public Sound[] humanMaleGruntSounds;
-    public Sound[] humanMaleDeathSounds;
-
-    [Header("Footsteps")]
-    public Sound[] footstepsStandard;
-    public Sound[] footstepsStone;
-
-    [Header("Container Sounds")]
-    public Sound[] chestSounds;
-    public Sound[] searchBodySounds;
+    [Header("Blunt Weapon Sounds")]
+    public Sound[] bluntHitOpponentSounds;
 
     [Header("Bow and Arrow Sounds")]
     public Sound[] arrowHitOpponentSounds;
@@ -82,15 +62,27 @@ public class AudioManager : MonoBehaviour
     public Sound[] bowDrawSounds;
     public Sound[] bowReleaseSounds;
 
-    [Header("Throw Sounds")]
-    public Sound[] throwSounds;
+    [Header("Fireball Sounds")]
+    public Sound[] fireballCastSounds;
+    public Sound[] fireballHitSounds;
+
+    [Header("Inventory Sounds")]
+    public Sound[] goldSounds;
+
+    [Header("Music Sounds")]
+    public Sound[] musicSounds;
+    public Sound[] victorySounds;
 
     [Header("Sword Sounds")]
     public Sound[] swordSlashOpponentSounds;
     public Sound[] swordStabOpponentSounds;
 
-    [Header("Blunt Weapon Sounds")]
-    public Sound[] bluntHitOpponentSounds;
+    [Header("Throw Sounds")]
+    public Sound[] throwSounds;
+
+    [Header("Voice Sounds")]
+    public Sound[] humanMaleDeathSounds;
+    public Sound[] humanMaleGruntSounds;
 
     void Awake()
     {
@@ -108,29 +100,21 @@ public class AudioManager : MonoBehaviour
         #endregion
 
         allSounds.Add(windSounds);
-        allSounds.Add(defaultPickUpSounds);
-        allSounds.Add(clothingPickUpSounds);
-        allSounds.Add(armorPickUpSounds);
-        allSounds.Add(sharpWeaponPickUpSounds);
-        allSounds.Add(bluntWeaponPickUpSounds);
-        allSounds.Add(ringPickUpSounds);
-        allSounds.Add(goldSounds);
-        allSounds.Add(eatFoodSounds);
-        allSounds.Add(drinkSounds);
-        allSounds.Add(humanMaleGruntSounds);
-        allSounds.Add(humanMaleDeathSounds);
-        allSounds.Add(footstepsStandard);
-        allSounds.Add(footstepsStone);
-        allSounds.Add(chestSounds);
-        allSounds.Add(searchBodySounds);
+        allSounds.Add(bluntHitOpponentSounds);
         allSounds.Add(arrowHitOpponentSounds);
         allSounds.Add(arrowHitWallSounds);
         allSounds.Add(bowDrawSounds);
         allSounds.Add(bowReleaseSounds);
-        allSounds.Add(throwSounds);
+        allSounds.Add(fireballCastSounds);
+        allSounds.Add(fireballHitSounds);
+        allSounds.Add(goldSounds);
+        allSounds.Add(musicSounds);
+        allSounds.Add(victorySounds);
         allSounds.Add(swordSlashOpponentSounds);
         allSounds.Add(swordStabOpponentSounds);
-        allSounds.Add(bluntHitOpponentSounds);
+        allSounds.Add(throwSounds);
+        allSounds.Add(humanMaleDeathSounds);
+        allSounds.Add(humanMaleGruntSounds);
     }
 
     void Start()
@@ -234,12 +218,17 @@ public class AudioManager : MonoBehaviour
             PlayRandomSound(swordStabOpponentSounds);
     }
 
-    public void PlayRangedHitSound(bool isAttackingCastle)
+    public void PlayRangedHitSound(RangedWeaponType weaponType, bool isAttackingCastle)
     {
-        if (isAttackingCastle == false)
-            PlayRandomSound(arrowHitOpponentSounds);
+        if (weaponType == RangedWeaponType.Fireball)
+            PlayRandomSound(fireballHitSounds);
         else
-            PlayRandomSound(arrowHitWallSounds);
+        {
+            if (isAttackingCastle == false)
+                PlayRandomSound(arrowHitOpponentSounds);
+            else
+                PlayRandomSound(arrowHitWallSounds);
+        }
     }
 
     public void PlayShootOrThrowSound(RangedWeaponType weaponType)
@@ -248,5 +237,7 @@ public class AudioManager : MonoBehaviour
             PlayRandomSound(bowReleaseSounds);
         else if (weaponType == RangedWeaponType.Spear)
             PlayRandomSound(throwSounds);
+        else if (weaponType == RangedWeaponType.Fireball)
+            PlayRandomSound(fireballCastSounds);
     }
 }

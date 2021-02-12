@@ -12,7 +12,7 @@ public class LevelController : MonoBehaviour
 
     public int numberOfAttackers = 0;
 
-    AudioSource audioSource;
+    AudioManager audioManager;
     AttackerSpawner[] attackerSpawners;
 
     #region Singleton
@@ -29,7 +29,7 @@ public class LevelController : MonoBehaviour
         winCanvas.SetActive(false);
         loseCanvas.SetActive(false);
 
-        audioSource = GetComponent<AudioSource>();
+        audioManager = AudioManager.instance;
 
         attackerSpawners = FindObjectsOfType<AttackerSpawner>();
         foreach (AttackerSpawner spawner in attackerSpawners)
@@ -59,8 +59,12 @@ public class LevelController : MonoBehaviour
     {
         if (winCanvas != null)
             winCanvas.SetActive(true);
-        audioSource.Play();
-        yield return new WaitForSeconds(audioSource.clip.length);
+
+        int randomIndex = Random.Range(0, audioManager.victorySounds.Length);
+        audioManager.PlaySound(audioManager.victorySounds, audioManager.victorySounds[randomIndex].soundName, Vector3.zero);
+
+        yield return new WaitForSeconds(audioManager.victorySounds[randomIndex].clip.length);
+
         FindObjectOfType<LevelLoader>().LoadNextScene();
     }
 

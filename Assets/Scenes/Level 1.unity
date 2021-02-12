@@ -2021,7 +2021,8 @@ PrefabInstance:
       propertyPath: loseCanvas
       value: 
       objectReference: {fileID: 605809202081709755}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1740122421, guid: a964105e2acb16446a09c7ff6edc48d3, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: a964105e2acb16446a09c7ff6edc48d3, type: 3}
 --- !u!114 &1272668470481251406 stripped
 MonoBehaviour:
@@ -2088,26 +2089,6 @@ PrefabInstance:
     - target: {fileID: 1577319838682253425, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
-      propertyPath: maxSpawnDelayWave1
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
-      propertyPath: minSpawnDelayWave1
-      value: 7.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
-      propertyPath: attackerCountsWave1.Array.data[0]
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
-      propertyPath: attackerCountsWave1.Array.data[1]
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 7218251830133098992, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
-      propertyPath: attackerCountsWave1.Array.data[2]
-      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f1cd024557901be4eb70e76a69a3ed9c, type: 3}
@@ -2340,6 +2321,34 @@ PrefabInstance:
     - target: {fileID: 4947832131471980852, guid: c6a6fead6daa8c64a9ca635f58805b3f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947832131471980853, guid: c6a6fead6daa8c64a9ca635f58805b3f, type: 3}
+      propertyPath: musicSounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947832131471980853, guid: c6a6fead6daa8c64a9ca635f58805b3f, type: 3}
+      propertyPath: victorySounds.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947832131471980853, guid: c6a6fead6daa8c64a9ca635f58805b3f, type: 3}
+      propertyPath: musicSounds.Array.data[1].clip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947832131471980853, guid: c6a6fead6daa8c64a9ca635f58805b3f, type: 3}
+      propertyPath: victorySounds.Array.data[0].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: bc7d944df7ff34a409d0894f390bad26, type: 3}
+    - target: {fileID: 4947832131471980853, guid: c6a6fead6daa8c64a9ca635f58805b3f, type: 3}
+      propertyPath: victorySounds.Array.data[0].pitch
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947832131471980853, guid: c6a6fead6daa8c64a9ca635f58805b3f, type: 3}
+      propertyPath: victorySounds.Array.data[0].volume
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4947832131471980853, guid: c6a6fead6daa8c64a9ca635f58805b3f, type: 3}
+      propertyPath: victorySounds.Array.data[0].soundName
+      value: Victory Song 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6a6fead6daa8c64a9ca635f58805b3f, type: 3}

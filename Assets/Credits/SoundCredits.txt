@@ -1,0 +1,13 @@
+Sound Credits:
+
+- Battle Horn by Porphyr (freesound.org/people/Porphyr/sounds/188815/) Licenced under CC BY 3.0
+- Battle Sound Effect by artisticdude (https://opengameart.org/content/battle-sound-effects) Licensed under CC-BY 3.0
+- Bow & bow2 by Hanbaal (freesound.org/people/Hanbaal/sounds/178872/)(freesound.org/people/Hanbaal/sounds/178873/) Licensed under CC0 1.0
+- Fireball Cast 1 by LiamG_SFX (https://freesound.org/people/LiamG_SFX/sounds/334234/) Licensed under CC BY 3.0
+- Fireball Explosion by HighPixel (https://freesound.org/people/HighPixel/sounds/431174/) Licensed under CC0 1.0
+- Fleshy Fight Sounds by will_leamon (https://opengameart.org/content/fleshy-fight-sounds) Licensed under OGA-BY 3.0
+- Music: Orchestral Victory Fanfare by Sheyvan (https://freesound.org/people/Sheyvan/sounds/470083/) Licenced under CC BY 3.0
+- Pickup_Gold_00, Pickup_Gold_01, Pickup_Gold_02, Pickup_Gold_03 & Pickup_Gold_04 by LittleRobotSoundFactory (freesound.org/people/LittleRobotSoundFactory/sounds/270408/)(freesound.org/people/LittleRobotSoundFactory/sounds/270407/)(https://freesound.org/people/LittleRobotSoundFactory/sounds/270406/)(freesound.org/people/LittleRobotSoundFactory/sounds/270406/)(freesound.org/people/LittleRobotSoundFactory/sounds/270410/) Licenced under CC BY 3.0
+- Red Eclipse Sounds by redeclipse (https://github.com/redeclipse/sounds) Licensed under CC BY-SA 4.0
+- RPG Sound Pack by artisticdude (opengameart.org/content/rpg-sound-pack) Licensed under CC0 1.0
+- Throwing/Whip Effect by denao270 (freesound.org/people/denao270/sounds/346373/) Licensed under CC0 1.0

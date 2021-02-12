@@ -50,6 +50,7 @@ MonoBehaviour:
   waveNumber: 1
   maxWaves: 5
   waveDelay: 10
+  numberOfAttackers: 0
 --- !u!114 &1272668471027025273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -74,7 +75,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 32d25cdd9b6f12548a4daae146bbf48b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: bc7d944df7ff34a409d0894f390bad26, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

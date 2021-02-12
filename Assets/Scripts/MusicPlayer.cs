@@ -2,11 +2,14 @@
 
 public class MusicPlayer : MonoBehaviour
 {
+    AudioManager audioManager;
     AudioSource audioSource;
 
     void Start()
     {
         DontDestroyOnLoad(this);
+        audioManager = AudioManager.instance;
+
         audioSource = GetComponent<AudioSource>();
         audioSource.volume = PlayerPrefsController.GetMasterVolume();
     }

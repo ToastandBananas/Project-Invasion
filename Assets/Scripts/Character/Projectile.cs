@@ -123,7 +123,7 @@ public class Projectile : MonoBehaviour
                 if (castleCollider != null)
                 {
                     CastleHealth.instance.TakeHealth(myShooter.attacker.castleAttackDamage);
-                    audioManager.PlayRangedHitSound(true);
+                    audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, true);
                 }
             }
         }
@@ -144,7 +144,7 @@ public class Projectile : MonoBehaviour
         if (anim != null)
             anim.SetBool("hitTarget", true);
 
-        audioManager.PlayRangedHitSound(true);
+        audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, true);
 
         yield return new WaitForSeconds(10f);
         Deactivate();
@@ -156,8 +156,9 @@ public class Projectile : MonoBehaviour
         health.DealDamage(myShooter.shootDamage);
         moveProjectile = false;
 
-        audioManager.PlayRangedHitSound(false);
+        audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, false);
 
+        // For projectiles that have an animation, such as a fireball
         if (anim != null)
         {
             anim.SetBool("hitTarget", true);

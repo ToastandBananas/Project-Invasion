@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public enum MeleeWeaponType { Blade, Blunt, Piercing }
-public enum RangedWeaponType { Bow, Crossbow, Spear }
+public enum RangedWeaponType { Bow, Crossbow, Fireball, Spear }
 
 public class GameManager : MonoBehaviour
 {
