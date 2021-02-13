@@ -251,7 +251,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 150
+  maxHealth: 150
+  currentHealth: 150
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isDead: 0
 --- !u!114 &8719776900593586640
@@ -266,4 +267,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9b8784ca5c3354aa8a831768062e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spearmanLevel: 1

@@ -6,20 +6,39 @@ public enum SquadType { Knights, Spearmen, Archers }
 
 public class GameManager : MonoBehaviour
 {
-    #region Singleton
+    [HideInInspector] public SquadData squadData;
+
+    
     public static GameManager instance;
     void Awake()
     {
+        squadData = GetComponent<SquadData>();
+
+        #region Singleton
         if (instance != null)
         {
             if (instance != this)
-                Destroy(this.gameObject);
+                Destroy(gameObject);
         }
         else
         {
             instance = this;
-            DontDestroyOnLoad(this);
+            //DontDestroyOnLoad(this);
         }
+        #endregion
+
+        LoadCurrentGame();
     }
-    #endregion
+
+    public void SaveCurrentGame()
+    {
+        squadData.SaveSquadData();
+        ES3AutoSaveMgr.Current.Save();
+    }
+
+    public void LoadCurrentGame()
+    {
+        squadData.LoadSquadData();
+        ES3AutoSaveMgr.Current.Load();
+    }
 }

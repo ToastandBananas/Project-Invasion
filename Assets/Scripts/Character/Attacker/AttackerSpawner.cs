@@ -208,12 +208,12 @@ public class AttackerSpawner : MonoBehaviour
         if (levelController.waveNumber == 1)
             maxSpawnPoints = maxSpawnPointsWave1;
         else if (levelController.waveNumber == 2)
-            maxSpawnPoints = maxSpawnPointsWave1;
+            maxSpawnPoints = maxSpawnPointsWave2;
         else if (levelController.waveNumber == 3)
-            maxSpawnPoints = maxSpawnPointsWave1;
+            maxSpawnPoints = maxSpawnPointsWave3;
         else if (levelController.waveNumber == 4)
-            maxSpawnPoints = maxSpawnPointsWave1;
+            maxSpawnPoints = maxSpawnPointsWave4;
         else if (levelController.waveNumber == 5)
-            maxSpawnPoints = maxSpawnPointsWave1;
+            maxSpawnPoints = maxSpawnPointsWave5;
     }
 }

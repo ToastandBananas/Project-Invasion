@@ -3,7 +3,8 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
-    [SerializeField] float health = 100f;
+    [SerializeField] float maxHealth = 100f;
+    [SerializeField] float currentHealth = 100f;
     [SerializeField] GameObject damageEffect;
     public bool isDead = false;
 
@@ -44,19 +45,41 @@ public class Health : MonoBehaviour
         }
     }
 
-    public void SetHealth(float newHealthAmount)
+    public void Heal(float healAmount)
     {
-        health = newHealthAmount;
+        currentHealth += healAmount;
+        if (currentHealth > maxHealth)
+            SetCurrentHealthToMaxHealth();
+    }
+
+    public void SetMaxHealth(float newMaxHealthAmount)
+    {
+        maxHealth = newMaxHealthAmount;
+    }
+
+    public float GetCurrentHealth()
+    {
+        return currentHealth;
+    }
+
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
+
+    public void SetCurrentHealthToMaxHealth()
+    {
+        currentHealth = maxHealth;
     }
 
     public void DealDamage(float damage)
     {
-        health -= damage;
+        currentHealth -= damage;
         if (damageEffect != null)
             StartCoroutine(TriggerDamageEffect());
 
         // If the character is going to die
-        if (health <= 0 && isDead == false)
+        if (currentHealth <= 0 && isDead == false)
         {
             FindNewTargetForOpponent();
             Die();

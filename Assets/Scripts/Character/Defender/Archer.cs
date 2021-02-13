@@ -5,6 +5,7 @@ public class Archer : MonoBehaviour
     Defender defenderScript;
     Shooter shooterScript;
     Health health;
+    SquadData squadData;
 
     public bool fireArrowsUnlocked;
 
@@ -13,8 +14,10 @@ public class Archer : MonoBehaviour
         defenderScript = GetComponent<Defender>();
         shooterScript = GetComponent<Shooter>();
         health = GetComponent<Health>();
+        squadData = GameManager.instance.squadData;
 
         SetArcherData();
+        health.SetCurrentHealthToMaxHealth();
     }
 
     void Update()
@@ -32,31 +35,31 @@ public class Archer : MonoBehaviour
 
     public void SetArcherData()
     {
-        defenderScript.squad.shouldRetreatWhenEnemyNear = SquadData.archerShouldRetreatWhenEnemyNear;
-        fireArrowsUnlocked = SquadData.archerFireArrowsUnlocked;
+        defenderScript.squad.shouldRetreatWhenEnemyNear = squadData.archerShouldRetreatWhenEnemyNear;
+        fireArrowsUnlocked = squadData.archerFireArrowsUnlocked;
 
         if (defenderScript.squad.leader == defenderScript)
         {
             // Leader:
-            if (SquadData.archerLeaderHealth > 0)
-                health.SetHealth(SquadData.archerLeaderHealth);
-            if (SquadData.archerLeaderMeleeDamage > 0)
-                defenderScript.SetAttackDamage(SquadData.archerLeaderMeleeDamage);
-            if (SquadData.archerLeaderRangedDamage > 0)
-                shooterScript.SetShootDamage(SquadData.archerLeaderRangedDamage);
-            if (SquadData.archerLeaderAccuracy > 0)
-                shooterScript.SetShootAccuracy(SquadData.archerLeaderAccuracy);
+            if (squadData.archerLeaderHealth > 0)
+                health.SetMaxHealth(health.GetMaxHealth() + squadData.archerLeaderHealth);
+            if (squadData.archerLeaderMeleeDamage > 0)
+                defenderScript.SetAttackDamage(defenderScript.GetAttackDamage() + squadData.archerLeaderMeleeDamage);
+            if (squadData.archerLeaderRangedDamage > 0)
+                shooterScript.SetShootDamage(shooterScript.GetShootDamage() + squadData.archerLeaderRangedDamage);
+            if (squadData.archerLeaderAccuracy > 0)
+                shooterScript.SetShootAccuracy(shooterScript.GetShootAccuracy() + squadData.archerLeaderAccuracy);
         }
         else // Unit:
         {
-            if (SquadData.archerHealth > 0)
-                health.SetHealth(SquadData.archerHealth);
-            if (SquadData.archerMeleeDamage > 0)
-                defenderScript.SetAttackDamage(SquadData.archerMeleeDamage);
-            if (SquadData.archerRangedDamage > 0)
-                shooterScript.SetShootDamage(SquadData.archerRangedDamage);
-            if (SquadData.archerAccuracy > 0)
-                shooterScript.SetShootAccuracy(SquadData.archerAccuracy);
+            if (squadData.archerHealth > 0)
+                health.SetMaxHealth(health.GetMaxHealth() + squadData.archerHealth);
+            if (squadData.archerMeleeDamage > 0)
+                defenderScript.SetAttackDamage(defenderScript.GetAttackDamage() + squadData.archerMeleeDamage);
+            if (squadData.archerRangedDamage > 0)
+                shooterScript.SetShootDamage(shooterScript.GetShootDamage() + squadData.archerRangedDamage);
+            if (squadData.archerAccuracy > 0)
+                shooterScript.SetShootAccuracy(shooterScript.GetShootAccuracy() + squadData.archerAccuracy);
         }
     }
 }

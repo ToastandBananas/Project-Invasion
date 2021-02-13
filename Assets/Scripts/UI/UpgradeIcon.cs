@@ -6,7 +6,7 @@ public class UpgradeIcon : MonoBehaviour
     [SerializeField] SquadType squadType;
 
     [Header("Standard Upgrades")]
-    [SerializeField] int goldUpgradeAmount;
+    [SerializeField] int gold;
     [SerializeField] float health, leaderHealth, meleeDamage, leaderMeleeDamage;
 
     [Header("Ranged Only Upgrades")]
@@ -17,21 +17,36 @@ public class UpgradeIcon : MonoBehaviour
     [Header("Archer Only Upgrades")]
     [SerializeField] bool fireArrowsUnlocked;
 
-    public void ApplyUpgrades()
+    [HideInInspector] public bool upgradeUnlocked;
+
+    SquadData squadData;
+
+    void Start()
     {
-        switch (squadType)
+        squadData = GameManager.instance.squadData;
+    }
+
+    public void ApplyUpgrades() // Used in LevelLoader script when going to next level after upgrading in Upgrade Menu
+    {
+        if (upgradeUnlocked == false)
         {
-            case SquadType.Knights:
-                SquadData.ApplyKnightData(goldUpgradeAmount, health, leaderHealth, meleeDamage, leaderMeleeDamage);
-                break;
-            case SquadType.Spearmen:
-                SquadData.ApplySpearmenData(goldUpgradeAmount, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy);
-                break;
-            case SquadType.Archers:
-                SquadData.ApplySpearmenData(goldUpgradeAmount, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, shouldRetreat, fireArrowsUnlocked);
-                break;
-            default:
-                break;
+            switch (squadType)
+            {
+                case SquadType.Knights:
+                    squadData.ApplyKnightData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage);
+                    break;
+                case SquadType.Spearmen:
+                    squadData.ApplySpearmenData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy);
+                    break;
+                case SquadType.Archers:
+                    squadData.ApplySpearmenData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, shouldRetreat, fireArrowsUnlocked);
+                    break;
+                default:
+                    break;
+            }
+
+            upgradeUnlocked = true;
+            GameManager.instance.SaveCurrentGame();
         }
     }
 }

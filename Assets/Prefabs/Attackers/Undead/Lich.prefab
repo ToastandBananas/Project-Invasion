@@ -182,7 +182,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 300
+  maxHealth: 300
+  currentHealth: 300
   damageEffect: {fileID: 0}
   isDead: 0
 --- !u!1 &2269888450606713270
@@ -257,7 +258,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackersInRange: []
   defendersInRange: []
-  collider: {fileID: 0}
+  boxCollider: {fileID: 0}
 --- !u!1 &3989456355417454306
 GameObject:
   m_ObjectHideFlags: 0

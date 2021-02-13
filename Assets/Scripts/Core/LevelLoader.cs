@@ -34,6 +34,11 @@ public class LevelLoader : MonoBehaviour
         SceneManager.LoadScene("Lose Screen");
     }
 
+    public void LoadUpgradeMenuScene()
+    {
+        SceneManager.LoadScene("Upgrade Menu");
+    }
+
     public void RestartScene()
     {
         Time.timeScale = 1;

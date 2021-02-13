@@ -117,6 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints: 20
   isLarge: 0
+  meleeWeaponType: 0
   attackDamage: 5
   castleAttackDamage: 5
   minAttackDistance: 0.125
@@ -155,7 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 60
+  maxHealth: 50
+  currentHealth: 50
   damageEffect: {fileID: 0}
   isDead: 0
 --- !u!1 &3752957602855261672

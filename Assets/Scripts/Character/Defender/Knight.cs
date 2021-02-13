@@ -4,13 +4,16 @@ public class Knight : MonoBehaviour
 {
     Defender defenderScript;
     Health health;
+    SquadData squadData;
 
     void Start()
     {
         defenderScript = GetComponent<Defender>();
         health = GetComponent<Health>();
+        squadData = GameManager.instance.squadData;
 
         SetKnightData();
+        health.SetCurrentHealthToMaxHealth();
     }
 
     void Update()
@@ -31,17 +34,17 @@ public class Knight : MonoBehaviour
         // Leader:
         if (defenderScript.squad.leader == defenderScript)
         {
-            if (SquadData.knightLeaderHealth > 0)
-                health.SetHealth(SquadData.knightLeaderHealth);
-            if (SquadData.knightLeaderMeleeDamage > 0)
-                defenderScript.SetAttackDamage(SquadData.knightLeaderMeleeDamage);
+            if (squadData.knightLeaderHealth > 0)
+                health.SetMaxHealth(health.GetMaxHealth() + squadData.knightLeaderHealth);
+            if (squadData.knightLeaderMeleeDamage > 0)
+                defenderScript.SetAttackDamage(defenderScript.GetAttackDamage() + squadData.knightLeaderMeleeDamage);
         }
         else // Unit:
         {
-            if (SquadData.knightHealth > 0)
-                health.SetHealth(SquadData.knightHealth);
-            if (SquadData.knightMeleeDamage > 0)
-                defenderScript.SetAttackDamage(SquadData.knightMeleeDamage);
+            if (squadData.knightHealth > 0)
+                health.SetMaxHealth(health.GetMaxHealth() + squadData.knightHealth);
+            if (squadData.knightMeleeDamage > 0)
+                defenderScript.SetAttackDamage(defenderScript.GetAttackDamage() + squadData.knightMeleeDamage);
         }
     }
 }

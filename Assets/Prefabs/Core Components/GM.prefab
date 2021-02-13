@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed44f550864ee8e458e6b50c5c162f73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  squadData: {fileID: 0}
 --- !u!114 &2299253872393943921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -56,3 +57,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144c68274cff6404986c03b51f004c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  knightSquadGoldCost: 0
+  knightHealth: 0
+  knightLeaderHealth: 0
+  knightMeleeDamage: 0
+  knightLeaderMeleeDamage: 0
+  spearmenSquadGoldCost: 0
+  spearmenHealth: 0
+  spearmenLeaderHealth: 0
+  spearmenMeleeDamage: 0
+  spearmenLeaderMeleeDamage: 0
+  spearmenRangedDamage: 0
+  spearmenLeaderRangedDamage: 0
+  spearmenAccuracy: 0
+  spearmenLeaderAccuracy: 0
+  archerSquadGoldCost: 0
+  archerHealth: 0
+  archerLeaderHealth: 0
+  archerMeleeDamage: 0
+  archerLeaderMeleeDamage: 0
+  archerRangedDamage: 0
+  archerLeaderRangedDamage: 0
+  archerAccuracy: 0
+  archerLeaderAccuracy: 0
+  archerShouldRetreatWhenEnemyNear: 0
+  archerFireArrowsUnlocked: 0
