@@ -21,11 +21,10 @@ public class Attacker : MonoBehaviour
     public float runSpeed = 0.5f;
     float currentSpeed = 1f;
 
-    [Header("Opponent Info")]
-    public List<Defender> opponents = new List<Defender>();
-    public Defender currentDefenderAttacking;
-    public Health currentTargetsHealth;
-    public Squad currentTargetsSquad;
+    [HideInInspector] public List<Defender> opponents = new List<Defender>();
+    [HideInInspector] public Defender currentDefenderAttacking;
+    [HideInInspector] public Health currentTargetsHealth;
+    [HideInInspector] public Squad currentTargetsSquad;
 
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool isAttackingCastle;

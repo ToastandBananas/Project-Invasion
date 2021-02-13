@@ -307,4 +307,14 @@ public class Defender : MonoBehaviour
             }
         }
     }
+
+    public float GetAttackDamage()
+    {
+        return attackDamage;
+    }
+
+    public void SetAttackDamage(float newAttackDamage)
+    {
+        attackDamage = newAttackDamage;
+    }
 }

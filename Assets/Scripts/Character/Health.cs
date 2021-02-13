@@ -44,6 +44,11 @@ public class Health : MonoBehaviour
         }
     }
 
+    public void SetHealth(float newHealthAmount)
+    {
+        health = newHealthAmount;
+    }
+
     public void DealDamage(float damage)
     {
         health -= damage;

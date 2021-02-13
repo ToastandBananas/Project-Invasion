@@ -2,8 +2,6 @@
 
 public class Knight : MonoBehaviour
 {
-    public int knightLevel = 1;
-
     Defender defenderScript;
     Health health;
 
@@ -11,6 +9,8 @@ public class Knight : MonoBehaviour
     {
         defenderScript = GetComponent<Defender>();
         health = GetComponent<Health>();
+
+        SetKnightData();
     }
 
     void Update()
@@ -23,6 +23,25 @@ public class Knight : MonoBehaviour
         {
             // Debug.Log(name + " is attacking " + defenderScript.targetAttacker.name);
             defenderScript.Attack();
+        }
+    }
+
+    public void SetKnightData()
+    {
+        // Leader:
+        if (defenderScript.squad.leader == defenderScript)
+        {
+            if (SquadData.knightLeaderHealth > 0)
+                health.SetHealth(SquadData.knightLeaderHealth);
+            if (SquadData.knightLeaderMeleeDamage > 0)
+                defenderScript.SetAttackDamage(SquadData.knightLeaderMeleeDamage);
+        }
+        else // Unit:
+        {
+            if (SquadData.knightHealth > 0)
+                health.SetHealth(SquadData.knightHealth);
+            if (SquadData.knightMeleeDamage > 0)
+                defenderScript.SetAttackDamage(SquadData.knightMeleeDamage);
         }
     }
 }

@@ -7,8 +7,8 @@ public class Shooter : MonoBehaviour
     ObjectPool projectileObjectPool;
 
     public RangedWeaponType rangedWeaponType;
-    [Range(0f, 100f)] public float accuracy = 100f;
-    public float shootDamage = 10f;
+    [SerializeField][Range(0f, 100f)] float accuracy = 100f;
+    [SerializeField] float shootDamage = 10f;
 
     [HideInInspector] public bool isShootingCastle;
     [HideInInspector] public Attacker attacker;
@@ -34,7 +34,7 @@ public class Shooter : MonoBehaviour
         projectilesParent = GameObject.Find(PROJECTILES_PARENT_NAME).transform;
         gun = transform.Find("Gun").gameObject;
 
-        // Find which object pool to use
+        // Find which object pool to use for this shooter's projectiles
         for (int i = 0; i < projectilesParent.childCount; i++)
         {
             if (projectilesParent.GetChild(i).TryGetComponent<ObjectPool>(out ObjectPool objPool))
@@ -101,9 +101,30 @@ public class Shooter : MonoBehaviour
             newProjectile.Deactivate();
     }
 
+    // For use as a keyframe in the shooter's animation
     public void PlayDrawBowSound()
     {
         audioManager.PlayRandomSound(audioManager.bowDrawSounds);
+    }
+
+    public float GetShootDamage()
+    {
+        return shootDamage;
+    }
+
+    public void SetShootDamage(float newDamage)
+    {
+        shootDamage = newDamage;
+    }
+
+    public float GetShootAccuracy()
+    {
+        return accuracy;
+    }
+
+    public void SetShootAccuracy(float newAccuracy)
+    {
+        accuracy = newAccuracy;
     }
 
     /*bool IsAttackerInLane()

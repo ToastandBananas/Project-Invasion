@@ -16,14 +16,14 @@ public class Squad : MonoBehaviour
     public bool shouldRetreatWhenEnemyNear;
     public bool isRangedUnit;
     public bool isCastleWallUnit;
-    public int shootRange;
+    [SerializeField] int shootRange;
 
     [Header("Other")]
     public bool squadPlaced;
 
     [HideInInspector] public Defender leader;
-    [HideInInspector] public List<Defender> units;
-    [HideInInspector] public List<Attacker> attackersNearby;
+    [HideInInspector] public List<Defender> units = new List<Defender>();
+    [HideInInspector] public List<Attacker> attackersNearby = new List<Attacker>();
 
     [HideInInspector] public Transform leaderParent;
     [HideInInspector] public Transform unitsParent;
@@ -45,13 +45,10 @@ public class Squad : MonoBehaviour
     Vector2[] unitPositions_Wedge_Three   = { new Vector2(0.05f, 0f), new Vector2(0f, 0.25f), new Vector2(0f, -0.25f) };
     #endregion
 
-    void Start()
+    void Awake()
     {
         leaderParent = transform.GetChild(0);
         unitsParent = transform.GetChild(1);
-        units = new List<Defender>();
-        attackersNearby = new List<Attacker>();
-        rangeCollider = GetComponentInChildren<RangeCollider>();
 
         if (leaderParent.childCount > 0)
             leader = leaderParent.GetChild(0).GetComponent<Defender>();
@@ -59,16 +56,16 @@ public class Squad : MonoBehaviour
         {
             units.Add(unitsParent.GetChild(i).GetComponent<Defender>());
         }
+    }
+
+    void Start()
+    {
+        rangeCollider = GetComponentInChildren<RangeCollider>();
 
         maxUnitCount = units.Count;
 
         AssignUnitPositions();
         AssignLeaderPosition();
-    }
-
-    public int GetGoldCost()
-    {
-        return goldCost;
     }
 
     public void AssignUnitPositions()
@@ -187,6 +184,26 @@ public class Squad : MonoBehaviour
         {
             units[i].sr.sortingOrder = sortingOrder;
         }
+    }
+
+    public int GetGoldCost()
+    {
+        return goldCost;
+    }
+
+    public void SetGoldCost(int newGoldCost)
+    {
+        goldCost = newGoldCost;
+    }
+
+    public int GetShootRange()
+    {
+        return shootRange;
+    }
+
+    public void SetShootRange(int newShootRange)
+    {
+        shootRange = newShootRange;
     }
 
     void OnTriggerEnter2D(Collider2D collision)
