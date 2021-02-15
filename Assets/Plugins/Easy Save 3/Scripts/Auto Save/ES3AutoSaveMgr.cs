@@ -41,7 +41,7 @@ public class ES3AutoSaveMgr : MonoBehaviour
 	public string key = System.Guid.NewGuid().ToString();
 	public SaveEvent saveEvent = SaveEvent.OnApplicationQuit;
 	public LoadEvent loadEvent = LoadEvent.Awake;
-	public ES3SerializableSettings settings = new ES3SerializableSettings("AutoSave.es3", ES3.Location.Cache);
+	public ES3SerializableSettings settings = new ES3SerializableSettings("Save.es3", ES3.Location.Cache);
 
 	public HashSet<ES3AutoSave> autoSaves = new HashSet<ES3AutoSave>();
 

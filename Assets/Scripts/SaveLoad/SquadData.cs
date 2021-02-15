@@ -59,158 +59,68 @@ public class SquadData : MonoBehaviour
     public void SaveSquadData()
     {
         // Knight Data
-        ES3.Save("knightSquadGoldCost", knightSquadGoldCost);
-        ES3.Save("knightHealth", knightHealth);
-        ES3.Save("knightLeaderHealth", knightLeaderHealth);
-        ES3.Save("knightMeleeDamage", knightMeleeDamage);
-        ES3.Save("knightLeaderMeleeDamage", knightLeaderMeleeDamage);
+        ES3.Save("knightSquadGoldCost", knightSquadGoldCost, "SquadData.es3");
+        ES3.Save("knightHealth", knightHealth, "SquadData.es3");
+        ES3.Save("knightLeaderHealth", knightLeaderHealth, "SquadData.es3");
+        ES3.Save("knightMeleeDamage", knightMeleeDamage, "SquadData.es3");
+        ES3.Save("knightLeaderMeleeDamage", knightLeaderMeleeDamage, "SquadData.es3");
 
         // Spearmen Data
-        ES3.Save("spearmenSquadGoldCost", spearmenSquadGoldCost);
-        ES3.Save("spearmenHealth", spearmenHealth);
-        ES3.Save("spearmenLeaderHealth", spearmenLeaderHealth);
-        ES3.Save("spearmenMeleeDamage", spearmenMeleeDamage);
-        ES3.Save("spearmenLeaderMeleeDamage", spearmenLeaderMeleeDamage);
-        ES3.Save("spearmenRangedDamage", spearmenRangedDamage);
-        ES3.Save("spearmenLeaderRangedDamage", spearmenLeaderRangedDamage);
-        ES3.Save("spearmenAccuracy", spearmenAccuracy);
-        ES3.Save("spearmenLeaderAccuracy", spearmenLeaderAccuracy);
+        ES3.Save("spearmenSquadGoldCost", spearmenSquadGoldCost, "SquadData.es3");
+        ES3.Save("spearmenHealth", spearmenHealth, "SquadData.es3");
+        ES3.Save("spearmenLeaderHealth", spearmenLeaderHealth, "SquadData.es3");
+        ES3.Save("spearmenMeleeDamage", spearmenMeleeDamage, "SquadData.es3");
+        ES3.Save("spearmenLeaderMeleeDamage", spearmenLeaderMeleeDamage, "SquadData.es3");
+        ES3.Save("spearmenRangedDamage", spearmenRangedDamage, "SquadData.es3");
+        ES3.Save("spearmenLeaderRangedDamage", spearmenLeaderRangedDamage, "SquadData.es3");
+        ES3.Save("spearmenAccuracy", spearmenAccuracy, "SquadData.es3");
+        ES3.Save("spearmenLeaderAccuracy", spearmenLeaderAccuracy, "SquadData.es3");
 
         // Archer Data
-        ES3.Save("archerSquadGoldCost", archerSquadGoldCost);
-        ES3.Save("archerHealth", archerHealth);
-        ES3.Save("archerLeaderHealth", archerLeaderHealth);
-        ES3.Save("archerMeleeDamage", archerMeleeDamage);
-        ES3.Save("archerLeaderMeleeDamage", archerLeaderMeleeDamage);
-        ES3.Save("archerRangedDamage", archerRangedDamage);
-        ES3.Save("archerLeaderRangedDamage", archerLeaderRangedDamage);
-        ES3.Save("archerAccuracy", archerAccuracy);
-        ES3.Save("archerLeaderAccuracy", archerLeaderAccuracy);
-        ES3.Save("archerShouldRetreatWhenEnemyNear", archerShouldRetreatWhenEnemyNear);
-        ES3.Save("archerFireArrowsUnlocked", archerFireArrowsUnlocked);
+        ES3.Save("archerSquadGoldCost", archerSquadGoldCost, "SquadData.es3");
+        ES3.Save("archerHealth", archerHealth, "SquadData.es3");
+        ES3.Save("archerLeaderHealth", archerLeaderHealth, "SquadData.es3");
+        ES3.Save("archerMeleeDamage", archerMeleeDamage, "SquadData.es3");
+        ES3.Save("archerLeaderMeleeDamage", archerLeaderMeleeDamage, "SquadData.es3");
+        ES3.Save("archerRangedDamage", archerRangedDamage, "SquadData.es3");
+        ES3.Save("archerLeaderRangedDamage", archerLeaderRangedDamage, "SquadData.es3");
+        ES3.Save("archerAccuracy", archerAccuracy, "SquadData.es3");
+        ES3.Save("archerLeaderAccuracy", archerLeaderAccuracy, "SquadData.es3");
+        ES3.Save("archerShouldRetreatWhenEnemyNear", archerShouldRetreatWhenEnemyNear, "SquadData.es3");
+        ES3.Save("archerFireArrowsUnlocked", archerFireArrowsUnlocked, "SquadData.es3");
     }
 
     public void LoadSquadData()
     {
         // Knight Data
-        knightSquadGoldCost = ES3.Load("knightSquadGoldCost", 0);
-        knightHealth = ES3.Load("knightHealth", 0f);
-        knightLeaderHealth = ES3.Load("knightLeaderHealth", 0f);
-        knightMeleeDamage = ES3.Load("knightMeleeDamage", 0f);
-        knightLeaderMeleeDamage = ES3.Load("knightLeaderMeleeDamage", 0f);
+        knightSquadGoldCost = ES3.Load("knightSquadGoldCost", "SquadData.es3", 0);
+        knightHealth = ES3.Load("knightHealth", "SquadData.es3", 0f);
+        knightLeaderHealth = ES3.Load("knightLeaderHealth", "SquadData.es3", 0f);
+        knightMeleeDamage = ES3.Load("knightMeleeDamage", "SquadData.es3", 0f);
+        knightLeaderMeleeDamage = ES3.Load("knightLeaderMeleeDamage", "SquadData.es3", 0f);
 
         // Spearmen Data
-        spearmenSquadGoldCost = ES3.Load("spearmenSquadGoldCost", 0);
-        spearmenHealth = ES3.Load("spearmenHealth", 0f);
-        spearmenLeaderHealth = ES3.Load("spearmenLeaderHealth", 0f);
-        spearmenMeleeDamage = ES3.Load("spearmenMeleeDamage", 0f);
-        spearmenLeaderMeleeDamage = ES3.Load("spearmenLeaderMeleeDamage", 0f);
-        spearmenRangedDamage = ES3.Load("spearmenRangedDamage", 0f);
-        spearmenLeaderRangedDamage = ES3.Load("spearmenLeaderRangedDamage", 0f);
-        spearmenAccuracy = ES3.Load("spearmenAccuracy", 0f);
-        spearmenLeaderAccuracy = ES3.Load("spearmenLeaderAccuracy", 0f);
+        spearmenSquadGoldCost = ES3.Load("spearmenSquadGoldCost", "SquadData.es3", 0);
+        spearmenHealth = ES3.Load("spearmenHealth", "SquadData.es3", 0f);
+        spearmenLeaderHealth = ES3.Load("spearmenLeaderHealth", "SquadData.es3", 0f);
+        spearmenMeleeDamage = ES3.Load("spearmenMeleeDamage", "SquadData.es3", 0f);
+        spearmenLeaderMeleeDamage = ES3.Load("spearmenLeaderMeleeDamage", "SquadData.es3", 0f);
+        spearmenRangedDamage = ES3.Load("spearmenRangedDamage", "SquadData.es3", 0f);
+        spearmenLeaderRangedDamage = ES3.Load("spearmenLeaderRangedDamage", "SquadData.es3", 0f);
+        spearmenAccuracy = ES3.Load("spearmenAccuracy", "SquadData.es3", 0f);
+        spearmenLeaderAccuracy = ES3.Load("spearmenLeaderAccuracy", "SquadData.es3", 0f);
 
         // Archer Data
-        archerSquadGoldCost = ES3.Load("archerSquadGoldCost", 0);
-        archerHealth = ES3.Load("archerHealth", 0f);
-        archerLeaderHealth = ES3.Load("archerLeaderHealth", 0f);
-        archerMeleeDamage = ES3.Load("archerMeleeDamage", 0f);
-        archerLeaderMeleeDamage = ES3.Load("archerLeaderMeleeDamage", 0f);
-        archerRangedDamage = ES3.Load("archerRangedDamage", 0f);
-        archerLeaderRangedDamage = ES3.Load("archerLeaderRangedDamage", 0f);
-        archerAccuracy = ES3.Load("archerAccuracy", 0f);
-        archerLeaderAccuracy = ES3.Load("archerLeaderAccuracy", 0f);
-        archerShouldRetreatWhenEnemyNear = ES3.Load("archerShouldRetreatWhenEnemyNear", true);
-        archerFireArrowsUnlocked = ES3.Load("archerFireArrowsUnlocked", false);
+        archerSquadGoldCost = ES3.Load("archerSquadGoldCost", "SquadData.es3", 0);
+        archerHealth = ES3.Load("archerHealth", "SquadData.es3", 0f);
+        archerLeaderHealth = ES3.Load("archerLeaderHealth", "SquadData.es3", 0f);
+        archerMeleeDamage = ES3.Load("archerMeleeDamage", "SquadData.es3", 0f);
+        archerLeaderMeleeDamage = ES3.Load("archerLeaderMeleeDamage", "SquadData.es3", 0f);
+        archerRangedDamage = ES3.Load("archerRangedDamage", "SquadData.es3", 0f);
+        archerLeaderRangedDamage = ES3.Load("archerLeaderRangedDamage", "SquadData.es3", 0f);
+        archerAccuracy = ES3.Load("archerAccuracy", "SquadData.es3", 0f);
+        archerLeaderAccuracy = ES3.Load("archerLeaderAccuracy", "SquadData.es3", 0f);
+        archerShouldRetreatWhenEnemyNear = ES3.Load("archerShouldRetreatWhenEnemyNear", "SquadData.es3", true);
+        archerFireArrowsUnlocked = ES3.Load("archerFireArrowsUnlocked", "SquadData.es3", false);
     }
 }
-/*
-const string KNIGHT_HEALTH_KEY = "Knight Health";
-const string KNIGHT_LEADER_HEALTH_KEY = "Knight Leader Health";
-
-const string KNIGHT_DAMAGE_KEY = "Knight Damage";
-const string KNIGHT_LEADER_DAMAGE_KEY = "Knight Leader Damage";
-
-const string KNIGHT_ACCURACY_KEY = "Knight Accuracy";
-const string KNIGHT_LEADER_ACCURACY_KEY = "Knight Leader Accuracy";
-
-const string KNIGHT_GOLD_COST_KEY = "Knight Gold Cost";
-
-#region Knight Health
-public static void SetKnightHealth(float newHealth)
-{
-    PlayerPrefs.SetFloat(KNIGHT_HEALTH_KEY, newHealth);
-}
-
-public static float GetKnightHealth()
-{
-    return PlayerPrefs.GetFloat(KNIGHT_HEALTH_KEY);
-}
-
-public static void SetKnightLeaderHealth(float newHealth)
-{
-    PlayerPrefs.SetFloat(KNIGHT_LEADER_HEALTH_KEY, newHealth);
-}
-
-public static float GetKnightLeaderHealth()
-{
-    return PlayerPrefs.GetFloat(KNIGHT_LEADER_HEALTH_KEY);
-}
-#endregion
-
-#region Knight Damage
-public static void SetKnightDamage(float newDamage)
-{
-    PlayerPrefs.SetFloat(KNIGHT_HEALTH_KEY, newDamage);
-}
-
-public static float GetKnightDamage()
-{
-    return PlayerPrefs.GetFloat(KNIGHT_DAMAGE_KEY);
-}
-
-public static void SetKnightLeaderDamage(float newDamage)
-{
-    PlayerPrefs.SetFloat(KNIGHT_LEADER_HEALTH_KEY, newDamage);
-}
-
-public static float GetKnightLeaderDamage()
-{
-    return PlayerPrefs.GetFloat(KNIGHT_LEADER_DAMAGE_KEY);
-}
-#endregion
-
-#region Knight Accuracy
-public static void SetKnightAccuracy(float newAccuracy)
-{
-    PlayerPrefs.SetFloat(KNIGHT_ACCURACY_KEY, newAccuracy);
-}
-
-public static float GetKnightAccuracy()
-{
-    return PlayerPrefs.GetFloat(KNIGHT_ACCURACY_KEY);
-}
-
-public static void SetKnightLeaderAccuracy(float newAccuracy)
-{
-    PlayerPrefs.SetFloat(KNIGHT_LEADER_ACCURACY_KEY, newAccuracy);
-}
-
-public static float GetKnightLeaderAccuracy()
-{
-    return PlayerPrefs.GetFloat(KNIGHT_LEADER_ACCURACY_KEY);
-}
-#endregion
-
-#region Knight Gold Cost
-public static void SetKnightGoldCost(int newGoldCost)
-{
-    PlayerPrefs.SetInt(KNIGHT_GOLD_COST_KEY, newGoldCost);
-}
-
-public static float GetKnightGoldCost()
-{
-    return PlayerPrefs.GetInt(KNIGHT_GOLD_COST_KEY);
-}
-#endregion
-*/

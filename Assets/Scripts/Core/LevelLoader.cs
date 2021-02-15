@@ -4,9 +4,30 @@ using UnityEngine.SceneManagement;
 
 public class LevelLoader : MonoBehaviour
 {
+    [Header("Main Menu Only")]
+    [SerializeField] GameObject newGameConfirmation;
+    [SerializeField] int sceneLoadWaitTime = 7;
+
+    [Header("Options Menu")]
     [SerializeField] GameObject optionsMenuCanvas;
-    [SerializeField] int waitTime = 7;
+
+    [HideInInspector] public int currentLevel = 1;
+
     int currentSceneIndex;
+
+    #region Singleton
+    public static LevelLoader instance;
+    void Awake()
+    {
+        if (instance != null)
+        {
+            if (instance != this)
+                Destroy(gameObject);
+        }
+        else
+            instance = this;
+    }
+    #endregion
 
     void Start()
     {
@@ -20,7 +41,18 @@ public class LevelLoader : MonoBehaviour
 
     IEnumerator WaitToLoadNextScene()
     {
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(sceneLoadWaitTime);
+        LoadNextScene();
+    }
+
+    public void LoadCurrentLevel()
+    {
+        SceneManager.LoadScene("Level " + currentLevel.ToString());
+    }
+
+    public void StartNewGame()
+    {
+        GameManager.instance.DeleteAllSaveData();
         LoadNextScene();
     }
 
@@ -37,6 +69,13 @@ public class LevelLoader : MonoBehaviour
     public void LoadUpgradeMenuScene()
     {
         SceneManager.LoadScene("Upgrade Menu");
+    }
+
+    public void LoadNextLevel()
+    {
+        currentLevel++;
+        SaveCurrentLevelNumber();
+        LoadCurrentLevel();
     }
 
     public void RestartScene()
@@ -64,5 +103,20 @@ public class LevelLoader : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void SaveCurrentLevelNumber()
+    {
+        ES3.Save("currentLevelNumber", currentLevel);
+    }
+
+    public void LoadCurrentLevelNumber()
+    {
+        currentLevel = ES3.Load("currentLevelNumber", 1);
+    }
+
+    public void ToggleNewGameConfirmation()
+    {
+        newGameConfirmation.SetActive(!newGameConfirmation.activeSelf);
     }
 }

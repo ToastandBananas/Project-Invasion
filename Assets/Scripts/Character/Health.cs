@@ -4,9 +4,10 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] float maxHealth = 100f;
-    [SerializeField] float currentHealth = 100f;
+    float currentHealth = 100f;
     [SerializeField] GameObject damageEffect;
-    public bool isDead = false;
+
+    [HideInInspector] public bool isDead = false;
 
     LevelController levelController;
     Attacker attacker;

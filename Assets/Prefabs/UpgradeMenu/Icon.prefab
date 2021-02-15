@@ -120,9 +120,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UpgradeIcon, Assembly-CSharp
-        m_MethodName: ApplyUpgrades
+      - m_Target: {fileID: 8077732532523043053}
+        m_TargetAssemblyTypeName: UpgradeTreeSelector, Assembly-CSharp
+        m_MethodName: SelectSkillTree
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

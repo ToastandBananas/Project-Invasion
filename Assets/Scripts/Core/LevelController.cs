@@ -65,7 +65,7 @@ public class LevelController : MonoBehaviour
 
         yield return new WaitForSeconds(audioManager.victorySounds[randomIndex].clip.length);
 
-        FindObjectOfType<LevelLoader>().LoadUpgradeMenuScene();
+        LevelLoader.instance.LoadUpgradeMenuScene();
     }
 
     public void CheckIfWaveComplete()

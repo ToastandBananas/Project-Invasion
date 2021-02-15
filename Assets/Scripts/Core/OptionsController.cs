@@ -15,7 +15,7 @@ public class OptionsController : MonoBehaviour
     void Start()
     {
         musicPlayer = FindObjectOfType<MusicPlayer>();
-        levelLoader = FindObjectOfType<LevelLoader>();
+        levelLoader = LevelLoader.instance;
 
         volumeSlider.value = PlayerPrefsController.GetMasterVolume();
         difficultySlider.value = PlayerPrefsController.GetDifficulty();
