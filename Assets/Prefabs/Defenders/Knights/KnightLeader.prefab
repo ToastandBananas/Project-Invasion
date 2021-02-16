@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeWeaponType: 0
-  attackDamage: 10
+  attackDamage: 20
   minAttackDistance: 0.115
   runSpeed: 0.25
   isAttacking: 0
@@ -119,7 +119,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 180
-  currentHealth: 180
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isDead: 0
 --- !u!114 &6249635443579284339
