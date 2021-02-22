@@ -9,6 +9,7 @@ public class Squad : MonoBehaviour
     int maxUnitCount;
     enum SquadFormation { Line, StaggeredLine, Wedge, Scattered }
     [Header("Squad Formation")]
+    public SquadType squadType;
     [SerializeField] SquadFormation squadFormation;
 
     [Header("Ranged Squads Only:")]

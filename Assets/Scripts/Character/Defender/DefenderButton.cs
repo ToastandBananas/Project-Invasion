@@ -2,17 +2,29 @@
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class DefenderButton : MonoBehaviour
+public class DefenderButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Squad squadPrefab;
     
     DefenderSpawner defenderSpawner;
+    Tooltip squadInfoTooltip;
 
     void Start()
     {
         defenderSpawner = DefenderSpawner.instance;
+        squadInfoTooltip = GameObject.Find("Squad Info Tooltip").GetComponent<Tooltip>();
 
         SetCost();
+    }
+
+    void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
+    {
+        squadInfoTooltip.ToggleSquadTooltip(squadPrefab, transform.position);
+    }
+
+    void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
+    {
+        squadInfoTooltip.ToggleSquadTooltip(null, transform.position);
     }
 
     public void SelectSquadOfDefenders()

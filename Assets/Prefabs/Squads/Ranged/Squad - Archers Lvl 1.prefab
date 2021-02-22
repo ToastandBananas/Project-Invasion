@@ -74,6 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goldCost: 200
+  squadType: 2
   squadFormation: 2
   castleWallVersionOfSquad: {fileID: 5993080609283387823, guid: 4e0209b586b82de45b29e048d2c5900d, type: 3}
   shouldRetreatWhenEnemyNear: 1
@@ -224,7 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackersInRange: []
   defendersInRange: []
-  collider: {fileID: 0}
+  boxCollider: {fileID: 0}
 --- !u!1001 &1431254732309238708
 PrefabInstance:
   m_ObjectHideFlags: 0
