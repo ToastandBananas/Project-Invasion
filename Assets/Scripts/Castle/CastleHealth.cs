@@ -21,7 +21,7 @@ public class CastleHealth : MonoBehaviour
 
     void Start()
     {
-        health = baseHealth * PlayerPrefsController.GetDifficulty();
+        health = baseHealth * PlayerPrefsController.GetDifficultyMultiplier();
 
         healthText = GetComponent<Text>();
         levelController = LevelController.instance;

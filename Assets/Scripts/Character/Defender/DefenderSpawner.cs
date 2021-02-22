@@ -22,6 +22,8 @@ public class DefenderSpawner : MonoBehaviour
     Color invalidColor = new Color(1f, 0f, 0f, 0.4f); // Red and opaque
     Color ghostImageColor = new Color(1f, 1f, 1f, 0.4f); // White and opaque
 
+    PauseMenu pauseMenu;
+
     #region Singleton
     public static DefenderSpawner instance;
 
@@ -36,6 +38,7 @@ public class DefenderSpawner : MonoBehaviour
 
     void Start()
     {
+        pauseMenu = PauseMenu.instance;
         defendersParent = GameObject.Find(DEFENDERS_PARENT_NAME);
         if (defendersParent == null)
             defendersParent = new GameObject(DEFENDERS_PARENT_NAME);
@@ -46,61 +49,65 @@ public class DefenderSpawner : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
-            ClearSelectedSquad();
-
-        // Keep ghost image of squad at mouse position
-        if (ghostImageSquad != null)
+        if (pauseMenu.gamePaused == false)
         {
-            mouseHoverTilePos = GetSquareClicked();
+            if (Input.GetMouseButtonDown(1))
+                ClearSelectedSquad();
 
-            if (mouseHoverTilePos.x < 0.5f)
-                ghostImageSquad.SetSortingOrder(castleWallSortingOrder);
-            else
-                ghostImageSquad.SetSortingOrder(defaultSortingOrder);
-
-            if (IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x >= 0.5f && mouseHoverTilePos.x <= 7.5f && mouseHoverTilePos.y >= 0.5f && mouseHoverTilePos.y <= 5.5f)
+            // Keep ghost image of squad at mouse position
+            if (ghostImageSquad != null)
             {
-                if (ghostImageSquad.leader != null)
-                    ghostImageSquad.leader.gameObject.SetActive(true);
+                mouseHoverTilePos = GetSquareClicked();
 
-                ghostImageSquad.transform.position = mouseHoverTilePos;
-                //ghostImageSquad.SetLaneSpawner();
-                if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()))
-                    SetGhostImageColor(ghostImageColor);
-            }
-            else if (ghostImageSquad.isRangedUnit && IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x < 0.5f)
-            {
-                if (ghostImageSquad.leader != null)
-                    ghostImageSquad.leader.gameObject.SetActive(false);
+                if (mouseHoverTilePos.x < 0.5f)
+                    ghostImageSquad.SetSortingOrder(castleWallSortingOrder);
+                else
+                    ghostImageSquad.SetSortingOrder(defaultSortingOrder);
 
-                ghostImageSquad.transform.position = mouseHoverTilePos;
+                if (IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x >= 0.5f && mouseHoverTilePos.x <= 7.5f && mouseHoverTilePos.y >= 0.5f && mouseHoverTilePos.y <= 5.5f)
+                {
+                    if (ghostImageSquad.leader != null)
+                        ghostImageSquad.leader.gameObject.SetActive(true);
 
-                //ghostImageSquad.SetLaneSpawner();
-                if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()))
-                    SetGhostImageColor(ghostImageColor);
-            }
-            else
-            {
-                if (ghostImageSquad.leader != null)
-                    ghostImageSquad.leader.gameObject.SetActive(true);
+                    ghostImageSquad.transform.position = mouseHoverTilePos;
+                    //ghostImageSquad.SetLaneSpawner();
+                    if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()))
+                        SetGhostImageColor(ghostImageColor);
+                }
+                else if (ghostImageSquad.isRangedUnit && IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x < 0.5f)
+                {
+                    if (ghostImageSquad.leader != null)
+                        ghostImageSquad.leader.gameObject.SetActive(false);
 
-                Vector2 hoverPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                hoverPos = Camera.main.ScreenToWorldPoint(hoverPos);
-                ghostImageSquad.transform.position = hoverPos;
-                SetGhostImageColor(invalidColor);
+                    ghostImageSquad.transform.position = mouseHoverTilePos;
+
+                    //ghostImageSquad.SetLaneSpawner();
+                    if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()))
+                        SetGhostImageColor(ghostImageColor);
+                }
+                else
+                {
+                    if (ghostImageSquad.leader != null)
+                        ghostImageSquad.leader.gameObject.SetActive(true);
+
+                    Vector2 hoverPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+                    hoverPos = Camera.main.ScreenToWorldPoint(hoverPos);
+                    ghostImageSquad.transform.position = hoverPos;
+                    SetGhostImageColor(invalidColor);
+                }
             }
         }
     }
 
     void FixedUpdate()
     {
-        CheckIfCanAffordSquad();
+        if (pauseMenu.gamePaused == false)
+            CheckIfCanAffordSquad();
     }
 
     void OnMouseDown()
     {
-        if (canPlaceSquad)
+        if (canPlaceSquad && pauseMenu.gamePaused == false)
             StartCoroutine(SpawnSquad(GetSquareClicked()));
     }
 

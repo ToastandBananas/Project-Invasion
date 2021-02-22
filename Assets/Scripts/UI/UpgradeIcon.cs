@@ -20,7 +20,8 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [Header("Archer Only Upgrades")]
     [SerializeField] bool fireArrowsUnlocked;
 
-    [HideInInspector] public bool upgradeUnlocked;
+    [Header("Unlocked")]
+    public bool upgradeUnlocked;
 
     SquadData squadData;
     Text upgradeNameText;

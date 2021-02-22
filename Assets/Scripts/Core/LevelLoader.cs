@@ -8,9 +8,6 @@ public class LevelLoader : MonoBehaviour
     [SerializeField] GameObject newGameConfirmation;
     [SerializeField] int sceneLoadWaitTime = 7;
 
-    [Header("Options Menu")]
-    [SerializeField] GameObject optionsMenuCanvas;
-
     [HideInInspector] public int currentLevel = 1;
 
     int currentSceneIndex;
@@ -31,9 +28,6 @@ public class LevelLoader : MonoBehaviour
 
     void Start()
     {
-        if (optionsMenuCanvas != null)
-            CloseOptionsMenu();
-
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentSceneIndex == 0)
             StartCoroutine(WaitToLoadNextScene());
@@ -88,16 +82,6 @@ public class LevelLoader : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Main Menu");
-    }
-
-    public void OpenOptionsMenu()
-    {
-        optionsMenuCanvas.SetActive(true);
-    }
-
-    public void CloseOptionsMenu()
-    {
-        optionsMenuCanvas.SetActive(false);
     }
 
     public void QuitGame()

@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
     {
         squadData.LoadSquadData();
         LevelLoader.instance.LoadCurrentLevelNumber();
-        ES3AutoSaveMgr.Current.Load();
+        if (ES3.FileExists("SaveFile.es3"))
+            ES3AutoSaveMgr.Current.Load();
     }
 
     public void DeleteAllSaveData()

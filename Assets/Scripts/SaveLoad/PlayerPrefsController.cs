@@ -14,7 +14,7 @@ public class PlayerPrefsController : MonoBehaviour
     {
         if (volume >= MIN_VOLUME && volume <= MAX_VOLUME)
         {
-            Debug.Log("Master volume set to " + volume);
+            // Debug.Log("Master volume set to " + volume);
             PlayerPrefs.SetFloat(MASTER_VOLUME_KEY, volume);
         }
         else
@@ -30,6 +30,7 @@ public class PlayerPrefsController : MonoBehaviour
     {
         if (difficulty >= MIN_DIFFICULTY && difficulty <= MAX_DIFFICULTY)
         {
+            // Debug.Log("Master difficulty set to " + difficulty);
             PlayerPrefs.SetFloat(DIFFICULTY_KEY, difficulty);
         }
         else
@@ -38,11 +39,17 @@ public class PlayerPrefsController : MonoBehaviour
 
     public static float GetDifficulty()
     {
-        if (PlayerPrefs.GetFloat(DIFFICULTY_KEY) == 0f)
+        return PlayerPrefs.GetFloat(DIFFICULTY_KEY);
+    }
+
+    public static float GetDifficultyMultiplier()
+    {
+        // Castle health will be multiplied by the number returned
+        if (PlayerPrefs.GetFloat(DIFFICULTY_KEY) == 0f) // Easy difficulty
             return 1f;
-        else if (PlayerPrefs.GetFloat(DIFFICULTY_KEY) == 1f)
+        else if (PlayerPrefs.GetFloat(DIFFICULTY_KEY) == 1f) // Medium difficulty
             return 0.75f;
         else
-            return 0.5f;
+            return 0.5f; // Hard difficulty
     }
 }
