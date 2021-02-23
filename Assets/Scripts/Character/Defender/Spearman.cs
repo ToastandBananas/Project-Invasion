@@ -39,22 +39,22 @@ public class Spearman : MonoBehaviour
             if (squadData.spearmenLeaderHealth > 0)
                 health.SetMaxHealth(health.GetMaxHealth() + squadData.spearmenLeaderHealth);
             if (squadData.spearmenLeaderMeleeDamage > 0)
-                defenderScript.SetAttackDamage(defenderScript.GetAttackDamage() + squadData.spearmenLeaderMeleeDamage);
+                defenderScript.SetAttackDamage(defenderScript.GetMeleeDamage() + squadData.spearmenLeaderMeleeDamage);
             if (squadData.spearmenLeaderRangedDamage > 0)
-                shooterScript.SetShootDamage(shooterScript.GetShootDamage() + squadData.spearmenLeaderRangedDamage);
+                shooterScript.SetShootDamage(shooterScript.GetRangedDamage() + squadData.spearmenLeaderRangedDamage);
             if (squadData.spearmenLeaderAccuracy > 0)
-                shooterScript.SetShootAccuracy(shooterScript.GetShootAccuracy() + squadData.spearmenLeaderAccuracy);
+                shooterScript.SetShootAccuracy(shooterScript.GetRangedAccuracy() + squadData.spearmenLeaderAccuracy);
         }
         else // Unit:
         {
             if (squadData.spearmenHealth > 0)
                 health.SetMaxHealth(health.GetMaxHealth() + squadData.spearmenHealth);
             if (squadData.spearmenMeleeDamage > 0)
-                defenderScript.SetAttackDamage(defenderScript.GetAttackDamage() + squadData.spearmenMeleeDamage);
+                defenderScript.SetAttackDamage(defenderScript.GetMeleeDamage() + squadData.spearmenMeleeDamage);
             if (squadData.spearmenRangedDamage > 0)
-                shooterScript.SetShootDamage(shooterScript.GetShootDamage() + squadData.spearmenRangedDamage);
+                shooterScript.SetShootDamage(shooterScript.GetRangedDamage() + squadData.spearmenRangedDamage);
             if (squadData.spearmenAccuracy > 0)
-                shooterScript.SetShootAccuracy(shooterScript.GetShootAccuracy() + squadData.spearmenAccuracy);
+                shooterScript.SetShootAccuracy(shooterScript.GetRangedAccuracy() + squadData.spearmenAccuracy);
         }
     }
 }

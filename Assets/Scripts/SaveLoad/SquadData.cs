@@ -56,6 +56,72 @@ public class SquadData : MonoBehaviour
             archerFireArrowsUnlocked = true;
     }
 
+    public float GetHealthData(SquadType squadType, bool isLeader)
+    {
+        switch (squadType)
+        {
+            case SquadType.Knights:
+                if (isLeader) return knightLeaderHealth;
+                else return knightHealth;
+            case SquadType.Spearmen:
+                if (isLeader) return spearmenLeaderHealth;
+                else return spearmenHealth;
+            case SquadType.Archers:
+                if (isLeader) return archerLeaderHealth;
+                else return archerHealth;
+            default:
+                return 0f;
+        }
+    }
+
+    public float GetMeleeDamageData(SquadType squadType, bool isLeader)
+    {
+        switch (squadType)
+        {
+            case SquadType.Knights:
+                if (isLeader) return knightLeaderMeleeDamage;
+                else return knightMeleeDamage;
+            case SquadType.Spearmen:
+                if (isLeader) return spearmenLeaderMeleeDamage;
+                else return spearmenMeleeDamage;
+            case SquadType.Archers:
+                if (isLeader) return archerLeaderMeleeDamage;
+                else return archerMeleeDamage;
+            default:
+                return 0f;
+        }
+    }
+
+    public float GetRangedDamageData(SquadType squadType, bool isLeader)
+    {
+        switch (squadType)
+        {
+            case SquadType.Spearmen:
+                if (isLeader) return spearmenLeaderRangedDamage;
+                else return spearmenRangedDamage;
+            case SquadType.Archers:
+                if (isLeader) return archerLeaderRangedDamage;
+                else return archerRangedDamage;
+            default:
+                return 0f;
+        }
+    }
+
+    public float GetRangedAccuracyData(SquadType squadType, bool isLeader)
+    {
+        switch (squadType)
+        {
+            case SquadType.Spearmen:
+                if (isLeader) return spearmenLeaderAccuracy;
+                else return spearmenAccuracy;
+            case SquadType.Archers:
+                if (isLeader) return archerLeaderAccuracy;
+                else return archerAccuracy;
+            default:
+                return 0f;
+        }
+    }
+
     public void SaveSquadData()
     {
         // Knight Data

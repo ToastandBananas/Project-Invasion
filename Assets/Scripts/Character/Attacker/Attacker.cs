@@ -14,7 +14,7 @@ public class Attacker : MonoBehaviour
 
     [Header("Attack/Movement Info")]
     [SerializeField] MeleeWeaponType meleeWeaponType;
-    [SerializeField] float attackDamage = 10f;
+    [SerializeField] float meleeDamage = 10f;
     public float castleAttackDamage = 5f;
     public float minAttackDistance = 0.115f;
     public int maxOpponents = 2;
@@ -129,7 +129,7 @@ public class Attacker : MonoBehaviour
                     return;
                 }
 
-                currentTargetsHealth.DealDamage(attackDamage);
+                currentTargetsHealth.DealDamage(meleeDamage);
             }
         }
         else if (isAttackingCastle)

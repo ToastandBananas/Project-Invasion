@@ -56,7 +56,7 @@ public class Projectile : MonoBehaviour
         float random = Random.Range(0f, 100f);
         Vector3 offset = Vector3.zero;
 
-        if (random > myShooter.GetShootAccuracy())
+        if (random > myShooter.GetRangedAccuracy())
         {
             float offsetXFromMiss, offsetYFromMiss;
             offsetXFromMiss = Random.Range(0.1f, 0.4f);
@@ -153,7 +153,7 @@ public class Projectile : MonoBehaviour
     IEnumerator HitTarget(Health health)
     {
         // Reduce health
-        health.DealDamage(myShooter.GetShootDamage());
+        health.DealDamage(myShooter.GetRangedDamage());
         moveProjectile = false;
 
         audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, false);

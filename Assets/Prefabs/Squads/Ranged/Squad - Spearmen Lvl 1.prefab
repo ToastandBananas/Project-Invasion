@@ -177,8 +177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60145fa9133d01408a07d606ee4e6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldCost: 150
   squadType: 1
+  goldCost: 150
+  description: A versatile squad that excels both in melee and ranged combat.
   squadFormation: 0
   castleWallVersionOfSquad: {fileID: 9176416422350433636, guid: f0938f4bb2cd03843ab8bbc5a0fbc55f, type: 3}
   shouldRetreatWhenEnemyNear: 0

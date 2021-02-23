@@ -5,7 +5,7 @@ public class Defender : MonoBehaviour
 {
     [Header("Attack/Movement Info")]
     [SerializeField] MeleeWeaponType meleeWeaponType;
-    [SerializeField] float attackDamage = 10f;
+    [SerializeField] float meleeDamage = 10f;
     public float minAttackDistance = 0.115f;
     public float runSpeed = 0.5f;
     float currentSpeed = 0f;
@@ -190,7 +190,7 @@ public class Defender : MonoBehaviour
             transform.localScale = new Vector2(-1, 1);
 
         if (targetAttackersHealth)
-            targetAttackersHealth.DealDamage(attackDamage);
+            targetAttackersHealth.DealDamage(meleeDamage);
 
         audioManager.PlayMeleeHitSound(meleeWeaponType);
     }
@@ -308,13 +308,13 @@ public class Defender : MonoBehaviour
         }
     }
 
-    public float GetAttackDamage()
+    public float GetMeleeDamage()
     {
-        return attackDamage;
+        return meleeDamage;
     }
 
     public void SetAttackDamage(float newAttackDamage)
     {
-        attackDamage = newAttackDamage;
+        meleeDamage = newAttackDamage;
     }
 }

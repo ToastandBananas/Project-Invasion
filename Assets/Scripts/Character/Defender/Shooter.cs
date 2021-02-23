@@ -107,7 +107,7 @@ public class Shooter : MonoBehaviour
         audioManager.PlayRandomSound(audioManager.bowDrawSounds);
     }
 
-    public float GetShootDamage()
+    public float GetRangedDamage()
     {
         return shootDamage;
     }
@@ -117,7 +117,7 @@ public class Shooter : MonoBehaviour
         shootDamage = newDamage;
     }
 
-    public float GetShootAccuracy()
+    public float GetRangedAccuracy()
     {
         return accuracy;
     }

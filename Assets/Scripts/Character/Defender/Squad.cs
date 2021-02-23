@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class Squad : MonoBehaviour
 {
-    [Header("Squad Cost")]
+    [Header("Basic Info")]
+    public SquadType squadType;
     [SerializeField] int goldCost = 100;
+    public string description;
 
     int maxUnitCount;
     enum SquadFormation { Line, StaggeredLine, Wedge, Scattered }
     [Header("Squad Formation")]
-    public SquadType squadType;
     [SerializeField] SquadFormation squadFormation;
 
     [Header("Ranged Squads Only:")]

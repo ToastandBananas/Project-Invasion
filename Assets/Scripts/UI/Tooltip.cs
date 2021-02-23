@@ -8,9 +8,10 @@ public class Tooltip : MonoBehaviour
 
     float textPaddingSize = 8f;
     Vector2 backgroundSize;
-
+    
     RectTransform tooltipBackground;
     Text tooltipText;
+    SquadData squadData;
 
     Defender leader;
     Defender unit;
@@ -21,6 +22,8 @@ public class Tooltip : MonoBehaviour
     
     void Start()
     {
+        squadData = GameManager.instance.squadData;
+
         tooltipBackground = transform.GetChild(0).GetComponent<RectTransform>();
         tooltipText = transform.GetChild(1).GetComponent<Text>();
 
@@ -35,8 +38,6 @@ public class Tooltip : MonoBehaviour
 
         if (tooltipText.gameObject.activeSelf)
             CreateSquadTooltip(squad, pos);
-        else
-            stringBuilder.Clear();
     }
 
     void CreateSquadTooltip(Squad squad, Vector2 pos)
@@ -53,31 +54,34 @@ public class Tooltip : MonoBehaviour
 
         stringBuilder.Append("<b><size=24>" + squad.squadType + "</size></b>\n\n");
 
-        stringBuilder.Append("<b>Leader Stats:</b>\n");
-        stringBuilder.Append("Health: " + leaderHealth.GetMaxHealth().ToString() + "\n");
-        if (leader.GetAttackDamage() > 0)
-            stringBuilder.Append("Melee Damage: " + leader.GetAttackDamage().ToString() + "\n");
-        if (leaderShooter != null)
+        stringBuilder.Append(squad.description + "\n\n");
+
+        stringBuilder.Append("<b>Unit Stats:</b>\n");
+        stringBuilder.Append("Health: " + (unitHealth.GetMaxHealth() + squadData.GetHealthData(squad.squadType, false)).ToString() + "\n");
+        if (unit.GetMeleeDamage() > 0)
+            stringBuilder.Append("Melee Damage: " + (unit.GetMeleeDamage() + squadData.GetMeleeDamageData(squad.squadType, false)).ToString() + "\n");
+        if (unitShooter != null)
         {
-            stringBuilder.Append("Ranged Damage: " + leaderShooter.GetShootDamage().ToString() + "\n");
-            stringBuilder.Append("Ranged Accuracy: " + leaderShooter.GetShootAccuracy().ToString() + "\n");
+            stringBuilder.Append("Ranged Damage: " + (unitShooter.GetRangedDamage() + squadData.GetRangedDamageData(squad.squadType, false)).ToString() + "\n");
+            stringBuilder.Append("Ranged Accuracy: " + (unitShooter.GetRangedAccuracy() + squadData.GetRangedAccuracyData(squad.squadType, false)).ToString() + "%\n");
         }
 
         stringBuilder.Append("\n");
 
-        stringBuilder.Append("<b>Unit Stats:</b>\n");
-        stringBuilder.Append("Health: " + unitHealth.GetMaxHealth().ToString() + "\n");
-        if (unit.GetAttackDamage() > 0)
-            stringBuilder.Append("Melee Damage: " + unit.GetAttackDamage().ToString() + "\n");
-        if (unitShooter != null)
+        stringBuilder.Append("<b>Leader Stats:</b>\n");
+        stringBuilder.Append("Health: " + (leaderHealth.GetMaxHealth() + squadData.GetHealthData(squad.squadType, true)).ToString() + "\n");
+        if (leader.GetMeleeDamage() > 0)
+            stringBuilder.Append("Melee Damage: " + (leader.GetMeleeDamage() + squadData.GetMeleeDamageData(squad.squadType, true)).ToString() + "\n");
+        if (leaderShooter != null)
         {
-            stringBuilder.Append("Ranged Damage: " + unitShooter.GetShootDamage().ToString() + "\n");
-            stringBuilder.Append("Ranged Accuracy: " + unitShooter.GetShootAccuracy().ToString() + "\n");
+            stringBuilder.Append("Ranged Damage: " + (leaderShooter.GetRangedDamage() + squadData.GetRangedDamageData(squad.squadType, true)).ToString() + "\n");
+            stringBuilder.Append("Ranged Accuracy: " + (leaderShooter.GetRangedAccuracy() + squadData.GetRangedAccuracyData(squad.squadType, true)).ToString() + "%\n");
         }
 
         tooltipText.text = stringBuilder.ToString();
 
-        backgroundSize = new Vector2(tooltipText.preferredWidth + textPaddingSize * 2f, tooltipText.preferredHeight + textPaddingSize * 2f);
+        backgroundSize = new Vector2(tooltipText.preferredWidth + (textPaddingSize * 2f), tooltipText.preferredHeight + (textPaddingSize * 2f));
+        if (backgroundSize.x > 200f) backgroundSize.x = 200f + (textPaddingSize * 2f);
         tooltipBackground.sizeDelta = backgroundSize;
 
         transform.position = pos + new Vector2(0f, 0.5f);

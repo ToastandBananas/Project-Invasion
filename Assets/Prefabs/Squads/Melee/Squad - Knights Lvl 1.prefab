@@ -103,10 +103,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60145fa9133d01408a07d606ee4e6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  squadType: 0
   goldCost: 100
+  description: Sturdy sword wielding knights.
   squadFormation: 0
+  castleWallVersionOfSquad: {fileID: 0}
   shouldRetreatWhenEnemyNear: 0
   isRangedUnit: 0
+  isCastleWallUnit: 0
   shootRange: 0
   squadPlaced: 0
   leader: {fileID: 0}

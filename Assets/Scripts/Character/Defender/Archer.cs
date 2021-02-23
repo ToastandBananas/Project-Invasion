@@ -44,22 +44,22 @@ public class Archer : MonoBehaviour
             if (squadData.archerLeaderHealth > 0)
                 health.SetMaxHealth(health.GetMaxHealth() + squadData.archerLeaderHealth);
             if (squadData.archerLeaderMeleeDamage > 0)
-                defenderScript.SetAttackDamage(defenderScript.GetAttackDamage() + squadData.archerLeaderMeleeDamage);
+                defenderScript.SetAttackDamage(defenderScript.GetMeleeDamage() + squadData.archerLeaderMeleeDamage);
             if (squadData.archerLeaderRangedDamage > 0)
-                shooterScript.SetShootDamage(shooterScript.GetShootDamage() + squadData.archerLeaderRangedDamage);
+                shooterScript.SetShootDamage(shooterScript.GetRangedDamage() + squadData.archerLeaderRangedDamage);
             if (squadData.archerLeaderAccuracy > 0)
-                shooterScript.SetShootAccuracy(shooterScript.GetShootAccuracy() + squadData.archerLeaderAccuracy);
+                shooterScript.SetShootAccuracy(shooterScript.GetRangedAccuracy() + squadData.archerLeaderAccuracy);
         }
         else // Unit:
         {
             if (squadData.archerHealth > 0)
                 health.SetMaxHealth(health.GetMaxHealth() + squadData.archerHealth);
             if (squadData.archerMeleeDamage > 0)
-                defenderScript.SetAttackDamage(defenderScript.GetAttackDamage() + squadData.archerMeleeDamage);
+                defenderScript.SetAttackDamage(defenderScript.GetMeleeDamage() + squadData.archerMeleeDamage);
             if (squadData.archerRangedDamage > 0)
-                shooterScript.SetShootDamage(shooterScript.GetShootDamage() + squadData.archerRangedDamage);
+                shooterScript.SetShootDamage(shooterScript.GetRangedDamage() + squadData.archerRangedDamage);
             if (squadData.archerAccuracy > 0)
-                shooterScript.SetShootAccuracy(shooterScript.GetShootAccuracy() + squadData.archerAccuracy);
+                shooterScript.SetShootAccuracy(shooterScript.GetRangedAccuracy() + squadData.archerAccuracy);
         }
     }
 }

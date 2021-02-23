@@ -73,8 +73,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60145fa9133d01408a07d606ee4e6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldCost: 200
   squadType: 2
+  goldCost: 200
+  description: A trio of archers commanded by a master of the bow.
   squadFormation: 2
   castleWallVersionOfSquad: {fileID: 5993080609283387823, guid: 4e0209b586b82de45b29e048d2c5900d, type: 3}
   shouldRetreatWhenEnemyNear: 1
