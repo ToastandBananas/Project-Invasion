@@ -3,13 +3,17 @@ using UnityEngine;
 
 public class Shooter : MonoBehaviour
 {
+    [Header("Prefabs")]
     public GameObject projectilePrefab;
+    public GameObject secondaryProjectilePrefab;
     ObjectPool projectileObjectPool;
+    ObjectPool secondaryProjectileObjectPool;
 
     public RangedWeaponType rangedWeaponType;
     [SerializeField][Range(0f, 100f)] float accuracy = 100f;
     [SerializeField] float shootDamage = 10f;
 
+    public bool isShootingSecondaryProjectile;
     [HideInInspector] public bool isShootingCastle;
     [HideInInspector] public Attacker attacker;
     [HideInInspector] public Defender defender;
@@ -40,10 +44,9 @@ public class Shooter : MonoBehaviour
             if (projectilesParent.GetChild(i).TryGetComponent<ObjectPool>(out ObjectPool objPool))
             {
                 if (objPool.objectToPool == projectilePrefab)
-                {
                     projectileObjectPool = objPool;
-                    return;
-                }
+                else if (objPool.objectToPool == secondaryProjectilePrefab)
+                    secondaryProjectileObjectPool = objPool;
             }
         }
     }
@@ -68,7 +71,11 @@ public class Shooter : MonoBehaviour
 
     public void Fire()
     {
-        Projectile newProjectile = projectileObjectPool.GetPooledObject().GetComponent<Projectile>();
+        Projectile newProjectile;
+        if (isShootingSecondaryProjectile == false)
+            newProjectile = projectileObjectPool.GetPooledObject().GetComponent<Projectile>();
+        else
+            newProjectile = secondaryProjectileObjectPool.GetPooledObject().GetComponent<Projectile>();
 
         newProjectile.gameObject.SetActive(true);
         newProjectile.transform.position = gun.transform.position;

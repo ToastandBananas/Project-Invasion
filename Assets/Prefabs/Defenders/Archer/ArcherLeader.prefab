@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeWeaponType: 0
-  attackDamage: 10
+  meleeDamage: 10
   minAttackDistance: 0.115
   runSpeed: 0.35
   isAttacking: 0
@@ -233,7 +233,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  currentHealth: 50
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isDead: 0
 --- !u!114 &210076704362751973
@@ -262,6 +261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2907018548143264321, guid: 030021fc88bb4814488664fc77012d66, type: 3}
+  secondaryProjectilePrefab: {fileID: 3480619949053003782, guid: 384729c819fae0a4d8f089e3169eed88, type: 3}
   rangedWeaponType: 0
   accuracy: 75
   shootDamage: 10

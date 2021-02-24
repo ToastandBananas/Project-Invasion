@@ -8,19 +8,14 @@ public class Projectile : MonoBehaviour
     [Tooltip("The sprite that will be used when the projectile hits the ground")]
     public Sprite groundedSprite;
 
-    //[Tooltip("Damage of the projectile")]
-    //[SerializeField] float damage = 10f;
-
     [Tooltip("Horizontal speed, in units/sec")]
-    public float speed = 5f;
+    public float speed = 3f;
 
     [Tooltip("Multiplier for the arc height, which is dependent on the distance from the target (set to 0 for no arc)")]
     public float arcMultiplier = 0.1f;
-
-    [Tooltip("Position we want to hit")]
-    public Transform target;
-    public Vector3 targetPos;
-
+    
+    [HideInInspector] public Transform target;
+    [HideInInspector] public Vector3 targetPos;
     [HideInInspector] public Shooter myShooter;
 
     AudioManager audioManager;
