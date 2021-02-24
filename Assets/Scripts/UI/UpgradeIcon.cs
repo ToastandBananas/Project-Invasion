@@ -18,6 +18,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] bool shouldRetreat;
 
     [Header("Archer Only Upgrades")]
+    [SerializeField] float fireArrowDamageMultiplier;
     [SerializeField] bool fireArrowsUnlocked;
 
     [Header("Unlocked")]
@@ -61,7 +62,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     squadData.ApplySpearmenData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy);
                     break;
                 case SquadType.Archers:
-                    squadData.ApplySpearmenData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, shouldRetreat, fireArrowsUnlocked);
+                    squadData.ApplyArcherData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, fireArrowDamageMultiplier, shouldRetreat, fireArrowsUnlocked);
                     break;
                 default:
                     break;

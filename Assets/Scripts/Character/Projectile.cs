@@ -147,9 +147,16 @@ public class Projectile : MonoBehaviour
 
     IEnumerator HitTarget(Health health)
     {
-        // Reduce health
-        health.DealDamage(myShooter.GetRangedDamage());
         moveProjectile = false;
+
+        // Reduce health
+        if (myShooter.isShootingSecondaryProjectile == false)
+            health.DealDamage(myShooter.GetRangedDamage());
+        else
+        {
+            Debug.Log("Dealing double damage from fire arrows");
+            health.DealDamage(myShooter.GetRangedDamage() * myShooter.GetSecondaryRangedDamageMultiplier());
+        }
 
         audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, false);
 

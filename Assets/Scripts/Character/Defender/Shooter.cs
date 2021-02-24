@@ -12,6 +12,7 @@ public class Shooter : MonoBehaviour
     public RangedWeaponType rangedWeaponType;
     [SerializeField][Range(0f, 100f)] float accuracy = 100f;
     [SerializeField] float shootDamage = 10f;
+    [SerializeField] float secondaryRangedDamageMultiplier = 2f;
 
     public bool isShootingSecondaryProjectile;
     [HideInInspector] public bool isShootingCastle;
@@ -122,6 +123,16 @@ public class Shooter : MonoBehaviour
     public void SetShootDamage(float newDamage)
     {
         shootDamage = newDamage;
+    }
+
+    public float GetSecondaryRangedDamageMultiplier()
+    {
+        return secondaryRangedDamageMultiplier;
+    }
+
+    public void SetSecondaryRangedDamageMultiplier(float newMultiplier)
+    {
+        secondaryRangedDamageMultiplier = newMultiplier;
     }
 
     public float GetRangedAccuracy()

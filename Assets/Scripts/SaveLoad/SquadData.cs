@@ -12,7 +12,7 @@ public class SquadData : MonoBehaviour
 
     [Header("Archer Data")]
     public int archerSquadGoldCost;
-    public float archerHealth, archerLeaderHealth, archerMeleeDamage, archerLeaderMeleeDamage, archerRangedDamage, archerLeaderRangedDamage, archerAccuracy, archerLeaderAccuracy;
+    public float archerHealth, archerLeaderHealth, archerMeleeDamage, archerLeaderMeleeDamage, archerRangedDamage, archerLeaderRangedDamage, archerAccuracy, archerLeaderAccuracy, fireArrowsDamageMultiplier;
     public bool archerShouldRetreatWhenEnemyNear, archerFireArrowsUnlocked;
 
     public void ApplyKnightData(int gold, float health, float leaderHealth, float damage, float leaderDamage)
@@ -37,7 +37,7 @@ public class SquadData : MonoBehaviour
         spearmenLeaderAccuracy += leaderAccuracy;
     }
 
-    public void ApplySpearmenData(int gold, float health, float leaderHealth, float meleeDamage, float leaderMeleeDamage, float rangedDamage, float leaderRangedDamage, float accuracy, float leaderAccuracy, bool shouldRetreat, bool fireArrowsUnlocked)
+    public void ApplyArcherData(int gold, float health, float leaderHealth, float meleeDamage, float leaderMeleeDamage, float rangedDamage, float leaderRangedDamage, float accuracy, float leaderAccuracy, float archerFireArrowsDamageMultiplier, bool shouldRetreat, bool fireArrowsUnlocked)
     {
         archerSquadGoldCost += gold;
         archerHealth += health;
@@ -48,6 +48,7 @@ public class SquadData : MonoBehaviour
         archerLeaderRangedDamage += leaderRangedDamage;
         archerAccuracy += accuracy;
         archerLeaderAccuracy += leaderAccuracy;
+        fireArrowsDamageMultiplier += archerFireArrowsDamageMultiplier;
 
         if (shouldRetreat == false)
             archerShouldRetreatWhenEnemyNear = false;
@@ -152,6 +153,7 @@ public class SquadData : MonoBehaviour
         ES3.Save("archerLeaderRangedDamage", archerLeaderRangedDamage, "SquadData.es3");
         ES3.Save("archerAccuracy", archerAccuracy, "SquadData.es3");
         ES3.Save("archerLeaderAccuracy", archerLeaderAccuracy, "SquadData.es3");
+        ES3.Save("fireArrowDamageMultiplier", fireArrowsDamageMultiplier, "SquadData.es3");
         ES3.Save("archerShouldRetreatWhenEnemyNear", archerShouldRetreatWhenEnemyNear, "SquadData.es3");
         ES3.Save("archerFireArrowsUnlocked", archerFireArrowsUnlocked, "SquadData.es3");
     }
@@ -186,6 +188,7 @@ public class SquadData : MonoBehaviour
         archerLeaderRangedDamage = ES3.Load("archerLeaderRangedDamage", "SquadData.es3", 0f);
         archerAccuracy = ES3.Load("archerAccuracy", "SquadData.es3", 0f);
         archerLeaderAccuracy = ES3.Load("archerLeaderAccuracy", "SquadData.es3", 0f);
+        fireArrowsDamageMultiplier = ES3.Load("fireArrowDamageMultiplier", "SquadData.es3", 0f);
         archerShouldRetreatWhenEnemyNear = ES3.Load("archerShouldRetreatWhenEnemyNear", "SquadData.es3", true);
         archerFireArrowsUnlocked = ES3.Load("archerFireArrowsUnlocked", "SquadData.es3", false);
     }

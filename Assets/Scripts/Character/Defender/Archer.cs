@@ -37,6 +37,7 @@ public class Archer : MonoBehaviour
     {
         defenderScript.squad.shouldRetreatWhenEnemyNear = squadData.archerShouldRetreatWhenEnemyNear;
         fireArrowsUnlocked = squadData.archerFireArrowsUnlocked;
+        shooterScript.SetSecondaryRangedDamageMultiplier(shooterScript.GetSecondaryRangedDamageMultiplier() + squadData.fireArrowsDamageMultiplier);
 
         if (defenderScript.squad.leader == defenderScript)
         {
