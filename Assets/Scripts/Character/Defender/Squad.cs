@@ -32,6 +32,8 @@ public class Squad : MonoBehaviour
     [HideInInspector] public AttackerSpawner myLaneSpawner;
     [HideInInspector] public RangeCollider rangeCollider;
 
+    AbilityIconController abilityIconController;
+
     #region Formation Positions
     // Line formation positions:
     // 3 units
@@ -62,6 +64,7 @@ public class Squad : MonoBehaviour
 
     void Start()
     {
+        abilityIconController = AbilityIconController.instance;
         rangeCollider = GetComponentInChildren<RangeCollider>();
 
         maxUnitCount = units.Count;
@@ -206,6 +209,21 @@ public class Squad : MonoBehaviour
     public void SetShootRange(int newShootRange)
     {
         shootRange = newShootRange;
+    }
+
+    void OnMouseEnter()
+    {
+        abilityIconController.selectedSquad = this;
+        abilityIconController.EnableAbilityIcons();
+    }
+
+    void OnMouseExit()
+    {
+        if (abilityIconController.selectedSquad = this)
+        {
+            abilityIconController.selectedSquad = null;
+            abilityIconController.DisableAbilityIcons();
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)

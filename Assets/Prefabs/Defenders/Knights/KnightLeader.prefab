@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7773648469546404248}
   - component: {fileID: 1481450064206490354}
   - component: {fileID: 6249635443579284339}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: KnightLeader
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeWeaponType: 0
-  attackDamage: 20
+  meleeDamage: 10
   minAttackDistance: 0.115
   runSpeed: 0.25
   isAttacking: 0
@@ -105,6 +105,7 @@ MonoBehaviour:
   sr: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
+  myShooter: {fileID: 0}
   unitPosition: {x: 0, y: 0}
 --- !u!114 &1481450064206490354
 MonoBehaviour:

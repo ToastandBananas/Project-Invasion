@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 803094444214727073}
   - component: {fileID: 803094444214727072}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Body
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -91,7 +91,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5473790236950113629}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 238313385010275123}
   - component: {fileID: 5640448521246079878}
   - component: {fileID: 8670253651978937899}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spearman
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeWeaponType: 2
-  attackDamage: 15
+  meleeDamage: 10
   minAttackDistance: 0.15
   runSpeed: 0.25
   isAttacking: 0
@@ -219,6 +219,7 @@ MonoBehaviour:
   sr: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
+  myShooter: {fileID: 0}
   unitPosition: {x: 0, y: 0}
 --- !u!114 &238313385010275123
 MonoBehaviour:
@@ -233,9 +234,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2907018548143264321, guid: 7f5ff0e8ebe31d14ca5b8c0a968d9e33, type: 3}
+  secondaryProjectilePrefab: {fileID: 0}
   rangedWeaponType: 3
   accuracy: 50
   shootDamage: 7
+  secondaryRangedDamageMultiplier: 2
+  isShootingSecondaryProjectile: 0
   isShootingCastle: 0
   attacker: {fileID: 0}
   defender: {fileID: 0}
@@ -252,7 +256,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  currentHealth: 50
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isDead: 0
 --- !u!114 &8670253651978937899

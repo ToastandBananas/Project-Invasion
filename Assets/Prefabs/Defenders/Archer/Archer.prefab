@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 5079731735080055768}
   - component: {fileID: 1611350180487338400}
   - component: {fileID: 5632136959205302496}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Archer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -219,6 +219,7 @@ MonoBehaviour:
   sr: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
+  myShooter: {fileID: 0}
   unitPosition: {x: 0, y: 0}
 --- !u!114 &5079731735080055768
 MonoBehaviour:
@@ -265,6 +266,8 @@ MonoBehaviour:
   rangedWeaponType: 0
   accuracy: 50
   shootDamage: 5
+  secondaryRangedDamageMultiplier: 2
+  isShootingSecondaryProjectile: 0
   isShootingCastle: 0
   attacker: {fileID: 0}
   defender: {fileID: 0}

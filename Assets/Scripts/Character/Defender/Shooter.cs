@@ -14,7 +14,7 @@ public class Shooter : MonoBehaviour
     [SerializeField] float shootDamage = 10f;
     [SerializeField] float secondaryRangedDamageMultiplier = 2f;
 
-    public bool isShootingSecondaryProjectile;
+    [HideInInspector] public bool isShootingSecondaryProjectile;
     [HideInInspector] public bool isShootingCastle;
     [HideInInspector] public Attacker attacker;
     [HideInInspector] public Defender defender;
@@ -35,6 +35,7 @@ public class Shooter : MonoBehaviour
         castleCollider = CastleCollider.instance;
         attacker = GetComponent<Attacker>();
         defender = GetComponent<Defender>();
+        defender.myShooter = this;
 
         projectilesParent = GameObject.Find(PROJECTILES_PARENT_NAME).transform;
         gun = transform.Find("Gun").gameObject;

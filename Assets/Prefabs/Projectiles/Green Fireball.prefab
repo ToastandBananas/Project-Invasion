@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3480619949053003781}
   - component: {fileID: 8560937008875648367}
   - component: {fileID: 8108794147083406955}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Green Fireball
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -166,8 +166,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSprite: {fileID: 2941775035897529487, guid: 58287a738bd97384ea7dfc25192562d4, type: 3}
   groundedSprite: {fileID: 0}
-  damage: 20
   speed: 3
   arcMultiplier: 0
-  targetTransform: {fileID: 0}
+  target: {fileID: 0}
+  targetPos: {x: 0, y: 0, z: 0}
   myShooter: {fileID: 0}

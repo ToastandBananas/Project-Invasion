@@ -20,6 +20,7 @@ public class Defender : MonoBehaviour
     [HideInInspector] public SpriteRenderer sr;
     [HideInInspector] public Squad squad;
     [HideInInspector] public Health health;
+    [HideInInspector] public Shooter myShooter;
 
     float randomAttackOffsetY;
     public Vector2 unitPosition;

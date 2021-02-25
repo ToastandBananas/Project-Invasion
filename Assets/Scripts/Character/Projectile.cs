@@ -153,10 +153,7 @@ public class Projectile : MonoBehaviour
         if (myShooter.isShootingSecondaryProjectile == false)
             health.DealDamage(myShooter.GetRangedDamage());
         else
-        {
-            Debug.Log("Dealing double damage from fire arrows");
             health.DealDamage(myShooter.GetRangedDamage() * myShooter.GetSecondaryRangedDamageMultiplier());
-        }
 
         audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, false);
 

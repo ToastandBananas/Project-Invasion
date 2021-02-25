@@ -45,6 +45,8 @@ public class DefenderSpawner : MonoBehaviour
 
         currencyDisplay = FindObjectOfType<CurrencyDisplay>();
         gridCellsOccupied = new List<Vector2>();
+
+        gameObject.SetActive(false);
     }
 
     void Update()
@@ -127,6 +129,8 @@ public class DefenderSpawner : MonoBehaviour
             Destroy(ghostImageSquad.gameObject);
             ghostImageSquad = null;
         }
+
+        gameObject.SetActive(false);
     }
 
     Vector2 GetSquareClicked()

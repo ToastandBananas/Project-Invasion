@@ -38,6 +38,8 @@ public class DefenderButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         if (squadPrefab != defenderSpawner.squad)
             defenderSpawner.SetSelectedSquad(squadPrefab);
+
+        defenderSpawner.gameObject.SetActive(true);
     }
 
     void SetCost()
