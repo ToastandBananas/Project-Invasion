@@ -209,7 +209,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7901704663101015358, guid: 765a97acf808c044098c342101b4530b, type: 3}
       propertyPath: m_Name
-      value: Squad Info Tooltip
+      value: Tooltip
       objectReference: {fileID: 0}
     - target: {fileID: 7901704663860863684, guid: 765a97acf808c044098c342101b4530b, type: 3}
       propertyPath: m_IsActive
@@ -271,19 +271,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8641351014993417664, guid: 907b7696d84471b4a9f9916e2805cf26, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8641351014993417664, guid: 907b7696d84471b4a9f9916e2805cf26, type: 3}
       propertyPath: m_AnchorMin.y
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8641351014993417664, guid: 907b7696d84471b4a9f9916e2805cf26, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 20
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8641351014993417664, guid: 907b7696d84471b4a9f9916e2805cf26, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8641351014993417667, guid: 907b7696d84471b4a9f9916e2805cf26, type: 3}
       propertyPath: m_IsActive

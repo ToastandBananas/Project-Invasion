@@ -17,6 +17,9 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] float leaderRangedDamage, accuracy, leaderAccuracy;
     [SerializeField] bool shouldRetreat;
 
+    [Header("Spearmen Only Upgrades")]
+    [SerializeField] bool longThrowUnlocked;
+
     [Header("Archer Only Upgrades")]
     [SerializeField] float fireArrowDamageMultiplier;
     [SerializeField] bool fireArrowsUnlocked;
@@ -59,7 +62,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     squadData.ApplyKnightData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage);
                     break;
                 case SquadType.Spearmen:
-                    squadData.ApplySpearmenData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy);
+                    squadData.ApplySpearmenData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, longThrowUnlocked);
                     break;
                 case SquadType.Archers:
                     squadData.ApplyArcherData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, fireArrowDamageMultiplier, shouldRetreat, fireArrowsUnlocked);
@@ -94,7 +97,11 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (upgradeDescription.Equals("") == false)
             upgradeDescription.Clear();
 
-        // Archer only upgrades
+        // Spearmen Only Upgrades
+        if (squadType == SquadType.Spearmen && longThrowUnlocked)
+            upgradeDescription.Append("Unlocks the <i>Long Throw</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will be able to throw their spears the entire length of their lane for the next 30 seconds).\n");
+
+        // Archer Only Upgrades
         if (squadType == SquadType.Archers && shouldRetreat == false)
             upgradeDescription.Append("<b>" + squadType.ToString() + "</b> will now carry melee weapons and will no longer retreat when enemies enter their square.\n");
 

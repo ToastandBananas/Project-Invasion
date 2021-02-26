@@ -3,10 +3,12 @@ using UnityEngine;
 
 public class RangeCollider : MonoBehaviour
 {
-    public List<Attacker> attackersInRange = new List<Attacker>();
-    public List<Defender> defendersInRange = new List<Defender>();
+    [HideInInspector] public List<Attacker> attackersInRange = new List<Attacker>();
+    [HideInInspector] public List<Defender> defendersInRange = new List<Defender>();
 
     [HideInInspector] public BoxCollider2D boxCollider;
+    [HideInInspector] public Vector2 originalOffset;
+    [HideInInspector] public Vector2 originalSize;
 
     Attacker attacker;
     Squad squad;
@@ -16,6 +18,8 @@ public class RangeCollider : MonoBehaviour
         attacker = transform.parent.GetComponent<Attacker>();
         squad = transform.parent.GetComponent<Squad>();
         boxCollider = GetComponent<BoxCollider2D>();
+        originalOffset = boxCollider.offset;
+        originalSize = boxCollider.size;
     }
 
     void OnTriggerEnter2D(Collider2D collision)

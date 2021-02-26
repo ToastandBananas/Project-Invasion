@@ -13,6 +13,7 @@ public class Tooltip : MonoBehaviour
     Text tooltipText;
     SquadData squadData;
 
+    AbilityIconController abilityIconController;
     Defender leader;
     Defender unit;
     Health leaderHealth;
@@ -22,6 +23,7 @@ public class Tooltip : MonoBehaviour
     
     void Start()
     {
+        abilityIconController = AbilityIconController.instance;
         squadData = GameManager.instance.squadData;
 
         tooltipBackground = transform.GetChild(0).GetComponent<RectTransform>();
@@ -103,7 +105,10 @@ public class Tooltip : MonoBehaviour
         tooltipText.text = abilityName;
 
         SetBackgroundSize();
-        transform.position = pos + new Vector2(-0.2f, 0.05f);
+        if (abilityIconController.selectedSquad == null || abilityIconController.selectedSquad.isCastleWallSquad == false)
+            transform.position = pos + new Vector2(-0.2f, 0.05f);
+        else
+            transform.position = pos + new Vector2(0.75f, 0.05f); // For castle wall squads
     }
 
     void SetBackgroundSize()

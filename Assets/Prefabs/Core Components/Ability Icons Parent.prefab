@@ -80,6 +80,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireArrowsIcon: {fileID: 21300000, guid: 3cec0dbad60ea8f4e809baef354826bb, type: 3}
+  longThrowIcon: {fileID: 21300000, guid: fc1a4fbbc5ab16a409e04fd444592516, type: 3}
   abilityIconButtons: []
   abilityIconImages: []
   selectedSquad: {fileID: 0}

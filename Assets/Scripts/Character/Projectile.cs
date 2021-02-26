@@ -105,7 +105,7 @@ public class Projectile : MonoBehaviour
 
         if (gameObject.activeInHierarchy)
         {
-            if ((attacker != null && myShooter.defender != null && (attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner || myShooter.defender.squad.isCastleWallUnit)) // If shooting an attacker
+            if ((attacker != null && myShooter.defender != null && (attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner || myShooter.defender.squad.isCastleWallSquad)) // If shooting an attacker
                 || (defender != null && myShooter.attacker != null && defender.squad.myLaneSpawner == myShooter.attacker.myAttackerSpawner)) // If shooting a defender
             {
                 Health health = collision.GetComponent<Health>();

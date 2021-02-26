@@ -17,7 +17,7 @@ public class Squad : MonoBehaviour
     public Squad castleWallVersionOfSquad;
     public bool shouldRetreatWhenEnemyNear;
     public bool isRangedUnit;
-    public bool isCastleWallUnit;
+    public bool isCastleWallSquad;
     [SerializeField] int shootRange;
 
     [Header("Other")]
@@ -31,6 +31,7 @@ public class Squad : MonoBehaviour
     [HideInInspector] public Transform unitsParent;
     [HideInInspector] public AttackerSpawner myLaneSpawner;
     [HideInInspector] public RangeCollider rangeCollider;
+    [HideInInspector] public bool abilityActive;
 
     AbilityIconController abilityIconController;
 
@@ -228,7 +229,7 @@ public class Squad : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isCastleWallUnit == false)
+        if (isCastleWallSquad == false)
         {
             if (collision.TryGetComponent<Attacker>(out Attacker attacker))
             {
@@ -300,7 +301,7 @@ public class Squad : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (isCastleWallUnit == false)
+        if (isCastleWallSquad == false)
         {
             if (collision.TryGetComponent<Attacker>(out Attacker attacker))
             {

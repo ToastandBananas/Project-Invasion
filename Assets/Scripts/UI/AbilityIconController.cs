@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AbilityIconController : MonoBehaviour
 {
-    public Sprite fireArrowsIcon;
+    public Sprite fireArrowsIcon, longThrowIcon;
 
     [HideInInspector] public List<Button> abilityIconButtons = new List<Button>();
     [HideInInspector] public List<Image>  abilityIconImages  = new List<Image>();
@@ -55,6 +55,7 @@ public class AbilityIconController : MonoBehaviour
                 case SquadType.Knights:
                     break;
                 case SquadType.Spearmen:
+                    SetSpearmenIcons();
                     break;
                 case SquadType.Archers:
                     SetArcherIcons();
@@ -63,10 +64,10 @@ public class AbilityIconController : MonoBehaviour
                     break;
             }
 
-            if (selectedSquad.isCastleWallUnit == false)
+            if (selectedSquad.isCastleWallSquad == false)
                 transform.position = selectedSquad.transform.position + new Vector3(-0.4f, 0f);
             else
-                transform.position = selectedSquad.transform.position + new Vector3(-0.2f, 0f);
+                transform.position = selectedSquad.transform.position + new Vector3(0.3f, 0f); // For castle wall squads
         }
     }
 
@@ -80,16 +81,59 @@ public class AbilityIconController : MonoBehaviour
 
         tooltip.DeactivateTooltip();
     }
+    
+    void SetSpearmenIcons()
+    {
+        if (selectedSquad.abilityActive == false)
+        {
+            if (squadData.spearmenLongThrowUnlocked)
+            {
+                abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
+                abilityIconButtons[0].onClick.AddListener(ActivateLongThrow);
+                abilityIconImages[0].sprite = longThrowIcon;
+            }
+        }
+    }
+
+    void ActivateLongThrow()
+    {
+        selectedSquad.abilityActive = true;
+        PlayButtonClickSound();
+
+        if (selectedSquad.isCastleWallSquad == false)
+        {
+            selectedSquad.rangeCollider.boxCollider.offset = new Vector2(5.4f, 0f);
+            selectedSquad.rangeCollider.boxCollider.size = new Vector2(10f, 0.9f);
+        }
+        else // For castle wall squads
+        {
+            selectedSquad.rangeCollider.boxCollider.offset = new Vector2(5.4f, 0f);
+            selectedSquad.rangeCollider.boxCollider.size = new Vector2(10f, 2.9f);
+        }
+
+        DisableAbilityIcons();
+        StartCoroutine(DeactivateLongThrow(selectedSquad, 30f));
+    }
+
+    IEnumerator DeactivateLongThrow(Squad squad, float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        squad.abilityActive = false;
+        squad.rangeCollider.boxCollider.offset = squad.rangeCollider.originalOffset;
+        squad.rangeCollider.boxCollider.size = squad.rangeCollider.originalSize;
+    }
 
     void SetArcherIcons()
     {
-        if (squadData.archerFireArrowsUnlocked 
-            && ((selectedSquad.leader != null && selectedSquad.leader.myShooter.isShootingSecondaryProjectile == false) 
-            || (selectedSquad.units.Count > 0 && selectedSquad.units[0].myShooter.isShootingSecondaryProjectile == false)))
+        if (selectedSquad.abilityActive == false)
         {
-            abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
-            abilityIconButtons[0].onClick.AddListener(ActivateSecondaryProjectile);
-            abilityIconImages[0].sprite = fireArrowsIcon;
+            if (squadData.archerFireArrowsUnlocked)
+            {
+                abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
+                abilityIconButtons[0].onClick.AddListener(ActivateSecondaryProjectile);
+                abilityIconImages[0].sprite = fireArrowsIcon;
+            }
         }
     }
 
@@ -98,6 +142,7 @@ public class AbilityIconController : MonoBehaviour
         if ((selectedSquad.leader != null && selectedSquad.leader.myShooter.isShootingSecondaryProjectile == false)
             || (selectedSquad.units.Count > 0 && selectedSquad.units[0].myShooter.isShootingSecondaryProjectile == false))
         {
+            selectedSquad.abilityActive = true;
             PlayButtonClickSound();
 
             if (selectedSquad.leader != null)
@@ -117,6 +162,7 @@ public class AbilityIconController : MonoBehaviour
     {
         yield return new WaitForSeconds(waitTime);
 
+        squad.abilityActive = false;
         squad.leader.myShooter.isShootingSecondaryProjectile = false;
         foreach (Defender unit in squad.units)
         {

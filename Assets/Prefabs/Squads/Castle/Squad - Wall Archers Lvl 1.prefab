@@ -73,6 +73,8 @@ MonoBehaviour:
   attackersInRange: []
   defendersInRange: []
   boxCollider: {fileID: 0}
+  originalOffset: {x: 0, y: 0}
+  originalSize: {x: 0, y: 0}
 --- !u!1 &5993080609090899984
 GameObject:
   m_ObjectHideFlags: 0
@@ -183,7 +185,7 @@ MonoBehaviour:
   castleWallVersionOfSquad: {fileID: 0}
   shouldRetreatWhenEnemyNear: 1
   isRangedUnit: 1
-  isCastleWallUnit: 1
+  isCastleWallSquad: 1
   shootRange: 4
   squadPlaced: 1
   leader: {fileID: 0}
@@ -193,6 +195,7 @@ MonoBehaviour:
   unitsParent: {fileID: 0}
   myLaneSpawner: {fileID: 0}
   rangeCollider: {fileID: 0}
+  abilityActive: 0
 --- !u!1 &5993080609877194416
 GameObject:
   m_ObjectHideFlags: 0
