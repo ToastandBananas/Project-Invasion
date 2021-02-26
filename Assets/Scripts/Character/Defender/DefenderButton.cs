@@ -7,24 +7,24 @@ public class DefenderButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     [SerializeField] Squad squadPrefab;
     
     DefenderSpawner defenderSpawner;
-    Tooltip squadInfoTooltip;
+    Tooltip tooltip;
 
     void Start()
     {
         defenderSpawner = DefenderSpawner.instance;
-        squadInfoTooltip = GameObject.Find("Squad Info Tooltip").GetComponent<Tooltip>();
+        tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
 
         SetCost();
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
     {
-        squadInfoTooltip.ToggleSquadTooltip(squadPrefab, transform.position);
+        tooltip.ToggleSquadTooltip(squadPrefab, transform.position);
     }
 
     void IPointerExitHandler.OnPointerExit(PointerEventData eventData)
     {
-        squadInfoTooltip.ToggleSquadTooltip(null, transform.position);
+        tooltip.ToggleSquadTooltip(null, transform.position);
     }
 
     public void SelectSquadOfDefenders()

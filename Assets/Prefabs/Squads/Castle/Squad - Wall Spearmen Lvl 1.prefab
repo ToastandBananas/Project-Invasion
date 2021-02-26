@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 9204217775485916342}
   - component: {fileID: 3653472104328809475}
   - component: {fileID: 335437135925629358}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spearman (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -125,18 +125,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196f04268b983b64d8dbb8adb663fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 15
+  meleeWeaponType: 0
+  meleeDamage: 10
   minAttackDistance: 0.15
   runSpeed: 0.25
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
-  unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
   targetAttackersHealth: {fileID: 0}
   sr: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
+  myShooter: {fileID: 0}
+  unitPosition: {x: 0, y: 0}
 --- !u!114 &9204217775485916342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -150,11 +152,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2907018548143264321, guid: 7f5ff0e8ebe31d14ca5b8c0a968d9e33, type: 3}
+  secondaryProjectilePrefab: {fileID: 0}
+  rangedWeaponType: 0
+  accuracy: 50
+  shootDamage: 7
+  secondaryRangedDamageMultiplier: 2
+  isShootingSecondaryProjectile: 0
   isShootingCastle: 0
   attacker: {fileID: 0}
   defender: {fileID: 0}
-  accuracy: 50
-  shootDamage: 7
 --- !u!114 &3653472104328809475
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -167,7 +173,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  maxHealth: 100
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isDead: 0
 --- !u!114 &335437135925629358
@@ -182,7 +188,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9b8784ca5c3354aa8a831768062e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spearmanLevel: 1
 --- !u!1 &471107777138374546
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,7 +424,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackersInRange: []
   defendersInRange: []
-  collider: {fileID: 0}
+  boxCollider: {fileID: 0}
 --- !u!1 &4086043102924576114
 GameObject:
   m_ObjectHideFlags: 0
@@ -465,7 +470,7 @@ GameObject:
   - component: {fileID: 5128152930821694693}
   - component: {fileID: 730310066136988752}
   - component: {fileID: 4338830023709401597}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spearman (0)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -545,18 +550,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196f04268b983b64d8dbb8adb663fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 15
+  meleeWeaponType: 0
+  meleeDamage: 10
   minAttackDistance: 0.15
   runSpeed: 0.25
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
-  unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
   targetAttackersHealth: {fileID: 0}
   sr: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
+  myShooter: {fileID: 0}
+  unitPosition: {x: 0, y: 0}
 --- !u!114 &5128152930821694693
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -570,11 +577,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2907018548143264321, guid: 7f5ff0e8ebe31d14ca5b8c0a968d9e33, type: 3}
+  secondaryProjectilePrefab: {fileID: 0}
+  rangedWeaponType: 0
+  accuracy: 50
+  shootDamage: 7
+  secondaryRangedDamageMultiplier: 2
+  isShootingSecondaryProjectile: 0
   isShootingCastle: 0
   attacker: {fileID: 0}
   defender: {fileID: 0}
-  accuracy: 50
-  shootDamage: 7
 --- !u!114 &730310066136988752
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -587,7 +598,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  maxHealth: 100
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isDead: 0
 --- !u!114 &4338830023709401597
@@ -602,7 +613,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9b8784ca5c3354aa8a831768062e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spearmanLevel: 1
 --- !u!1 &5326998739132097730
 GameObject:
   m_ObjectHideFlags: 0
@@ -760,7 +770,7 @@ GameObject:
   - component: {fileID: 1702843761788570124}
   - component: {fileID: 6533027236459057849}
   - component: {fileID: 7835685427890294548}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spearman (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -840,18 +850,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196f04268b983b64d8dbb8adb663fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 15
+  meleeWeaponType: 0
+  meleeDamage: 10
   minAttackDistance: 0.15
   runSpeed: 0.25
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
-  unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
   targetAttackersHealth: {fileID: 0}
   sr: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
+  myShooter: {fileID: 0}
+  unitPosition: {x: 0, y: 0}
 --- !u!114 &1702843761788570124
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -865,11 +877,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2907018548143264321, guid: 7f5ff0e8ebe31d14ca5b8c0a968d9e33, type: 3}
+  secondaryProjectilePrefab: {fileID: 0}
+  rangedWeaponType: 0
+  accuracy: 50
+  shootDamage: 7
+  secondaryRangedDamageMultiplier: 2
+  isShootingSecondaryProjectile: 0
   isShootingCastle: 0
   attacker: {fileID: 0}
   defender: {fileID: 0}
-  accuracy: 50
-  shootDamage: 7
 --- !u!114 &6533027236459057849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -882,7 +898,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  maxHealth: 100
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isDead: 0
 --- !u!114 &7835685427890294548
@@ -897,7 +913,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9b8784ca5c3354aa8a831768062e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spearmanLevel: 1
 --- !u!1 &8502358356789256221
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,7 +928,7 @@ GameObject:
   - component: {fileID: 1072477799907960070}
   - component: {fileID: 4893858261964193203}
   - component: {fileID: 8502358356789256222}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Spearman (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -993,18 +1008,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196f04268b983b64d8dbb8adb663fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 15
+  meleeWeaponType: 0
+  meleeDamage: 10
   minAttackDistance: 0.15
   runSpeed: 0.25
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
-  unitPosition: {x: 0, y: 0}
   targetAttacker: {fileID: 0}
   targetAttackersHealth: {fileID: 0}
   sr: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
+  myShooter: {fileID: 0}
+  unitPosition: {x: 0, y: 0}
 --- !u!114 &1072477799907960070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1018,11 +1035,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2907018548143264321, guid: 7f5ff0e8ebe31d14ca5b8c0a968d9e33, type: 3}
+  secondaryProjectilePrefab: {fileID: 0}
+  rangedWeaponType: 0
+  accuracy: 50
+  shootDamage: 7
+  secondaryRangedDamageMultiplier: 2
+  isShootingSecondaryProjectile: 0
   isShootingCastle: 0
   attacker: {fileID: 0}
   defender: {fileID: 0}
-  accuracy: 50
-  shootDamage: 7
 --- !u!114 &4893858261964193203
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1035,7 +1056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  maxHealth: 100
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isDead: 0
 --- !u!114 &8502358356789256222
@@ -1050,7 +1071,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb9b8784ca5c3354aa8a831768062e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spearmanLevel: 1
 --- !u!1 &8633525462530557474
 GameObject:
   m_ObjectHideFlags: 0
@@ -1142,6 +1162,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9176416422350433638}
+  - component: {fileID: 6460403956350379145}
   - component: {fileID: 9176416422350433636}
   m_Layer: 0
   m_Name: Squad - Wall Spearmen Lvl 1
@@ -1167,6 +1188,32 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &6460403956350379145
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9176416422350433635}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.9, y: 0.9}
+  m_EdgeRadius: 0
 --- !u!114 &9176416422350433636
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1179,7 +1226,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60145fa9133d01408a07d606ee4e6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  squadType: 1
   goldCost: 150
+  description: 
   squadFormation: 0
   castleWallVersionOfSquad: {fileID: 0}
   shouldRetreatWhenEnemyNear: 0

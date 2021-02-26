@@ -208,9 +208,10 @@ MonoBehaviour:
     randomVolumeAddOn: 0
     randomPitchAddOn: 0
     loop: 0
-  - soundName: Victory Song
-    clip: {fileID: 8300000, guid: 32d25cdd9b6f12548a4daae146bbf48b, type: 3}
-    volume: 0.5
+  victorySounds:
+  - soundName: Victory Song 1
+    clip: {fileID: 8300000, guid: bc7d944df7ff34a409d0894f390bad26, type: 3}
+    volume: 0.25
     pitch: 1
     randomVolumeAddOn: 0
     randomPitchAddOn: 0
@@ -266,6 +267,14 @@ MonoBehaviour:
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
+    loop: 0
+  buttonClickSounds:
+  - soundName: WetClick
+    clip: {fileID: 8300000, guid: 57bacd0436b66964db69ef963b652e05, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.1
     loop: 0
   humanMaleDeathSounds:
   - soundName: Human Male Death 1

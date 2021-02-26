@@ -94,7 +94,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeWeaponType: 0
-  meleeDamage: 10
+  meleeDamage: 30
   minAttackDistance: 0.115
   runSpeed: 0.25
   isAttacking: 0

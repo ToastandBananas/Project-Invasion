@@ -80,5 +80,6 @@ MonoBehaviour:
   archerLeaderRangedDamage: 0
   archerAccuracy: 0
   archerLeaderAccuracy: 0
-  archerShouldRetreatWhenEnemyNear: 0
+  fireArrowsDamageMultiplier: 0
+  archerShouldRetreatWhenEnemyNear: 1
   archerFireArrowsUnlocked: 0

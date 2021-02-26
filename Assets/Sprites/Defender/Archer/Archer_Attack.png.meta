@@ -1,22 +1,22 @@
 fileFormatVersion: 2
-guid: 497b44745088feb4ebd05b882c095a15
+guid: c4d3d0d782b5246458997a7058cb256a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -213350804137912256
-    second: FireArrow_Explode_0
+      213: 6136108176805211945
+    second: Archer_Attack_0
   - first:
-      213: -8193515213091177477
-    second: FireArrow_Explode_1
+      213: 427712624260918572
+    second: Archer_Attack_1
   - first:
-      213: 6227314126525821756
-    second: FireArrow_Explode_2
+      213: 1737314231182387426
+    second: Archer_Attack_2
   - first:
-      213: -5383297212780108068
-    second: FireArrow_Explode_3
+      213: -8780558989607345827
+    second: Archer_Attack_3
   - first:
-      213: -3125913957681320662
-    second: FireArrow_Explode_4
+      213: -740172404461588457
+    second: Archer_Attack_4
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -61,7 +61,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 120
+  spritePixelsToUnits: 80
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -116,49 +116,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: FireArrow_Explode_0
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 048d0d2f2960a0df0800000000000000
-      internalID: -213350804137912256
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FireArrow_Explode_1
-      rect:
-        serializedVersion: 2
-        x: 16
-        y: 32
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bfbf0f52359ca4e80800000000000000
-      internalID: -8193515213091177477
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: FireArrow_Explode_2
+      name: Archer_Attack_0
       rect:
         serializedVersion: 2
         x: 0
@@ -172,14 +130,14 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c33f750543ddb6650800000000000000
-      internalID: 6227314126525821756
+      spriteID: 92f28d550e5d72550800000000000000
+      internalID: 6136108176805211945
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FireArrow_Explode_3
+      name: Archer_Attack_1
       rect:
         serializedVersion: 2
         x: 16
@@ -193,14 +151,35 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cd624e7f4bfaa45b0800000000000000
-      internalID: -5383297212780108068
+      spriteID: c2da50b9d5a8fe500800000000000000
+      internalID: 427712624260918572
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: FireArrow_Explode_4
+      name: Archer_Attack_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 16
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e86bdca61e2c1810800000000000000
+      internalID: 1737314231182387426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archer_Attack_3
       rect:
         serializedVersion: 2
         x: 0
@@ -214,8 +193,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a2d28f931d58e94d0800000000000000
-      internalID: -3125913957681320662
+      spriteID: d51671fce10352680800000000000000
+      internalID: -8780558989607345827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archer_Attack_4
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7103587ae116ab5f0800000000000000
+      internalID: -740172404461588457
       vertices: []
       indices: 
       edges: []

@@ -80,10 +80,36 @@ public class Tooltip : MonoBehaviour
 
         tooltipText.text = stringBuilder.ToString();
 
+        SetBackgroundSize();
+        transform.position = pos + new Vector2(0f, 0.5f);
+    }
+
+    public void ActivateAbilityTooltip(string abilityName, Vector2 pos)
+    {
+        //tooltipBackground.gameObject.SetActive(true);
+        tooltipText.gameObject.SetActive(true);
+        
+        CreateAbilityTooltip(abilityName, pos);
+    }
+
+    public void DeactivateTooltip()
+    {
+        tooltipBackground.gameObject.SetActive(false);
+        tooltipText.gameObject.SetActive(false);
+    }
+
+    void CreateAbilityTooltip(string abilityName, Vector2 pos)
+    {
+        tooltipText.text = abilityName;
+
+        SetBackgroundSize();
+        transform.position = pos + new Vector2(-0.2f, 0.05f);
+    }
+
+    void SetBackgroundSize()
+    {
         backgroundSize = new Vector2(tooltipText.preferredWidth + (textPaddingSize * 2f), tooltipText.preferredHeight + (textPaddingSize * 2f));
         if (backgroundSize.x > 200f) backgroundSize.x = 200f + (textPaddingSize * 2f);
         tooltipBackground.sizeDelta = backgroundSize;
-
-        transform.position = pos + new Vector2(0f, 0.5f);
     }
 }

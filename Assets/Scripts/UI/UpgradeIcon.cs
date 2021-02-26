@@ -99,7 +99,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             upgradeDescription.Append("<b>" + squadType.ToString() + "</b> will now carry melee weapons and will no longer retreat when enemies enter their square.\n");
 
         if (squadType == SquadType.Archers && fireArrowsUnlocked)
-            upgradeDescription.Append("Unlocks the <i>Fire Arrows</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will shoot fire arrows for the next 10 shots).\n");
+            upgradeDescription.Append("Unlocks the <i>Fire Arrows</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will shoot fire arrows for the next 30 seconds).\n");
 
         // General Upgrades
         if (gold > 0)

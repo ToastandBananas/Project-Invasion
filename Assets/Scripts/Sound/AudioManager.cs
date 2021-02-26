@@ -80,6 +80,9 @@ public class AudioManager : MonoBehaviour
     [Header("Throw Sounds")]
     public Sound[] throwSounds;
 
+    [Header("UI Sounds")]
+    public Sound[] buttonClickSounds;
+
     [Header("Voice Sounds")]
     public Sound[] humanMaleDeathSounds;
     public Sound[] humanMaleGruntSounds;
@@ -113,6 +116,7 @@ public class AudioManager : MonoBehaviour
         allSounds.Add(swordSlashOpponentSounds);
         allSounds.Add(swordStabOpponentSounds);
         allSounds.Add(throwSounds);
+        allSounds.Add(buttonClickSounds);
         allSounds.Add(humanMaleDeathSounds);
         allSounds.Add(humanMaleGruntSounds);
     }

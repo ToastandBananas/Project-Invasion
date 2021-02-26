@@ -208,7 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   meleeWeaponType: 0
-  meleeDamage: 10
+  meleeDamage: 15
   minAttackDistance: 0.115
   runSpeed: 0.35
   isAttacking: 0
@@ -248,7 +248,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af119b89ce650254db165d5ea56bddbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireArrowsUnlocked: 0
 --- !u!114 &6530117672121802405
 MonoBehaviour:
   m_ObjectHideFlags: 0

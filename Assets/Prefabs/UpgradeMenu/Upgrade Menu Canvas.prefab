@@ -3661,7 +3661,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
       propertyPath: shouldRetreat
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
       propertyPath: leaderMeleeDamage
@@ -4008,7 +4008,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
       propertyPath: shouldRetreat
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
       propertyPath: fireArrowsUnlocked
@@ -4430,6 +4430,10 @@ PrefabInstance:
       propertyPath: leaderHealth
       value: 20
       objectReference: {fileID: 0}
+    - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
+      propertyPath: shouldRetreat
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4303312555078688955, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
       propertyPath: m_Type
       value: 0
@@ -4762,6 +4766,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
+      propertyPath: shouldRetreat
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
       propertyPath: leaderAccuracy
       value: 15
       objectReference: {fileID: 0}
@@ -4877,6 +4885,10 @@ PrefabInstance:
     - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
       propertyPath: squadType
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
+      propertyPath: shouldRetreat
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
       propertyPath: leaderMeleeDamage
@@ -5500,6 +5512,10 @@ PrefabInstance:
       propertyPath: squadType
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 855635162074913741, guid: c898706256122d644904e39026723f57, type: 3}
+      propertyPath: shouldRetreat
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 855635162074913743, guid: c898706256122d644904e39026723f57, type: 3}
       propertyPath: m_Type
       value: 0
@@ -5763,6 +5779,10 @@ PrefabInstance:
       propertyPath: meleeDamage
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
+      propertyPath: shouldRetreat
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4303312555078688955, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
       propertyPath: m_Type
       value: 0
@@ -5875,6 +5895,10 @@ PrefabInstance:
     - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
       propertyPath: rangedDamage
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
+      propertyPath: shouldRetreat
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4303312555078688953, guid: 6d04b3f04ef898943bf64eb5f6e280e3, type: 3}
       propertyPath: leaderMeleeDamage

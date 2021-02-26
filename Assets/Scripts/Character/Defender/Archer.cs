@@ -7,7 +7,7 @@ public class Archer : MonoBehaviour
     Health health;
     SquadData squadData;
 
-    public bool fireArrowsUnlocked;
+    //public bool fireArrowsUnlocked;
 
     void Start()
     {
@@ -36,7 +36,7 @@ public class Archer : MonoBehaviour
     public void SetArcherData()
     {
         defenderScript.squad.shouldRetreatWhenEnemyNear = squadData.archerShouldRetreatWhenEnemyNear;
-        fireArrowsUnlocked = squadData.archerFireArrowsUnlocked;
+        //fireArrowsUnlocked = squadData.archerFireArrowsUnlocked;
         shooterScript.SetSecondaryRangedDamageMultiplier(shooterScript.GetSecondaryRangedDamageMultiplier() + squadData.fireArrowsDamageMultiplier);
 
         if (defenderScript.squad.leader == defenderScript)

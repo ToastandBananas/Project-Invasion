@@ -44,8 +44,8 @@ public class OptionsController : MonoBehaviour
     {
         if (musicPlayer != null && optionsMenuOpen)
             musicPlayer.SetVolume(volumeSlider.value);
-        else if (musicPlayer == null)
-            Debug.LogWarning("No music player found... did you start from the splash screen?");
+        // else if (musicPlayer == null)
+            // Debug.LogWarning("No music player found... did you start from the splash screen?");
     }
 
     void LateUpdate()
