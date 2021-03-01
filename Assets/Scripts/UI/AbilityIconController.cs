@@ -86,7 +86,7 @@ public class AbilityIconController : MonoBehaviour
     {
         if (selectedSquad.abilityActive == false)
         {
-            if (squadData.spearmenLongThrowUnlocked)
+            if (squadData.spearmenLongThrowUnlocked) // Long Throw
             {
                 abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
                 abilityIconButtons[0].onClick.AddListener(ActivateLongThrow);
@@ -102,8 +102,8 @@ public class AbilityIconController : MonoBehaviour
 
         if (selectedSquad.isCastleWallSquad == false)
         {
-            selectedSquad.rangeCollider.boxCollider.offset = new Vector2(5.4f, 0f);
-            selectedSquad.rangeCollider.boxCollider.size = new Vector2(10f, 0.9f);
+            selectedSquad.rangeCollider.boxCollider.offset = new Vector2(5.25f, 0f);
+            selectedSquad.rangeCollider.boxCollider.size = new Vector2(9.5f, 0.9f);
         }
         else // For castle wall squads
         {
@@ -128,7 +128,7 @@ public class AbilityIconController : MonoBehaviour
     {
         if (selectedSquad.abilityActive == false)
         {
-            if (squadData.archerFireArrowsUnlocked)
+            if (squadData.archerFireArrowsUnlocked) // Fire Arrows
             {
                 abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
                 abilityIconButtons[0].onClick.AddListener(ActivateSecondaryProjectile);
