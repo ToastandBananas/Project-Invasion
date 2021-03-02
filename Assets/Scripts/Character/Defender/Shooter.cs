@@ -35,7 +35,8 @@ public class Shooter : MonoBehaviour
         castleCollider = CastleCollider.instance;
         attacker = GetComponent<Attacker>();
         defender = GetComponent<Defender>();
-        defender.myShooter = this;
+        if (defender != null)
+            defender.myShooter = this;
 
         projectilesParent = GameObject.Find(PROJECTILES_PARENT_NAME).transform;
         gun = transform.Find("Gun").gameObject;

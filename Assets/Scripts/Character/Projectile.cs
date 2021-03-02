@@ -47,6 +47,8 @@ public class Projectile : MonoBehaviour
         x1 = targetPos.x;
         dist = x1 - x0;
         arcHeight = dist * arcMultiplier;
+        if (myShooter.attacker != null)
+            arcHeight *= -1f;
 
         float random = Random.Range(0f, 100f);
         Vector3 offset = Vector3.zero;
