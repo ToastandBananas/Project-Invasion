@@ -15,8 +15,14 @@ public class SquadData : MonoBehaviour
 
     [Header("Archer Data")]
     public int archerSquadGoldCost;
-    public float archerHealth, archerLeaderHealth, archerMeleeDamage, archerLeaderMeleeDamage, archerRangedDamage, archerLeaderRangedDamage, archerAccuracy, archerLeaderAccuracy, archerFireArrowsDamageMultiplier;
-    public bool archerShouldRetreatWhenEnemyNear, archerFireArrowsUnlocked;
+    public float archerHealth, archerLeaderHealth, archerMeleeDamage, archerLeaderMeleeDamage, archerRangedDamage, archerLeaderRangedDamage, archerAccuracy, archerLeaderAccuracy, 
+        archerFireArrowsTime, archerFireArrowsDamageMultiplier, archerRapidFireTime, archerRapidFireSpeedMultipilier;
+    public bool archerShouldRetreatWhenEnemyNear, archerFireArrowsUnlocked, archerRapidFireUnlocked;
+
+    [Header("Defaults")]
+    float defaultFireArrowTime = 30f;
+    float defaultRapidFireTime = 20f;
+    float defaultRapidFireSpeedMultiplier = 2f;
 
     public void ApplyKnightData(int gold, float health, float leaderHealth, float damage, float leaderDamage)
     {
@@ -43,7 +49,7 @@ public class SquadData : MonoBehaviour
             spearmenLongThrowUnlocked = true;
     }
 
-    public void ApplyArcherData(int gold, float health, float leaderHealth, float meleeDamage, float leaderMeleeDamage, float rangedDamage, float leaderRangedDamage, float accuracy, float leaderAccuracy, float fireArrowsDamageMultiplier, bool shouldRetreat, bool fireArrowsUnlocked)
+    public void ApplyArcherData(int gold, float health, float leaderHealth, float meleeDamage, float leaderMeleeDamage, float rangedDamage, float leaderRangedDamage, float accuracy, float leaderAccuracy, float fireArrowsTime, float fireArrowsDamageMultiplier, float rapidFireTime, float rapidFireSpeedMultiplier, bool shouldRetreat, bool fireArrowsUnlocked, bool rapidFireUnlocked)
     {
         archerSquadGoldCost += gold;
         archerHealth += health;
@@ -54,13 +60,19 @@ public class SquadData : MonoBehaviour
         archerLeaderRangedDamage += leaderRangedDamage;
         archerAccuracy += accuracy;
         archerLeaderAccuracy += leaderAccuracy;
+        archerFireArrowsTime += fireArrowsTime;
         archerFireArrowsDamageMultiplier += fireArrowsDamageMultiplier;
+        archerRapidFireTime += rapidFireTime;
+        archerRapidFireSpeedMultipilier += rapidFireSpeedMultiplier;
 
         if (shouldRetreat == false)
             archerShouldRetreatWhenEnemyNear = false;
 
         if (fireArrowsUnlocked)
             archerFireArrowsUnlocked = true;
+
+        if (rapidFireUnlocked)
+            archerRapidFireUnlocked = true;
     }
 
     public float GetHealthData(SquadType squadType, bool isLeader)
@@ -160,9 +172,13 @@ public class SquadData : MonoBehaviour
         ES3.Save("archerLeaderRangedDamage", archerLeaderRangedDamage, squadDataSavePath);
         ES3.Save("archerAccuracy", archerAccuracy, squadDataSavePath);
         ES3.Save("archerLeaderAccuracy", archerLeaderAccuracy, squadDataSavePath);
-        ES3.Save("fireArrowDamageMultiplier", archerFireArrowsDamageMultiplier, squadDataSavePath);
+        ES3.Save("archerFireArrowsTime", archerFireArrowsTime, squadDataSavePath);
+        ES3.Save("archerFireArrowDamageMultiplier", archerFireArrowsDamageMultiplier, squadDataSavePath);
+        ES3.Save("archerRapidFireTime", archerRapidFireTime, squadDataSavePath);
+        ES3.Save("archerRapidFireSpeedMultiplier", archerRapidFireSpeedMultipilier, squadDataSavePath);
         ES3.Save("archerShouldRetreatWhenEnemyNear", archerShouldRetreatWhenEnemyNear, squadDataSavePath);
         ES3.Save("archerFireArrowsUnlocked", archerFireArrowsUnlocked, squadDataSavePath);
+        ES3.Save("archerRapidFireUnlocked", archerRapidFireUnlocked, squadDataSavePath);
     }
 
     public void LoadSquadData()
@@ -196,8 +212,12 @@ public class SquadData : MonoBehaviour
         archerLeaderRangedDamage = ES3.Load("archerLeaderRangedDamage", squadDataSavePath, 0f);
         archerAccuracy = ES3.Load("archerAccuracy", squadDataSavePath, 0f);
         archerLeaderAccuracy = ES3.Load("archerLeaderAccuracy", squadDataSavePath, 0f);
-        archerFireArrowsDamageMultiplier = ES3.Load("fireArrowDamageMultiplier", squadDataSavePath, 0f);
+        archerFireArrowsTime = ES3.Load("archerFireArrowsTime", squadDataSavePath, defaultFireArrowTime);
+        archerFireArrowsDamageMultiplier = ES3.Load("archerFireArrowDamageMultiplier", squadDataSavePath, 0f);
+        archerRapidFireTime = ES3.Load("archerRapidFireTime", squadDataSavePath, defaultRapidFireTime);
+        archerRapidFireSpeedMultipilier = ES3.Load("archerRapidFireSpeedMultiplier", squadDataSavePath, defaultRapidFireSpeedMultiplier);
         archerShouldRetreatWhenEnemyNear = ES3.Load("archerShouldRetreatWhenEnemyNear", squadDataSavePath, true);
         archerFireArrowsUnlocked = ES3.Load("archerFireArrowsUnlocked", squadDataSavePath, false);
+        archerRapidFireUnlocked = ES3.Load("archerRapidFireUnlocked", squadDataSavePath, false);
     }
 }

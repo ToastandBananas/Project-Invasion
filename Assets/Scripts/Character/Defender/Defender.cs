@@ -17,17 +17,17 @@ public class Defender : MonoBehaviour
     [HideInInspector] public Attacker targetAttacker;
     [HideInInspector] public Health targetAttackersHealth;
 
+    [HideInInspector] public Animator anim;
     [HideInInspector] public SpriteRenderer sr;
     [HideInInspector] public Squad squad;
     [HideInInspector] public Health health;
     [HideInInspector] public Shooter myShooter;
 
+    [HideInInspector] public Vector2 unitPosition;
     float randomAttackOffsetY;
-    public Vector2 unitPosition;
     Vector2 currentLocalPosition;
 
     AudioManager audioManager;
-    Animator anim;
     CurrencyDisplay currencyDisplay;
 
     void Awake()

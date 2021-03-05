@@ -71,6 +71,7 @@ MonoBehaviour:
   spearmenLeaderRangedDamage: 0
   spearmenAccuracy: 0
   spearmenLeaderAccuracy: 0
+  spearmenLongThrowUnlocked: 0
   archerSquadGoldCost: 0
   archerHealth: 0
   archerLeaderHealth: 0
@@ -80,6 +81,10 @@ MonoBehaviour:
   archerLeaderRangedDamage: 0
   archerAccuracy: 0
   archerLeaderAccuracy: 0
-  fireArrowsDamageMultiplier: 0
+  archerFireArrowsTime: 0
+  archerFireArrowsDamageMultiplier: 0
+  archerRapidFireTime: 0
+  archerRapidFireSpeedMultipilier: 0
   archerShouldRetreatWhenEnemyNear: 1
   archerFireArrowsUnlocked: 0
+  archerRapidFireUnlocked: 0

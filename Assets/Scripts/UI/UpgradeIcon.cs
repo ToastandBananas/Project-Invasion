@@ -21,13 +21,14 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] bool longThrowUnlocked;
 
     [Header("Archer Only Upgrades")]
-    [SerializeField] float fireArrowDamageMultiplier;
-    [SerializeField] bool fireArrowsUnlocked;
+    [SerializeField] float fireArrowsTime, fireArrowDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier;
+    [SerializeField] bool fireArrowsUnlocked, rapidFireUnlocked;
 
     [Header("Unlocked")]
     public bool upgradeUnlocked;
 
     SquadData squadData;
+    UpgradeManager upgradeManager;
     Text upgradeNameText;
     Text upgradeDescriptionText;
     StringBuilder upgradeDescription = new StringBuilder();
@@ -35,6 +36,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     void Start()
     {
         squadData = GameManager.instance.squadData;
+        upgradeManager = UpgradeManager.instance;
         upgradeNameText = GameObject.Find("Upgrade Name Text").GetComponent<Text>();
         upgradeDescriptionText = GameObject.Find("Upgrade Description Text").GetComponent<Text>();
 
@@ -65,7 +67,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     squadData.ApplySpearmenData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, longThrowUnlocked);
                     break;
                 case SquadType.Archers:
-                    squadData.ApplyArcherData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, fireArrowDamageMultiplier, shouldRetreat, fireArrowsUnlocked);
+                    squadData.ApplyArcherData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, fireArrowsTime, fireArrowDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier, shouldRetreat, fireArrowsUnlocked, rapidFireUnlocked);
                     break;
                 default:
                     break;
@@ -73,7 +75,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
             upgradeUnlocked = true;
             SetIconColor(Color.green);
-            UpgradeManager.instance.ClearSelectedUpgradeIcon();
+            upgradeManager.ClearSelectedUpgradeIcon();
             GameManager.instance.SaveCurrentGame();
         }
     }
@@ -82,8 +84,8 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (upgradeUnlocked == false)
         {
-            UpgradeManager.instance.SetSelectedUpgradeIcon(this);
-            UpgradeManager.instance.ToggleUpgradeConfirmationScreen();
+            upgradeManager.SetSelectedUpgradeIcon(this);
+            upgradeManager.ToggleUpgradeConfirmationScreen();
         }
     }
 
@@ -97,16 +99,25 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (upgradeDescription.Equals("") == false)
             upgradeDescription.Clear();
 
-        // Spearmen Only Upgrades
+        // Spearmen Ability Upgrades
         if (squadType == SquadType.Spearmen && longThrowUnlocked)
             upgradeDescription.Append("Unlocks the <i>Long Throw</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will be able to throw their spears the entire length of their lane for the next 30 seconds).\n");
 
-        // Archer Only Upgrades
-        if (squadType == SquadType.Archers && shouldRetreat == false)
-            upgradeDescription.Append("<b>" + squadType.ToString() + "</b> will now carry melee weapons and will no longer retreat when enemies enter their square.\n");
+        // Archer Ability Upgrades
+        if (squadType == SquadType.Archers)
+        {
+            if (shouldRetreat == false)
+                upgradeDescription.Append("<b>" + squadType.ToString() + "</b> will now carry melee weapons and will no longer retreat when enemies enter their square.\n");
 
-        if (squadType == SquadType.Archers && fireArrowsUnlocked)
-            upgradeDescription.Append("Unlocks the <i>Fire Arrows</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will shoot fire arrows for the next 30 seconds).\n");
+            if (fireArrowsUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Fire Arrows</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will shoot fire arrows for the next 30 seconds).\n");
+
+            if (rapidFireUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Rapid Fire</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will shoot twice as fast for the next 20 seconds).\n");
+
+            if (rapidFireTime > 0f)
+                upgradeDescription.Append("Increases the <i>Rapid Fire</i> ability's active time by " + rapidFireTime.ToString() + " seconds.\n");
+        }
 
         // General Upgrades
         if (gold > 0)

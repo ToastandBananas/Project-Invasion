@@ -88,9 +88,7 @@ public class Tooltip : MonoBehaviour
 
     public void ActivateAbilityTooltip(string abilityName, Vector2 pos)
     {
-        //tooltipBackground.gameObject.SetActive(true);
         tooltipText.gameObject.SetActive(true);
-        
         CreateAbilityTooltip(abilityName, pos);
     }
 
@@ -98,6 +96,7 @@ public class Tooltip : MonoBehaviour
     {
         tooltipBackground.gameObject.SetActive(false);
         tooltipText.gameObject.SetActive(false);
+        tooltipText.alignment = TextAnchor.LowerLeft;
     }
 
     void CreateAbilityTooltip(string abilityName, Vector2 pos)
@@ -106,7 +105,10 @@ public class Tooltip : MonoBehaviour
 
         SetBackgroundSize();
         if (abilityIconController.selectedSquad == null || abilityIconController.selectedSquad.isCastleWallSquad == false)
-            transform.position = pos + new Vector2(-0.2f, 0.05f);
+        {
+            transform.position = pos + new Vector2(-0.85f, -0.05f);
+            tooltipText.alignment = TextAnchor.MiddleRight;
+        }
         else
             transform.position = pos + new Vector2(0.75f, 0.05f); // For castle wall squads
     }

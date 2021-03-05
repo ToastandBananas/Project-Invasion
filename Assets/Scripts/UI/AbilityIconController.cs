@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AbilityIconController : MonoBehaviour
 {
-    public Sprite fireArrowsIcon, longThrowIcon;
+    public Sprite fireArrowsIcon, rapidFireIcon, longThrowIcon;
 
     [HideInInspector] public List<Button> abilityIconButtons = new List<Button>();
     [HideInInspector] public List<Image>  abilityIconImages  = new List<Image>();
@@ -65,7 +65,7 @@ public class AbilityIconController : MonoBehaviour
             }
 
             if (selectedSquad.isCastleWallSquad == false)
-                transform.position = selectedSquad.transform.position + new Vector3(-0.4f, 0f);
+                transform.position = selectedSquad.transform.position + new Vector3(-0.35f, 0f);
             else
                 transform.position = selectedSquad.transform.position + new Vector3(0.3f, 0f); // For castle wall squads
         }
@@ -134,39 +134,83 @@ public class AbilityIconController : MonoBehaviour
                 abilityIconButtons[0].onClick.AddListener(ActivateSecondaryProjectile);
                 abilityIconImages[0].sprite = fireArrowsIcon;
             }
+
+            if (squadData.archerRapidFireUnlocked) // Rapid Fire
+            {
+                abilityIconButtons[1].transform.parent.gameObject.SetActive(true);
+                abilityIconButtons[1].onClick.AddListener(ActivateRapidShoot);
+                abilityIconImages[1].sprite = rapidFireIcon;
+            }
         }
     }
 
     void ActivateSecondaryProjectile()
     {
-        if ((selectedSquad.leader != null && selectedSquad.leader.myShooter.isShootingSecondaryProjectile == false)
-            || (selectedSquad.units.Count > 0 && selectedSquad.units[0].myShooter.isShootingSecondaryProjectile == false))
+        selectedSquad.abilityActive = true;
+        PlayButtonClickSound();
+
+        if (selectedSquad.leader != null)
+            selectedSquad.leader.myShooter.isShootingSecondaryProjectile = true;
+
+        foreach (Defender unit in selectedSquad.units)
         {
-            selectedSquad.abilityActive = true;
-            PlayButtonClickSound();
-
-            if (selectedSquad.leader != null)
-                selectedSquad.leader.myShooter.isShootingSecondaryProjectile = true;
-
-            foreach (Defender unit in selectedSquad.units)
-            {
-                unit.myShooter.isShootingSecondaryProjectile = true;
-            }
-
-            DisableAbilityIcons();
-            StartCoroutine(DeactivateSecondaryProjectile(selectedSquad, 30f));
+            unit.myShooter.isShootingSecondaryProjectile = true;
         }
+
+        DisableAbilityIcons();
+        StartCoroutine(DeactivateSecondaryProjectile(selectedSquad));
     }
 
-    IEnumerator DeactivateSecondaryProjectile(Squad squad, float waitTime)
+    IEnumerator DeactivateSecondaryProjectile(Squad squad)
     {
-        yield return new WaitForSeconds(waitTime);
+        if (squad.squadType == SquadType.Archers)
+            yield return new WaitForSeconds(squadData.archerFireArrowsTime);
+        else
+            yield return new WaitForSeconds(30f);
 
         squad.abilityActive = false;
-        squad.leader.myShooter.isShootingSecondaryProjectile = false;
+
+        if (squad.leader != null)
+            squad.leader.myShooter.isShootingSecondaryProjectile = false;
+
         foreach (Defender unit in squad.units)
         {
             unit.myShooter.isShootingSecondaryProjectile = false;
+        }
+    }
+
+    void ActivateRapidShoot()
+    {
+        selectedSquad.abilityActive = true;
+        PlayButtonClickSound();
+
+        if (selectedSquad.leader != null)
+            selectedSquad.leader.anim.SetFloat("shootSpeed", squadData.archerRapidFireSpeedMultipilier);
+
+        foreach (Defender unit in selectedSquad.units)
+        {
+            unit.anim.SetFloat("shootSpeed", squadData.archerRapidFireSpeedMultipilier);
+        }
+
+        DisableAbilityIcons();
+        StartCoroutine(DeactivateRapidShoot(selectedSquad));
+    }
+
+    IEnumerator DeactivateRapidShoot(Squad squad)
+    {
+        if (squad.squadType == SquadType.Archers)
+            yield return new WaitForSeconds(squadData.archerRapidFireTime);
+        else
+            yield return new WaitForSeconds(20f);
+
+        squad.abilityActive = false;
+
+        if (squad.leader != null)
+            squad.leader.anim.SetFloat("shootSpeed", 1f);
+
+        foreach (Defender unit in squad.units)
+        {
+            unit.anim.SetFloat("shootSpeed", 1f);
         }
     }
 
