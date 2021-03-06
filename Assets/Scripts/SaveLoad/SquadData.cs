@@ -10,7 +10,7 @@ public class SquadData : MonoBehaviour
 
     [Header("Spearmen Data")]
     public int spearmenSquadGoldCost;
-    public float spearmenHealth, spearmenLeaderHealth, spearmenMeleeDamage, spearmenLeaderMeleeDamage, spearmenRangedDamage, spearmenLeaderRangedDamage, spearmenAccuracy, spearmenLeaderAccuracy;
+    public float spearmenHealth, spearmenLeaderHealth, spearmenMeleeDamage, spearmenLeaderMeleeDamage, spearmenRangedDamage, spearmenLeaderRangedDamage, spearmenAccuracy, spearmenLeaderAccuracy, spearmenLongThrowTime;
     public bool spearmenLongThrowUnlocked;
 
     [Header("Archer Data")]
@@ -19,7 +19,8 @@ public class SquadData : MonoBehaviour
         archerFireArrowsTime, archerFireArrowsDamageMultiplier, archerRapidFireTime, archerRapidFireSpeedMultipilier;
     public bool archerShouldRetreatWhenEnemyNear, archerFireArrowsUnlocked, archerRapidFireUnlocked;
 
-    [Header("Defaults")]
+    // Defaults
+    float defaultLongThrowTime = 30f;
     float defaultFireArrowTime = 30f;
     float defaultRapidFireTime = 20f;
     float defaultRapidFireSpeedMultiplier = 2f;
@@ -33,7 +34,7 @@ public class SquadData : MonoBehaviour
         knightLeaderMeleeDamage += leaderDamage;
     }
 
-    public void ApplySpearmenData(int gold, float health, float leaderHealth, float meleeDamage, float leaderMeleeDamage, float rangedDamage, float leaderRangedDamage, float accuracy, float leaderAccuracy, bool longThrowUnlocked)
+    public void ApplySpearmenData(int gold, float health, float leaderHealth, float meleeDamage, float leaderMeleeDamage, float rangedDamage, float leaderRangedDamage, float accuracy, float leaderAccuracy, float longThrowTime, bool longThrowUnlocked)
     {
         spearmenSquadGoldCost += gold;
         spearmenHealth += health;
@@ -44,6 +45,7 @@ public class SquadData : MonoBehaviour
         spearmenLeaderRangedDamage += leaderRangedDamage;
         spearmenAccuracy += accuracy;
         spearmenLeaderAccuracy += leaderAccuracy;
+        spearmenLongThrowTime += longThrowTime;
 
         if (longThrowUnlocked)
             spearmenLongThrowUnlocked = true;
@@ -160,6 +162,7 @@ public class SquadData : MonoBehaviour
         ES3.Save("spearmenLeaderRangedDamage", spearmenLeaderRangedDamage, squadDataSavePath);
         ES3.Save("spearmenAccuracy", spearmenAccuracy, squadDataSavePath);
         ES3.Save("spearmenLeaderAccuracy", spearmenLeaderAccuracy, squadDataSavePath);
+        ES3.Save("spearmenLongThrowTime", spearmenLongThrowTime, squadDataSavePath);
         ES3.Save("spearmenLongThrowUnlocked", spearmenLongThrowUnlocked, squadDataSavePath);
 
         // Archer Data
@@ -200,6 +203,7 @@ public class SquadData : MonoBehaviour
         spearmenLeaderRangedDamage = ES3.Load("spearmenLeaderRangedDamage", squadDataSavePath, 0f);
         spearmenAccuracy = ES3.Load("spearmenAccuracy", squadDataSavePath, 0f);
         spearmenLeaderAccuracy = ES3.Load("spearmenLeaderAccuracy", squadDataSavePath, 0f);
+        spearmenLongThrowTime = ES3.Load("spearmenLongThrowTime", squadDataSavePath, defaultLongThrowTime);
         spearmenLongThrowUnlocked = ES3.Load("spearmenLongThrowUnlocked", squadDataSavePath, false);
 
         // Archer Data

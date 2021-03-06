@@ -18,10 +18,11 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] bool shouldRetreat;
 
     [Header("Spearmen Only Upgrades")]
+    [SerializeField] float longThrowTime;
     [SerializeField] bool longThrowUnlocked;
 
     [Header("Archer Only Upgrades")]
-    [SerializeField] float fireArrowsTime, fireArrowDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier;
+    [SerializeField] float fireArrowsTime, fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier;
     [SerializeField] bool fireArrowsUnlocked, rapidFireUnlocked;
 
     [Header("Unlocked")]
@@ -64,10 +65,10 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     squadData.ApplyKnightData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage);
                     break;
                 case SquadType.Spearmen:
-                    squadData.ApplySpearmenData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, longThrowUnlocked);
+                    squadData.ApplySpearmenData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, longThrowTime, longThrowUnlocked);
                     break;
                 case SquadType.Archers:
-                    squadData.ApplyArcherData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, fireArrowsTime, fireArrowDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier, shouldRetreat, fireArrowsUnlocked, rapidFireUnlocked);
+                    squadData.ApplyArcherData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, fireArrowsTime, fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier, shouldRetreat, fireArrowsUnlocked, rapidFireUnlocked);
                     break;
                 default:
                     break;
@@ -100,8 +101,14 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             upgradeDescription.Clear();
 
         // Spearmen Ability Upgrades
-        if (squadType == SquadType.Spearmen && longThrowUnlocked)
-            upgradeDescription.Append("Unlocks the <i>Long Throw</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will be able to throw their spears the entire length of their lane for the next 30 seconds).\n");
+        if (squadType == SquadType.Spearmen)
+        {
+            if (longThrowUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Long Throw</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will be able to throw their spears the entire length of their lane for the next 30 seconds).\n");
+
+            if (longThrowTime > 0f)
+                upgradeDescription.Append("<i>Long Throw</i> Time: <color=green>+" + longThrowTime.ToString() + " seconds</color>\n");
+        }
 
         // Archer Ability Upgrades
         if (squadType == SquadType.Archers)
@@ -115,8 +122,17 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             if (rapidFireUnlocked)
                 upgradeDescription.Append("Unlocks the <i>Rapid Fire</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will shoot twice as fast for the next 20 seconds).\n");
 
+            if (fireArrowsTime > 0f)
+                upgradeDescription.Append("<i>Fire Arrows</i> Time: <color=green>+" + fireArrowsTime.ToString() + " seconds</color>\n");
+
+            if (fireArrowsDamageMultiplier > 0f)
+                upgradeDescription.Append("Increases damage for the <i>Fire Arrows</i> ability by a factor of <color=green>" + fireArrowsDamageMultiplier.ToString() + "</color>.\n");
+
             if (rapidFireTime > 0f)
-                upgradeDescription.Append("Increases the <i>Rapid Fire</i> ability's active time by " + rapidFireTime.ToString() + " seconds.\n");
+                upgradeDescription.Append("<i>Rapid Fire</i> Time: <color=green>+" + rapidFireTime.ToString() + " seconds</color>\n");
+
+            if (rapidFireSpeedMultiplier > 0f)
+                upgradeDescription.Append("Increases fire speed for the <i>Rapid Fire</i> ability by a factor of <color=green>" + rapidFireSpeedMultiplier.ToString() + "</color>.\n");
         }
 
         // General Upgrades

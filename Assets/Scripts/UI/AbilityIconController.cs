@@ -112,12 +112,12 @@ public class AbilityIconController : MonoBehaviour
         }
 
         DisableAbilityIcons();
-        StartCoroutine(DeactivateLongThrow(selectedSquad, 30f));
+        StartCoroutine(DeactivateLongThrow(selectedSquad));
     }
 
-    IEnumerator DeactivateLongThrow(Squad squad, float waitTime)
+    IEnumerator DeactivateLongThrow(Squad squad)
     {
-        yield return new WaitForSeconds(waitTime);
+        yield return new WaitForSeconds(squadData.spearmenLongThrowTime);
 
         squad.abilityActive = false;
         squad.rangeCollider.boxCollider.offset = squad.rangeCollider.originalOffset;
