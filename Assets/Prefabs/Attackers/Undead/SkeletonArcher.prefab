@@ -120,12 +120,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints: 25
   isLarge: 0
-  meleeWeaponType: 0
-  meleeDamage: 10
-  castleAttackDamage: 5
   minAttackDistance: 0.125
   maxOpponents: 2
   runSpeed: 0.5
+  meleeWeaponType: 2
+  castleAttackDamage: 5
+  bluntDamage: 0
+  slashDamage: 0
+  piercingDamage: 5
+  fireDamage: 0
   opponents: []
   currentDefenderAttacking: {fileID: 0}
   currentTargetsHealth: {fileID: 0}
@@ -151,7 +154,9 @@ MonoBehaviour:
   secondaryProjectilePrefab: {fileID: 0}
   rangedWeaponType: 0
   accuracy: 50
-  shootDamage: 5
+  bluntDamage: 0
+  piercingDamage: 10
+  fireDamage: 0
   secondaryRangedDamageMultiplier: 2
   isShootingSecondaryProjectile: 0
   isShootingCastle: 0
@@ -182,6 +187,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 30
+  currentHealth: 100
+  bluntResistance: -0.5
+  slashResistance: 0
+  piercingResistance: 0.5
+  fireResistance: 0.25
   damageEffect: {fileID: 0}
   isDead: 0
 --- !u!1 &2165565174110799596

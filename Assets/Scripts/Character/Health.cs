@@ -3,8 +3,12 @@ using UnityEngine;
 
 public class Health : MonoBehaviour
 {
+    [Header("Stats")]
     [SerializeField] float maxHealth = 100f;
-    float currentHealth = 100f;
+    [SerializeField] float currentHealth = 100f;
+    [SerializeField][Range(-1f, 1f)] float bluntResistance, slashResistance, piercingResistance, fireResistance;
+
+    [Header("Damage Particle Effect")]
     [SerializeField] GameObject damageEffect;
 
     [HideInInspector] public bool isDead = false;
@@ -17,6 +21,7 @@ public class Health : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Transform deadCharactersParent;
 
+    float damageAmount;
     const string EFFECTS_PARENT_NAME = "Effects";
     Transform effectsParent;
     ObjectPool damageEffectObjectPool;
@@ -30,6 +35,8 @@ public class Health : MonoBehaviour
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         deadCharactersParent = GameObject.Find("Dead Characters").transform;
+
+        currentHealth = maxHealth;
 
         // Find which object pool to use for damage effects (blood, etc.)
         effectsParent = GameObject.Find(EFFECTS_PARENT_NAME).transform;
@@ -56,6 +63,7 @@ public class Health : MonoBehaviour
     public void SetMaxHealth(float newMaxHealthAmount)
     {
         maxHealth = newMaxHealthAmount;
+        currentHealth = maxHealth;
     }
 
     public float GetCurrentHealth()
@@ -73,9 +81,21 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void DealDamage(float damage)
+    public void DealDamage(float bluntDamage, float slashDamage, float piercingDamage, float fireDamage)
     {
-        currentHealth -= damage;
+        damageAmount = 0f;
+        if (bluntDamage > 0f)    damageAmount += GetDamageAmount(bluntDamage, bluntResistance);
+        if (slashDamage > 0f)    damageAmount += GetDamageAmount(slashDamage, slashResistance);
+        if (piercingDamage > 0f) damageAmount += GetDamageAmount(piercingDamage, piercingResistance);
+        if (fireDamage > 0f)     damageAmount += GetDamageAmount(fireDamage, fireResistance);
+
+        if (damageAmount >= 0f && damageAmount < 1f)
+            damageAmount = 1f;
+        else
+            damageAmount = Mathf.RoundToInt(damageAmount);
+
+        currentHealth -= damageAmount;
+        
         if (damageEffect != null)
             StartCoroutine(TriggerDamageEffect());
 
@@ -85,6 +105,11 @@ public class Health : MonoBehaviour
             FindNewTargetForOpponent();
             Die();
         }
+    }
+
+    float GetDamageAmount(float damage, float resistance)
+    {
+        return damage - (damage * resistance);
     }
 
     void Die()

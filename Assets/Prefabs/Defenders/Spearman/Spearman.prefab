@@ -125,8 +125,8 @@ GameObject:
   - component: {fileID: 1055880684296509165}
   - component: {fileID: 3542152476317489388}
   - component: {fileID: 238313385010275123}
-  - component: {fileID: 5640448521246079878}
   - component: {fileID: 8670253651978937899}
+  - component: {fileID: 5640448521246079878}
   m_Layer: 2
   m_Name: Spearman
   m_TagString: Untagged
@@ -207,15 +207,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196f04268b983b64d8dbb8adb663fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeWeaponType: 2
-  meleeDamage: 10
   minAttackDistance: 0.15
   runSpeed: 0.25
+  meleeWeaponType: 2
+  bluntDamage: 0
+  slashDamage: 0
+  piercingDamage: 12
+  fireDamage: 0
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
   targetAttacker: {fileID: 0}
   targetAttackersHealth: {fileID: 0}
+  anim: {fileID: 0}
   sr: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
@@ -237,12 +241,26 @@ MonoBehaviour:
   secondaryProjectilePrefab: {fileID: 0}
   rangedWeaponType: 3
   accuracy: 50
-  shootDamage: 7
+  bluntDamage: 0
+  piercingDamage: 20
+  fireDamage: 0
   secondaryRangedDamageMultiplier: 2
   isShootingSecondaryProjectile: 0
   isShootingCastle: 0
   attacker: {fileID: 0}
   defender: {fileID: 0}
+--- !u!114 &8670253651978937899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8670253651978937896}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb9b8784ca5c3354aa8a831768062e58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &5640448521246079878
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,17 +274,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
+  bluntResistance: -0.25
+  slashResistance: 0.4
+  piercingResistance: 0.25
+  fireResistance: -0.25
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isDead: 0
---- !u!114 &8670253651978937899
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8670253651978937896}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb9b8784ca5c3354aa8a831768062e58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

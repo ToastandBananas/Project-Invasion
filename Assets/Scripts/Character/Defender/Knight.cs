@@ -36,15 +36,15 @@ public class Knight : MonoBehaviour
         {
             if (squadData.knightLeaderHealth > 0)
                 health.SetMaxHealth(health.GetMaxHealth() + squadData.knightLeaderHealth);
-            if (squadData.knightLeaderMeleeDamage > 0)
-                defenderScript.SetAttackDamage(defenderScript.GetMeleeDamage() + squadData.knightLeaderMeleeDamage);
+            if (squadData.knightLeaderSlashDamage > 0)
+                defenderScript.SetAttackDamage(0, squadData.knightLeaderSlashDamage, 0, 0);
         }
         else // Unit:
         {
             if (squadData.knightHealth > 0)
                 health.SetMaxHealth(health.GetMaxHealth() + squadData.knightHealth);
-            if (squadData.knightMeleeDamage > 0)
-                defenderScript.SetAttackDamage(defenderScript.GetMeleeDamage() + squadData.knightMeleeDamage);
+            if (squadData.knightSlashDamage > 0)
+                defenderScript.SetAttackDamage(0, squadData.knightSlashDamage, 0, 0);
         }
     }
 }

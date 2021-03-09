@@ -2,6 +2,7 @@
 
 public enum MeleeWeaponType { Blade, Blunt, Piercing }
 public enum RangedWeaponType { Bow, Crossbow, Fireball, Spear }
+// public enum DamageType { Blunt, Slash, Piercing, Fire }
 public enum SquadType { Knights, Spearmen, Archers }
 
 public class GameManager : MonoBehaviour

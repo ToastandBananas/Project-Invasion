@@ -120,12 +120,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints: 100
   isLarge: 0
-  meleeWeaponType: 0
-  attackDamage: 50
-  castleAttackDamage: 5
   minAttackDistance: 0.125
   maxOpponents: 2
   runSpeed: 0.3
+  meleeWeaponType: 1
+  castleAttackDamage: 10
+  bluntDamage: 10
+  slashDamage: 0
+  piercingDamage: 0
+  fireDamage: 0
   opponents: []
   currentDefenderAttacking: {fileID: 0}
   currentTargetsHealth: {fileID: 0}
@@ -148,9 +151,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 3480619949053003782, guid: 9aa59a9ceb66ed147961e6baec8167dc, type: 3}
+  secondaryProjectilePrefab: {fileID: 0}
   rangedWeaponType: 2
   accuracy: 100
-  shootDamage: 10
+  bluntDamage: 0
+  piercingDamage: 0
+  fireDamage: 25
+  secondaryRangedDamageMultiplier: 2
+  isShootingSecondaryProjectile: 0
   isShootingCastle: 0
   attacker: {fileID: 0}
   defender: {fileID: 0}
@@ -183,7 +191,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 300
-  currentHealth: 300
+  currentHealth: 100
+  bluntResistance: -0.5
+  slashResistance: 0
+  piercingResistance: 0.5
+  fireResistance: 0.8
   damageEffect: {fileID: 0}
   isDead: 0
 --- !u!1 &2269888450606713270
@@ -259,6 +271,8 @@ MonoBehaviour:
   attackersInRange: []
   defendersInRange: []
   boxCollider: {fileID: 0}
+  originalOffset: {x: 0, y: 0}
+  originalSize: {x: 0, y: 0}
 --- !u!1 &3989456355417454306
 GameObject:
   m_ObjectHideFlags: 0

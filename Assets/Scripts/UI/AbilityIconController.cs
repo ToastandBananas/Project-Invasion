@@ -131,7 +131,7 @@ public class AbilityIconController : MonoBehaviour
             if (squadData.archerFireArrowsUnlocked) // Fire Arrows
             {
                 abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
-                abilityIconButtons[0].onClick.AddListener(ActivateSecondaryProjectile);
+                abilityIconButtons[0].onClick.AddListener(ActivateFireArrows);
                 abilityIconImages[0].sprite = fireArrowsIcon;
             }
 
@@ -144,38 +144,43 @@ public class AbilityIconController : MonoBehaviour
         }
     }
 
-    void ActivateSecondaryProjectile()
+    void ActivateFireArrows()
     {
         selectedSquad.abilityActive = true;
         PlayButtonClickSound();
 
         if (selectedSquad.leader != null)
+        {
             selectedSquad.leader.myShooter.isShootingSecondaryProjectile = true;
+            selectedSquad.leader.myShooter.fireDamage = selectedSquad.leader.myShooter.piercingDamage * selectedSquad.leader.myShooter.secondaryRangedDamageMultiplier;
+        }
 
         foreach (Defender unit in selectedSquad.units)
         {
             unit.myShooter.isShootingSecondaryProjectile = true;
+            unit.myShooter.fireDamage = unit.myShooter.piercingDamage * unit.myShooter.secondaryRangedDamageMultiplier;
         }
 
         DisableAbilityIcons();
-        StartCoroutine(DeactivateSecondaryProjectile(selectedSquad));
+        StartCoroutine(DeactivateFireArrows(selectedSquad));
     }
 
-    IEnumerator DeactivateSecondaryProjectile(Squad squad)
+    IEnumerator DeactivateFireArrows(Squad squad)
     {
-        if (squad.squadType == SquadType.Archers)
-            yield return new WaitForSeconds(squadData.archerFireArrowsTime);
-        else
-            yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(squadData.archerFireArrowsTime);
 
         squad.abilityActive = false;
 
         if (squad.leader != null)
+        {
             squad.leader.myShooter.isShootingSecondaryProjectile = false;
+            squad.leader.myShooter.fireDamage = 0f;
+        }
 
         foreach (Defender unit in squad.units)
         {
             unit.myShooter.isShootingSecondaryProjectile = false;
+            unit.myShooter.fireDamage = 0f;
         }
     }
 

@@ -47,13 +47,13 @@ public class Projectile : MonoBehaviour
         x1 = targetPos.x;
         dist = x1 - x0;
         arcHeight = dist * arcMultiplier;
-        if (myShooter.attacker != null)
+        if (targetPos.x < myShooter.transform.position.x)
             arcHeight *= -1f;
 
         float random = Random.Range(0f, 100f);
         Vector3 offset = Vector3.zero;
 
-        if (random > myShooter.GetRangedAccuracy())
+        if (random > myShooter.accuracy)
         {
             float offsetXFromMiss, offsetYFromMiss;
             offsetXFromMiss = Random.Range(0.1f, 0.4f);
@@ -152,11 +152,8 @@ public class Projectile : MonoBehaviour
         moveProjectile = false;
 
         // Reduce health
-        if (myShooter.isShootingSecondaryProjectile == false)
-            health.DealDamage(myShooter.GetRangedDamage());
-        else
-            health.DealDamage(myShooter.GetRangedDamage() * myShooter.GetSecondaryRangedDamageMultiplier());
-
+        health.DealDamage(myShooter.bluntDamage, 0, myShooter.piercingDamage, myShooter.fireDamage);
+        
         audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, false);
 
         // For projectiles that have an animation, such as a fireball

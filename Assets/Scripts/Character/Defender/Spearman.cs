@@ -38,23 +38,23 @@ public class Spearman : MonoBehaviour
             // Leader:
             if (squadData.spearmenLeaderHealth > 0)
                 health.SetMaxHealth(health.GetMaxHealth() + squadData.spearmenLeaderHealth);
-            if (squadData.spearmenLeaderMeleeDamage > 0)
-                defenderScript.SetAttackDamage(defenderScript.GetMeleeDamage() + squadData.spearmenLeaderMeleeDamage);
-            if (squadData.spearmenLeaderRangedDamage > 0)
-                shooterScript.SetShootDamage(shooterScript.GetRangedDamage() + squadData.spearmenLeaderRangedDamage);
+            if (squadData.spearmenLeaderPiercingDamage > 0)
+                defenderScript.SetAttackDamage(0, 0, squadData.spearmenLeaderPiercingDamage, 0);
+            if (squadData.spearmenLeaderRangedPiercingDamage > 0)
+                shooterScript.SetRangedDamage(0, squadData.spearmenLeaderPiercingDamage, 0);
             if (squadData.spearmenLeaderAccuracy > 0)
-                shooterScript.SetShootAccuracy(shooterScript.GetRangedAccuracy() + squadData.spearmenLeaderAccuracy);
+                shooterScript.accuracy += squadData.spearmenLeaderAccuracy;
         }
         else // Unit:
         {
             if (squadData.spearmenHealth > 0)
                 health.SetMaxHealth(health.GetMaxHealth() + squadData.spearmenHealth);
-            if (squadData.spearmenMeleeDamage > 0)
-                defenderScript.SetAttackDamage(defenderScript.GetMeleeDamage() + squadData.spearmenMeleeDamage);
-            if (squadData.spearmenRangedDamage > 0)
-                shooterScript.SetShootDamage(shooterScript.GetRangedDamage() + squadData.spearmenRangedDamage);
+            if (squadData.spearmenPiercingDamage > 0)
+                defenderScript.SetAttackDamage(0, 0, squadData.spearmenPiercingDamage, 0);
+            if (squadData.spearmenRangedPiercingDamage > 0)
+                shooterScript.SetRangedDamage(0, squadData.spearmenRangedPiercingDamage, 0);
             if (squadData.spearmenAccuracy > 0)
-                shooterScript.SetShootAccuracy(shooterScript.GetRangedAccuracy() + squadData.spearmenAccuracy);
+                shooterScript.accuracy += squadData.spearmenAccuracy;
         }
     }
 }

@@ -117,12 +117,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints: 20
   isLarge: 0
-  meleeWeaponType: 0
-  attackDamage: 5
-  castleAttackDamage: 5
   minAttackDistance: 0.125
   maxOpponents: 2
   runSpeed: 0.5
+  meleeWeaponType: 0
+  castleAttackDamage: 5
+  bluntDamage: 0
+  slashDamage: 10
+  piercingDamage: 0
+  fireDamage: 0
   opponents: []
   currentDefenderAttacking: {fileID: 0}
   currentTargetsHealth: {fileID: 0}
@@ -157,7 +160,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  currentHealth: 50
+  currentHealth: 100
+  bluntResistance: -0.5
+  slashResistance: 0
+  piercingResistance: 0.5
+  fireResistance: 0.25
   damageEffect: {fileID: 0}
   isDead: 0
 --- !u!1 &3752957602855261672

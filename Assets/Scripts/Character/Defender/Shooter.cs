@@ -9,10 +9,11 @@ public class Shooter : MonoBehaviour
     ObjectPool projectileObjectPool;
     ObjectPool secondaryProjectileObjectPool;
 
+    [Header("Weapon Stats")]
     public RangedWeaponType rangedWeaponType;
-    [SerializeField][Range(0f, 100f)] float accuracy = 100f;
-    [SerializeField] float shootDamage = 10f;
-    [SerializeField] float secondaryRangedDamageMultiplier = 2f;
+    [Range(0f, 100f)] public float accuracy = 100f;
+    public float bluntDamage, piercingDamage, fireDamage;
+    public float secondaryRangedDamageMultiplier = 1f;
 
     [HideInInspector] public bool isShootingSecondaryProjectile;
     [HideInInspector] public bool isShootingCastle;
@@ -117,34 +118,11 @@ public class Shooter : MonoBehaviour
         audioManager.PlayRandomSound(audioManager.bowDrawSounds);
     }
 
-    public float GetRangedDamage()
+    public void SetRangedDamage(float bluntDamageAddOn, float piercingDamageAddOn, float fireDamageAddOn)
     {
-        return shootDamage;
-    }
-
-    public void SetShootDamage(float newDamage)
-    {
-        shootDamage = newDamage;
-    }
-
-    public float GetSecondaryRangedDamageMultiplier()
-    {
-        return secondaryRangedDamageMultiplier;
-    }
-
-    public void SetSecondaryRangedDamageMultiplier(float newMultiplier)
-    {
-        secondaryRangedDamageMultiplier = newMultiplier;
-    }
-
-    public float GetRangedAccuracy()
-    {
-        return accuracy;
-    }
-
-    public void SetShootAccuracy(float newAccuracy)
-    {
-        accuracy = newAccuracy;
+        bluntDamage += bluntDamageAddOn;
+        piercingDamage += piercingDamageAddOn;
+        fireDamage += fireDamageAddOn;
     }
 
     /*bool IsAttackerInLane()

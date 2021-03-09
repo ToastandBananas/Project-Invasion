@@ -13,13 +13,15 @@ public class Attacker : MonoBehaviour
     public bool isLarge;
 
     [Header("Attack/Movement Info")]
-    [SerializeField] MeleeWeaponType meleeWeaponType;
-    [SerializeField] float meleeDamage = 10f;
-    public float castleAttackDamage = 5f;
     public float minAttackDistance = 0.115f;
     public int maxOpponents = 2;
     public float runSpeed = 0.5f;
     float currentSpeed = 1f;
+
+    [Header("Weapon Info")]
+    [SerializeField] MeleeWeaponType meleeWeaponType;
+    public float castleAttackDamage = 5f;
+    public float bluntDamage, slashDamage, piercingDamage, fireDamage;
 
     [HideInInspector] public List<Defender> opponents = new List<Defender>();
     [HideInInspector] public Defender currentDefenderAttacking;
@@ -129,7 +131,7 @@ public class Attacker : MonoBehaviour
                     return;
                 }
 
-                currentTargetsHealth.DealDamage(meleeDamage);
+                currentTargetsHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage);
             }
         }
         else if (isAttackingCastle)
@@ -227,5 +229,13 @@ public class Attacker : MonoBehaviour
             if (theDefender.squad.attackersNearby[randomTargetIndex].opponents.Contains(theDefender) == false)
                 theDefender.squad.attackersNearby[randomTargetIndex].opponents.Add(theDefender);
         }
+    }
+
+    public void SetAttackDamage(float bluntDamageAddOn, float slashDamageAddOn, float piercingDamageAddOn, float fireDamageAddOn)
+    {
+        bluntDamage += bluntDamageAddOn;
+        slashDamage += slashDamageAddOn;
+        piercingDamage += piercingDamageAddOn;
+        fireDamage += fireDamageAddOn;
     }
 }

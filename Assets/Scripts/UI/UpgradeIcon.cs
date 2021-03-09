@@ -10,11 +10,14 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     [Header("Standard Upgrades")]
     [SerializeField] int gold;
-    [SerializeField] float health, leaderHealth, meleeDamage, leaderMeleeDamage;
+    [SerializeField] float health, leaderHealth;
+    [SerializeField] float bluntDamage, slashDamage, piercingDamage, fireDamage;
+    [SerializeField] float leaderBluntDamage, leaderSlashDamage, leaderPiercingDamage, leaderFireDamage;
 
     [Header("Ranged Only Upgrades")]
-    [SerializeField] float rangedDamage;
-    [SerializeField] float leaderRangedDamage, accuracy, leaderAccuracy;
+    [SerializeField] float accuracy;
+    [SerializeField] float leaderAccuracy, rangedBluntDamage, rangedPiercingDamage, rangedFireDamage;
+    [SerializeField] float leaderRangedBluntDamage, leaderRangedPiercingDamage, leaderRangedFireDamage;
     [SerializeField] bool shouldRetreat;
 
     [Header("Spearmen Only Upgrades")]
@@ -62,13 +65,13 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             switch (squadType)
             {
                 case SquadType.Knights:
-                    squadData.ApplyKnightData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage);
+                    squadData.ApplyKnightData(gold, health, leaderHealth, slashDamage, leaderSlashDamage);
                     break;
                 case SquadType.Spearmen:
-                    squadData.ApplySpearmenData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, longThrowTime, longThrowUnlocked);
+                    squadData.ApplySpearmenData(gold, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, longThrowTime, longThrowUnlocked);
                     break;
                 case SquadType.Archers:
-                    squadData.ApplyArcherData(gold, health, leaderHealth, meleeDamage, leaderMeleeDamage, rangedDamage, leaderRangedDamage, accuracy, leaderAccuracy, fireArrowsTime, fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier, shouldRetreat, fireArrowsUnlocked, rapidFireUnlocked);
+                    squadData.ApplyArcherData(gold, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, fireArrowsTime, fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier, shouldRetreat, fireArrowsUnlocked, rapidFireUnlocked);
                     break;
                 default:
                     break;
@@ -147,18 +150,49 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (leaderHealth > 0f)
             upgradeDescription.Append("Leader Health: <color=green>+" + leaderHealth.ToString() + "</color>\n");
 
-        if (meleeDamage > 0f)
-            upgradeDescription.Append("Unit Melee Damage: <color=green>+" + meleeDamage.ToString() + "</color>\n");
+        // Melee Only Upgrades
+        if (bluntDamage > 0f)
+            upgradeDescription.Append("Unit Melee Blunt Damage: <color=green>+" + bluntDamage.ToString() + "</color>\n");
 
-        if (leaderMeleeDamage > 0f)
-            upgradeDescription.Append("Leader Melee Damage: <color=green>+" + leaderMeleeDamage.ToString() + "</color>\n");
+        if (leaderBluntDamage > 0f)
+            upgradeDescription.Append("Leader Melee Blunt Damage: <color=green>+" + leaderBluntDamage.ToString() + "</color>\n");
+
+        if (slashDamage > 0f)
+            upgradeDescription.Append("Unit Melee Slash Damage: <color=green>+" + slashDamage.ToString() + "</color>\n");
+
+        if (leaderSlashDamage > 0f)
+            upgradeDescription.Append("Leader Melee Slash Damage: <color=green>+" + leaderSlashDamage.ToString() + "</color>\n");
+
+        if (piercingDamage > 0f)
+            upgradeDescription.Append("Unit Melee Piercing Damage: <color=green>+" + piercingDamage.ToString() + "</color>\n");
+
+        if (leaderPiercingDamage > 0f)
+            upgradeDescription.Append("Leader Melee Piercing Damage: <color=green>+" + leaderPiercingDamage.ToString() + "</color>\n");
+
+        if (fireDamage > 0f)
+            upgradeDescription.Append("Unit Melee Fire Damage: <color=green>+" + fireDamage.ToString() + "</color>\n");
+
+        if (leaderFireDamage > 0f)
+            upgradeDescription.Append("Leader Melee Fire Damage: <color=green>+" + leaderFireDamage.ToString() + "</color>\n");
 
         // Ranged Only Upgrades
-        if (rangedDamage > 0f)
-            upgradeDescription.Append("Unit Ranged Damage: <color=green>+" + rangedDamage.ToString() + "</color>\n");
+        if (rangedBluntDamage > 0f)
+            upgradeDescription.Append("Unit Ranged Blunt Damage: <color=green>+" + rangedBluntDamage.ToString() + "</color>\n");
 
-        if (leaderRangedDamage > 0f)
-            upgradeDescription.Append("Leader Ranged Damage: <color=green>+" + leaderRangedDamage.ToString() + "</color>\n");
+        if (leaderRangedBluntDamage > 0f)
+            upgradeDescription.Append("Leader Ranged Blunt Damage: <color=green>+" + leaderRangedBluntDamage.ToString() + "</color>\n");
+
+        if (rangedPiercingDamage > 0f)
+            upgradeDescription.Append("Unit Ranged Piercing Damage: <color=green>+" + rangedPiercingDamage.ToString() + "</color>\n");
+
+        if (leaderRangedPiercingDamage > 0f)
+            upgradeDescription.Append("Leader Ranged Piercing Damage: <color=green>+" + leaderRangedPiercingDamage.ToString() + "</color>\n");
+
+        if (rangedFireDamage > 0f)
+            upgradeDescription.Append("Unit Ranged Fire Damage: <color=green>+" + rangedFireDamage.ToString() + "</color>\n");
+
+        if (leaderRangedFireDamage > 0f)
+            upgradeDescription.Append("Leader Ranged Fire Damage: <color=green>+" + leaderRangedFireDamage.ToString() + "</color>\n");
 
         if (accuracy > 0f)
             upgradeDescription.Append("Unit Accuracy: <color=green>+" + accuracy.ToString() + "%</color>\n");

@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 520684694161886450}
   - component: {fileID: 6084065210926008217}
   - component: {fileID: 7773648469546404248}
-  - component: {fileID: 1481450064206490354}
   - component: {fileID: 6249635443579284339}
+  - component: {fileID: 1481450064206490354}
   m_Layer: 2
   m_Name: KnightLeader
   m_TagString: Untagged
@@ -93,20 +93,36 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196f04268b983b64d8dbb8adb663fe9f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  meleeWeaponType: 0
-  meleeDamage: 30
   minAttackDistance: 0.115
   runSpeed: 0.25
+  meleeWeaponType: 0
+  bluntDamage: 0
+  slashDamage: 30
+  piercingDamage: 0
+  fireDamage: 0
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
   targetAttacker: {fileID: 0}
   targetAttackersHealth: {fileID: 0}
+  anim: {fileID: 0}
   sr: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
   myShooter: {fileID: 0}
   unitPosition: {x: 0, y: 0}
+--- !u!114 &6249635443579284339
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2493623317874014044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bbf5517ab82e53498af85bc1d270620, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1481450064206490354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -120,20 +136,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 180
+  bluntResistance: -0.25
+  slashResistance: 0.4
+  piercingResistance: 0.25
+  fireResistance: -0.25
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isDead: 0
---- !u!114 &6249635443579284339
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2493623317874014044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bbf5517ab82e53498af85bc1d270620, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5903347010114429139
 GameObject:
   m_ObjectHideFlags: 0

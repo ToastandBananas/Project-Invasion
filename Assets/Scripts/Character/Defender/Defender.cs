@@ -4,11 +4,13 @@ using UnityEngine;
 public class Defender : MonoBehaviour
 {
     [Header("Attack/Movement Info")]
-    [SerializeField] MeleeWeaponType meleeWeaponType;
-    [SerializeField] float meleeDamage = 10f;
     public float minAttackDistance = 0.115f;
     public float runSpeed = 0.5f;
     float currentSpeed = 0f;
+
+    [Header("Weapon Info")]
+    [SerializeField] MeleeWeaponType meleeWeaponType;
+    public float bluntDamage, slashDamage, piercingDamage, fireDamage;
 
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool isMoving = false;
@@ -191,7 +193,7 @@ public class Defender : MonoBehaviour
             transform.localScale = new Vector2(-1, 1);
 
         if (targetAttackersHealth)
-            targetAttackersHealth.DealDamage(meleeDamage);
+            targetAttackersHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage);
 
         audioManager.PlayMeleeHitSound(meleeWeaponType);
     }
@@ -309,13 +311,11 @@ public class Defender : MonoBehaviour
         }
     }
 
-    public float GetMeleeDamage()
+    public void SetAttackDamage(float bluntDamageAddOn, float slashDamageAddOn, float piercingDamageAddOn, float fireDamageAddOn)
     {
-        return meleeDamage;
-    }
-
-    public void SetAttackDamage(float newAttackDamage)
-    {
-        meleeDamage = newAttackDamage;
+        bluntDamage += bluntDamageAddOn;
+        slashDamage += slashDamageAddOn;
+        piercingDamage += piercingDamageAddOn;
+        fireDamage += fireDamageAddOn;
     }
 }
