@@ -242,7 +242,7 @@ MonoBehaviour:
   rangedWeaponType: 3
   accuracy: 50
   bluntDamage: 0
-  piercingDamage: 20
+  piercingDamage: 15
   fireDamage: 0
   secondaryRangedDamageMultiplier: 2
   isShootingSecondaryProjectile: 0
@@ -274,6 +274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
+  currentHealth: 100
   bluntResistance: -0.25
   slashResistance: 0.4
   piercingResistance: 0.25

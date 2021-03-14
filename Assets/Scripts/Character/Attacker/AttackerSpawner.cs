@@ -9,35 +9,35 @@ public class AttackerSpawner : MonoBehaviour
 
     [Header("Wave 1")]
     [SerializeField] int maxSpawnPointsWave1 = 100;
-    [SerializeField] float minSpawnDelayWave1 = 1f;
+    [SerializeField] float minSpawnDelayWave1 = 2f;
     [SerializeField] float maxSpawnDelayWave1 = 5f;
     public List<Attacker> attackerPrefabsWave1 = new List<Attacker>();
     [Range(0, 250)] public List<int> attackerCountsWave1 = new List<int>();
 
     [Header("Wave 2")]
     [SerializeField] int maxSpawnPointsWave2 = 100;
-    [SerializeField] float minSpawnDelayWave2 = 1f;
+    [SerializeField] float minSpawnDelayWave2 = 2f;
     [SerializeField] float maxSpawnDelayWave2 = 5f;
     public List<Attacker> attackerPrefabsWave2 = new List<Attacker>();
     [Range(0, 250)] public List<int> attackerCountsWave2 = new List<int>();
 
     [Header("Wave 3")]
     [SerializeField] int maxSpawnPointsWave3 = 100;
-    [SerializeField] float minSpawnDelayWave3 = 1f;
+    [SerializeField] float minSpawnDelayWave3 = 2f;
     [SerializeField] float maxSpawnDelayWave3 = 5f;
     public List<Attacker> attackerPrefabsWave3 = new List<Attacker>();
     [Range(0, 250)] public List<int> attackerCountsWave3 = new List<int>();
 
     [Header("Wave 4")]
     [SerializeField] int maxSpawnPointsWave4 = 100;
-    [SerializeField] float minSpawnDelayWave4 = 1f;
+    [SerializeField] float minSpawnDelayWave4 = 2f;
     [SerializeField] float maxSpawnDelayWave4 = 5f;
     public List<Attacker> attackerPrefabsWave4 = new List<Attacker>();
     [Range(0, 250)] public List<int> attackerCountsWave4 = new List<int>();
 
     [Header("Wave 5")]
     [SerializeField] int maxSpawnPointsWave5 = 100;
-    [SerializeField] float minSpawnDelayWave5 = 1f;
+    [SerializeField] float minSpawnDelayWave5 = 2f;
     [SerializeField] float maxSpawnDelayWave5 = 5f;
     public List<Attacker> attackerPrefabsWave5 = new List<Attacker>();
     [Range(0, 250)] public List<int> attackerCountsWave5 = new List<int>();
@@ -69,7 +69,7 @@ public class AttackerSpawner : MonoBehaviour
                 startNextWaveDelay = false;
                 SetSpawnDelays();
             }
-
+            
             yield return new WaitForSeconds(Random.Range(minSpawnDelay, maxSpawnDelay));
 
             if (levelController.waveNumber == 1)
@@ -125,7 +125,7 @@ public class AttackerSpawner : MonoBehaviour
                 }
                 
                 // Wait a tiny bit so that attackers don't spawn at exactly the same time
-                yield return new WaitForSeconds(Random.Range(0f, 0.75f));
+                yield return new WaitForSeconds(Random.Range(0.1f, 0.75f));
             }
         }
     }

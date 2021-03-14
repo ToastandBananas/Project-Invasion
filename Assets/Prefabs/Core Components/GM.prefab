@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6215997228294823458}
   - component: {fileID: 2919373647473812957}
+  - component: {fileID: 2588159061488272133}
   - component: {fileID: 2299253872393943921}
   m_Layer: 0
   m_Name: GM
@@ -45,6 +46,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squadData: {fileID: 0}
+--- !u!114 &2588159061488272133
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3059037953232439569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3396fc684760e0f4cafd2482d1ad3a03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damagePopup: {fileID: 5728257308560493625, guid: d6e3f96b614a5314db0c5f459d0cd778, type: 3}
 --- !u!114 &2299253872393943921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,27 +74,28 @@ MonoBehaviour:
   knightSquadGoldCost: 0
   knightHealth: 0
   knightLeaderHealth: 0
-  knightMeleeDamage: 0
-  knightLeaderMeleeDamage: 0
+  knightSlashDamage: 0
+  knightLeaderSlashDamage: 0
   spearmenSquadGoldCost: 0
   spearmenHealth: 0
   spearmenLeaderHealth: 0
-  spearmenMeleeDamage: 0
-  spearmenLeaderMeleeDamage: 0
-  spearmenRangedDamage: 0
-  spearmenLeaderRangedDamage: 0
   spearmenAccuracy: 0
   spearmenLeaderAccuracy: 0
+  spearmenPiercingDamage: 0
+  spearmenRangedPiercingDamage: 0
+  spearmenLeaderPiercingDamage: 0
+  spearmenLeaderRangedPiercingDamage: 0
+  spearmenLongThrowTime: 0
   spearmenLongThrowUnlocked: 0
   archerSquadGoldCost: 0
   archerHealth: 0
   archerLeaderHealth: 0
-  archerMeleeDamage: 0
-  archerLeaderMeleeDamage: 0
-  archerRangedDamage: 0
-  archerLeaderRangedDamage: 0
   archerAccuracy: 0
   archerLeaderAccuracy: 0
+  archerPiercingDamage: 0
+  archerRangedPiercingDamage: 0
+  archerLeaderPiercingDamage: 0
+  archerLeaderRangedPiercingDamage: 0
   archerFireArrowsTime: 0
   archerFireArrowsDamageMultiplier: 0
   archerRapidFireTime: 0

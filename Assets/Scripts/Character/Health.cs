@@ -21,7 +21,7 @@ public class Health : MonoBehaviour
     SpriteRenderer spriteRenderer;
     Transform deadCharactersParent;
 
-    float damageAmount;
+    float finalDamageAmount;
     const string EFFECTS_PARENT_NAME = "Effects";
     Transform effectsParent;
     ObjectPool damageEffectObjectPool;
@@ -83,18 +83,20 @@ public class Health : MonoBehaviour
 
     public void DealDamage(float bluntDamage, float slashDamage, float piercingDamage, float fireDamage)
     {
-        damageAmount = 0f;
-        if (bluntDamage > 0f)    damageAmount += GetDamageAmount(bluntDamage, bluntResistance);
-        if (slashDamage > 0f)    damageAmount += GetDamageAmount(slashDamage, slashResistance);
-        if (piercingDamage > 0f) damageAmount += GetDamageAmount(piercingDamage, piercingResistance);
-        if (fireDamage > 0f)     damageAmount += GetDamageAmount(fireDamage, fireResistance);
+        finalDamageAmount = 0f;
+        if (bluntDamage > 0f)    finalDamageAmount += GetDamageAmount(bluntDamage, bluntResistance);
+        if (slashDamage > 0f)    finalDamageAmount += GetDamageAmount(slashDamage, slashResistance);
+        if (piercingDamage > 0f) finalDamageAmount += GetDamageAmount(piercingDamage, piercingResistance);
+        if (fireDamage > 0f)     finalDamageAmount += GetDamageAmount(fireDamage, fireResistance);
 
-        if (damageAmount >= 0f && damageAmount < 1f)
-            damageAmount = 1f;
+        if (finalDamageAmount >= 0f && finalDamageAmount < 1f)
+            finalDamageAmount = 1f;
         else
-            damageAmount = Mathf.RoundToInt(damageAmount);
+            finalDamageAmount = Mathf.RoundToInt(finalDamageAmount);
 
-        currentHealth -= damageAmount;
+        currentHealth -= finalDamageAmount;
+
+        DamagePopup.Create(transform.position + new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(0.05f, 0.15f)), finalDamageAmount, false);
         
         if (damageEffect != null)
             StartCoroutine(TriggerDamageEffect());
