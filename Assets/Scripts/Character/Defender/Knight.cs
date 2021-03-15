@@ -31,6 +31,8 @@ public class Knight : MonoBehaviour
 
     public void SetKnightData()
     {
+        health.thornsDamageMultiplier = squadData.knightThornsDamageMultiplier;
+
         // Leader:
         if (defenderScript.squad.leader == defenderScript)
         {

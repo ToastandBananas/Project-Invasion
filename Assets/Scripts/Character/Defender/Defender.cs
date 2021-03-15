@@ -192,8 +192,14 @@ public class Defender : MonoBehaviour
         else
             transform.localScale = new Vector2(-1, 1);
 
-        if (targetAttackersHealth)
-            targetAttackersHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage);
+        if (targetAttackersHealth != null)
+        {
+            // Deal damage to self if enemy has thorns active
+            if (targetAttackersHealth.thornsActive && targetAttackersHealth.thornsDamageMultiplier > 0f)
+                health.DealDamage(bluntDamage * targetAttackersHealth.thornsDamageMultiplier, slashDamage * targetAttackersHealth.thornsDamageMultiplier, piercingDamage * targetAttackersHealth.thornsDamageMultiplier, fireDamage * targetAttackersHealth.thornsDamageMultiplier, true);
+
+            targetAttackersHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false);
+        }
 
         audioManager.PlayMeleeHitSound(meleeWeaponType);
     }

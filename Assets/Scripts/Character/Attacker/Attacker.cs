@@ -131,7 +131,11 @@ public class Attacker : MonoBehaviour
                     return;
                 }
 
-                currentTargetsHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage);
+                // Deal damage to self if enemy has thorns active
+                if (currentTargetsHealth.thornsActive && currentTargetsHealth.thornsDamageMultiplier > 0f)
+                    health.DealDamage(bluntDamage * currentTargetsHealth.thornsDamageMultiplier, slashDamage * currentTargetsHealth.thornsDamageMultiplier, piercingDamage * currentTargetsHealth.thornsDamageMultiplier, fireDamage * currentTargetsHealth.thornsDamageMultiplier, true);
+
+                currentTargetsHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false);
             }
         }
         else if (isAttackingCastle)

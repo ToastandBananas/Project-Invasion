@@ -152,7 +152,7 @@ public class Projectile : MonoBehaviour
         moveProjectile = false;
 
         // Reduce health
-        health.DealDamage(myShooter.bluntDamage, 0, myShooter.piercingDamage, myShooter.fireDamage);
+        health.DealDamage(myShooter.bluntDamage, 0, myShooter.piercingDamage, myShooter.fireDamage, false);
         
         audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, false);
 

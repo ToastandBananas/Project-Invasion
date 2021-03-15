@@ -11,11 +11,15 @@ public class Health : MonoBehaviour
     [Header("Damage Particle Effect")]
     [SerializeField] GameObject damageEffect;
 
+    [HideInInspector] public bool thornsActive = false;
+    [HideInInspector] public float thornsDamageMultiplier;
+
     [HideInInspector] public bool isDead = false;
 
-    LevelController levelController;
     Attacker attacker;
     Defender defender;
+
+    LevelController levelController;
     Animator anim;
     BoxCollider2D boxCollider;
     SpriteRenderer spriteRenderer;
@@ -81,13 +85,23 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void DealDamage(float bluntDamage, float slashDamage, float piercingDamage, float fireDamage)
+    public void DealDamage(float bluntDamage, float slashDamage, float piercingDamage, float fireDamage, bool ignoreResistances)
     {
         finalDamageAmount = 0f;
-        if (bluntDamage > 0f)    finalDamageAmount += GetDamageAmount(bluntDamage, bluntResistance);
-        if (slashDamage > 0f)    finalDamageAmount += GetDamageAmount(slashDamage, slashResistance);
-        if (piercingDamage > 0f) finalDamageAmount += GetDamageAmount(piercingDamage, piercingResistance);
-        if (fireDamage > 0f)     finalDamageAmount += GetDamageAmount(fireDamage, fireResistance);
+        if (ignoreResistances == false)
+        {
+            if (bluntDamage > 0f) finalDamageAmount += GetDamageAmount(bluntDamage, bluntResistance);
+            if (slashDamage > 0f) finalDamageAmount += GetDamageAmount(slashDamage, slashResistance);
+            if (piercingDamage > 0f) finalDamageAmount += GetDamageAmount(piercingDamage, piercingResistance);
+            if (fireDamage > 0f) finalDamageAmount += GetDamageAmount(fireDamage, fireResistance);
+        }
+        else // Ignore resistances
+        {
+            finalDamageAmount += bluntDamage;
+            finalDamageAmount += slashDamage;
+            finalDamageAmount += piercingDamage;
+            finalDamageAmount += fireDamage;
+        }
 
         if (finalDamageAmount >= 0f && finalDamageAmount < 1f)
             finalDamageAmount = 1f;
@@ -117,6 +131,7 @@ public class Health : MonoBehaviour
     void Die()
     {
         isDead = true;
+        thornsActive = false;
         anim.SetBool("isDead", true);
         boxCollider.enabled = false;
         spriteRenderer.sortingOrder = 4;

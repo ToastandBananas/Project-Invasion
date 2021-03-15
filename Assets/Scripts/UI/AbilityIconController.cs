@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class AbilityIconController : MonoBehaviour
 {
-    public Sprite fireArrowsIcon, rapidFireIcon, longThrowIcon;
+    public Sprite fireArrowsIcon, rapidFireIcon, thornsIcon, longThrowIcon;
 
     [HideInInspector] public List<Button> abilityIconButtons = new List<Button>();
     [HideInInspector] public List<Image>  abilityIconImages  = new List<Image>();
@@ -53,6 +53,7 @@ public class AbilityIconController : MonoBehaviour
             switch (selectedSquad.squadType)
             {
                 case SquadType.Knights:
+                    SetKnightIcons();
                     break;
                 case SquadType.Spearmen:
                     SetSpearmenIcons();
@@ -67,7 +68,7 @@ public class AbilityIconController : MonoBehaviour
             if (selectedSquad.isCastleWallSquad == false)
                 transform.position = selectedSquad.transform.position + new Vector3(-0.35f, 0f);
             else
-                transform.position = selectedSquad.transform.position + new Vector3(0.3f, 0f); // For castle wall squads
+                transform.position = selectedSquad.transform.position + new Vector3(0.3f, 0f); // For castle wall squads, place the icon to the right of the squad
         }
     }
 
@@ -81,49 +82,8 @@ public class AbilityIconController : MonoBehaviour
 
         tooltip.DeactivateTooltip();
     }
-    
-    void SetSpearmenIcons()
-    {
-        if (selectedSquad.abilityActive == false)
-        {
-            if (squadData.spearmenLongThrowUnlocked) // Long Throw
-            {
-                abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
-                abilityIconButtons[0].onClick.AddListener(ActivateLongThrow);
-                abilityIconImages[0].sprite = longThrowIcon;
-            }
-        }
-    }
 
-    void ActivateLongThrow()
-    {
-        selectedSquad.abilityActive = true;
-        PlayButtonClickSound();
-
-        if (selectedSquad.isCastleWallSquad == false)
-        {
-            selectedSquad.rangeCollider.boxCollider.offset = new Vector2(5.25f, 0f);
-            selectedSquad.rangeCollider.boxCollider.size = new Vector2(9.5f, 0.9f);
-        }
-        else // For castle wall squads
-        {
-            selectedSquad.rangeCollider.boxCollider.offset = new Vector2(5.4f, 0f);
-            selectedSquad.rangeCollider.boxCollider.size = new Vector2(10f, 2.9f);
-        }
-
-        DisableAbilityIcons();
-        StartCoroutine(DeactivateLongThrow(selectedSquad));
-    }
-
-    IEnumerator DeactivateLongThrow(Squad squad)
-    {
-        yield return new WaitForSeconds(squadData.spearmenLongThrowTime);
-
-        squad.abilityActive = false;
-        squad.rangeCollider.boxCollider.offset = squad.rangeCollider.originalOffset;
-        squad.rangeCollider.boxCollider.size = squad.rangeCollider.originalSize;
-    }
-
+    #region Archer
     void SetArcherIcons()
     {
         if (selectedSquad.abilityActive == false)
@@ -218,9 +178,101 @@ public class AbilityIconController : MonoBehaviour
             unit.anim.SetFloat("shootSpeed", 1f);
         }
     }
+    #endregion
+
+    #region Knights
+    void SetKnightIcons()
+    {
+        if (selectedSquad.abilityActive == false)
+        {
+            if (squadData.knightThornsUnlocked) // Thorns
+            {
+                abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
+                abilityIconButtons[0].onClick.AddListener(ActivateThorns);
+                abilityIconImages[0].sprite = thornsIcon;
+            }
+        }
+    }
+
+    void ActivateThorns()
+    {
+        selectedSquad.abilityActive = true;
+        PlayButtonClickSound();
+
+        if (selectedSquad.leader != null)
+            selectedSquad.leader.health.thornsActive = true;
+
+        foreach (Defender unit in selectedSquad.units)
+        {
+            unit.health.thornsActive = true;
+        }
+
+        DisableAbilityIcons();
+        StartCoroutine(DeactivateThorns(selectedSquad));
+    }
+
+    IEnumerator DeactivateThorns(Squad squad)
+    {
+        yield return new WaitForSeconds(squadData.knightThornsTime);
+
+        squad.abilityActive = false;
+
+        if (selectedSquad.leader != null)
+            selectedSquad.leader.health.thornsActive = false;
+
+        foreach (Defender unit in selectedSquad.units)
+        {
+            unit.health.thornsActive = false;
+        }
+    }
+    #endregion
+
+    #region Spearmen
+    void SetSpearmenIcons()
+    {
+        if (selectedSquad.abilityActive == false)
+        {
+            if (squadData.spearmenLongThrowUnlocked) // Long Throw
+            {
+                abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
+                abilityIconButtons[0].onClick.AddListener(ActivateLongThrow);
+                abilityIconImages[0].sprite = longThrowIcon;
+            }
+        }
+    }
+
+    void ActivateLongThrow()
+    {
+        selectedSquad.abilityActive = true;
+        PlayButtonClickSound();
+
+        if (selectedSquad.isCastleWallSquad == false)
+        {
+            selectedSquad.rangeCollider.boxCollider.offset = new Vector2(5.25f, 0f);
+            selectedSquad.rangeCollider.boxCollider.size = new Vector2(9.5f, 0.9f);
+        }
+        else // For castle wall squads
+        {
+            selectedSquad.rangeCollider.boxCollider.offset = new Vector2(5.4f, 0f);
+            selectedSquad.rangeCollider.boxCollider.size = new Vector2(10f, 2.9f);
+        }
+
+        DisableAbilityIcons();
+        StartCoroutine(DeactivateLongThrow(selectedSquad));
+    }
+
+    IEnumerator DeactivateLongThrow(Squad squad)
+    {
+        yield return new WaitForSeconds(squadData.spearmenLongThrowTime);
+
+        squad.abilityActive = false;
+        squad.rangeCollider.boxCollider.offset = squad.rangeCollider.originalOffset;
+        squad.rangeCollider.boxCollider.size = squad.rangeCollider.originalSize;
+    }
+    #endregion
 
     void PlayButtonClickSound()
     {
-        audioManager.PlaySound(audioManager.buttonClickSounds, "WetClick", Vector3.zero);
+        audioManager.PlaySound(audioManager.buttonClickSounds, audioManager.buttonClickSounds[0].soundName, Vector3.zero);
     }
 }

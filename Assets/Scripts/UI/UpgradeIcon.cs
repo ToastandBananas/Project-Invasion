@@ -20,6 +20,10 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] float leaderRangedBluntDamage, leaderRangedPiercingDamage, leaderRangedFireDamage;
     [SerializeField] bool shouldRetreat;
 
+    [Header("Knight Only Upgrades")]
+    [SerializeField] float thornsDamageMultiplier, thornsTime;
+    [SerializeField] bool thornsUnlocked;
+
     [Header("Spearmen Only Upgrades")]
     [SerializeField] float longThrowTime;
     [SerializeField] bool longThrowUnlocked;
@@ -28,7 +32,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] float fireArrowsTime, fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier;
     [SerializeField] bool fireArrowsUnlocked, rapidFireUnlocked;
 
-    [Header("Unlocked")]
+    [Header("Unlocked Already?")]
     public bool upgradeUnlocked;
 
     SquadData squadData;
@@ -65,7 +69,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             switch (squadType)
             {
                 case SquadType.Knights:
-                    squadData.ApplyKnightData(gold, health, leaderHealth, slashDamage, leaderSlashDamage);
+                    squadData.ApplyKnightData(gold, health, leaderHealth, slashDamage, leaderSlashDamage, thornsDamageMultiplier, thornsTime, thornsUnlocked);
                     break;
                 case SquadType.Spearmen:
                     squadData.ApplySpearmenData(gold, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, longThrowTime, longThrowUnlocked);
@@ -103,11 +107,27 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (upgradeDescription.Equals("") == false)
             upgradeDescription.Clear();
 
+        // Knight Ability Upgrades
+        if (squadType == SquadType.Knights)
+        {
+            if (thornsUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Thorns</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() 
+                    + "</b> will reflect back " + (squadData.defaultThornsDamageMultiplier * 100f).ToString() + "% of the melee damage that they receive for " + squadData.defaultThornsTime.ToString() 
+                    + " seconds, ignoring all resistances).\n");
+
+            if (thornsDamageMultiplier > 0f)
+                upgradeDescription.Append("<i>Thorns</i> Damage Multiplier: <color=green>+" + thornsDamageMultiplier.ToString() + "%</color>\n");
+
+            if (thornsTime > 0f)
+                upgradeDescription.Append("<i>Thorns</i> Time: <color=green>+" + thornsTime.ToString() + "seconds</color>\n");
+        }
+
         // Spearmen Ability Upgrades
         if (squadType == SquadType.Spearmen)
         {
             if (longThrowUnlocked)
-                upgradeDescription.Append("Unlocks the <i>Long Throw</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will be able to throw their spears the entire length of their lane for the next 30 seconds).\n");
+                upgradeDescription.Append("Unlocks the <i>Long Throw</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() 
+                    + "</b> will be able to throw their spears the entire length of their lane for the next " + squadData.defaultLongThrowTime.ToString() + " seconds).\n");
 
             if (longThrowTime > 0f)
                 upgradeDescription.Append("<i>Long Throw</i> Time: <color=green>+" + longThrowTime.ToString() + " seconds</color>\n");
@@ -120,10 +140,12 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 upgradeDescription.Append("<b>" + squadType.ToString() + "</b> will now carry melee weapons and will no longer retreat when enemies enter their square.\n");
 
             if (fireArrowsUnlocked)
-                upgradeDescription.Append("Unlocks the <i>Fire Arrows</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will shoot fire arrows for the next 30 seconds).\n");
+                upgradeDescription.Append("Unlocks the <i>Fire Arrows</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() 
+                    + "</b> will shoot fire arrows for the next " + squadData.defaultFireArrowTime.ToString() + " seconds).\n");
 
             if (rapidFireUnlocked)
-                upgradeDescription.Append("Unlocks the <i>Rapid Fire</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() + "</b> will shoot twice as fast for the next 20 seconds).\n");
+                upgradeDescription.Append("Unlocks the <i>Rapid Fire</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() 
+                    + "</b> will shoot twice as fast for the next " + squadData.defaultRapidFireTime.ToString() + " seconds).\n");
 
             if (fireArrowsTime > 0f)
                 upgradeDescription.Append("<i>Fire Arrows</i> Time: <color=green>+" + fireArrowsTime.ToString() + " seconds</color>\n");
