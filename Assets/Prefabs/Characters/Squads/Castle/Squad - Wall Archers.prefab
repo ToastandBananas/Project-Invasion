@@ -117,7 +117,7 @@ GameObject:
   - component: {fileID: 7515360950151584746}
   - component: {fileID: 5993080609283387823}
   m_Layer: 0
-  m_Name: Squad - Wall Archers Lvl 1
+  m_Name: Squad - Wall Archers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,6 +180,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   squadType: 2
   goldCost: 200
+  suppliesCost: 12
   description: 
   squadFormation: 0
   castleWallVersionOfSquad: {fileID: 0}

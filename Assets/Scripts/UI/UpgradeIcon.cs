@@ -9,7 +9,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] SquadType squadType;
 
     [Header("Standard Upgrades")]
-    [SerializeField] int gold;
+    [SerializeField] int gold, supplies;
     [SerializeField] float health, leaderHealth;
     [SerializeField] float bluntDamage, slashDamage, piercingDamage, fireDamage;
     [SerializeField] float leaderBluntDamage, leaderSlashDamage, leaderPiercingDamage, leaderFireDamage;
@@ -69,13 +69,13 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             switch (squadType)
             {
                 case SquadType.Knights:
-                    squadData.ApplyKnightData(gold, health, leaderHealth, slashDamage, leaderSlashDamage, thornsDamageMultiplier, thornsTime, thornsUnlocked);
+                    squadData.ApplyKnightData(gold, supplies, health, leaderHealth, slashDamage, leaderSlashDamage, thornsDamageMultiplier, thornsTime, thornsUnlocked);
                     break;
                 case SquadType.Spearmen:
-                    squadData.ApplySpearmenData(gold, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, longThrowTime, longThrowUnlocked);
+                    squadData.ApplySpearmenData(gold, supplies, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, longThrowTime, longThrowUnlocked);
                     break;
                 case SquadType.Archers:
-                    squadData.ApplyArcherData(gold, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, fireArrowsTime, fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier, shouldRetreat, fireArrowsUnlocked, rapidFireUnlocked);
+                    squadData.ApplyArcherData(gold, supplies, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, fireArrowsTime, fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier, shouldRetreat, fireArrowsUnlocked, rapidFireUnlocked);
                     break;
                 default:
                     break;
@@ -162,9 +162,14 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         // General Upgrades
         if (gold > 0)
-            upgradeDescription.Append("Gold Cost: <color=green>+" + gold.ToString() + "</color>\n");
-        else if (gold < 0)
             upgradeDescription.Append("Gold Cost: <color=red>+" + gold.ToString() + "</color>\n");
+        else if (gold < 0)
+            upgradeDescription.Append("Gold Cost: <color=green>-" + gold.ToString() + "</color>\n");
+
+        if (supplies > 0)
+            upgradeDescription.Append("Supplies Cost: <color=red>+" + supplies.ToString() + "</color>\n");
+        else if (supplies < 0)
+            upgradeDescription.Append("Supplies Cost: <color=green>-" + supplies.ToString() + "</color>\n");
 
         if (health > 0f)
             upgradeDescription.Append("Unit Health: <color=green>+" + health.ToString() + "</color>\n");

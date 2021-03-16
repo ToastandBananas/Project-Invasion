@@ -58,6 +58,8 @@ public class Tooltip : MonoBehaviour
 
         stringBuilder.Append(squad.description + "\n\n");
 
+        stringBuilder.Append("<b>Cost:</b> " + squad.GetGoldCost().ToString() + " Gold, " + squad.GetSuppliesCost().ToString() + " Supplies\n\n");
+
         stringBuilder.Append("<b>Unit Stats:</b>\n");
         stringBuilder.Append("Health: " + (unitHealth.GetMaxHealth() + squadData.GetHealthData(squad.squadType, false)).ToString() + "\n");
 

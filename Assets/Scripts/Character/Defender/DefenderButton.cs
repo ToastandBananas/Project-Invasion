@@ -14,7 +14,7 @@ public class DefenderButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         defenderSpawner = DefenderSpawner.instance;
         tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
 
-        SetCost();
+        SetCostDisplay();
     }
 
     void IPointerEnterHandler.OnPointerEnter(PointerEventData eventData)
@@ -42,12 +42,18 @@ public class DefenderButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         defenderSpawner.gameObject.SetActive(true);
     }
 
-    void SetCost()
+    void SetCostDisplay()
     {
-        Text costText = transform.parent.GetComponentInChildren<Text>();
-        if (costText == null)
-            Debug.LogError(name + " has no cost text.");
+        Text goldCostText = transform.parent.Find("Gold Cost Text").GetComponent<Text>();
+        if (goldCostText == null)
+            Debug.LogError(name + "squad button has no gold cost text.");
         else
-            costText.text = " " + squadPrefab.GetGoldCost().ToString();
+            goldCostText.text = " " + squadPrefab.GetGoldCost().ToString();
+
+        Text suppliesCostText = transform.parent.Find("Supplies Cost Text").GetComponent<Text>();
+        if (suppliesCostText == null)
+            Debug.LogError(name + "squad button has no supplies cost text.");
+        else
+            suppliesCostText.text = " " + squadPrefab.GetSuppliesCost().ToString();
     }
 }

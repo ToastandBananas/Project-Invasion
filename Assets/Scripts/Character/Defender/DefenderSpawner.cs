@@ -72,8 +72,8 @@ public class DefenderSpawner : MonoBehaviour
                         ghostImageSquad.leader.gameObject.SetActive(true);
 
                     ghostImageSquad.transform.position = mouseHoverTilePos;
-                    //ghostImageSquad.SetLaneSpawner();
-                    if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()))
+                    
+                    if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()) && currencyDisplay.HaveEnoughSupplies(ghostImageSquad.GetSuppliesCost()))
                         SetGhostImageColor(ghostImageColor);
                 }
                 else if (ghostImageSquad.isRangedUnit && IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x < 0.5f)
@@ -82,9 +82,8 @@ public class DefenderSpawner : MonoBehaviour
                         ghostImageSquad.leader.gameObject.SetActive(false);
 
                     ghostImageSquad.transform.position = mouseHoverTilePos;
-
-                    //ghostImageSquad.SetLaneSpawner();
-                    if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()))
+                    
+                    if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()) && currencyDisplay.HaveEnoughSupplies(ghostImageSquad.GetSuppliesCost()))
                         SetGhostImageColor(ghostImageColor);
                 }
                 else
@@ -169,7 +168,7 @@ public class DefenderSpawner : MonoBehaviour
         }
         else if (!IsCellOccupied(coordinates))
         {
-            if (currencyDisplay.HaveEnoughGold(squad.GetGoldCost()))
+            if (currencyDisplay.HaveEnoughGold(squad.GetGoldCost()) && currencyDisplay.HaveEnoughSupplies(squad.GetSuppliesCost()))
             {
                 if (coordinates.x < 1f)
                 {
@@ -200,6 +199,8 @@ public class DefenderSpawner : MonoBehaviour
                 ghostImageSquad.transform.SetParent(defendersParent.transform);
 
                 currencyDisplay.SpendGold(ghostImageSquad.GetGoldCost());
+                currencyDisplay.SpendSupplies(ghostImageSquad.GetSuppliesCost());
+
                 if (coordinates.x >= 1f)
                     ghostImageSquad.GetComponent<BoxCollider2D>().enabled = true;
 
@@ -215,14 +216,14 @@ public class DefenderSpawner : MonoBehaviour
     {
         if (ghostImageSquad != null)
         {
-            if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost())
+            if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()) && currencyDisplay.HaveEnoughSupplies(ghostImageSquad.GetSuppliesCost())
                 && ((ghostImageSquad.leader != null && ghostImageSquad.leader.sr.color.Equals(invalidColor)) 
                 || (ghostImageSquad.units.Count > 0 && ghostImageSquad.units[0].sr.color.Equals(invalidColor))))
             {
                 SetGhostImageColor(ghostImageColor);
             }
-            else if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()) == false
-                && ((ghostImageSquad.leader != null && ghostImageSquad.leader.sr.color.Equals(ghostImageColor)) 
+            else if ((currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()) == false || currencyDisplay.HaveEnoughSupplies(ghostImageSquad.GetSuppliesCost()))
+                && ((ghostImageSquad.leader != null && ghostImageSquad.leader.sr.color.Equals(ghostImageColor))
                 || (ghostImageSquad.units.Count > 0 && ghostImageSquad.units[0].sr.color.Equals(ghostImageColor))))
             {
                 SetGhostImageColor(invalidColor);

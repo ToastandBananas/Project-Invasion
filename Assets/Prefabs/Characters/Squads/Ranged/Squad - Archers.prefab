@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1807769460393828022}
   - component: {fileID: 1807769460393828023}
   m_Layer: 0
-  m_Name: Squad - Archers Lvl 1
+  m_Name: Squad - Archers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -75,12 +75,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   squadType: 2
   goldCost: 200
+  suppliesCost: 15
   description: A trio of archers commanded by a master of the bow.
   squadFormation: 2
   castleWallVersionOfSquad: {fileID: 5993080609283387823, guid: 4e0209b586b82de45b29e048d2c5900d, type: 3}
   shouldRetreatWhenEnemyNear: 1
   isRangedUnit: 1
-  isCastleWallUnit: 0
+  isCastleWallSquad: 0
   shootRange: 4
   squadPlaced: 0
   leader: {fileID: 0}
@@ -90,6 +91,7 @@ MonoBehaviour:
   unitsParent: {fileID: 0}
   myLaneSpawner: {fileID: 0}
   rangeCollider: {fileID: 0}
+  abilityActive: 0
 --- !u!1 &1807769460739276552
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,6 +229,8 @@ MonoBehaviour:
   attackersInRange: []
   defendersInRange: []
   boxCollider: {fileID: 0}
+  originalOffset: {x: 0, y: 0}
+  originalSize: {x: 0, y: 0}
 --- !u!1001 &1431254732309238708
 PrefabInstance:
   m_ObjectHideFlags: 0

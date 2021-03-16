@@ -6,6 +6,7 @@ public class Squad : MonoBehaviour
     [Header("Basic Info")]
     public SquadType squadType;
     [SerializeField] int goldCost = 100;
+    [SerializeField] int suppliesCost = 5;
     public string description;
 
     int maxUnitCount;
@@ -200,6 +201,16 @@ public class Squad : MonoBehaviour
     public void SetGoldCost(int newGoldCost)
     {
         goldCost = newGoldCost;
+    }
+
+    public int GetSuppliesCost()
+    {
+        return suppliesCost;
+    }
+
+    public void SetSuppliesCost(int newSuppliesCost)
+    {
+        suppliesCost = newSuppliesCost;
     }
 
     public int GetShootRange()

@@ -2,17 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Events;
 
 public class AbilityIconController : MonoBehaviour
 {
     public Sprite fireArrowsIcon, rapidFireIcon, thornsIcon, longThrowIcon;
 
-    [HideInInspector] public List<Button> abilityIconButtons = new List<Button>();
-    [HideInInspector] public List<Image>  abilityIconImages  = new List<Image>();
     [HideInInspector] public Squad selectedSquad;
+
+    List<Button>      abilityIconButtons = new List<Button>();
+    List<Image>       abilityIconImages  = new List<Image>();
+    List<AbilityIcon> abilityIcons       = new List<AbilityIcon>();
 
     AudioManager audioManager;
     DefenderSpawner defenderSpawner;
+    ResourceDisplay resourceDisplay;
     SquadData squadData;
     Tooltip tooltip;
 
@@ -34,6 +38,7 @@ public class AbilityIconController : MonoBehaviour
     {
         audioManager = AudioManager.instance;
         defenderSpawner = DefenderSpawner.instance;
+        resourceDisplay = ResourceDisplay.instance;
         squadData = GameManager.instance.squadData;
         tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
 
@@ -41,11 +46,17 @@ public class AbilityIconController : MonoBehaviour
         {
             abilityIconButtons.Add(transform.GetChild(i).GetComponentInChildren<Button>());
             abilityIconImages.Add(abilityIconButtons[i].GetComponent<Image>());
+            abilityIcons.Add(abilityIconButtons[i].GetComponent<AbilityIcon>());
             if (abilityIconButtons[i].gameObject.activeSelf)
                 abilityIconButtons[i].transform.parent.gameObject.SetActive(false);
         }
     }
-    
+
+    void Update()
+    {
+        CheckIfIconsInteractable();
+    }
+
     public void EnableAbilityIcons()
     {
         if (defenderSpawner.ghostImageSquad == null)
@@ -72,42 +83,24 @@ public class AbilityIconController : MonoBehaviour
         }
     }
 
-    public void DisableAbilityIcons()
-    {
-        foreach (Button button in abilityIconButtons)
-        {
-            button.onClick.RemoveAllListeners();
-            button.transform.parent.gameObject.SetActive(false);
-        }
-
-        tooltip.DeactivateTooltip();
-    }
-
     #region Archer
     void SetArcherIcons()
     {
         if (selectedSquad.abilityActive == false)
         {
-            if (squadData.archerFireArrowsUnlocked) // Fire Arrows
-            {
-                abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
-                abilityIconButtons[0].onClick.AddListener(ActivateFireArrows);
-                abilityIconImages[0].sprite = fireArrowsIcon;
-            }
+            // Fire Arrows
+            if (squadData.archerFireArrowsUnlocked)
+                SetupIcon(0, squadData.fireArrowsCost, fireArrowsIcon, ActivateFireArrows);
 
-            if (squadData.archerRapidFireUnlocked) // Rapid Fire
-            {
-                abilityIconButtons[1].transform.parent.gameObject.SetActive(true);
-                abilityIconButtons[1].onClick.AddListener(ActivateRapidShoot);
-                abilityIconImages[1].sprite = rapidFireIcon;
-            }
+            // Rapid Fire
+            if (squadData.archerRapidFireUnlocked)
+                SetupIcon(1, squadData.rapidFireCost, rapidFireIcon, ActivateRapidFire);
         }
     }
 
     void ActivateFireArrows()
     {
-        selectedSquad.abilityActive = true;
-        PlayButtonClickSound();
+        InitUseAbility(squadData.fireArrowsCost);
 
         if (selectedSquad.leader != null)
         {
@@ -121,7 +114,6 @@ public class AbilityIconController : MonoBehaviour
             unit.myShooter.fireDamage = unit.myShooter.piercingDamage * unit.myShooter.secondaryRangedDamageMultiplier;
         }
 
-        DisableAbilityIcons();
         StartCoroutine(DeactivateFireArrows(selectedSquad));
     }
 
@@ -144,10 +136,9 @@ public class AbilityIconController : MonoBehaviour
         }
     }
 
-    void ActivateRapidShoot()
+    void ActivateRapidFire()
     {
-        selectedSquad.abilityActive = true;
-        PlayButtonClickSound();
+        InitUseAbility(squadData.rapidFireCost);
 
         if (selectedSquad.leader != null)
             selectedSquad.leader.anim.SetFloat("shootSpeed", squadData.archerRapidFireSpeedMultipilier);
@@ -157,7 +148,6 @@ public class AbilityIconController : MonoBehaviour
             unit.anim.SetFloat("shootSpeed", squadData.archerRapidFireSpeedMultipilier);
         }
 
-        DisableAbilityIcons();
         StartCoroutine(DeactivateRapidShoot(selectedSquad));
     }
 
@@ -185,19 +175,15 @@ public class AbilityIconController : MonoBehaviour
     {
         if (selectedSquad.abilityActive == false)
         {
-            if (squadData.knightThornsUnlocked) // Thorns
-            {
-                abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
-                abilityIconButtons[0].onClick.AddListener(ActivateThorns);
-                abilityIconImages[0].sprite = thornsIcon;
-            }
+            // Thorns
+            if (squadData.knightThornsUnlocked)
+                SetupIcon(0, squadData.thornsCost, thornsIcon, ActivateThorns);
         }
     }
 
     void ActivateThorns()
     {
-        selectedSquad.abilityActive = true;
-        PlayButtonClickSound();
+        InitUseAbility(squadData.thornsCost);
 
         if (selectedSquad.leader != null)
             selectedSquad.leader.health.thornsActive = true;
@@ -207,7 +193,6 @@ public class AbilityIconController : MonoBehaviour
             unit.health.thornsActive = true;
         }
 
-        DisableAbilityIcons();
         StartCoroutine(DeactivateThorns(selectedSquad));
     }
 
@@ -232,19 +217,15 @@ public class AbilityIconController : MonoBehaviour
     {
         if (selectedSquad.abilityActive == false)
         {
-            if (squadData.spearmenLongThrowUnlocked) // Long Throw
-            {
-                abilityIconButtons[0].transform.parent.gameObject.SetActive(true);
-                abilityIconButtons[0].onClick.AddListener(ActivateLongThrow);
-                abilityIconImages[0].sprite = longThrowIcon;
-            }
+            // Long Throw
+            if (squadData.spearmenLongThrowUnlocked)
+                SetupIcon(0, squadData.longThrowCost, longThrowIcon, ActivateLongThrow);
         }
     }
 
     void ActivateLongThrow()
     {
-        selectedSquad.abilityActive = true;
-        PlayButtonClickSound();
+        InitUseAbility(squadData.longThrowCost);
 
         if (selectedSquad.isCastleWallSquad == false)
         {
@@ -257,7 +238,6 @@ public class AbilityIconController : MonoBehaviour
             selectedSquad.rangeCollider.boxCollider.size = new Vector2(10f, 2.9f);
         }
 
-        DisableAbilityIcons();
         StartCoroutine(DeactivateLongThrow(selectedSquad));
     }
 
@@ -271,8 +251,53 @@ public class AbilityIconController : MonoBehaviour
     }
     #endregion
 
+    public void DisableAbilityIcons()
+    {
+        foreach (Button button in abilityIconButtons)
+        {
+            button.interactable = true;
+            button.onClick.RemoveAllListeners();
+            button.transform.parent.gameObject.SetActive(false);
+        }
+
+        tooltip.DeactivateTooltip();
+    }
+
+    void SetupIcon(int iconIndex, int abilityCost, Sprite iconSprite, UnityAction listenerFunction)
+    {
+        abilityIcons[iconIndex].abilityCost = abilityCost;
+
+        CheckIfIconsInteractable();
+
+        abilityIconButtons[iconIndex].transform.parent.gameObject.SetActive(true);
+        abilityIconButtons[iconIndex].onClick.AddListener(listenerFunction);
+        abilityIconImages[iconIndex].sprite = iconSprite;
+    }
+
+    void InitUseAbility(int abilityCost)
+    {
+        selectedSquad.abilityActive = true;
+        resourceDisplay.SpendSupplies(abilityCost);
+        PlayButtonClickSound();
+        DisableAbilityIcons();
+    }
+
     void PlayButtonClickSound()
     {
         audioManager.PlaySound(audioManager.buttonClickSounds, audioManager.buttonClickSounds[0].soundName, Vector3.zero);
+    }
+
+    void CheckIfIconsInteractable()
+    {
+        for (int i = 0; i < abilityIcons.Count; i++)
+        {
+            if (abilityIcons[i].gameObject.activeSelf)
+            {
+                if (resourceDisplay.HaveEnoughSupplies(abilityIcons[i].abilityCost) == false)
+                    abilityIconButtons[i].interactable = false;
+                else
+                    abilityIconButtons[i].interactable = true;
+            }
+        }
     }
 }

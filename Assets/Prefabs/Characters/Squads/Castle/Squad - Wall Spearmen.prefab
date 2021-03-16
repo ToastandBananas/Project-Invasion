@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 6460403956350379145}
   - component: {fileID: 9176416422350433636}
   m_Layer: 0
-  m_Name: Squad - Wall Spearmen Lvl 1
+  m_Name: Squad - Wall Spearmen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -150,6 +150,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   squadType: 1
   goldCost: 150
+  suppliesCost: 8
   description: 
   squadFormation: 0
   castleWallVersionOfSquad: {fileID: 0}

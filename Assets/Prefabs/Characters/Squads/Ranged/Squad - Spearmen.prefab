@@ -73,6 +73,8 @@ MonoBehaviour:
   attackersInRange: []
   defendersInRange: []
   boxCollider: {fileID: 0}
+  originalOffset: {x: 0, y: 0}
+  originalSize: {x: 0, y: 0}
 --- !u!1 &5465530739727653615
 GameObject:
   m_ObjectHideFlags: 0
@@ -116,7 +118,7 @@ GameObject:
   - component: {fileID: 5465530740085816145}
   - component: {fileID: 5465530740085816144}
   m_Layer: 0
-  m_Name: Squad - Spearmen Lvl 1
+  m_Name: Squad - Spearmen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -179,12 +181,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   squadType: 1
   goldCost: 150
+  suppliesCost: 10
   description: A versatile squad that excels both in melee and ranged combat.
   squadFormation: 0
   castleWallVersionOfSquad: {fileID: 9176416422350433636, guid: f0938f4bb2cd03843ab8bbc5a0fbc55f, type: 3}
   shouldRetreatWhenEnemyNear: 0
   isRangedUnit: 1
-  isCastleWallUnit: 0
+  isCastleWallSquad: 0
   shootRange: 2
   squadPlaced: 0
   leader: {fileID: 0}
@@ -194,6 +197,7 @@ MonoBehaviour:
   unitsParent: {fileID: 0}
   myLaneSpawner: {fileID: 0}
   rangeCollider: {fileID: 0}
+  abilityActive: 0
 --- !u!1 &5465530741621668943
 GameObject:
   m_ObjectHideFlags: 0

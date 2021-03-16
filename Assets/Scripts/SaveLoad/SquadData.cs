@@ -5,25 +5,31 @@ public class SquadData : MonoBehaviour
     string squadDataSavePath = "SquadData.es3";
 
     [Header("Knight Data")]
-    public int knightSquadGoldCost;
+    public int knightSquadGoldCost, knightSquadSuppliesCost;
     public float knightHealth, knightLeaderHealth;
     public float knightSlashDamage, knightLeaderSlashDamage;
     public float knightThornsDamageMultiplier, knightThornsTime;
     public bool knightThornsUnlocked;
 
     [Header("Spearmen Data")]
-    public int spearmenSquadGoldCost;
+    public int spearmenSquadGoldCost, spearmenSquadSuppliesCost;
     public float spearmenHealth, spearmenLeaderHealth, spearmenAccuracy, spearmenLeaderAccuracy;
     public float spearmenPiercingDamage, spearmenRangedPiercingDamage, spearmenLeaderPiercingDamage, spearmenLeaderRangedPiercingDamage;
     public float spearmenLongThrowTime;
     public bool spearmenLongThrowUnlocked;
 
     [Header("Archer Data")]
-    public int archerSquadGoldCost;
+    public int archerSquadGoldCost, archerSquadSuppliesCost;
     public float archerHealth, archerLeaderHealth, archerAccuracy, archerLeaderAccuracy;
     public float archerPiercingDamage, archerRangedPiercingDamage, archerLeaderPiercingDamage, archerLeaderRangedPiercingDamage;
     public float archerFireArrowsTime, archerFireArrowsDamageMultiplier, archerRapidFireTime, archerRapidFireSpeedMultipilier;
     public bool archerShouldRetreatWhenEnemyNear, archerFireArrowsUnlocked, archerRapidFireUnlocked;
+
+    // Ability Costs
+    [HideInInspector] public int thornsCost = 50;
+    [HideInInspector] public int longThrowCost = 50;
+    [HideInInspector] public int fireArrowsCost = 75;
+    [HideInInspector] public int rapidFireCost = 100;
 
     // Defaults
     [HideInInspector] public float defaultThornsDamageMultiplier = 0.2f;
@@ -33,9 +39,11 @@ public class SquadData : MonoBehaviour
     [HideInInspector] public float defaultRapidFireTime = 20f;
     [HideInInspector] public float defaultRapidFireSpeedMultiplier = 2f;
 
-    public void ApplyKnightData(int gold, float health, float leaderHealth, float slashDamage, float leaderSlashDamage, float thornsDamageMultiplier, float thornsTime, bool thornsUnlocked)
+    public void ApplyKnightData(int gold, int supplies, float health, float leaderHealth, float slashDamage, float leaderSlashDamage, float thornsDamageMultiplier, float thornsTime, bool thornsUnlocked)
     {
         knightSquadGoldCost += gold;
+        knightSquadSuppliesCost += supplies;
+
         knightHealth += health;
         knightLeaderHealth += leaderHealth;
 
@@ -49,9 +57,11 @@ public class SquadData : MonoBehaviour
             knightThornsUnlocked = true;
     }
 
-    public void ApplySpearmenData(int gold, float health, float leaderHealth, float piercingDamage, float leaderPiercingDamage, float rangedPiercingDamage, float leaderRangedPiercingDamage, float accuracy, float leaderAccuracy, float longThrowTime, bool longThrowUnlocked)
+    public void ApplySpearmenData(int gold, int supplies, float health, float leaderHealth, float piercingDamage, float leaderPiercingDamage, float rangedPiercingDamage, float leaderRangedPiercingDamage, float accuracy, float leaderAccuracy, float longThrowTime, bool longThrowUnlocked)
     {
         spearmenSquadGoldCost += gold;
+        spearmenSquadSuppliesCost += supplies;
+
         spearmenHealth += health;
         spearmenLeaderHealth += leaderHealth;
 
@@ -68,9 +78,11 @@ public class SquadData : MonoBehaviour
             spearmenLongThrowUnlocked = true;
     }
 
-    public void ApplyArcherData(int gold, float health, float leaderHealth, float piercingDamage, float leaderPiercingDamage, float rangedPiercingDamage, float leaderRangedPiercingDamage, float accuracy, float leaderAccuracy, float fireArrowsTime, float fireArrowsDamageMultiplier, float rapidFireTime, float rapidFireSpeedMultiplier, bool shouldRetreat, bool fireArrowsUnlocked, bool rapidFireUnlocked)
+    public void ApplyArcherData(int gold, int supplies, float health, float leaderHealth, float piercingDamage, float leaderPiercingDamage, float rangedPiercingDamage, float leaderRangedPiercingDamage, float accuracy, float leaderAccuracy, float fireArrowsTime, float fireArrowsDamageMultiplier, float rapidFireTime, float rapidFireSpeedMultiplier, bool shouldRetreat, bool fireArrowsUnlocked, bool rapidFireUnlocked)
     {
         archerSquadGoldCost += gold;
+        archerSquadSuppliesCost += supplies;
+
         archerHealth += health;
         archerLeaderHealth += leaderHealth;
 
@@ -211,6 +223,7 @@ public class SquadData : MonoBehaviour
     {
         // Knight Data
         ES3.Save("knightSquadGoldCost", knightSquadGoldCost, squadDataSavePath);
+        ES3.Save("knightSquadSuppliesCost", knightSquadSuppliesCost, squadDataSavePath);
         ES3.Save("knightHealth", knightHealth, squadDataSavePath);
         ES3.Save("knightLeaderHealth", knightLeaderHealth, squadDataSavePath);
         ES3.Save("knightSlashDamage", knightSlashDamage, squadDataSavePath);
@@ -221,6 +234,7 @@ public class SquadData : MonoBehaviour
 
         // Spearmen Data
         ES3.Save("spearmenSquadGoldCost", spearmenSquadGoldCost, squadDataSavePath);
+        ES3.Save("spearmenSquadSuppliesCost", spearmenSquadSuppliesCost, squadDataSavePath);
         ES3.Save("spearmenHealth", spearmenHealth, squadDataSavePath);
         ES3.Save("spearmenLeaderHealth", spearmenLeaderHealth, squadDataSavePath);
         ES3.Save("spearmenPiercingDamage", spearmenPiercingDamage, squadDataSavePath);
@@ -234,6 +248,7 @@ public class SquadData : MonoBehaviour
 
         // Archer Data
         ES3.Save("archerSquadGoldCost", archerSquadGoldCost, squadDataSavePath);
+        ES3.Save("archerSquadSuppliesCost", archerSquadSuppliesCost, squadDataSavePath);
         ES3.Save("archerHealth", archerHealth, squadDataSavePath);
         ES3.Save("archerLeaderHealth", archerLeaderHealth, squadDataSavePath);
         ES3.Save("archerPiercingDamage", archerPiercingDamage, squadDataSavePath);
@@ -255,6 +270,7 @@ public class SquadData : MonoBehaviour
     {
         // Knight Data
         knightSquadGoldCost = ES3.Load("knightSquadGoldCost", squadDataSavePath, 0);
+        knightSquadSuppliesCost = ES3.Load("knightSquadSuppliesCost", squadDataSavePath, 0);
         knightHealth = ES3.Load("knightHealth", squadDataSavePath, 0f);
         knightLeaderHealth = ES3.Load("knightLeaderHealth", squadDataSavePath, 0f);
         knightSlashDamage = ES3.Load("knightSlashDamage", squadDataSavePath, 0f);
@@ -265,6 +281,7 @@ public class SquadData : MonoBehaviour
 
         // Spearmen Data
         spearmenSquadGoldCost = ES3.Load("spearmenSquadGoldCost", squadDataSavePath, 0);
+        spearmenSquadSuppliesCost = ES3.Load("spearmenSquadSuppliesCost", squadDataSavePath, 0);
         spearmenHealth = ES3.Load("spearmenHealth", squadDataSavePath, 0f);
         spearmenLeaderHealth = ES3.Load("spearmenLeaderHealth", squadDataSavePath, 0f);
         spearmenPiercingDamage = ES3.Load("spearmenPiercingDamage", squadDataSavePath, 0f);
@@ -278,6 +295,7 @@ public class SquadData : MonoBehaviour
 
         // Archer Data
         archerSquadGoldCost = ES3.Load("archerSquadGoldCost", squadDataSavePath, 0);
+        archerSquadSuppliesCost = ES3.Load("archerSquadSuppliesCost", squadDataSavePath, 0);
         archerHealth = ES3.Load("archerHealth", squadDataSavePath, 0f);
         archerLeaderHealth = ES3.Load("archerLeaderHealth", squadDataSavePath, 0f);
         archerPiercingDamage = ES3.Load("archerPiercingDamage", squadDataSavePath, 0f);
