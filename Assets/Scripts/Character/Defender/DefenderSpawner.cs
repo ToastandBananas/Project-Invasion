@@ -12,7 +12,7 @@ public class DefenderSpawner : MonoBehaviour
     bool canPlaceSquad = true;
 
     Defender defender;
-    CurrencyDisplay currencyDisplay;
+    ResourceDisplay currencyDisplay;
     List<Vector2> gridCellsOccupied;
     Vector2 mouseHoverTilePos;
     int defaultSortingOrder = 5;
@@ -43,7 +43,7 @@ public class DefenderSpawner : MonoBehaviour
         if (defendersParent == null)
             defendersParent = new GameObject(DEFENDERS_PARENT_NAME);
 
-        currencyDisplay = FindObjectOfType<CurrencyDisplay>();
+        currencyDisplay = FindObjectOfType<ResourceDisplay>();
         gridCellsOccupied = new List<Vector2>();
 
         gameObject.SetActive(false);

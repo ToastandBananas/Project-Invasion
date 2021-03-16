@@ -30,7 +30,7 @@ public class Defender : MonoBehaviour
     Vector2 currentLocalPosition;
 
     AudioManager audioManager;
-    CurrencyDisplay currencyDisplay;
+    ResourceDisplay currencyDisplay;
 
     void Awake()
     {
@@ -43,7 +43,7 @@ public class Defender : MonoBehaviour
         randomAttackOffsetY = Random.Range(-0.15f, 0.15f);
 
         audioManager = AudioManager.instance;
-        currencyDisplay = CurrencyDisplay.instance;
+        currencyDisplay = ResourceDisplay.instance;
         anim = GetComponent<Animator>();
         health = GetComponent<Health>();
 
@@ -194,11 +194,19 @@ public class Defender : MonoBehaviour
 
         if (targetAttackersHealth != null)
         {
-            // Deal damage to self if enemy has thorns active
-            if (targetAttackersHealth.thornsActive && targetAttackersHealth.thornsDamageMultiplier > 0f)
-                health.DealDamage(bluntDamage * targetAttackersHealth.thornsDamageMultiplier, slashDamage * targetAttackersHealth.thornsDamageMultiplier, piercingDamage * targetAttackersHealth.thornsDamageMultiplier, fireDamage * targetAttackersHealth.thornsDamageMultiplier, true);
+            if (targetAttackersHealth.isDead)
+            {
+                targetAttacker.FindNewTargetForDefenders(targetAttacker);
+                return;
+            }
+            else
+            {
+                // Deal damage to self if enemy has thorns active
+                if (targetAttackersHealth.thornsActive && targetAttackersHealth.thornsDamageMultiplier > 0f)
+                    health.DealDamage(bluntDamage * targetAttackersHealth.thornsDamageMultiplier, slashDamage * targetAttackersHealth.thornsDamageMultiplier, piercingDamage * targetAttackersHealth.thornsDamageMultiplier, fireDamage * targetAttackersHealth.thornsDamageMultiplier, true);
 
-            targetAttackersHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false);
+                targetAttackersHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false);
+            }
         }
 
         audioManager.PlayMeleeHitSound(meleeWeaponType);

@@ -125,9 +125,10 @@ public class Attacker : MonoBehaviour
             {
                 if (currentTargetsHealth.isDead)
                 {
-                    opponents.Remove(currentDefenderAttacking);
-                    currentTargetsHealth = null;
-                    currentDefenderAttacking = null;
+                    //opponents.Remove(currentDefenderAttacking);
+                    //currentTargetsHealth = null;
+                    //currentDefenderAttacking = null;
+                    currentDefenderAttacking.FindNewTargetForAttackers(currentDefenderAttacking);
                     return;
                 }
 
