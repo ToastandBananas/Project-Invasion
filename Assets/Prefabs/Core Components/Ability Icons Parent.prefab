@@ -82,9 +82,8 @@ MonoBehaviour:
   fireArrowsIcon: {fileID: 21300000, guid: 3cec0dbad60ea8f4e809baef354826bb, type: 3}
   rapidFireIcon: {fileID: 21300000, guid: 5be119e8d2f01874a8940d3cbe989a01, type: 3}
   thornsIcon: {fileID: 21300000, guid: 3f4c96d56b8da4648a98e9d02175970b, type: 3}
+  inspireIcon: {fileID: 21300000, guid: b012366f3fcefbe4797536fff21a5c94, type: 3}
   longThrowIcon: {fileID: 21300000, guid: fc1a4fbbc5ab16a409e04fd444592516, type: 3}
-  abilityIconButtons: []
-  abilityIconImages: []
   selectedSquad: {fileID: 0}
 --- !u!222 &4353553710245377603
 CanvasRenderer:

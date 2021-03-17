@@ -116,7 +116,7 @@ GameObject:
   - component: {fileID: 5993080609283387821}
   - component: {fileID: 7515360950151584746}
   - component: {fileID: 5993080609283387823}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Squad - Wall Archers
   m_TagString: Untagged
   m_Icon: {fileID: 0}

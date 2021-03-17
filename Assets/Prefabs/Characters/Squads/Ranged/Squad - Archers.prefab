@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1807769460393828021}
   - component: {fileID: 1807769460393828022}
   - component: {fileID: 1807769460393828023}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Squad - Archers
   m_TagString: Untagged
   m_Icon: {fileID: 0}

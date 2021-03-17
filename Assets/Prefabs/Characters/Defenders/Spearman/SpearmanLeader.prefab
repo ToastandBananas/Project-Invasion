@@ -214,6 +214,10 @@ MonoBehaviour:
   slashDamage: 0
   piercingDamage: 18
   fireDamage: 0
+  startingBluntDamage: 0
+  startingSlashDamage: 0
+  startingPiercingDamage: 0
+  startingFireDamage: 0
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
@@ -242,8 +246,11 @@ MonoBehaviour:
   rangedWeaponType: 3
   accuracy: 75
   bluntDamage: 0
-  piercingDamage: 20
+  piercingDamage: 22
   fireDamage: 0
+  startingBluntDamage: 0
+  startingPiercingDamage: 0
+  startingFireDamage: 0
   secondaryRangedDamageMultiplier: 2
   isShootingSecondaryProjectile: 0
   isShootingCastle: 0
@@ -274,10 +281,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 150
-  currentHealth: 100
+  startingMaxHealth: 0
   bluntResistance: -0.25
   slashResistance: 0.4
   piercingResistance: 0.25
   fireResistance: -0.25
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
+  thornsActive: 0
+  thornsDamageMultiplier: 0
   isDead: 0

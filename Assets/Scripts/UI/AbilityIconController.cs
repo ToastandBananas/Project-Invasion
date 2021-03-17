@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class AbilityIconController : MonoBehaviour
 {
-    public Sprite fireArrowsIcon, rapidFireIcon, thornsIcon, longThrowIcon;
+    public Sprite fireArrowsIcon, rapidFireIcon, thornsIcon, inspireIcon, longThrowIcon;
 
     [HideInInspector] public Squad selectedSquad;
 
@@ -19,6 +19,8 @@ public class AbilityIconController : MonoBehaviour
     ResourceDisplay resourceDisplay;
     SquadData squadData;
     Tooltip tooltip;
+
+    LayerMask squadMask;
 
     #region Singleton
     public static AbilityIconController instance;
@@ -41,6 +43,7 @@ public class AbilityIconController : MonoBehaviour
         resourceDisplay = ResourceDisplay.instance;
         squadData = GameManager.instance.squadData;
         tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
+        squadMask = LayerMask.GetMask("Squads");
 
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -175,10 +178,110 @@ public class AbilityIconController : MonoBehaviour
     {
         if (selectedSquad.abilityActive == false)
         {
+            // Inspire
+            if (squadData.knightInspireUnlocked)
+                SetupIcon(0, squadData.inspireCost, inspireIcon, ActivateInspire);
+
             // Thorns
             if (squadData.knightThornsUnlocked)
-                SetupIcon(0, squadData.thornsCost, thornsIcon, ActivateThorns);
+                SetupIcon(1, squadData.thornsCost, thornsIcon, ActivateThorns);
         }
+    }
+
+    void ActivateInspire()
+    {
+        InitUseAbility(squadData.inspireCost);
+
+        Squad leftSquad  = null;
+        Squad rightSquad = null;
+
+        Collider2D leftSquadCollider  = Physics2D.OverlapCircle(new Vector2(selectedSquad.transform.position.x - 1, selectedSquad.transform.position.y), 0.5f, squadMask);
+        Collider2D rightSquadCollider = Physics2D.OverlapCircle(new Vector2(selectedSquad.transform.position.x + 1, selectedSquad.transform.position.y), 0.5f, squadMask);
+
+        Inspire_SetStatsForSquad(selectedSquad);
+
+        if (leftSquadCollider != null)
+        {
+            leftSquad = leftSquadCollider.GetComponent<Squad>();
+            Inspire_SetStatsForSquad(leftSquad);
+        }
+
+        if (rightSquadCollider != null)
+        {
+            rightSquad = rightSquadCollider.GetComponent<Squad>();
+            Inspire_SetStatsForSquad(rightSquad);
+        }
+
+        StartCoroutine(DeactivateInspire(selectedSquad, leftSquad, rightSquad));
+    }
+
+    void Inspire_SetStatsForSquad(Squad squad)
+    {
+        if (squad.leader != null)
+        {
+            squad.leader.health.SetMaxHealth(squad.leader.health.GetMaxHealth() + (squad.leader.health.GetMaxHealth() * squadData.knightInspireMultiplier));
+            squad.leader.health.Heal(squad.leader.health.GetMaxHealth() * squadData.knightInspireMultiplier);
+
+            squad.leader.SetAttackDamage(squad.leader.bluntDamage * squadData.knightInspireMultiplier, squad.leader.slashDamage * squadData.knightInspireMultiplier, squad.leader.piercingDamage * squadData.knightInspireMultiplier, squad.leader.fireDamage * squadData.knightInspireMultiplier);
+
+            if (squad.leader.myShooter != null)
+                squad.leader.myShooter.SetRangedDamage(squad.leader.myShooter.bluntDamage * squadData.knightInspireMultiplier, squad.leader.myShooter.piercingDamage * squadData.knightInspireMultiplier, squad.leader.myShooter.fireDamage * squadData.knightInspireMultiplier);
+        }
+
+        foreach (Defender unit in squad.units)
+        {
+            unit.health.SetMaxHealth(unit.health.GetMaxHealth() + (unit.health.GetMaxHealth() * squadData.knightInspireMultiplier));
+            unit.health.Heal(unit.health.GetMaxHealth() * squadData.knightInspireMultiplier);
+
+            unit.SetAttackDamage(unit.bluntDamage * squadData.knightInspireMultiplier, unit.slashDamage * squadData.knightInspireMultiplier, unit.piercingDamage * squadData.knightInspireMultiplier, unit.fireDamage * squadData.knightInspireMultiplier);
+
+            if (unit.myShooter != null)
+                unit.myShooter.SetRangedDamage(unit.myShooter.bluntDamage * squadData.knightInspireMultiplier, unit.myShooter.piercingDamage * squadData.knightInspireMultiplier, unit.myShooter.fireDamage * squadData.knightInspireMultiplier);
+        }
+    }
+
+    void Inspire_ResetStatsForSquad(Squad squad)
+    {
+        if (squad.leader != null)
+        {
+            squad.leader.health.SetMaxHealth(squad.leader.health.GetMaxHealth() - (squad.leader.health.startingMaxHealth * squadData.knightInspireMultiplier));
+            if (squad.leader.health.GetCurrentHealth() > squad.leader.health.GetMaxHealth())
+                squad.leader.health.SetCurrentHealthToMaxHealth();
+
+            squad.leader.SetAttackDamage(squad.leader.startingBluntDamage * -squadData.knightInspireMultiplier, squad.leader.startingSlashDamage * -squadData.knightInspireMultiplier, squad.leader.startingPiercingDamage * -squadData.knightInspireMultiplier, squad.leader.startingFireDamage * -squadData.knightInspireMultiplier);
+
+            if (squad.leader.myShooter != null)
+                squad.leader.myShooter.SetRangedDamage(squad.leader.myShooter.startingBluntDamage * -squadData.knightInspireMultiplier, squad.leader.myShooter.startingPiercingDamage * -squadData.knightInspireMultiplier, squad.leader.myShooter.startingFireDamage * -squadData.knightInspireMultiplier);
+        }
+
+        foreach (Defender unit in squad.units)
+        {
+            unit.health.SetMaxHealth(unit.health.GetMaxHealth() - (unit.health.startingMaxHealth * squadData.knightInspireMultiplier));
+            if (unit.health.GetCurrentHealth() > unit.health.GetMaxHealth())
+                unit.health.SetCurrentHealthToMaxHealth();
+
+            unit.SetAttackDamage(unit.startingBluntDamage * -squadData.knightInspireMultiplier, unit.startingSlashDamage * -squadData.knightInspireMultiplier, unit.startingPiercingDamage * -squadData.knightInspireMultiplier, unit.startingFireDamage * -squadData.knightInspireMultiplier);
+
+            if (unit.myShooter != null)
+                unit.myShooter.SetRangedDamage(unit.myShooter.startingBluntDamage * -squadData.knightInspireMultiplier, unit.myShooter.startingPiercingDamage * -squadData.knightInspireMultiplier, unit.myShooter.startingFireDamage * -squadData.knightInspireMultiplier);
+        }
+    }
+
+    IEnumerator DeactivateInspire(Squad mainSquad, Squad leftSquad, Squad rightSquad)
+    {
+        yield return new WaitForSeconds(squadData.knightInspireTime);
+
+        if (mainSquad != null)
+        {
+            mainSquad.abilityActive = false;
+            Inspire_ResetStatsForSquad(mainSquad);
+        }
+
+        if (leftSquad != null)
+            Inspire_ResetStatsForSquad(leftSquad);
+
+        if (rightSquad != null)
+            Inspire_ResetStatsForSquad(rightSquad);
     }
 
     void ActivateThorns()
@@ -200,14 +303,17 @@ public class AbilityIconController : MonoBehaviour
     {
         yield return new WaitForSeconds(squadData.knightThornsTime);
 
-        squad.abilityActive = false;
-
-        if (selectedSquad.leader != null)
-            selectedSquad.leader.health.thornsActive = false;
-
-        foreach (Defender unit in selectedSquad.units)
+        if (squad != null)
         {
-            unit.health.thornsActive = false;
+            squad.abilityActive = false;
+
+            if (selectedSquad.leader != null)
+                selectedSquad.leader.health.thornsActive = false;
+
+            foreach (Defender unit in selectedSquad.units)
+            {
+                unit.health.thornsActive = false;
+            }
         }
     }
     #endregion
@@ -245,9 +351,12 @@ public class AbilityIconController : MonoBehaviour
     {
         yield return new WaitForSeconds(squadData.spearmenLongThrowTime);
 
-        squad.abilityActive = false;
-        squad.rangeCollider.boxCollider.offset = squad.rangeCollider.originalOffset;
-        squad.rangeCollider.boxCollider.size = squad.rangeCollider.originalSize;
+        if (squad != null)
+        {
+            squad.abilityActive = false;
+            squad.rangeCollider.boxCollider.offset = squad.rangeCollider.originalOffset;
+            squad.rangeCollider.boxCollider.size = squad.rangeCollider.originalSize;
+        }
     }
     #endregion
 

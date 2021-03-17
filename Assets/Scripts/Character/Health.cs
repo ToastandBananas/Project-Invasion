@@ -5,6 +5,7 @@ public class Health : MonoBehaviour
 {
     [Header("Stats")]
     [SerializeField] float maxHealth = 100f;
+    [HideInInspector] public float startingMaxHealth;
     float currentHealth = 100f;
     [SerializeField][Range(-1f, 1f)] float bluntResistance, slashResistance, piercingResistance, fireResistance;
 
@@ -40,6 +41,7 @@ public class Health : MonoBehaviour
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
         deadCharactersParent = GameObject.Find("Dead Characters").transform;
 
+        startingMaxHealth = maxHealth;
         currentHealth = maxHealth;
 
         // Find which object pool to use for damage effects (blood, etc.)
@@ -59,15 +61,14 @@ public class Health : MonoBehaviour
 
     public void Heal(float healAmount)
     {
-        currentHealth += healAmount;
+        currentHealth += Mathf.RoundToInt(healAmount);
         if (currentHealth > maxHealth)
             SetCurrentHealthToMaxHealth();
     }
 
     public void SetMaxHealth(float newMaxHealthAmount)
     {
-        maxHealth = newMaxHealthAmount;
-        currentHealth = maxHealth;
+        maxHealth = Mathf.RoundToInt(newMaxHealthAmount);
     }
 
     public float GetCurrentHealth()

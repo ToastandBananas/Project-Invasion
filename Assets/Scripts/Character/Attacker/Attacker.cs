@@ -22,6 +22,7 @@ public class Attacker : MonoBehaviour
     [SerializeField] MeleeWeaponType meleeWeaponType;
     public float castleAttackDamage = 5f;
     public float bluntDamage, slashDamage, piercingDamage, fireDamage;
+    [HideInInspector] public float startingBluntDamage, startingSlashDamage, startingPiercingDamage, startingFireDamage;
 
     [HideInInspector] public List<Defender> opponents = new List<Defender>();
     [HideInInspector] public Defender currentDefenderAttacking;
@@ -45,6 +46,11 @@ public class Attacker : MonoBehaviour
         audioManager = AudioManager.instance;
         anim = GetComponent<Animator>();
         castleHealth = CastleHealth.instance;
+
+        startingBluntDamage = bluntDamage;
+        startingSlashDamage = slashDamage;
+        startingPiercingDamage = piercingDamage;
+        startingFireDamage = fireDamage;
 
         StartCoroutine(Movement());
     }

@@ -11,6 +11,7 @@ public class Defender : MonoBehaviour
     [Header("Weapon Info")]
     [SerializeField] MeleeWeaponType meleeWeaponType;
     public float bluntDamage, slashDamage, piercingDamage, fireDamage;
+    [HideInInspector] public float startingBluntDamage, startingSlashDamage, startingPiercingDamage, startingFireDamage;
 
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool isMoving = false;
@@ -46,6 +47,11 @@ public class Defender : MonoBehaviour
         currencyDisplay = ResourceDisplay.instance;
         anim = GetComponent<Animator>();
         health = GetComponent<Health>();
+
+        startingBluntDamage = bluntDamage;
+        startingSlashDamage = slashDamage;
+        startingPiercingDamage = piercingDamage;
+        startingFireDamage = fireDamage;
 
         StartCoroutine(Movement());
     }
@@ -327,9 +333,9 @@ public class Defender : MonoBehaviour
 
     public void SetAttackDamage(float bluntDamageAddOn, float slashDamageAddOn, float piercingDamageAddOn, float fireDamageAddOn)
     {
-        bluntDamage += bluntDamageAddOn;
-        slashDamage += slashDamageAddOn;
-        piercingDamage += piercingDamageAddOn;
-        fireDamage += fireDamageAddOn;
+        bluntDamage += Mathf.RoundToInt(bluntDamageAddOn);
+        slashDamage += Mathf.RoundToInt(slashDamageAddOn);
+        piercingDamage += Mathf.RoundToInt(piercingDamageAddOn);
+        fireDamage += Mathf.RoundToInt(fireDamageAddOn);
     }
 }

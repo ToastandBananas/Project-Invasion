@@ -7,7 +7,7 @@ public class Spearman : MonoBehaviour
     Health health;
     SquadData squadData;
 
-    void Start()
+    void Awake()
     {
         defenderScript = GetComponent<Defender>();
         shooterScript = GetComponent<Shooter>();
@@ -56,5 +56,7 @@ public class Spearman : MonoBehaviour
             if (squadData.spearmenAccuracy > 0)
                 shooterScript.accuracy += squadData.spearmenAccuracy;
         }
+
+        health.SetCurrentHealthToMaxHealth();
     }
 }

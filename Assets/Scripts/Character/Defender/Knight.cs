@@ -6,7 +6,7 @@ public class Knight : MonoBehaviour
     Health health;
     SquadData squadData;
 
-    void Start()
+    void Awake()
     {
         defenderScript = GetComponent<Defender>();
         health = GetComponent<Health>();
@@ -48,5 +48,7 @@ public class Knight : MonoBehaviour
             if (squadData.knightSlashDamage > 0)
                 defenderScript.SetAttackDamage(0, squadData.knightSlashDamage, 0, 0);
         }
+
+        health.SetCurrentHealthToMaxHealth();
     }
 }

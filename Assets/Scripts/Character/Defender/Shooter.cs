@@ -13,6 +13,7 @@ public class Shooter : MonoBehaviour
     public RangedWeaponType rangedWeaponType;
     [Range(0f, 100f)] public float accuracy = 100f;
     public float bluntDamage, piercingDamage, fireDamage;
+    [HideInInspector] public float startingBluntDamage, startingPiercingDamage, startingFireDamage;
     public float secondaryRangedDamageMultiplier = 1f;
 
     [HideInInspector] public bool isShootingSecondaryProjectile;
@@ -41,6 +42,10 @@ public class Shooter : MonoBehaviour
 
         projectilesParent = GameObject.Find(PROJECTILES_PARENT_NAME).transform;
         gun = transform.Find("Gun").gameObject;
+
+        startingBluntDamage = bluntDamage;
+        startingPiercingDamage = piercingDamage;
+        startingFireDamage = fireDamage;
 
         // Find which object pool to use for this shooter's projectiles
         for (int i = 0; i < projectilesParent.childCount; i++)
@@ -120,9 +125,9 @@ public class Shooter : MonoBehaviour
 
     public void SetRangedDamage(float bluntDamageAddOn, float piercingDamageAddOn, float fireDamageAddOn)
     {
-        bluntDamage += bluntDamageAddOn;
-        piercingDamage += piercingDamageAddOn;
-        fireDamage += fireDamageAddOn;
+        bluntDamage += Mathf.RoundToInt(bluntDamageAddOn);
+        piercingDamage += Mathf.RoundToInt(piercingDamageAddOn);
+        fireDamage += Mathf.RoundToInt(fireDamageAddOn);
     }
 
     /*bool IsAttackerInLane()

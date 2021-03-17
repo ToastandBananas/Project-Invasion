@@ -42,8 +42,8 @@ GameObject:
   - component: {fileID: 5053783063992260405}
   - component: {fileID: 5053783063992260404}
   - component: {fileID: 5053783063992260407}
-  m_Layer: 0
-  m_Name: Squad - Knights Lvl 1
+  m_Layer: 6
+  m_Name: Squad - Knights
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -105,12 +105,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   squadType: 0
   goldCost: 100
+  suppliesCost: 5
   description: Sturdy sword wielding knights.
   squadFormation: 0
   castleWallVersionOfSquad: {fileID: 0}
   shouldRetreatWhenEnemyNear: 0
   isRangedUnit: 0
-  isCastleWallUnit: 0
+  isCastleWallSquad: 0
   shootRange: 0
   squadPlaced: 0
   leader: {fileID: 0}
@@ -120,6 +121,7 @@ MonoBehaviour:
   unitsParent: {fileID: 0}
   myLaneSpawner: {fileID: 0}
   rangeCollider: {fileID: 0}
+  abilityActive: 0
 --- !u!1 &5053783065360583369
 GameObject:
   m_ObjectHideFlags: 0

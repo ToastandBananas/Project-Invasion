@@ -72,11 +72,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   knightSquadGoldCost: 0
+  knightSquadSuppliesCost: 0
   knightHealth: 0
   knightLeaderHealth: 0
   knightSlashDamage: 0
   knightLeaderSlashDamage: 0
+  knightInspireMultiplier: 0
+  knightInspireTime: 0
+  knightThornsDamageMultiplier: 0
+  knightThornsTime: 0
+  knightInspireUnlocked: 0
+  knightThornsUnlocked: 0
   spearmenSquadGoldCost: 0
+  spearmenSquadSuppliesCost: 0
   spearmenHealth: 0
   spearmenLeaderHealth: 0
   spearmenAccuracy: 0
@@ -88,6 +96,7 @@ MonoBehaviour:
   spearmenLongThrowTime: 0
   spearmenLongThrowUnlocked: 0
   archerSquadGoldCost: 0
+  archerSquadSuppliesCost: 0
   archerHealth: 0
   archerLeaderHealth: 0
   archerAccuracy: 0
@@ -103,3 +112,16 @@ MonoBehaviour:
   archerShouldRetreatWhenEnemyNear: 1
   archerFireArrowsUnlocked: 0
   archerRapidFireUnlocked: 0
+  inspireCost: 100
+  thornsCost: 50
+  longThrowCost: 75
+  fireArrowsCost: 75
+  rapidFireCost: 100
+  defaultInpsireMultiplier: 0.25
+  defaultInspireTime: 60
+  defaultThornsDamageMultiplier: 0.2
+  defaultThornsTime: 30
+  defaultLongThrowTime: 30
+  defaultFireArrowTime: 30
+  defaultRapidFireTime: 20
+  defaultRapidFireSpeedMultiplier: 2

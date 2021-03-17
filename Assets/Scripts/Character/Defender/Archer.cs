@@ -7,7 +7,7 @@ public class Archer : MonoBehaviour
     Health health;
     SquadData squadData;
 
-    void Start()
+    void Awake()
     {
         defenderScript = GetComponent<Defender>();
         shooterScript = GetComponent<Shooter>();
@@ -59,5 +59,7 @@ public class Archer : MonoBehaviour
             if (squadData.archerAccuracy > 0)
                 shooterScript.accuracy += squadData.archerAccuracy;
         }
+
+        health.SetCurrentHealthToMaxHealth();
     }
 }
