@@ -10,9 +10,8 @@ public class Squad : MonoBehaviour
     public string description;
 
     int maxUnitCount;
-    enum SquadFormation { Line, StaggeredLine, Wedge, Scattered }
     [Header("Squad Formation")]
-    [SerializeField] SquadFormation squadFormation;
+    public SquadFormation squadFormation;
 
     [Header("Ranged Squads Only:")]
     public Squad castleWallVersionOfSquad;
@@ -49,6 +48,11 @@ public class Squad : MonoBehaviour
     // 3 units
     Vector2[] leaderPositions_Wedge_Three = { new Vector2(-0.15f, 0) };
     Vector2[] unitPositions_Wedge_Three   = { new Vector2(0.05f, 0f), new Vector2(0f, 0.25f), new Vector2(0f, -0.25f) };
+
+    // Wall formation positions:
+    // 4 units
+    Vector2[] leaderPositions_Wall_Four = { new Vector2(0.05f, 0) };
+    Vector2[] unitPositions_Wall_Four = { new Vector2(0.025f, 0.125f), new Vector2(0.025f, -0.125f), new Vector2(0.025f, 0.25f), new Vector2(0.025f, -0.25f) };
     #endregion
 
     void Awake()
@@ -96,6 +100,11 @@ public class Squad : MonoBehaviour
         {
             LogFormationError();
         }
+        else if (squadFormation == SquadFormation.Wall)
+        {
+            if (maxUnitCount == 4) AssignPositions(unitPositions_Wall_Four);
+            else LogFormationError();
+        }
     }
 
     public void AssignLeaderPosition()
@@ -120,6 +129,11 @@ public class Squad : MonoBehaviour
             else if (squadFormation == SquadFormation.Scattered)
             {
                 LogFormationError();
+            }
+            else if (squadFormation == SquadFormation.Wall)
+            {
+                if (maxUnitCount == 4) leader.unitPosition = leaderPositions_Wall_Four[0];
+                else LogFormationError();
             }
         }
     }

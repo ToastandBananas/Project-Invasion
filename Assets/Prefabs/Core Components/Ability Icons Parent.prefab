@@ -84,6 +84,7 @@ MonoBehaviour:
   thornsIcon: {fileID: 21300000, guid: 3f4c96d56b8da4648a98e9d02175970b, type: 3}
   inspireIcon: {fileID: 21300000, guid: b012366f3fcefbe4797536fff21a5c94, type: 3}
   longThrowIcon: {fileID: 21300000, guid: fc1a4fbbc5ab16a409e04fd444592516, type: 3}
+  spearWallIcon: {fileID: 21300000, guid: c794360fdc66e6e4ab67e77094b64863, type: 3}
   selectedSquad: {fileID: 0}
 --- !u!222 &4353553710245377603
 CanvasRenderer:

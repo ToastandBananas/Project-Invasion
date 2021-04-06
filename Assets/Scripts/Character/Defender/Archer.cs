@@ -15,7 +15,6 @@ public class Archer : MonoBehaviour
         squadData = GameManager.instance.squadData;
 
         SetArcherData();
-        health.SetCurrentHealthToMaxHealth();
     }
 
     void Update()

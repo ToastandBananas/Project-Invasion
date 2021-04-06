@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class AbilityIconController : MonoBehaviour
 {
-    public Sprite fireArrowsIcon, rapidFireIcon, thornsIcon, inspireIcon, longThrowIcon;
+    public Sprite fireArrowsIcon, rapidFireIcon, thornsIcon, inspireIcon, longThrowIcon, spearWallIcon;
 
     [HideInInspector] public Squad selectedSquad;
 
@@ -103,7 +103,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateFireArrows()
     {
-        InitUseAbility(squadData.fireArrowsCost);
+        InitializeUseAbility(squadData.fireArrowsCost);
 
         if (selectedSquad.leader != null)
         {
@@ -141,7 +141,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateRapidFire()
     {
-        InitUseAbility(squadData.rapidFireCost);
+        InitializeUseAbility(squadData.rapidFireCost);
 
         if (selectedSquad.leader != null)
             selectedSquad.leader.anim.SetFloat("shootSpeed", squadData.archerRapidFireSpeedMultipilier);
@@ -190,7 +190,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateInspire()
     {
-        InitUseAbility(squadData.inspireCost);
+        InitializeUseAbility(squadData.inspireCost);
 
         Squad leftSquad  = null;
         Squad rightSquad = null;
@@ -286,7 +286,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateThorns()
     {
-        InitUseAbility(squadData.thornsCost);
+        InitializeUseAbility(squadData.thornsCost);
 
         if (selectedSquad.leader != null)
             selectedSquad.leader.health.thornsActive = true;
@@ -326,12 +326,16 @@ public class AbilityIconController : MonoBehaviour
             // Long Throw
             if (squadData.spearmenLongThrowUnlocked)
                 SetupIcon(0, squadData.longThrowCost, longThrowIcon, ActivateLongThrow);
+
+            // Spear Wall
+            if (squadData.spearmenSpearWallUnlocked)
+                SetupIcon(1, squadData.spearWallCost, spearWallIcon, ActivateSpearWall);
         }
     }
 
     void ActivateLongThrow()
     {
-        InitUseAbility(squadData.longThrowCost);
+        InitializeUseAbility(squadData.longThrowCost);
 
         if (selectedSquad.isCastleWallSquad == false)
         {
@@ -356,6 +360,45 @@ public class AbilityIconController : MonoBehaviour
             squad.abilityActive = false;
             squad.rangeCollider.boxCollider.offset = squad.rangeCollider.originalOffset;
             squad.rangeCollider.boxCollider.size = squad.rangeCollider.originalSize;
+        }
+    }
+
+    void ActivateSpearWall()
+    {
+        InitializeUseAbility(squadData.spearWallCost);
+
+        selectedSquad.squadFormation = SquadFormation.Wall;
+        selectedSquad.AssignLeaderPosition();
+        selectedSquad.AssignUnitPositions();
+
+        if (selectedSquad.leader != null)
+            selectedSquad.leader.shouldKnockback = true;
+
+        foreach (Defender unit in selectedSquad.units)
+        {
+            unit.shouldKnockback = true;
+        }
+
+        StartCoroutine(DeactivateSpearWall(selectedSquad));
+    }
+
+    IEnumerator DeactivateSpearWall(Squad squad)
+    {
+        yield return new WaitForSeconds(squadData.spearmenSpearWallTime);
+
+        if (squad != null)
+        {
+            squad.squadFormation = SquadFormation.Line;
+            squad.AssignLeaderPosition();
+            squad.AssignUnitPositions();
+
+            if (squad.leader != null)
+                squad.leader.shouldKnockback = false;
+
+            foreach (Defender unit in squad.units)
+            {
+                unit.shouldKnockback = false;
+            }
         }
     }
     #endregion
@@ -383,7 +426,7 @@ public class AbilityIconController : MonoBehaviour
         abilityIconImages[iconIndex].sprite = iconSprite;
     }
 
-    void InitUseAbility(int abilityCost)
+    void InitializeUseAbility(int abilityCost)
     {
         selectedSquad.abilityActive = true;
         resourceDisplay.SpendSupplies(abilityCost);

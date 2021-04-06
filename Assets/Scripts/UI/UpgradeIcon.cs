@@ -25,8 +25,8 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] bool inspireUnlocked, thornsUnlocked;
 
     [Header("Spearmen Only Upgrades")]
-    [SerializeField] float longThrowTime;
-    [SerializeField] bool longThrowUnlocked;
+    [SerializeField] float longThrowTime, spearWallTime;
+    [SerializeField] bool longThrowUnlocked, spearWallUnlocked;
 
     [Header("Archer Only Upgrades")]
     [SerializeField] float fireArrowsTime, fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier;
@@ -37,8 +37,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     SquadData squadData;
     UpgradeManager upgradeManager;
-    Text upgradeNameText;
-    Text upgradeDescriptionText;
+    Text upgradeNameText, upgradeDescriptionText;
     StringBuilder upgradeDescription = new StringBuilder();
 
     void Start()
@@ -72,7 +71,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     squadData.ApplyKnightData(gold, supplies, health, leaderHealth, slashDamage, leaderSlashDamage, inspireMultiplier, inspireTime, thornsDamageMultiplier, thornsTime, inspireUnlocked, thornsUnlocked);
                     break;
                 case SquadType.Spearmen:
-                    squadData.ApplySpearmenData(gold, supplies, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, longThrowTime, longThrowUnlocked);
+                    squadData.ApplySpearmenData(gold, supplies, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, longThrowTime, spearWallTime, longThrowUnlocked, spearWallUnlocked);
                     break;
                 case SquadType.Archers:
                     squadData.ApplyArcherData(gold, supplies, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, fireArrowsDamageMultiplier, fireArrowsTime, rapidFireSpeedMultiplier, rapidFireTime, shouldRetreat, fireArrowsUnlocked, rapidFireUnlocked);
@@ -131,6 +130,14 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
             if (longThrowTime > 0f)
                 upgradeDescription.Append("<i>Long Throw</i> Time: <color=green>+" + longThrowTime.ToString() + " seconds</color>\n");
+
+            // Spear Wall
+            if (spearWallUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Spear Wall</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString()
+                    + "</b> will hold the line for the next " + spearWallTime.ToString() + " seconds, knocking enemies back with each hit [does not work against large enemies]).");
+
+            if (spearWallTime > 0f)
+                upgradeDescription.Append("<i>Spear Wall</i> Time: <color=green>+" + spearWallTime.ToString() + " seconds</color>\n");
         }
 
         // Archer Ability Upgrades

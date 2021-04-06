@@ -15,6 +15,7 @@ public class Shooter : MonoBehaviour
     public float bluntDamage, piercingDamage, fireDamage;
     [HideInInspector] public float startingBluntDamage, startingPiercingDamage, startingFireDamage;
     public float secondaryRangedDamageMultiplier = 1f;
+    public bool shouldKnockback;
 
     [HideInInspector] public bool isShootingSecondaryProjectile;
     [HideInInspector] public bool isShootingCastle;
@@ -62,11 +63,14 @@ public class Shooter : MonoBehaviour
 
     void FixedUpdate()
     {
-        if ((defender != null && defender.squad.squadPlaced && defender.isRetreating == false && defender.squad.rangeCollider.attackersInRange.Count > 0 && defender.squad.attackersNearby.Count == 0)
+        if ((defender != null && Vector2.Distance(transform.localPosition, defender.unitPosition) <= 0.025f && defender.squad.squadPlaced && defender.isRetreating == false && defender.squad.rangeCollider.attackersInRange.Count > 0 && defender.squad.attackersNearby.Count == 0)
             || (attacker != null && (attacker.rangeCollider.defendersInRange.Count > 0 || isShootingCastle)))
         {
             if (anim.GetBool("isShooting") == false)
                 StartCoroutine(StartShooting());
+            
+            if (transform.localScale.x != 1)
+                transform.localScale = new Vector2(1, 1);
         }
         else
             anim.SetBool("isShooting", false);

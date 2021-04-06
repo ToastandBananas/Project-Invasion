@@ -14,12 +14,9 @@ public class Tooltip : MonoBehaviour
     SquadData squadData;
 
     AbilityIconController abilityIconController;
-    Defender leader;
-    Defender unit;
-    Health leaderHealth;
-    Health unitHealth;
-    Shooter leaderShooter;
-    Shooter unitShooter;
+    Defender leader, unit;
+    Health leaderHealth, unitHealth;
+    Shooter leaderShooter, unitShooter;
     
     void Start()
     {

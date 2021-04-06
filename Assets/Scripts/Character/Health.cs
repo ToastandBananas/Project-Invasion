@@ -86,7 +86,7 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void DealDamage(float bluntDamage, float slashDamage, float piercingDamage, float fireDamage, bool ignoreResistances)
+    public void DealDamage(float bluntDamage, float slashDamage, float piercingDamage, float fireDamage, bool ignoreResistances, bool knockback)
     {
         finalDamageAmount = 0f;
         if (ignoreResistances == false)
@@ -116,6 +116,14 @@ public class Health : MonoBehaviour
         if (damageEffect != null)
             StartCoroutine(TriggerDamageEffect());
 
+        if (knockback && currentHealth > 0)
+        {
+            if (defender != null)
+                StartCoroutine(defender.Knockback());
+            else if (attacker != null)
+                StartCoroutine(attacker.Knockback());
+        }
+
         // If the character is going to die
         if (currentHealth <= 0 && isDead == false)
         {
@@ -135,7 +143,7 @@ public class Health : MonoBehaviour
         thornsActive = false;
         anim.SetBool("isDead", true);
         boxCollider.enabled = false;
-        spriteRenderer.sortingOrder = 4;
+        spriteRenderer.sortingOrder = -8000;
 
         float randomRotation = Random.Range(-70f, 70f);
         transform.eulerAngles = new Vector3(0, 0, randomRotation);

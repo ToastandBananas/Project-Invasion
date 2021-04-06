@@ -15,7 +15,6 @@ public class Spearman : MonoBehaviour
         squadData = GameManager.instance.squadData;
 
         SetSpearmenData();
-        health.SetCurrentHealthToMaxHealth();
     }
 
     void Update()

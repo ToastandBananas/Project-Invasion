@@ -13,7 +13,6 @@ public class Knight : MonoBehaviour
         squadData = GameManager.instance.squadData;
 
         SetKnightData();
-        health.SetCurrentHealthToMaxHealth();
     }
 
     void Update()

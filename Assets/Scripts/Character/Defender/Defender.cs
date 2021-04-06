@@ -7,11 +7,15 @@ public class Defender : MonoBehaviour
     public float minAttackDistance = 0.115f;
     public float runSpeed = 0.5f;
     float currentSpeed = 0f;
+    float knockbackSpeed = 1.25f;
+    float knockbackDistance = 0.75f;
+    public bool isBeingKnockedBack;
 
     [Header("Weapon Info")]
     [SerializeField] MeleeWeaponType meleeWeaponType;
     public float bluntDamage, slashDamage, piercingDamage, fireDamage;
     [HideInInspector] public float startingBluntDamage, startingSlashDamage, startingPiercingDamage, startingFireDamage;
+    public bool shouldKnockback;
 
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool isMoving = false;
@@ -58,18 +62,22 @@ public class Defender : MonoBehaviour
 
     void FixedUpdate()
     {
-        UpdateAnimationState();
+        if (health.isDead == false)
+        {
+            UpdateAnimationState();
+            UpdateSortingLayer();
+        }
     }
 
     IEnumerator Movement()
     {
         while (health.isDead == false && isRetreating == false)
         {
-            if (squad.squadPlaced)
+            if (squad.squadPlaced && isBeingKnockedBack == false)
             {
                 if (squad.attackersNearby.Count == 0 || (targetAttacker == null && Vector2.Distance(transform.localPosition, unitPosition) > 0.025f))
                     MoveUnitIntoPosition();
-                else if (targetAttacker != null)
+                else if (targetAttacker != null && squad.squadFormation != SquadFormation.Wall)
                     MoveTowardsAttacker();
             }
 
@@ -91,7 +99,6 @@ public class Defender : MonoBehaviour
         anim.SetBool("isAttacking", false);
         if (squad.isRangedUnit)
             anim.SetBool("isShooting", false);
-
         
         while (transform.position.x > -1.25f)
         {
@@ -175,6 +182,38 @@ public class Defender : MonoBehaviour
     {
         SetMovementSpeed(runSpeed);
     }
+    
+    public IEnumerator Knockback()
+    {
+        float knockbackDirection = -1f;
+        for (int i = 0; i < squad.attackersNearby.Count; i++)
+        {
+            if (squad.attackersNearby[i].currentDefenderAttacking == this)
+            {
+                if (squad.attackersNearby[i].transform.position.x >= transform.position.x)
+                    knockbackDirection = -1f;
+                else
+                    knockbackDirection = 1f;
+
+                break;
+            }
+        }
+
+        Vector2 knockbackDestination = new Vector2(transform.position.x + (knockbackDistance * knockbackDirection), transform.position.y);
+
+        isBeingKnockedBack = true;
+        while (isBeingKnockedBack && isRetreating == false)
+        {
+            StopAttacking();
+
+            transform.position = Vector2.MoveTowards(transform.position, knockbackDestination, knockbackSpeed * Time.deltaTime);
+
+            if (Vector2.Distance(transform.position, knockbackDestination) <= 0.025f)
+                isBeingKnockedBack = false;
+
+            yield return null;
+        }
+    }
 
     public void Attack()
     {
@@ -209,9 +248,9 @@ public class Defender : MonoBehaviour
             {
                 // Deal damage to self if enemy has thorns active
                 if (targetAttackersHealth.thornsActive && targetAttackersHealth.thornsDamageMultiplier > 0f)
-                    health.DealDamage(bluntDamage * targetAttackersHealth.thornsDamageMultiplier, slashDamage * targetAttackersHealth.thornsDamageMultiplier, piercingDamage * targetAttackersHealth.thornsDamageMultiplier, fireDamage * targetAttackersHealth.thornsDamageMultiplier, true);
+                    health.DealDamage(bluntDamage * targetAttackersHealth.thornsDamageMultiplier, slashDamage * targetAttackersHealth.thornsDamageMultiplier, piercingDamage * targetAttackersHealth.thornsDamageMultiplier, fireDamage * targetAttackersHealth.thornsDamageMultiplier, true, false);
 
-                targetAttackersHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false);
+                targetAttackersHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false, shouldKnockback);
             }
         }
 
@@ -225,6 +264,12 @@ public class Defender : MonoBehaviour
             isAttacking = false;
             anim.SetBool("isAttacking", false);
         }
+    }
+
+    void UpdateSortingLayer()
+    {
+        if (isRetreating == false)
+            sr.sortingOrder = Mathf.RoundToInt(transform.localPosition.y * -100);
     }
 
     public void FindNewTargetForAttackers(Defender defender)

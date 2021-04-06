@@ -17,12 +17,16 @@ public class Attacker : MonoBehaviour
     public int maxOpponents = 2;
     public float runSpeed = 0.5f;
     float currentSpeed = 1f;
+    float knockbackSpeed = 1.25f;
+    float knockbackDistance = 0.75f;
+    public bool isBeingKnockedBack;
 
     [Header("Weapon Info")]
     [SerializeField] MeleeWeaponType meleeWeaponType;
     public float castleAttackDamage = 5f;
     public float bluntDamage, slashDamage, piercingDamage, fireDamage;
     [HideInInspector] public float startingBluntDamage, startingSlashDamage, startingPiercingDamage, startingFireDamage;
+    public bool shouldKnockback;
 
     [HideInInspector] public List<Defender> opponents = new List<Defender>();
     [HideInInspector] public Defender currentDefenderAttacking;
@@ -38,6 +42,7 @@ public class Attacker : MonoBehaviour
     AudioManager audioManager;
     Animator anim;
     CastleHealth castleHealth;
+    SpriteRenderer sr;
 
     void Start()
     {
@@ -46,6 +51,7 @@ public class Attacker : MonoBehaviour
         audioManager = AudioManager.instance;
         anim = GetComponent<Animator>();
         castleHealth = CastleHealth.instance;
+        sr = transform.GetComponentInChildren<SpriteRenderer>();
 
         startingBluntDamage = bluntDamage;
         startingSlashDamage = slashDamage;
@@ -57,20 +63,27 @@ public class Attacker : MonoBehaviour
 
     void FixedUpdate()
     {
-        UpdateAnimationState();
+        if (health.isDead == false)
+        {
+            UpdateAnimationState();
+            UpdateSortingLayer();
+        }
     }
 
     IEnumerator Movement()
     {
         while (health.isDead == false)
         {
-            if (currentDefenderAttacking != null && Vector2.Distance(transform.position, currentDefenderAttacking.transform.position) > minAttackDistance && isAttacking == false && isAttackingCastle == false)
-                MoveTowardsTarget();
-            else if (currentDefenderAttacking == null && isAttackingCastle == false)
+            if (isBeingKnockedBack == false)
             {
-                transform.Translate(Vector2.left * currentSpeed * Time.deltaTime);
-                if (transform.localScale.x != 1)
-                    transform.localScale = new Vector2(1, 1);
+                if (currentDefenderAttacking != null && Vector2.Distance(transform.position, currentDefenderAttacking.transform.position) > minAttackDistance && isAttacking == false && isAttackingCastle == false)
+                    MoveTowardsTarget();
+                else if (currentDefenderAttacking == null && isAttackingCastle == false)
+                {
+                    transform.Translate(Vector2.left * currentSpeed * Time.deltaTime);
+                    if (transform.localScale.x != 1)
+                        transform.localScale = new Vector2(1, 1);
+                }
             }
 
             yield return null;
@@ -99,6 +112,48 @@ public class Attacker : MonoBehaviour
             transform.localScale = new Vector2(-1, 1);
         else if (transform.position.x > currentDefenderAttacking.transform.position.x && transform.localScale.x != 1)
             transform.localScale = new Vector2(1, 1);
+    }
+
+    public IEnumerator Knockback()
+    {
+        float knockbackDirection = 1f;
+        if (currentTargetsSquad.leader.targetAttacker == this)
+        {
+            if (currentTargetsSquad.leader.transform.position.x <= transform.position.x)
+                knockbackDirection = 1f;
+            else
+                knockbackDirection = -1f;
+        }
+        else
+        {
+            for (int i = 0; i < currentTargetsSquad.units.Count; i++)
+            {
+                if (currentTargetsSquad.units[i].targetAttacker == this)
+                {
+                    if (currentTargetsSquad.units[i].transform.position.x <= transform.position.x)
+                        knockbackDirection = 1f;
+                    else
+                        knockbackDirection = -1f;
+
+                    break;
+                }
+            }
+        }
+
+        Vector2 knockbackDestination = new Vector2(transform.position.x + (knockbackDistance * knockbackDirection), transform.position.y);
+
+        isBeingKnockedBack = true;
+        while (isBeingKnockedBack)
+        {
+            StopAttacking();
+
+            transform.position = Vector2.MoveTowards(transform.position, knockbackDestination, knockbackSpeed * Time.deltaTime);
+
+            if (Vector2.Distance(transform.position, knockbackDestination) <= 0.025f)
+                isBeingKnockedBack = false;
+
+            yield return null;
+        }
     }
 
     public void Attack()
@@ -140,9 +195,9 @@ public class Attacker : MonoBehaviour
 
                 // Deal damage to self if enemy has thorns active
                 if (currentTargetsHealth.thornsActive && currentTargetsHealth.thornsDamageMultiplier > 0f)
-                    health.DealDamage(bluntDamage * currentTargetsHealth.thornsDamageMultiplier, slashDamage * currentTargetsHealth.thornsDamageMultiplier, piercingDamage * currentTargetsHealth.thornsDamageMultiplier, fireDamage * currentTargetsHealth.thornsDamageMultiplier, true);
+                    health.DealDamage(bluntDamage * currentTargetsHealth.thornsDamageMultiplier, slashDamage * currentTargetsHealth.thornsDamageMultiplier, piercingDamage * currentTargetsHealth.thornsDamageMultiplier, fireDamage * currentTargetsHealth.thornsDamageMultiplier, true, false);
 
-                currentTargetsHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false);
+                currentTargetsHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false, shouldKnockback);
             }
         }
         else if (isAttackingCastle)
@@ -162,6 +217,11 @@ public class Attacker : MonoBehaviour
     {
         if (currentDefenderAttacking == null && isAttackingCastle == false)
             StopAttacking();
+    }
+
+    void UpdateSortingLayer()
+    {
+        sr.sortingOrder = Mathf.RoundToInt(transform.localPosition.y * -100);
     }
 
     public void FindNewTargetForDefenders(Attacker attacker)

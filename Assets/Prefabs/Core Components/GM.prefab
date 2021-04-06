@@ -94,7 +94,9 @@ MonoBehaviour:
   spearmenLeaderPiercingDamage: 0
   spearmenLeaderRangedPiercingDamage: 0
   spearmenLongThrowTime: 0
+  spearmenSpearWallTime: 0
   spearmenLongThrowUnlocked: 0
+  spearmenSpearWallUnlocked: 0
   archerSquadGoldCost: 0
   archerSquadSuppliesCost: 0
   archerHealth: 0
@@ -112,16 +114,18 @@ MonoBehaviour:
   archerShouldRetreatWhenEnemyNear: 1
   archerFireArrowsUnlocked: 0
   archerRapidFireUnlocked: 0
-  inspireCost: 100
-  thornsCost: 50
-  longThrowCost: 75
-  fireArrowsCost: 75
-  rapidFireCost: 100
-  defaultInpsireMultiplier: 0.25
+  defaultInspireMultiplier: 0.25
   defaultInspireTime: 60
   defaultThornsDamageMultiplier: 0.2
   defaultThornsTime: 30
   defaultLongThrowTime: 30
+  defaultSpearWallTime: 30
   defaultFireArrowTime: 30
   defaultRapidFireTime: 20
   defaultRapidFireSpeedMultiplier: 2
+  inspireCost: 100
+  thornsCost: 50
+  longThrowCost: 75
+  spearWallCost: 100
+  fireArrowsCost: 75
+  rapidFireCost: 100
