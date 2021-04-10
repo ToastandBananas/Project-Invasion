@@ -9,7 +9,8 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] SquadType squadType;
 
     [Header("Standard Upgrades")]
-    [SerializeField] int gold, supplies;
+    [SerializeField] int gold;
+    [SerializeField] int supplies;
     [SerializeField] float health, leaderHealth;
     [SerializeField] float bluntDamage, slashDamage, piercingDamage, fireDamage;
     [SerializeField] float leaderBluntDamage, leaderSlashDamage, leaderPiercingDamage, leaderFireDamage;
@@ -21,16 +22,22 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] bool shouldRetreat;
 
     [Header("Knight Only Upgrades")]
-    [SerializeField] float inspireMultiplier, inspireTime, thornsDamageMultiplier, thornsTime;
+    [SerializeField] float inspireMultiplier;
+    [SerializeField] float inspireTime, thornsDamageMultiplier, thornsTime;
     [SerializeField] bool inspireUnlocked, thornsUnlocked;
 
     [Header("Spearmen Only Upgrades")]
-    [SerializeField] float longThrowTime, spearWallTime;
+    [SerializeField] float longThrowTime;
+    [SerializeField] float spearWallTime;
     [SerializeField] bool longThrowUnlocked, spearWallUnlocked;
 
     [Header("Archer Only Upgrades")]
-    [SerializeField] float fireArrowsTime, fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier;
+    [SerializeField] float fireArrowsTime;
+    [SerializeField] float fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier;
     [SerializeField] bool fireArrowsUnlocked, rapidFireUnlocked;
+
+    [Header("Prerequisites")]
+    public UpgradeIcon[] prerequisites;
 
     [Header("Unlocked Already?")]
     public bool upgradeUnlocked;
@@ -245,8 +252,21 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (upgradeUnlocked == false)
         {
-            upgradeManager.SetSelectedUpgradeIcon(this);
-            upgradeManager.ToggleUpgradeConfirmationScreen();
+            bool canUpgrade = true;
+            foreach (UpgradeIcon prerequisite in prerequisites)
+            {
+                if (prerequisite.upgradeUnlocked == false)
+                {
+                    canUpgrade = false;
+                    break;
+                }
+            }
+
+            if (canUpgrade)
+            {
+                upgradeManager.SetSelectedUpgradeIcon(this);
+                upgradeManager.ToggleUpgradeConfirmationScreen();
+            }
         }
     }
 
