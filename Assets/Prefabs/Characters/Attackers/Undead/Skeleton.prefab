@@ -120,12 +120,18 @@ MonoBehaviour:
   minAttackDistance: 0.125
   maxOpponents: 2
   runSpeed: 0.5
+  isBeingKnockedBack: 0
   meleeWeaponType: 0
   castleAttackDamage: 5
   bluntDamage: 0
-  slashDamage: 10
+  slashDamage: 5
   piercingDamage: 0
   fireDamage: 0
+  startingBluntDamage: 0
+  startingSlashDamage: 0
+  startingPiercingDamage: 0
+  startingFireDamage: 0
+  shouldKnockback: 0
   opponents: []
   currentDefenderAttacking: {fileID: 0}
   currentTargetsHealth: {fileID: 0}
@@ -160,12 +166,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  currentHealth: 100
+  startingMaxHealth: 0
   bluntResistance: -0.5
   slashResistance: 0
   piercingResistance: 0.5
   fireResistance: 0.25
   damageEffect: {fileID: 0}
+  thornsActive: 0
+  thornsDamageMultiplier: 0
   isDead: 0
 --- !u!1 &3752957602855261672
 GameObject:
@@ -209,6 +217,7 @@ SpriteRenderer:
   m_CastShadows: 0
   m_ReceiveShadows: 0
   m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1

@@ -8,11 +8,17 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [Header("Squad Type To Upgrade")]
     [SerializeField] SquadType squadType;
 
+    [Header("Upgrade Points")]
+    public int upgradePointsCost = 50;
+
     [Header("Standard Upgrades")]
     [SerializeField] int gold;
     [SerializeField] int supplies;
     [SerializeField] float health, leaderHealth;
-    [SerializeField] float bluntDamage, slashDamage, piercingDamage, fireDamage;
+
+    [Header("Damage Upgrades")]
+    [SerializeField] float bluntDamage;
+    [SerializeField] float slashDamage, piercingDamage, fireDamage;
     [SerializeField] float leaderBluntDamage, leaderSlashDamage, leaderPiercingDamage, leaderFireDamage;
 
     [Header("Ranged Only Upgrades")]
@@ -68,7 +74,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         ClearDescription();
     }
 
-    public void ApplyUpgrades() // Used in LevelLoader script when going to next level after upgrading in Upgrade Menu
+    public void ApplyUpgrades() // Used in UpgradeManager script when a player confirms that they'd like to purchase an upgrade
     {
         if (upgradeUnlocked == false)
         {
@@ -94,7 +100,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
     }
 
-    void BuildDescription()
+    void BuildDescription() // Builds a tooltip description for the upgrade when the player hovers over the Upgrade Icon
     {
         if (upgradeDescription.Equals("") == false)
             upgradeDescription.Clear();
@@ -244,13 +250,16 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (leaderAccuracy > 0f)
             upgradeDescription.Append("Leader Accuracy: <color=green>+" + leaderAccuracy.ToString() + "%</color>\n");
 
+        // Upgrade Cost
+        upgradeDescription.Append("\nUpgrade Cost: <b>" + upgradePointsCost.ToString() + " points</b>");
+
         upgradeNameText.text = gameObject.name;
         upgradeDescriptionText.text = upgradeDescription.ToString();
     }
 
     public void SelectThisIcon()
     {
-        if (upgradeUnlocked == false)
+        if (upgradeUnlocked == false && upgradeManager.HasEnoughUpgradePoints(upgradePointsCost))
         {
             bool canUpgrade = true;
             foreach (UpgradeIcon prerequisite in prerequisites)

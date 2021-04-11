@@ -10,7 +10,10 @@ public class LevelController : MonoBehaviour
     [SerializeField] int maxWaves = 5;
     public float waveDelay = 10f;
 
-    public int numberOfAttackers = 0;
+    [Header("Reward")]
+    public int upgradePointsReward = 100;
+
+    [HideInInspector] public int numberOfAttackers = 0;
 
     AudioManager audioManager;
     AttackerSpawner[] attackerSpawners;
@@ -60,12 +63,19 @@ public class LevelController : MonoBehaviour
         if (winCanvas != null)
             winCanvas.SetActive(true);
 
+        ApplyUpgradePointsReward();
+
         int randomIndex = Random.Range(0, audioManager.victorySounds.Length);
         audioManager.PlaySound(audioManager.victorySounds, audioManager.victorySounds[randomIndex].soundName, Vector3.zero);
 
         yield return new WaitForSeconds(audioManager.victorySounds[randomIndex].clip.length);
 
         LevelLoader.instance.LoadUpgradeMenuScene();
+    }
+
+    void ApplyUpgradePointsReward()
+    {
+        ES3.Save("upgradePoints", ES3.Load("upgradePoints", 0) + upgradePointsReward);
     }
 
     public void CheckIfWaveComplete()

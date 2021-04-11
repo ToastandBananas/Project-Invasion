@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum MeleeWeaponType { Blade, Blunt, Piercing }
 public enum RangedWeaponType { Bow, Crossbow, Fireball, Spear }
@@ -32,16 +33,33 @@ public class GameManager : MonoBehaviour
 
     public void SaveCurrentGame()
     {
+        // Save Squad Data
         squadData.SaveSquadData();
+
+        // Autosave
         ES3AutoSaveMgr.Current.Save();
+
+
+        // Save upgrade point total if the player is in the Upgrade Menu
+        if (SceneManager.GetSceneByName("Upgrade Menu") == SceneManager.GetActiveScene())
+            UpgradeManager.instance.SaveUpgradePoints();
     }
 
     public void LoadCurrentGame()
     {
+        // Load in saved Squad Data, so that any upgrades can be applied to squads as they are spawned
         squadData.LoadSquadData();
-        LevelLoader.instance.LoadCurrentLevelNumber();
+
+        // Load the current level number so that if the player loads their game from the main menu, our Level Loader will know which level to load
+        LevelLoader.instance.LoadCurrentLevelNumber(); 
+
+        // Load in autosave data
         if (ES3.FileExists("SaveFile.es3"))
             ES3AutoSaveMgr.Current.Load();
+
+        // Load in upgrade points if the player is in the Upgrade Menu
+        if (SceneManager.GetSceneByName("Upgrade Menu") == SceneManager.GetActiveScene())
+            UpgradeManager.instance.LoadUpgradePoints();
     }
 
     public void DeleteAllSaveData()
