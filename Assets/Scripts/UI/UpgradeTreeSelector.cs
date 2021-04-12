@@ -5,10 +5,12 @@ public class UpgradeTreeSelector : MonoBehaviour
     public GameObject upgradeTree;
 
     GameObject upgradeTreeParent;
+    AudioManager audioManager;
 
     void Start()
     {
         upgradeTreeParent = GameObject.Find("Upgrade Trees");
+        audioManager = AudioManager.instance;
     }
 
     public void SelectSkillTree()
@@ -22,6 +24,7 @@ public class UpgradeTreeSelector : MonoBehaviour
             }
         }
 
+        audioManager.PlaySound(audioManager.buttonClickSounds, audioManager.buttonClickSounds[0].soundName, Vector3.zero);
         upgradeTree.SetActive(true);
     }
 }

@@ -66,9 +66,6 @@ public class AudioManager : MonoBehaviour
     public Sound[] fireballCastSounds;
     public Sound[] fireballHitSounds;
 
-    [Header("Inventory Sounds")]
-    public Sound[] goldSounds;
-
     [Header("Music Sounds")]
     public Sound[] musicSounds;
     public Sound[] victorySounds;
@@ -82,6 +79,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("UI Sounds")]
     public Sound[] buttonClickSounds;
+    public Sound[] goldSounds;
 
     [Header("Voice Sounds")]
     public Sound[] humanMaleDeathSounds;
