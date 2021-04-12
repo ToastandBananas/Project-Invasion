@@ -221,7 +221,7 @@ public class Attacker : MonoBehaviour
 
     void UpdateSortingLayer()
     {
-        sr.sortingOrder = Mathf.RoundToInt(transform.localPosition.y * -100);
+        sr.sortingOrder = Mathf.RoundToInt(transform.position.y * -100);
     }
 
     public void FindNewTargetForDefenders(Attacker attacker)

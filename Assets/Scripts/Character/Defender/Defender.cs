@@ -87,7 +87,7 @@ public class Defender : MonoBehaviour
 
     public IEnumerator Retreat()
     {
-        sr.sortingOrder = 3;
+        sr.sortingOrder = -650;
         isRetreating = true;
         isAttacking = false;
         isMoving = true;
@@ -269,7 +269,7 @@ public class Defender : MonoBehaviour
     void UpdateSortingLayer()
     {
         if (isRetreating == false)
-            sr.sortingOrder = Mathf.RoundToInt(transform.localPosition.y * -100);
+            sr.sortingOrder = Mathf.RoundToInt(transform.position.y * -100);
     }
 
     public void FindNewTargetForAttackers(Defender defender)

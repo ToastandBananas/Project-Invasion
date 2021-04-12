@@ -261,15 +261,20 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     {
         if (upgradeUnlocked == false && upgradeManager.HasEnoughUpgradePoints(upgradePointsCost))
         {
-            bool canUpgrade = true;
-            foreach (UpgradeIcon prerequisite in prerequisites)
+            bool canUpgrade = false;
+            if (prerequisites.Length > 0)
             {
-                if (prerequisite.upgradeUnlocked == false)
+                foreach (UpgradeIcon prerequisite in prerequisites)
                 {
-                    canUpgrade = false;
-                    break;
+                    if (prerequisite.upgradeUnlocked)
+                    {
+                        canUpgrade = true;
+                        break;
+                    }
                 }
             }
+            else // If there's no prerequisites
+                canUpgrade = true;
 
             if (canUpgrade)
             {
