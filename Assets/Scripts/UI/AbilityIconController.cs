@@ -379,10 +379,26 @@ public class AbilityIconController : MonoBehaviour
             unit.shouldKnockback = true;
         }
 
-        StartCoroutine(DeactivateSpearWall(selectedSquad));
+        StartCoroutine(DeactivateSpearWall(selectedSquad, selectedSquad.leader.health.bluntResistance, selectedSquad.leader.health.piercingResistance, selectedSquad.leader.health.slashResistance, selectedSquad.leader.health.fireResistance));
+
+        if (selectedSquad.leader != null)
+        {
+            selectedSquad.leader.health.bluntResistance = 1f;
+            selectedSquad.leader.health.piercingResistance = 1f;
+            selectedSquad.leader.health.slashResistance = 1f;
+            selectedSquad.leader.health.fireResistance = 1f;
+        }
+
+        foreach (Defender unit in selectedSquad.units)
+        {
+            unit.health.bluntResistance = 1f;
+            unit.health.piercingResistance = 1f;
+            unit.health.slashResistance = 1f;
+            unit.health.fireResistance = 1f;
+        }
     }
 
-    IEnumerator DeactivateSpearWall(Squad squad)
+    IEnumerator DeactivateSpearWall(Squad squad, float originalBluntResist, float originalPiercingResist, float originalSlashResist, float originalFireResist)
     {
         yield return new WaitForSeconds(squadData.spearmenSpearWallTime);
 
@@ -393,11 +409,21 @@ public class AbilityIconController : MonoBehaviour
             squad.AssignUnitPositions();
 
             if (squad.leader != null)
+            {
                 squad.leader.shouldKnockback = false;
+                squad.leader.health.bluntResistance = originalBluntResist;
+                squad.leader.health.piercingResistance = originalPiercingResist;
+                squad.leader.health.slashResistance = originalSlashResist;
+                squad.leader.health.fireResistance = originalFireResist;
+            }
 
             foreach (Defender unit in squad.units)
             {
                 unit.shouldKnockback = false;
+                unit.health.bluntResistance = originalBluntResist;
+                unit.health.piercingResistance = originalPiercingResist;
+                unit.health.slashResistance = originalSlashResist;
+                unit.health.fireResistance = originalFireResist;
             }
         }
     }

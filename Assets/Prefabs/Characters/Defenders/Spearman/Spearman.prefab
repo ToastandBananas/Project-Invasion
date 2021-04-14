@@ -284,11 +284,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 30
+  maxHealth: 50
   startingMaxHealth: 0
-  bluntResistance: -0.25
-  slashResistance: 0.4
-  piercingResistance: 0.25
+  bluntResistance: -0.2
+  slashResistance: 0.3
+  piercingResistance: 0.18
   fireResistance: -0.25
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   thornsActive: 0

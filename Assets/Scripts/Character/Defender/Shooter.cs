@@ -68,9 +68,6 @@ public class Shooter : MonoBehaviour
         {
             if (anim.GetBool("isShooting") == false)
                 StartCoroutine(StartShooting());
-            
-            if (transform.localScale.x != 1)
-                transform.localScale = new Vector2(1, 1);
         }
         else
             anim.SetBool("isShooting", false);

@@ -7,7 +7,7 @@ public class Health : MonoBehaviour
     [SerializeField] float maxHealth = 100f;
     [HideInInspector] public float startingMaxHealth;
     float currentHealth = 100f;
-    [SerializeField][Range(-1f, 1f)] float bluntResistance, slashResistance, piercingResistance, fireResistance;
+    [Range(-1f, 1f)] public float bluntResistance, slashResistance, piercingResistance, fireResistance;
 
     [Header("Damage Particle Effect")]
     [SerializeField] GameObject damageEffect;
@@ -116,19 +116,18 @@ public class Health : MonoBehaviour
         if (damageEffect != null)
             StartCoroutine(TriggerDamageEffect());
 
-        if (knockback && currentHealth > 0)
-        {
-            if (defender != null)
-                StartCoroutine(defender.Knockback());
-            else if (attacker != null)
-                StartCoroutine(attacker.Knockback());
-        }
-
         // If the character is going to die
         if (currentHealth <= 0 && isDead == false)
         {
             FindNewTargetForOpponent();
             Die();
+        }
+        else if (knockback && currentHealth > 0f)
+        {
+            if (defender != null)
+                StartCoroutine(defender.Knockback());
+            else if (attacker != null)
+                StartCoroutine(attacker.Knockback());
         }
     }
 

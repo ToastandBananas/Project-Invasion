@@ -8,7 +8,7 @@ public class Defender : MonoBehaviour
     public float runSpeed = 0.5f;
     float currentSpeed = 0f;
     float knockbackSpeed = 1.25f;
-    float knockbackDistance = 0.75f;
+    float knockbackDistance = 0.5f;
     public bool isBeingKnockedBack;
 
     [Header("Weapon Info")]
@@ -79,6 +79,8 @@ public class Defender : MonoBehaviour
                     MoveUnitIntoPosition();
                 else if (targetAttacker != null && squad.squadFormation != SquadFormation.Wall)
                     MoveTowardsAttacker();
+                else if (squad.squadFormation == SquadFormation.Wall)
+                    AttackNearestAttacker();
             }
 
             yield return null;
@@ -151,7 +153,7 @@ public class Defender : MonoBehaviour
         }
     }
 
-    public void MoveTowardsAttacker()
+    void MoveTowardsAttacker()
     {
         isMoving = true;
         anim.SetBool("isMoving", true);
@@ -163,6 +165,33 @@ public class Defender : MonoBehaviour
                 transform.localScale = new Vector2(1, 1);
             else if (transform.position.x > targetAttacker.transform.position.x && transform.localScale.x != -1)
                 transform.localScale = new Vector2(-1, 1);
+        }
+    }
+
+    void AttackNearestAttacker()
+    {
+        if (squad.attackersNearby.Count > 0)
+        {
+            Attacker nearestAttacker = null;
+
+            // Find the nearest attacker by comparing the distances from each attacker to this defender
+            foreach (Attacker attacker in squad.attackersNearby)
+            {
+                if (nearestAttacker == null) // If a nearestAttacker hasn't been assigned yet, automatically assign the first attacker in our attackersNearby list
+                    nearestAttacker = attacker;
+                else // Then compare distances for each attacker
+                {
+                    if (Vector2.Distance(attacker.transform.position, transform.position) < Vector2.Distance(nearestAttacker.transform.position, transform.position))
+                    {
+                        // If this attacker is closer than the currently assigned nearestAttacker, replace it with this attacker
+                        nearestAttacker = attacker;
+                    }
+                }
+            }
+
+            targetAttacker = nearestAttacker;
+            if (targetAttacker != null)
+                targetAttackersHealth = targetAttacker.health;
         }
     }
 

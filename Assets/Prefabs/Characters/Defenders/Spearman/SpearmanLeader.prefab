@@ -286,9 +286,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 150
   startingMaxHealth: 0
-  bluntResistance: -0.25
-  slashResistance: 0.4
-  piercingResistance: 0.25
+  bluntResistance: -0.2
+  slashResistance: 0.3
+  piercingResistance: 0.18
   fireResistance: -0.25
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   thornsActive: 0

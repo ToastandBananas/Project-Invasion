@@ -123,6 +123,12 @@ public class Tooltip : MonoBehaviour
             stringBuilder.Append("Ranged Accuracy: " + (leaderShooter.accuracy + squadData.GetRangedAccuracyData(squad.squadType, true)).ToString() + "%\n");
         }
 
+        stringBuilder.Append("\n<b>Resistances:</b>\n");
+        stringBuilder.Append("Blunt: " + (leaderHealth.bluntResistance * 100).ToString() + "%\n");
+        stringBuilder.Append("Piercing: " + (leaderHealth.piercingResistance * 100).ToString() + "%\n");
+        stringBuilder.Append("Slash: " + (leaderHealth.slashResistance * 100).ToString() + "%\n");
+        stringBuilder.Append("Fire: " + (leaderHealth.fireResistance * 100).ToString() + "%\n");
+
         tooltipText.text = stringBuilder.ToString();
 
         SetBackgroundSize();

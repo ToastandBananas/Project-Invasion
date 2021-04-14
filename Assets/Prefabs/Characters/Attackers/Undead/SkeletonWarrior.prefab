@@ -118,7 +118,6 @@ MonoBehaviour:
   spawnPoints: 30
   isLarge: 0
   minAttackDistance: 0.125
-  maxOpponents: 2
   runSpeed: 0.4
   isBeingKnockedBack: 0
   meleeWeaponType: 0
@@ -167,9 +166,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 100
   startingMaxHealth: 0
-  bluntResistance: -0.5
-  slashResistance: 0
-  piercingResistance: 0.5
+  bluntResistance: -0.25
+  slashResistance: 0.25
+  piercingResistance: 0.65
   fireResistance: 0.25
   damageEffect: {fileID: 0}
   thornsActive: 0
