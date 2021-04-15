@@ -124,9 +124,9 @@ public class Health : MonoBehaviour
         }
         else if (knockback && currentHealth > 0f)
         {
-            if (defender != null)
+            if (defender != null && defender.isLarge == false)
                 StartCoroutine(defender.Knockback());
-            else if (attacker != null)
+            else if (attacker != null && attacker.isLarge == false)
                 StartCoroutine(attacker.Knockback());
         }
     }

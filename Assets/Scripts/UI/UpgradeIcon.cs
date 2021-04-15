@@ -149,7 +149,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             // Spear Wall
             if (spearWallUnlocked)
                 upgradeDescription.Append("Unlocks the <i>Spear Wall</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString()
-                    + "</b> will hold the line for the next " + spearWallTime.ToString() + " seconds, knocking enemies back with each hit [does not work against large enemies]).");
+                    + "</b> will hold the line for the next " + squadData.defaultSpearWallTime.ToString() + " seconds, knocking enemies back with each hit [does not work against large enemies], while taking minimal damage themselves).\n");
 
             if (spearWallTime > 0f)
                 upgradeDescription.Append("<i>Spear Wall</i> Time: <color=green>+" + spearWallTime.ToString() + " seconds</color>\n");

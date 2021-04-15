@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squadType: 1
-  goldCost: 150
+  goldCost: 120
   suppliesCost: 8
   description: 
   squadFormation: 0

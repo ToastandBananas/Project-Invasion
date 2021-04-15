@@ -31,6 +31,15 @@ public class GameManager : MonoBehaviour
         LoadCurrentGame();
     }
 
+    void Update()
+    {
+        // Reload the scene 
+        // --- DEBUG ONLY --- REMOVE
+        if (Input.GetKeyDown(KeyCode.R))
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        // --- DEBUG ONLY --- REMOVE
+    }
+
     public void SaveCurrentGame()
     {
         // Save Squad Data

@@ -9,7 +9,7 @@ public class Defender : MonoBehaviour
     float currentSpeed = 0f;
     float knockbackSpeed = 1.25f;
     float knockbackDistance = 0.5f;
-    public bool isBeingKnockedBack;
+    public bool isLarge;
 
     [Header("Weapon Info")]
     [SerializeField] MeleeWeaponType meleeWeaponType;
@@ -17,9 +17,10 @@ public class Defender : MonoBehaviour
     [HideInInspector] public float startingBluntDamage, startingSlashDamage, startingPiercingDamage, startingFireDamage;
     public bool shouldKnockback;
 
-    [HideInInspector] public bool isAttacking = false;
-    [HideInInspector] public bool isMoving = false;
-    [HideInInspector] public bool isRetreating = false;
+    [HideInInspector] public bool isAttacking;
+    [HideInInspector] public bool isMoving;
+    [HideInInspector] public bool isRetreating;
+    [HideInInspector] public bool isBeingKnockedBack;
 
     [HideInInspector] public Attacker targetAttacker;
     [HideInInspector] public Health targetAttackersHealth;
