@@ -14,7 +14,7 @@ public class Utilities : MonoBehaviour
         return hex;
     }
 
-    public static Color HexToColor(string hex)
+    public static Color HexToRGBAColor(string hex)
     {
         hex = hex.Replace("0x", ""); // in case the string is formatted 0xFFFFFF
         hex = hex.Replace("#", ""); // in case the string is formatted #FFFFFF

@@ -24,8 +24,6 @@ public class Projectile : MonoBehaviour
     BoxCollider2D boxCollider;
 
     bool moveProjectile = true;
-    Vector3 startPos, nextPos;
-    float x0, x1, dist, nextX, baseY, arc, arcHeight;
 
     void Awake()
     {
@@ -41,12 +39,12 @@ public class Projectile : MonoBehaviour
 
         // Cache our start position, which is really the only thing we need
         // (in addition to our current position, and the target).
-        startPos = transform.position;
+        Vector3 startPos = transform.position;
 
-        x0 = startPos.x;
-        x1 = targetPos.x;
-        dist = x1 - x0;
-        arcHeight = dist * arcMultiplier;
+        float x0 = startPos.x;
+        float x1 = targetPos.x;
+        float dist = x1 - x0;
+        float arcHeight = dist * arcMultiplier;
         if (targetPos.x < myShooter.transform.position.x)
             arcHeight *= -1f;
 
@@ -83,10 +81,10 @@ public class Projectile : MonoBehaviour
             x0 = startPos.x;
             x1 = targetPos.x + offset.x;
             dist = x1 - x0;
-            nextX = Mathf.MoveTowards(transform.position.x, x1, speed * Time.deltaTime);
-            baseY = Mathf.Lerp(startPos.y, targetPos.y + offset.y, (nextX - x0) / dist);
-            arc = arcHeight * (nextX - x0) * (nextX - x1) / (-0.25f * dist * dist);
-            nextPos = new Vector3(nextX, baseY + arc, transform.position.z);
+            float nextX = Mathf.MoveTowards(transform.position.x, x1, speed * Time.deltaTime);
+            float baseY = Mathf.Lerp(startPos.y, targetPos.y + offset.y, (nextX - x0) / dist);
+            float arc = arcHeight * (nextX - x0) * (nextX - x1) / (-0.25f * dist * dist);
+            Vector3 nextPos = new Vector3(nextX, baseY + arc, transform.position.z);
 
             // Rotate to face the next position, and then move there
             transform.rotation = LookAt2D(nextPos - transform.position);

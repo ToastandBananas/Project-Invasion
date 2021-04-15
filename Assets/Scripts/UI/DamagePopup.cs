@@ -3,10 +3,13 @@ using UnityEngine;
 
 public class DamagePopup : MonoBehaviour
 {
+    static ObjectPool damagePopupObjectPool;
+
     TextMeshPro textMesh;
     Color textColor;
-    string redColor = "FF2B00";
-    string yellowColor = "FFC500";
+
+    string defenderDefaultHitColor = "FF7700"; // Orangish-Yellow
+    string attackerDefaultHitColor = "FF1100"; // Reddish-Orange
 
     static int sortingOrder;
 
@@ -15,11 +18,13 @@ public class DamagePopup : MonoBehaviour
     float disappearSpeed = 3f;
     float increaseScaleAmount = 0.2f;
     float decreaseScaleAmount = 0.25f;
+
     Vector3 moveVector = new Vector3(0.2f, 0.4f);
 
     void Awake()
     {
         textMesh = transform.GetComponent<TextMeshPro>();
+        damagePopupObjectPool = GameObject.Find("Effects").transform.Find("Damage Popups").GetComponent<ObjectPool>();
     }
 
     void Update()
@@ -45,36 +50,50 @@ public class DamagePopup : MonoBehaviour
             textColor.a -= disappearSpeed * Time.deltaTime;
             textMesh.color = textColor;
             if (textColor.a <= 0f)
-                Destroy(gameObject);
+                gameObject.SetActive(false);
         }
     }
 
     // Create a Damage Popup
-    public static DamagePopup Create(Vector3 position, float damageAmount, bool isCriticalHit)
+    public static DamagePopup Create(Vector3 position, float damageAmount, bool isCriticalHit, bool isDefender)
     {
-        Transform damagePopupTransform = Instantiate(GameAssets.instance.damagePopup, position, Quaternion.identity);
-
-        DamagePopup damagePopup = damagePopupTransform.GetComponent<DamagePopup>();
-        damagePopup.Setup(damageAmount, isCriticalHit);
+        DamagePopup damagePopup = damagePopupObjectPool.GetPooledObject().GetComponent<DamagePopup>();
+        
+        damagePopup.Setup(position, damageAmount, isCriticalHit, isDefender);
 
         return damagePopup;
     }
 
-    public void Setup(float damageAmount, bool isCriticalHit)
+    public void Setup(Vector3 position, float damageAmount, bool isCriticalHit, bool isDefender)
     {
+        // Reset the size and disappear timer
+        transform.localScale = Vector3.one;
+        disappearTimer = 0f;
+
         textMesh.SetText(damageAmount.ToString());
 
-        if (isCriticalHit == false)
+        if (isDefender)
         {
-            // Normal Hit
-            textMesh.fontSize = 0.8f;
-            textColor = Utilities.HexToColor(yellowColor);
+            // Defender being hit
+            textColor = Utilities.HexToRGBAColor(defenderDefaultHitColor);
         }
         else
         {
+            // Attacker being hit
+            textColor = Utilities.HexToRGBAColor(attackerDefaultHitColor);
+        }
+
+        if (isCriticalHit)
+        {
             // Critical Hit
+            textMesh.fontSize = 1.4f;
+            // textColor = Utilities.HexToColor(redColor);
+        }
+        else
+        {
+            // Normal Hit
             textMesh.fontSize = 1f;
-            textColor = Utilities.HexToColor(redColor);
+            // textColor = Utilities.HexToColor(yellowColor);
         }
 
         textMesh.color = textColor;
@@ -82,5 +101,8 @@ public class DamagePopup : MonoBehaviour
 
         sortingOrder++;
         textMesh.sortingOrder = sortingOrder;
+
+        gameObject.SetActive(true);
+        transform.position = position;
     }
 }
