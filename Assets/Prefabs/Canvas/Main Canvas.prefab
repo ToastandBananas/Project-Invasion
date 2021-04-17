@@ -730,8 +730,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ca3a9547463ec4478991461ce20602d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gold: 3000
+  gold: 200
   supplies: 1000
+  shouldGenerateGold: 1
 --- !u!1 &1276938204127886768
 GameObject:
   m_ObjectHideFlags: 0
@@ -1409,7 +1410,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 9999
+  m_Text: 200
 --- !u!1 &6139821790592843062
 GameObject:
   m_ObjectHideFlags: 0

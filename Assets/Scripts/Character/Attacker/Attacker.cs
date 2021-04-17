@@ -203,6 +203,10 @@ public class Attacker : MonoBehaviour
         else if (isAttackingCastle)
         {
             castleHealth.TakeHealth(castleAttackDamage);
+
+            if (PlayerPrefsController.DamagePopupsEnabled())
+                DamagePopup.Create(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), castleAttackDamage, false, true);
+
             if (castleHealth.GetHealth() <= 0f)
             {
                 StopAttacking();

@@ -122,7 +122,7 @@ MonoBehaviour:
   runSpeed: 0.5
   isBeingKnockedBack: 0
   meleeWeaponType: 0
-  castleAttackDamage: 5
+  castleAttackDamage: 3
   bluntDamage: 0
   slashDamage: 5
   piercingDamage: 0

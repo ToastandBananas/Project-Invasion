@@ -118,10 +118,11 @@ MonoBehaviour:
   spawnPoints: 30
   isLarge: 0
   minAttackDistance: 0.125
+  maxOpponents: 2
   runSpeed: 0.4
   isBeingKnockedBack: 0
   meleeWeaponType: 0
-  castleAttackDamage: 5
+  castleAttackDamage: 8
   bluntDamage: 5
   slashDamage: 10
   piercingDamage: 0

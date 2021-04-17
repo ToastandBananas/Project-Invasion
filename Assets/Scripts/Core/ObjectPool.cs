@@ -9,6 +9,9 @@ public class ObjectPool : MonoBehaviour
     
     void Start()
     {
+        if (objectToPool.name == "Damage Popup" && PlayerPrefsController.DamagePopupsEnabled() == false)
+            amountToPool = 1;
+
         GameObject temp;
         for (int i = 0; i < amountToPool; i++)
         {

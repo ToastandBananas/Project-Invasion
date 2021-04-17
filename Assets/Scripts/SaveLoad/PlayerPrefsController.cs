@@ -10,6 +10,8 @@ public class PlayerPrefsController : MonoBehaviour
     const float  MIN_DIFFICULTY = 0f;
     const float  MAX_DIFFICULTY = 2f;
 
+    const string DAMAGE_POPUPS_KEY = "Damage Popups";
+
     public static void SetMasterVolume(float volume)
     {
         if (volume >= MIN_VOLUME && volume <= MAX_VOLUME)
@@ -51,5 +53,21 @@ public class PlayerPrefsController : MonoBehaviour
             return 0.75f;
         else
             return 0.5f; // Hard difficulty
+    }
+
+    public static void SetDamagePopups(bool popupsEnabled)
+    {
+        if (popupsEnabled)
+            PlayerPrefs.SetInt(DAMAGE_POPUPS_KEY, 1);
+        else
+            PlayerPrefs.SetInt(DAMAGE_POPUPS_KEY, 0);
+    }
+
+    public static bool DamagePopupsEnabled()
+    {
+        if (PlayerPrefs.GetInt(DAMAGE_POPUPS_KEY) == 1)
+            return true;
+        else
+            return false;
     }
 }

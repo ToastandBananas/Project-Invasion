@@ -179,8 +179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   squadType: 2
-  goldCost: 160
-  suppliesCost: 12
+  goldCost: 200
+  suppliesCost: 15
   description: 
   squadFormation: 0
   castleWallVersionOfSquad: {fileID: 0}

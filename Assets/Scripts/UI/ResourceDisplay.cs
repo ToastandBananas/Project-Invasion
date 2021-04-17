@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.UI;
 
 public class ResourceDisplay : MonoBehaviour
@@ -8,6 +9,10 @@ public class ResourceDisplay : MonoBehaviour
 
     AudioManager audioManager;
     Text goldText, suppliesText;
+
+    [HideInInspector] public bool shouldGenerateGold = true;
+    float generateGoldWaitTime = 5f;
+    float updateDisplayWaitTime = 0.01f;
 
     #region Singleton
     public static ResourceDisplay instance;
@@ -27,19 +32,70 @@ public class ResourceDisplay : MonoBehaviour
         goldText = transform.Find("Gold").GetComponentInChildren<Text>();
         suppliesText = transform.Find("Supplies").GetComponentInChildren<Text>();
 
-        UpdateDisplay();
-    }
-
-    void UpdateDisplay()
-    {
         goldText.text = gold.ToString();
         suppliesText.text = supplies.ToString();
+
+        StartCoroutine(GenerateGold());
+        StartCoroutine(UpdateGoldDisplay());
+        StartCoroutine(UpdateSuppliesDisplay());
+    }
+
+    IEnumerator GenerateGold()
+    {
+        while (shouldGenerateGold)
+        {
+            yield return new WaitForSeconds(generateGoldWaitTime);
+            AddGold(50);
+        }
+    }
+
+    IEnumerator UpdateGoldDisplay()
+    {
+        while (true)
+        {
+            if (goldText.text != gold.ToString())
+            {
+                yield return new WaitForSeconds(updateDisplayWaitTime);
+
+                int currentGold = int.Parse(goldText.text);
+
+                if (currentGold < gold)
+                    currentGold++;
+                else
+                    currentGold--;
+                
+                goldText.text = currentGold.ToString();
+            }
+            else
+                yield return null;
+        }
+    }
+
+    IEnumerator UpdateSuppliesDisplay()
+    {
+        while (true)
+        {
+            if (suppliesText.text != supplies.ToString())
+            {
+                yield return new WaitForSeconds(updateDisplayWaitTime);
+
+                int currentSupplies = int.Parse(suppliesText.text);
+
+                if (currentSupplies < supplies)
+                    currentSupplies++;
+                else
+                    currentSupplies--;
+
+                suppliesText.text = currentSupplies.ToString();
+            }
+            else
+                yield return null;
+        }
     }
 
     public void AddGold(int amount)
     {
         gold += amount;
-        UpdateDisplay();
     }
 
     public void SpendGold(int amount)
@@ -47,7 +103,6 @@ public class ResourceDisplay : MonoBehaviour
         if (HaveEnoughGold(amount))
         {
             gold -= amount;
-            UpdateDisplay();
             audioManager.PlayRandomSound(audioManager.goldSounds);
         }
     }
@@ -60,16 +115,12 @@ public class ResourceDisplay : MonoBehaviour
     public void AddSupplies(int amount)
     {
         supplies += amount;
-        UpdateDisplay();
     }
 
     public void SpendSupplies(int amount)
     {
         if (HaveEnoughSupplies(amount))
-        {
             supplies -= amount;
-            UpdateDisplay();
-        }
     }
 
     public bool HaveEnoughSupplies(int suppliesAmount)
