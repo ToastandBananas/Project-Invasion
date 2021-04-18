@@ -4,7 +4,6 @@ Art Credits:
 - UI Pack by Kenney (opengameart.org/content/ui-pack) Licensed under CC0 1.0
 
 Sound Credits:
-
 - Battle Horn by Porphyr (freesound.org/people/Porphyr/sounds/188815/) Licenced under CC-BY 3.0
 - Battle Sound Effect by artisticdude (opengameart.org/content/battle-sound-effects) Licensed under CC-BY 3.0
 - Bow & bow2 by Hanbaal (freesound.org/people/Hanbaal/sounds/178872/)(freesound.org/people/Hanbaal/sounds/178873/) Licensed under CC0 1.0

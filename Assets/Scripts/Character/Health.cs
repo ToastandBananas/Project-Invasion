@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
     [Header("Stats")]
     [SerializeField] float maxHealth = 100f;
     [HideInInspector] public float startingMaxHealth;
-    float currentHealth = 100f;
+    [SerializeField] float currentHealth = 100f;
     [Range(-1f, 1f)] public float bluntResistance, slashResistance, piercingResistance, fireResistance;
 
     [Header("Damage Particle Effect")]

@@ -82,52 +82,59 @@ public class AttackerSpawner : MonoBehaviour
                 StartCoroutine(SpawnAttackers(attackerPrefabsWave4, attackerCountsWave4));
             else if (levelController.waveNumber == 5)
                 StartCoroutine(SpawnAttackers(attackerPrefabsWave5, attackerCountsWave5));
+
+            levelController.CheckIfWaveComplete();
         }
     }
 
     IEnumerator SpawnAttackers(List<Attacker> attackerPrefabsList, List<int> attackerCountsList)
     {
-        if (attackerPrefabsList.Count > 0)
+        if (attackerPrefabsList.Count > 0 && attackerCountsList.Count > 0)
         {
             SetMaxSpawnPoints();
-            
-            int spawnPoints;
+
+            int spawnPoints = 0;
             for (int i = 0; i < maxSpawnPoints; i += spawnPoints)
             {
                 // Choose a random enemy to spawn from our list of enemies for this wave
                 int randomIndex = Random.Range(0, attackerPrefabsList.Count);
 
-                // If the enemy is large (such as a boss), spawn in the center of the lane, otherwise set a random y position
-                if (attackerPrefabsList[randomIndex].isLarge == false)
-                    randomSpawnOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.35f, 0.35f));
-                else
-                    randomSpawnOffset = Vector3.zero;
-
-                // Spawn the new attacker
-                Attacker newAttacker = Instantiate(attackerPrefabsList[randomIndex], transform.position + randomSpawnOffset, transform.rotation);
-                newAttacker.transform.SetParent(transform);
-                newAttacker.myAttackerSpawner = this;
-                attackerCountsList[randomIndex]--;
-                spawnPoints = newAttacker.spawnPoints;
-
-                // If the maximum amount of this attacker has been spawned, remove it from our list of attackers for this wave
-                if (attackerCountsList[randomIndex] <= 0)
+                if (randomIndex <= attackerCountsList.Count - 1 && attackerCountsList[randomIndex] > 0)
                 {
-                    attackerPrefabsList.Remove(attackerPrefabsList[randomIndex]);
-                    attackerCountsList.Remove(attackerCountsList[randomIndex]);
+                    // If the enemy is large (such as a boss), spawn in the center of the lane, otherwise set a random y position
+                    if (attackerPrefabsList[randomIndex].isLarge == false)
+                        randomSpawnOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(-0.35f, 0.35f));
+                    else
+                        randomSpawnOffset = Vector3.zero;
+
+                    // Spawn the new attacker
+                    Attacker newAttacker = Instantiate(attackerPrefabsList[randomIndex], transform.position + randomSpawnOffset, transform.rotation);
+                    newAttacker.transform.SetParent(transform);
+                    newAttacker.myAttackerSpawner = this;
+                    attackerCountsList[randomIndex]--;
+                    spawnPoints = newAttacker.spawnPoints;
+
+                    // If the maximum amount of this attacker has been spawned, remove it from our list of attackers for this wave
+                    if (attackerCountsList[randomIndex] <= 0)
+                    {
+                        attackerPrefabsList.Remove(attackerPrefabsList[randomIndex]);
+                        attackerCountsList.Remove(attackerCountsList[randomIndex]);
+                    }
                 }
 
-                // If there are no more enemies in the wave, complete the wave and move to the next
-                if (attackerPrefabsList.Count == 0)
-                {
-                    levelController.CheckIfWaveComplete();
-                    yield break;
-                }
-                
                 // Wait a tiny bit so that attackers don't spawn at exactly the same time
                 yield return new WaitForSeconds(Random.Range(0.1f, 0.75f));
             }
         }
+        else if (attackerPrefabsList.Count > 0 && attackerCountsList.Count == 0)
+            Debug.LogError("Attacker Prefabs assigned for " + name + " in wave number " + levelController.waveNumber + ", but the Attacker Counts List has not been populated. Fix me!");
+        else if (attackerPrefabsList.Count == 0 && attackerCountsList.Count > 0)
+            Debug.LogError("Attacker Counts for " + name + " in wave number " + levelController.waveNumber + " are greater than 0, but there are no Attacker Prefabs assigned. Fix me!");
+    }
+
+    public void StartNextWaveDelay()
+    {
+        startNextWaveDelay = true;
     }
 
     public void StopSpawning()

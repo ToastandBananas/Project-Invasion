@@ -77,6 +77,7 @@ public class OptionsController : MonoBehaviour
     {
         volumeSlider.value = defaultVolume;
         difficultySlider.value = defaultDifficulty;
+        damagePopupsEnabled = defaultDamagePopupsEnabled;
     }
 
     public void ToggleOptionsMenu()

@@ -64,7 +64,7 @@ public class Shooter : MonoBehaviour
     void FixedUpdate()
     {
         if ((defender != null && Vector2.Distance(transform.localPosition, defender.unitPosition) <= 0.025f && defender.squad.squadPlaced && defender.isRetreating == false && defender.squad.rangeCollider.attackersInRange.Count > 0 && defender.squad.attackersNearby.Count == 0)
-            || (attacker != null && (attacker.rangeCollider.defendersInRange.Count > 0 || isShootingCastle)))
+            || (attacker != null && (attacker.rangeCollider.defendersInRange.Count > 0 || isShootingCastle)) && transform.position.x < 9.5f)
         {
             if (anim.GetBool("isShooting") == false)
                 StartCoroutine(StartShooting());

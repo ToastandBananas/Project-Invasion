@@ -128,7 +128,7 @@ MonoBehaviour:
   castleAttackDamage: 3
   bluntDamage: 0
   slashDamage: 0
-  piercingDamage: 5
+  piercingDamage: 4
   fireDamage: 0
   startingBluntDamage: 0
   startingSlashDamage: 0
@@ -161,7 +161,7 @@ MonoBehaviour:
   rangedWeaponType: 0
   accuracy: 50
   bluntDamage: 0
-  piercingDamage: 10
+  piercingDamage: 7
   fireDamage: 0
   startingBluntDamage: 0
   startingPiercingDamage: 0
@@ -198,6 +198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   startingMaxHealth: 0
+  currentHealth: 100
   bluntResistance: -0.5
   slashResistance: 0
   piercingResistance: 0.5

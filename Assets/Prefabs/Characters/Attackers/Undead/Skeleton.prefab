@@ -122,9 +122,9 @@ MonoBehaviour:
   runSpeed: 0.5
   isBeingKnockedBack: 0
   meleeWeaponType: 0
-  castleAttackDamage: 3
+  castleAttackDamage: 2
   bluntDamage: 0
-  slashDamage: 5
+  slashDamage: 3
   piercingDamage: 0
   fireDamage: 0
   startingBluntDamage: 0
@@ -167,6 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 50
   startingMaxHealth: 0
+  currentHealth: 100
   bluntResistance: -0.5
   slashResistance: 0
   piercingResistance: 0.5

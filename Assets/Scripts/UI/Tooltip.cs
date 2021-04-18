@@ -57,6 +57,18 @@ public class Tooltip : MonoBehaviour
 
         stringBuilder.Append("<b>Cost:</b> " + squad.GetGoldCost().ToString() + " Gold, " + squad.GetSuppliesCost().ToString() + " Supplies\n\n");
 
+        if (squad.GetShootRange() > 0)
+        {
+            if (squad.squadType == SquadType.Archers)
+                stringBuilder.Append("<b>Shoot Range:</b> ");
+            else if (squad.squadType == SquadType.Spearmen)
+                stringBuilder.Append("<b>Throw Range:</b> ");
+            else
+                Debug.LogError("Squad type not accounted for in order to show the shoot/throw range in the squad's tooltip. Fix me!");
+
+            stringBuilder.Append(squad.GetShootRange().ToString() + "\n\n");
+        }
+
         stringBuilder.Append("<b>Unit Stats:</b>\n");
         stringBuilder.Append("Health: " + (unitHealth.GetMaxHealth() + squadData.GetHealthData(squad.squadType, false)).ToString() + "\n");
 

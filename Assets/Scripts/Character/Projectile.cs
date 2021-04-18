@@ -13,7 +13,7 @@ public class Projectile : MonoBehaviour
 
     [Tooltip("Multiplier for the arc height, which is dependent on the distance from the target (set to 0 for no arc)")]
     public float arcMultiplier = 0.1f;
-    
+
     [HideInInspector] public Transform target;
     [HideInInspector] public Vector3 targetPos;
     [HideInInspector] public Shooter myShooter;
@@ -51,6 +51,7 @@ public class Projectile : MonoBehaviour
         float random = Random.Range(0f, 100f);
         Vector3 offset = Vector3.zero;
 
+        // If the shooter is missing
         if (random > myShooter.accuracy)
         {
             float offsetXFromMiss, offsetYFromMiss;
@@ -174,6 +175,8 @@ public class Projectile : MonoBehaviour
 
         sr.sprite = defaultSprite;
         sr.sortingOrder = 7;
+
+        target = null;
 
         if (anim != null)
         {

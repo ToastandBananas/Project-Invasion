@@ -37,7 +37,7 @@ public class LevelController : MonoBehaviour
         attackerSpawners = FindObjectsOfType<AttackerSpawner>();
         foreach (AttackerSpawner spawner in attackerSpawners)
         {
-            // Tally up the total number of attackers that will be in this level
+            // Tally up the total number of attackers that will be in this level...once it reaches 0, we will know that the level is complete
             numberOfAttackers += spawner.totalAttackerCount;
         }
     }
@@ -81,6 +81,15 @@ public class LevelController : MonoBehaviour
     public void CheckIfWaveComplete()
     {
         bool waveComplete = true;
+
+        foreach (AttackerSpawner spawner in attackerSpawners)
+        {
+            if (spawner.transform.childCount > 0)
+            {
+                waveComplete = false;
+                return;
+            }
+        }
 
         if (waveNumber == 1)
         {
@@ -143,9 +152,10 @@ public class LevelController : MonoBehaviour
             waveNumber++;
             foreach (AttackerSpawner spawner in attackerSpawners)
             {
-                spawner.startNextWaveDelay = true;
                 if (waveNumber > maxWaves)
                     spawner.StopSpawning();
+                else
+                    spawner.StartNextWaveDelay();
             }
         }
     }
