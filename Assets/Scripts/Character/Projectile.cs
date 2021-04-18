@@ -75,6 +75,8 @@ public class Projectile : MonoBehaviour
 
         while (moveProjectile)
         {
+            UpdateSortingLayer();
+
             if (target != null)
                 targetPos = target.position;
 
@@ -136,7 +138,7 @@ public class Projectile : MonoBehaviour
         if (groundedSprite != null)
         {
             sr.sprite = groundedSprite;
-            sr.sortingOrder = 2;
+            sr.sortingOrder = -7000;
             transform.localScale = new Vector2(0.9f, 0.9f);
         }
 
@@ -196,5 +198,10 @@ public class Projectile : MonoBehaviour
     static Quaternion LookAt2D(Vector2 forward)
     {
         return Quaternion.Euler(0, 0, Mathf.Atan2(forward.y, forward.x) * Mathf.Rad2Deg);
+    }
+
+    void UpdateSortingLayer()
+    {
+        sr.sortingOrder = Mathf.RoundToInt(transform.position.y * -100);
     }
 }

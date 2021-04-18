@@ -4,6 +4,7 @@ using UnityEngine;
 public class Squad : MonoBehaviour
 {
     [Header("Basic Info")]
+    public bool unlocked;
     public SquadType squadType;
     [SerializeField] int goldCost = 100;
     [SerializeField] int suppliesCost = 5;

@@ -14,6 +14,9 @@ public class DefenderButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         defenderSpawner = DefenderSpawner.instance;
         tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
 
+        if (GameManager.instance.squadData.SquadUnlocked(squadPrefab.squadType) == false)
+            transform.parent.gameObject.SetActive(false);
+
         SetCostDisplay();
     }
 

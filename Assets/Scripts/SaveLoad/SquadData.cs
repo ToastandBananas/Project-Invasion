@@ -47,6 +47,8 @@ public class SquadData : MonoBehaviour
     public int fireArrowsCost = 75;
     public int rapidFireCost = 100;
 
+    [HideInInspector] public bool knightsUnlocked, spearmenUnlocked, archersUnlocked;
+
     public void ApplyKnightData(int gold, int supplies, float health, float leaderHealth, float slashDamage, float leaderSlashDamage, float inspireMultiplier, float inspireTime, float thornsDamageMultiplier, float thornsTime, bool inspireUnlocked, bool thornsUnlocked)
     {
         knightSquadGoldCost += gold;
@@ -242,9 +244,45 @@ public class SquadData : MonoBehaviour
         }
     }
 
+    public void UnlockSquad(SquadType squadType)
+    {
+        switch (squadType)
+        {
+            case SquadType.Knights:
+                knightsUnlocked = true;
+                break;
+            case SquadType.Spearmen:
+                spearmenUnlocked = true;
+                break;
+            case SquadType.Archers:
+                archersUnlocked = true;
+                break;
+            default:
+                break;
+        }
+        
+        GameManager.instance.SaveCurrentGame();
+    }
+
+    public bool SquadUnlocked(SquadType squadType)
+    {
+        switch (squadType)
+        {
+            case SquadType.Knights:
+                return knightInspireUnlocked;
+            case SquadType.Spearmen:
+                return spearmenUnlocked;
+            case SquadType.Archers:
+                return archersUnlocked;
+            default:
+                return false;
+        }
+    }
+
     public void SaveSquadData()
     {
         // Knight Data
+        ES3.Save("knightsUnlocked", knightsUnlocked, squadDataSavePath);
         ES3.Save("knightSquadGoldCost", knightSquadGoldCost, squadDataSavePath);
         ES3.Save("knightSquadSuppliesCost", knightSquadSuppliesCost, squadDataSavePath);
         ES3.Save("knightHealth", knightHealth, squadDataSavePath);
@@ -259,6 +297,7 @@ public class SquadData : MonoBehaviour
         ES3.Save("knightThornsUnlocked", knightThornsUnlocked, squadDataSavePath);
 
         // Spearmen Data
+        ES3.Save("spearmenUnlocked", spearmenUnlocked, squadDataSavePath);
         ES3.Save("spearmenSquadGoldCost", spearmenSquadGoldCost, squadDataSavePath);
         ES3.Save("spearmenSquadSuppliesCost", spearmenSquadSuppliesCost, squadDataSavePath);
         ES3.Save("spearmenHealth", spearmenHealth, squadDataSavePath);
@@ -275,6 +314,7 @@ public class SquadData : MonoBehaviour
         ES3.Save("spearmenSpearWallUnlocked", spearmenSpearWallUnlocked, squadDataSavePath);
 
         // Archer Data
+        ES3.Save("archersUnlocked", archersUnlocked, squadDataSavePath);
         ES3.Save("archerSquadGoldCost", archerSquadGoldCost, squadDataSavePath);
         ES3.Save("archerSquadSuppliesCost", archerSquadSuppliesCost, squadDataSavePath);
         ES3.Save("archerHealth", archerHealth, squadDataSavePath);
@@ -297,6 +337,7 @@ public class SquadData : MonoBehaviour
     public void LoadSquadData()
     {
         // Knight Data
+        knightsUnlocked = ES3.Load("knightsUnlocked", squadDataSavePath, false);
         knightSquadGoldCost = ES3.Load("knightSquadGoldCost", squadDataSavePath, 0);
         knightSquadSuppliesCost = ES3.Load("knightSquadSuppliesCost", squadDataSavePath, 0);
         knightHealth = ES3.Load("knightHealth", squadDataSavePath, 0f);
@@ -311,6 +352,7 @@ public class SquadData : MonoBehaviour
         knightThornsUnlocked = ES3.Load("knightThornsUnlocked", squadDataSavePath, false);
 
         // Spearmen Data
+        spearmenUnlocked = ES3.Load("spearmenUnlocked", squadDataSavePath, true);
         spearmenSquadGoldCost = ES3.Load("spearmenSquadGoldCost", squadDataSavePath, 0);
         spearmenSquadSuppliesCost = ES3.Load("spearmenSquadSuppliesCost", squadDataSavePath, 0);
         spearmenHealth = ES3.Load("spearmenHealth", squadDataSavePath, 0f);
@@ -327,6 +369,7 @@ public class SquadData : MonoBehaviour
         spearmenSpearWallUnlocked = ES3.Load("spearmenSpearWallUnlocked", squadDataSavePath, false);
 
         // Archer Data
+        archersUnlocked = ES3.Load("archersUnlocked", squadDataSavePath, false);
         archerSquadGoldCost = ES3.Load("archerSquadGoldCost", squadDataSavePath, 0);
         archerSquadSuppliesCost = ES3.Load("archerSquadSuppliesCost", squadDataSavePath, 0);
         archerHealth = ES3.Load("archerHealth", squadDataSavePath, 0f);

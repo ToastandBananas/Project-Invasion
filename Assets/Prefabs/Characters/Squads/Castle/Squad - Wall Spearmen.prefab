@@ -148,7 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60145fa9133d01408a07d606ee4e6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  squadType: 1
+  unlocked: 0
+  squadType: 2
   goldCost: 150
   suppliesCost: 20
   description: 

@@ -2,6 +2,7 @@
 
 public class UpgradeTreeSelector : MonoBehaviour
 {
+    public SquadType squadType;
     public GameObject upgradeTree;
 
     GameObject upgradeTreeParent;
@@ -11,6 +12,9 @@ public class UpgradeTreeSelector : MonoBehaviour
     {
         upgradeTreeParent = GameObject.Find("Upgrade Trees");
         audioManager = AudioManager.instance;
+
+        if (GameManager.instance.squadData.SquadUnlocked(squadType) == false)
+            gameObject.SetActive(false);
     }
 
     public void SelectSkillTree()

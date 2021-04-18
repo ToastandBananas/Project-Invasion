@@ -10,13 +10,17 @@ public class LevelController : MonoBehaviour
     [SerializeField] int maxWaves = 5;
     public float waveDelay = 10f;
 
-    [Header("Reward")]
+    [Header("Squad Unlock")]
+    public SquadType squadUnlock;
+
+    [Header("Rewards")]
     public int upgradePointsReward = 100;
 
     [HideInInspector] public int numberOfAttackers = 0;
 
     AudioManager audioManager;
     AttackerSpawner[] attackerSpawners;
+    SquadData squadData;
 
     #region Singleton
     public static LevelController instance;
@@ -33,6 +37,9 @@ public class LevelController : MonoBehaviour
         loseCanvas.SetActive(false);
 
         audioManager = AudioManager.instance;
+        squadData = GameManager.instance.squadData;
+
+        ApplySquadUnlock();
 
         attackerSpawners = FindObjectsOfType<AttackerSpawner>();
         foreach (AttackerSpawner spawner in attackerSpawners)
@@ -63,7 +70,7 @@ public class LevelController : MonoBehaviour
         if (winCanvas != null)
             winCanvas.SetActive(true);
 
-        ApplyUpgradePointsReward();
+        ApplyRewards();
 
         int randomIndex = Random.Range(0, audioManager.victorySounds.Length);
         audioManager.PlaySound(audioManager.victorySounds, audioManager.victorySounds[randomIndex].soundName, Vector3.zero);
@@ -73,9 +80,15 @@ public class LevelController : MonoBehaviour
         LevelLoader.instance.LoadUpgradeMenuScene();
     }
 
-    void ApplyUpgradePointsReward()
+    void ApplyRewards()
     {
         ES3.Save("upgradePoints", ES3.Load("upgradePoints", 0) + upgradePointsReward);
+    }
+
+    void ApplySquadUnlock()
+    {
+        if (squadUnlock != SquadType.Null)
+            squadData.UnlockSquad(squadUnlock);
     }
 
     public void CheckIfWaveComplete()

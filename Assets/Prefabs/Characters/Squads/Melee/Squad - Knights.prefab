@@ -103,7 +103,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60145fa9133d01408a07d606ee4e6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  squadType: 0
+  unlocked: 0
+  squadType: 1
   goldCost: 300
   suppliesCost: 35
   description: Sturdy sword wielding knights.

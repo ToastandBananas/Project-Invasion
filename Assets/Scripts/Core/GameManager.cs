@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 public enum MeleeWeaponType { Blade, Blunt, Piercing }
 public enum RangedWeaponType { Bow, Crossbow, Fireball, Spear }
 public enum SquadFormation { Line, StaggeredLine, Wedge, Scattered, Wall }
-public enum SquadType { Knights, Spearmen, Archers }
+public enum SquadType { Null, Knights, Spearmen, Archers }
 
 public class GameManager : MonoBehaviour
 {
