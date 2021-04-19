@@ -41,7 +41,6 @@ public class Sound
 
 public class AudioManager : MonoBehaviour
 {
-
     public static AudioManager instance;
 
     [Header("Master Audio Mixer:")]
@@ -69,6 +68,7 @@ public class AudioManager : MonoBehaviour
     [Header("Music Sounds")]
     public Sound[] musicSounds;
     public Sound[] victorySounds;
+    public Sound[] failSounds;
 
     [Header("Sword Sounds")]
     public Sound[] swordSlashOpponentSounds;
@@ -96,7 +96,7 @@ public class AudioManager : MonoBehaviour
         else
         {
             instance = this;
-            //DontDestroyOnLoad(this);
+            DontDestroyOnLoad(this);
         }
         #endregion
 
@@ -111,6 +111,7 @@ public class AudioManager : MonoBehaviour
         allSounds.Add(goldSounds);
         allSounds.Add(musicSounds);
         allSounds.Add(victorySounds);
+        allSounds.Add(failSounds);
         allSounds.Add(swordSlashOpponentSounds);
         allSounds.Add(swordStabOpponentSounds);
         allSounds.Add(throwSounds);

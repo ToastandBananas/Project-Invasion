@@ -61,6 +61,7 @@ public class LevelController : MonoBehaviour
 
     public void HandleLoseCondition()
     {
+        audioManager.PlaySound(audioManager.failSounds, audioManager.failSounds[0].soundName, Vector3.zero);
         loseCanvas.SetActive(true);
         Time.timeScale = 0;
     }

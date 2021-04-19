@@ -5,12 +5,14 @@ using UnityEngine.UI;
 public class DefenderButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] Squad squadPrefab;
-    
+
+    AudioManager audioManager;
     DefenderSpawner defenderSpawner;
     Tooltip tooltip;
 
     void Start()
     {
+        audioManager = AudioManager.instance;
         defenderSpawner = DefenderSpawner.instance;
         tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
 
@@ -43,6 +45,8 @@ public class DefenderButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
             defenderSpawner.SetSelectedSquad(squadPrefab);
 
         defenderSpawner.gameObject.SetActive(true);
+
+        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
     }
 
     void SetCostDisplay()

@@ -164,42 +164,6 @@ MonoBehaviour:
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
-  goldSounds:
-  - soundName: Gold 1
-    clip: {fileID: 8300000, guid: 9fb4cfef211e4be4fae425943e28f9bb, type: 3}
-    volume: 0.2
-    pitch: 1
-    randomVolumeAddOn: 0.05
-    randomPitchAddOn: 0.25
-    loop: 0
-  - soundName: Gold 2
-    clip: {fileID: 8300000, guid: 0e07d57280c6ee844b7c3e8ffd63bea4, type: 3}
-    volume: 0.2
-    pitch: 1
-    randomVolumeAddOn: 0.05
-    randomPitchAddOn: 0.25
-    loop: 0
-  - soundName: Gold 3
-    clip: {fileID: 8300000, guid: 0f5589d7f711bd6419086134038f57f3, type: 3}
-    volume: 0.2
-    pitch: 1
-    randomVolumeAddOn: 0.05
-    randomPitchAddOn: 0.25
-    loop: 0
-  - soundName: Gold 4
-    clip: {fileID: 8300000, guid: 374a180cea2107742b4e4ababf8dce5d, type: 3}
-    volume: 0.2
-    pitch: 1
-    randomVolumeAddOn: 0.05
-    randomPitchAddOn: 0.25
-    loop: 0
-  - soundName: Gold 5
-    clip: {fileID: 8300000, guid: 912548545ce1f0746a7237311f3be118, type: 3}
-    volume: 0.2
-    pitch: 1
-    randomVolumeAddOn: 0.05
-    randomPitchAddOn: 0.25
-    loop: 0
   musicSounds:
   - soundName: Battle Horn
     clip: {fileID: 8300000, guid: b2b5aae7142f2104e8abaca8bb7c2975, type: 3}
@@ -211,6 +175,14 @@ MonoBehaviour:
   victorySounds:
   - soundName: Victory Song 1
     clip: {fileID: 8300000, guid: bc7d944df7ff34a409d0894f390bad26, type: 3}
+    volume: 0.15
+    pitch: 1
+    randomVolumeAddOn: 0
+    randomPitchAddOn: 0
+    loop: 0
+  failSounds:
+  - soundName: Lose Jingle 1
+    clip: {fileID: 8300000, guid: 383f8c8e0a5ea6f40a199848d48d9a69, type: 3}
     volume: 0.25
     pitch: 1
     randomVolumeAddOn: 0
@@ -275,6 +247,49 @@ MonoBehaviour:
     pitch: 1
     randomVolumeAddOn: 0.1
     randomPitchAddOn: 0.1
+    loop: 0
+  - soundName: MouthClick1
+    clip: {fileID: 8300000, guid: 0b4c1e9604fe5ee43a1b90346f3e2ce7, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.1
+    loop: 0
+  goldSounds:
+  - soundName: Gold 1
+    clip: {fileID: 8300000, guid: 9fb4cfef211e4be4fae425943e28f9bb, type: 3}
+    volume: 0.2
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Gold 2
+    clip: {fileID: 8300000, guid: 0e07d57280c6ee844b7c3e8ffd63bea4, type: 3}
+    volume: 0.2
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Gold 3
+    clip: {fileID: 8300000, guid: 0f5589d7f711bd6419086134038f57f3, type: 3}
+    volume: 0.2
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Gold 4
+    clip: {fileID: 8300000, guid: 374a180cea2107742b4e4ababf8dce5d, type: 3}
+    volume: 0.2
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Gold 5
+    clip: {fileID: 8300000, guid: 912548545ce1f0746a7237311f3be118, type: 3}
+    volume: 0.2
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
     loop: 0
   humanMaleDeathSounds:
   - soundName: Human Male Death 1
