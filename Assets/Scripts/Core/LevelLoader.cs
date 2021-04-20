@@ -6,8 +6,8 @@ using UnityEngine.UI;
 public class LevelLoader : MonoBehaviour
 {
     [Header("Main Menu Only")]
-    [SerializeField] GameObject newGameConfirmation;
     [SerializeField] int sceneLoadWaitTime = 7;
+    GameObject newGameConfirmation;
 
     [HideInInspector] public int currentLevel = 1;
 
@@ -32,15 +32,21 @@ public class LevelLoader : MonoBehaviour
     void Start()
     {
         audioManager = AudioManager.instance;
-
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+
+        // If we're on the Splash Screen, animate the loading text and wait a few seconds to load in the Main Menu
         if (currentSceneIndex == 0)
+        {
+            StartCoroutine(AnimateLoadingText());
             StartCoroutine(WaitToLoadNextScene());
+        }
 
         if (SceneManager.GetActiveScene().name == "Main Menu")
         {
             if (ES3.FileExists("SaveFile.es3") == false)
                 GameObject.Find("Continue Button").GetComponent<Button>().interactable = false;
+
+            newGameConfirmation = GameObject.Find("New Game Confirmation");
         }
     }
 
@@ -122,9 +128,30 @@ public class LevelLoader : MonoBehaviour
         {
             audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
 
-            newGameConfirmation.SetActive(!newGameConfirmation.activeSelf);
+            for (int i = 0; i < newGameConfirmation.transform.childCount; i++)
+            {
+                newGameConfirmation.transform.GetChild(i).gameObject.SetActive(!newGameConfirmation.transform.GetChild(i).gameObject.activeSelf);
+            }
         }
         else
             StartNewGame();
+    }
+
+    IEnumerator AnimateLoadingText()
+    {
+        Text loadingText = GameObject.Find("Loading Text").GetComponent<Text>();
+        float delayTime = 0.2f;
+
+        while (currentSceneIndex == 0)
+        {
+            yield return new WaitForSeconds(delayTime);
+            loadingText.text = ("Loading");
+            yield return new WaitForSeconds(delayTime);
+            loadingText.text = ("Loading.");
+            yield return new WaitForSeconds(delayTime);
+            loadingText.text = ("Loading..");
+            yield return new WaitForSeconds(delayTime);
+            loadingText.text = ("Loading...");
+        }
     }
 }
