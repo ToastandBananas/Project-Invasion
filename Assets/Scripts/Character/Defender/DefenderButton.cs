@@ -46,7 +46,7 @@ public class DefenderButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         defenderSpawner.gameObject.SetActive(true);
 
-        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
+        audioManager.PlaySound(audioManager.buttonClickSounds, "WetClick", Vector3.zero);
     }
 
     void SetCostDisplay()
@@ -55,12 +55,12 @@ public class DefenderButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         if (goldCostText == null)
             Debug.LogError(name + "squad button has no gold cost text.");
         else
-            goldCostText.text = " " + squadPrefab.GetGoldCost().ToString();
+            goldCostText.text = squadPrefab.GetGoldCost().ToString();
 
         Text suppliesCostText = transform.parent.Find("Supplies Cost Text").GetComponent<Text>();
         if (suppliesCostText == null)
             Debug.LogError(name + "squad button has no supplies cost text.");
         else
-            suppliesCostText.text = " " + squadPrefab.GetSuppliesCost().ToString();
+            suppliesCostText.text = squadPrefab.GetSuppliesCost().ToString();
     }
 }

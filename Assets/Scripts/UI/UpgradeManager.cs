@@ -45,14 +45,17 @@ public class UpgradeManager : MonoBehaviour
 
     public void ApplyCurrentlySelectedUpgrade() // Used on the Upgrade Confirmation button (if the player says yes to confirm the upgrade)
     {
-        audioManager.PlaySound(audioManager.buttonClickSounds, audioManager.buttonClickSounds[0].soundName, Vector3.zero);
+        audioManager.PlaySound(audioManager.buttonClickSounds, "WetClick", Vector3.zero);
+
         UseUpgradePoints(selectedUpgradeIcon.upgradePointsCost);
         selectedUpgradeIcon.ApplyUpgrades();
-        ToggleUpgradeConfirmationScreen();
+        upgradeConfirmation.SetActive(false);
     }
 
     public void ToggleFinishConfirmationScreen()
     {
+        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
+
         finishConfirmation.SetActive(!finishConfirmation.activeSelf);
     }
 
@@ -60,9 +63,16 @@ public class UpgradeManager : MonoBehaviour
     {
         upgradeConfirmation.SetActive(!upgradeConfirmation.activeSelf);
 
-        // If we press the "No" button, play a click sound
-        if (upgradeConfirmation.activeSelf == false) 
-            audioManager.PlaySound(audioManager.buttonClickSounds, audioManager.buttonClickSounds[0].soundName, Vector3.zero);
+        if (upgradeConfirmation.activeSelf == false)
+        {
+            // If we press the "No" button
+            audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
+        }
+        else
+        {
+            // If we press the "Yes" button
+            audioManager.PlaySound(audioManager.buttonClickSounds, "WetClick", Vector3.zero);
+        }
     }
 
     public void UseUpgradePoints(int pointsToUse)

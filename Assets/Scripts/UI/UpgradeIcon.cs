@@ -47,8 +47,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     [Header("Unlocked Already?")]
     public bool upgradeUnlocked;
-
-    AudioManager audioManager;
+    
     SquadData squadData;
     UpgradeManager upgradeManager;
     Text upgradeNameText, upgradeDescriptionText;
@@ -56,7 +55,6 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     void Start()
     {
-        audioManager = AudioManager.instance;
         squadData = GameManager.instance.squadData;
         upgradeManager = UpgradeManager.instance;
         upgradeNameText = GameObject.Find("Upgrade Name Text").GetComponent<Text>();
@@ -280,7 +278,6 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
             if (canUpgrade)
             {
-                audioManager.PlaySound(audioManager.buttonClickSounds, audioManager.buttonClickSounds[0].soundName, Vector3.zero);
                 upgradeManager.SetSelectedUpgradeIcon(this);
                 upgradeManager.ToggleUpgradeConfirmationScreen();
             }

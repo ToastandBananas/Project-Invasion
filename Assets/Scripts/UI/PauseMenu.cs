@@ -8,6 +8,7 @@ public class PauseMenu : MonoBehaviour
 
     public bool gamePaused;
 
+    AudioManager audioManager;
     OptionsController optionsController;
 
     #region Singleton
@@ -26,6 +27,7 @@ public class PauseMenu : MonoBehaviour
 
     void Start()
     {
+        audioManager = AudioManager.instance;
         optionsController = OptionsController.instance;
 
         if (backdrop.activeSelf) backdrop.SetActive(false);
@@ -36,7 +38,12 @@ public class PauseMenu : MonoBehaviour
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape) && optionsController.optionsMenuOpen == false)
-            TogglePauseMenu();
+        {
+            if (quitConfirmation.activeSelf == false)
+                TogglePauseMenu();
+            else
+                ToggleQuitConfirmation();
+        }
     }
 
     public void ToggleQuitConfirmation()
@@ -44,12 +51,15 @@ public class PauseMenu : MonoBehaviour
         backdrop.SetActive(!backdrop.activeSelf);
         buttonsParent.SetActive(!buttonsParent.activeSelf);
         quitConfirmation.SetActive(!quitConfirmation.activeSelf);
+        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
     }
 
     public void TogglePauseMenu()
     {
         backdrop.SetActive(!backdrop.activeSelf);
         buttonsParent.SetActive(!buttonsParent.activeSelf);
+
+        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
 
         if (backdrop.activeSelf)
         {
@@ -70,6 +80,7 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
+        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
         Application.Quit();
     }
 }

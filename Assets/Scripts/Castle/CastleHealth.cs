@@ -8,7 +8,7 @@ public class CastleHealth : MonoBehaviour
 
     float maxHealth;
     Text healthText;
-    RectTransform healthBarMask;
+    RectTransform healthBar;
     float maskStartingWidth;
 
     LevelController levelController;
@@ -30,8 +30,8 @@ public class CastleHealth : MonoBehaviour
         maxHealth = health;
 
         healthText = GetComponentInChildren<Text>();
-        healthBarMask = transform.Find("Health Bar Mask").GetComponent<RectTransform>();
-        maskStartingWidth = healthBarMask.sizeDelta.x;
+        healthBar = transform.Find("Health Bar").GetComponent<RectTransform>();
+        maskStartingWidth = healthBar.sizeDelta.x;
         levelController = LevelController.instance;
 
         UpdateDisplay();
@@ -41,9 +41,9 @@ public class CastleHealth : MonoBehaviour
     {
         healthText.text = Mathf.RoundToInt(health).ToString() + " / " + maxHealth.ToString();
         if (health > 0)
-            healthBarMask.sizeDelta = new Vector2(maskStartingWidth * (health / maxHealth), healthBarMask.sizeDelta.y);
+            healthBar.sizeDelta = new Vector2(maskStartingWidth * (health / maxHealth), healthBar.sizeDelta.y);
         else
-            healthBarMask.sizeDelta = new Vector2(0f, healthBarMask.sizeDelta.y);
+            healthBar.sizeDelta = new Vector2(0f, healthBar.sizeDelta.y);
     }
 
     public void TakeHealth(float damageAmount)

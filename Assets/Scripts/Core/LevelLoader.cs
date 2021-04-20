@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class LevelLoader : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class LevelLoader : MonoBehaviour
     [HideInInspector] public int currentLevel = 1;
 
     int currentSceneIndex;
+
+    AudioManager audioManager;
 
     #region Singleton
     public static LevelLoader instance;
@@ -28,9 +31,17 @@ public class LevelLoader : MonoBehaviour
 
     void Start()
     {
+        audioManager = AudioManager.instance;
+
         currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
         if (currentSceneIndex == 0)
             StartCoroutine(WaitToLoadNextScene());
+
+        if (SceneManager.GetActiveScene().name == "Main Menu")
+        {
+            if (ES3.FileExists("SaveFile.es3") == false)
+                GameObject.Find("Continue Button").GetComponent<Button>().interactable = false;
+        }
     }
 
     IEnumerator WaitToLoadNextScene()
@@ -41,11 +52,15 @@ public class LevelLoader : MonoBehaviour
 
     public void LoadCurrentLevel()
     {
+        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
+
         SceneManager.LoadScene("Level " + currentLevel.ToString());
     }
 
     public void StartNewGame()
     {
+        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
+
         GameManager.instance.DeleteAllSaveData();
         LoadNextScene();
     }
@@ -86,6 +101,8 @@ public class LevelLoader : MonoBehaviour
 
     public void QuitGame()
     {
+        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
+
         Application.Quit();
     }
 
@@ -101,6 +118,13 @@ public class LevelLoader : MonoBehaviour
 
     public void ToggleNewGameConfirmation()
     {
-        newGameConfirmation.SetActive(!newGameConfirmation.activeSelf);
+        if (ES3.FileExists("SaveFile.es3"))
+        {
+            audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
+
+            newGameConfirmation.SetActive(!newGameConfirmation.activeSelf);
+        }
+        else
+            StartNewGame();
     }
 }

@@ -250,7 +250,7 @@ MonoBehaviour:
     loop: 0
   - soundName: MouthClick1
     clip: {fileID: 8300000, guid: 0b4c1e9604fe5ee43a1b90346f3e2ce7, type: 3}
-    volume: 0.4
+    volume: 0.25
     pitch: 1
     randomVolumeAddOn: 0.1
     randomPitchAddOn: 0.1

@@ -78,10 +78,15 @@ public class OptionsController : MonoBehaviour
         volumeSlider.value = defaultVolume;
         difficultySlider.value = defaultDifficulty;
         damagePopupsEnabled = defaultDamagePopupsEnabled;
+        damagePopupsCheckMark.gameObject.SetActive(defaultDamagePopupsEnabled);
+
+        audioManager.PlaySound(audioManager.buttonClickSounds, audioManager.buttonClickSounds[0].soundName, Vector3.zero);
     }
 
     public void ToggleOptionsMenu()
     {
+        audioManager.PlaySound(audioManager.buttonClickSounds, audioManager.buttonClickSounds[1].soundName, Vector3.zero);
+
         for (int i = 0; i < transform.childCount; i++)
         {
             transform.GetChild(i).gameObject.SetActive(!transform.GetChild(i).gameObject.activeSelf);
