@@ -106,6 +106,13 @@ public class Squad : MonoBehaviour
             if (maxUnitCount == 4) AssignPositions(unitPositions_Wall_Four);
             else LogFormationError();
         }
+        else if (squadFormation == SquadFormation.Random)
+        {
+            for (int i = 0; i < units.Count; i++)
+            {
+                units[i].unitPosition = new Vector2(Random.Range(-0.4f, 0.4f), Random.Range(-0.4f, 0.4f));
+            }
+        }
     }
 
     public void AssignLeaderPosition()
@@ -136,6 +143,10 @@ public class Squad : MonoBehaviour
                 if (maxUnitCount == 4) leader.unitPosition = leaderPositions_Wall_Four[0];
                 else LogFormationError();
             }
+            else if (squadFormation == SquadFormation.Random)
+            {
+                leader.unitPosition = new Vector2(Random.Range(-0.4f, 0.4f), Random.Range(-0.4f, 0.4f));
+            }
         }
     }
 
@@ -149,7 +160,7 @@ public class Squad : MonoBehaviour
 
     void LogFormationError()
     {
-        Debug.LogError("Formation positions for this unit size do no exist. Create them in the Squad script...");
+        Debug.LogError("Formation positions for this squad formation/unit size do no exist. Create them in the Squad script...");
     }
 
     public void SetLaneSpawner()
@@ -168,7 +179,7 @@ public class Squad : MonoBehaviour
     {
         // Retreat all units (likely because the squad leader died)
         DefenderSpawner.instance.RemoveCell(transform.position);
-
+        
         // First clear out current target data for attackers who are attacking this squad
         for (int i = 0; i < myLaneSpawner.transform.childCount; i++)
         {

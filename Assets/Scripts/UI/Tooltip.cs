@@ -41,15 +41,28 @@ public class Tooltip : MonoBehaviour
 
     void CreateSquadTooltip(Squad squad, Vector2 pos)
     {
+        Reset();
+
         if (stringBuilder.Equals("") == false)
             stringBuilder.Clear();
 
-        leader = squad.transform.Find("Leader").GetChild(0).GetComponent<Defender>();
-        unit = squad.transform.Find("Units").GetChild(0).GetComponent<Defender>();
-        leaderHealth = leader.GetComponent<Health>();
-        unitHealth = unit.GetComponent<Health>();
-        leaderShooter = leader.GetComponent<Shooter>();
-        unitShooter = unit.GetComponent<Shooter>();
+        if (squad.transform.Find("Units").childCount > 0)
+            unit = squad.transform.Find("Units").GetChild(0).GetComponent<Defender>();
+
+        if (squad.transform.Find("Leader").childCount > 0)
+            leader = squad.transform.Find("Leader").GetChild(0).GetComponent<Defender>();
+
+        if (leader != null)
+        {
+            leaderHealth = leader.GetComponent<Health>();
+            leaderShooter = leader.GetComponent<Shooter>();
+        }
+
+        if (unit != null)
+        {
+            unitHealth = unit.GetComponent<Health>();
+            unitShooter = unit.GetComponent<Shooter>();
+        }
 
         stringBuilder.Append("<b><size=24>" + squad.squadType + "</size></b>\n\n");
 
@@ -69,82 +82,106 @@ public class Tooltip : MonoBehaviour
             stringBuilder.Append(squad.GetShootRange().ToString() + "\n\n");
         }
 
-        stringBuilder.Append("<b>Unit Stats:</b>\n");
-        stringBuilder.Append("Health: " + (unitHealth.GetMaxHealth() + squadData.GetHealthData(squad.squadType, false)).ToString() + "\n");
-
-        if (unit.bluntDamage > 0f || unit.slashDamage > 0f || unit.piercingDamage > 0f || unit.fireDamage > 0f)
+        if (unit != null)
         {
-            if (unit.bluntDamage > 0f)
-                stringBuilder.Append("Melee <i>Blunt</i> Damage: " + (unit.bluntDamage + squadData.GetBluntDamageData(squad.squadType, false)).ToString() + "\n");
+            stringBuilder.Append("<b>Unit Stats:</b>\n");
+            stringBuilder.Append("Health: " + (unitHealth.GetMaxHealth() + squadData.GetHealthData(squad.squadType, false)).ToString() + "\n");
 
-            if (unit.slashDamage > 0f)
-                stringBuilder.Append("Melee <i>Slash</i> Damage: " + (unit.slashDamage + squadData.GetSlashDamageData(squad.squadType, false)).ToString() + "\n");
+            if (unit.bluntDamage > 0f || unit.slashDamage > 0f || unit.piercingDamage > 0f || unit.fireDamage > 0f)
+            {
+                if (unit.bluntDamage > 0f)
+                    stringBuilder.Append("Melee <i>Blunt</i> Damage: " + (unit.bluntDamage + squadData.GetBluntDamageData(squad.squadType, false)).ToString() + "\n");
 
-            if (unit.piercingDamage > 0f)
-                stringBuilder.Append("Melee <i>Piercing</i> Damage: " + (unit.piercingDamage + squadData.GetPiercingDamageData(squad.squadType, false)).ToString() + "\n");
+                if (unit.slashDamage > 0f)
+                    stringBuilder.Append("Melee <i>Slash</i> Damage: " + (unit.slashDamage + squadData.GetSlashDamageData(squad.squadType, false)).ToString() + "\n");
 
-            if (unit.fireDamage > 0f)
-                stringBuilder.Append("Melee <i>Fire</i> Damage: " + (unit.fireDamage + squadData.GetFireDamageData(squad.squadType, false)).ToString() + "\n");
+                if (unit.piercingDamage > 0f)
+                    stringBuilder.Append("Melee <i>Piercing</i> Damage: " + (unit.piercingDamage + squadData.GetPiercingDamageData(squad.squadType, false)).ToString() + "\n");
+
+                if (unit.fireDamage > 0f)
+                    stringBuilder.Append("Melee <i>Fire</i> Damage: " + (unit.fireDamage + squadData.GetFireDamageData(squad.squadType, false)).ToString() + "\n");
+            }
+
+            if (unitShooter != null && (unitShooter.bluntDamage > 0f || unitShooter.piercingDamage > 0f || unitShooter.fireDamage > 0f))
+            {
+                if (unitShooter.bluntDamage > 0f)
+                    stringBuilder.Append("Ranged <i>Blunt</i> Damage: " + (unitShooter.bluntDamage + squadData.GetRangedBluntDamageData(squad.squadType, false)).ToString() + "\n");
+
+                if (unitShooter.piercingDamage > 0f)
+                    stringBuilder.Append("Ranged <i>Piercing</i> Damage: " + (unitShooter.piercingDamage + squadData.GetRangedPiercingDamageData(squad.squadType, false)).ToString() + "\n");
+
+                if (unitShooter.fireDamage > 0f)
+                    stringBuilder.Append("Ranged <i>Fire</i> Damage: " + (unitShooter.fireDamage + squadData.GetRangedFireDamageData(squad.squadType, false)).ToString() + "\n");
+
+                stringBuilder.Append("Ranged Accuracy: " + (unitShooter.accuracy + squadData.GetRangedAccuracyData(squad.squadType, false)).ToString() + "%\n");
+            }
         }
 
-        if (unitShooter != null && (unitShooter.bluntDamage > 0f || unitShooter.piercingDamage > 0f || unitShooter.fireDamage > 0f))
+        if (leader != null)
         {
-            if (unitShooter.bluntDamage > 0f)
-                stringBuilder.Append("Ranged <i>Blunt</i> Damage: " + (unitShooter.bluntDamage + squadData.GetRangedBluntDamageData(squad.squadType, false)).ToString() + "\n");
+            stringBuilder.Append("\n<b>Leader Stats:</b>\n");
+            stringBuilder.Append("Health: " + (leaderHealth.GetMaxHealth() + squadData.GetHealthData(squad.squadType, true)).ToString() + "\n");
 
-            if (unitShooter.piercingDamage > 0f)
-                stringBuilder.Append("Ranged <i>Piercing</i> Damage: " + (unitShooter.piercingDamage + squadData.GetRangedPiercingDamageData(squad.squadType, false)).ToString() + "\n");
+            if (leader.bluntDamage > 0f || leader.slashDamage > 0f || leader.piercingDamage > 0f || leader.fireDamage > 0f)
+            {
+                if (leader.bluntDamage > 0)
+                    stringBuilder.Append("Melee <i>Blunt</i> Damage: " + (leader.bluntDamage + squadData.GetBluntDamageData(squad.squadType, true)).ToString() + "\n");
 
-            if (unitShooter.fireDamage > 0f)
-                stringBuilder.Append("Ranged <i>Fire</i> Damage: " + (unitShooter.fireDamage + squadData.GetRangedFireDamageData(squad.squadType, false)).ToString() + "\n");
+                if (leader.slashDamage > 0)
+                    stringBuilder.Append("Melee <i>Slash</i> Damage: " + (leader.slashDamage + squadData.GetSlashDamageData(squad.squadType, true)).ToString() + "\n");
 
-            stringBuilder.Append("Ranged Accuracy: " + (unitShooter.accuracy + squadData.GetRangedAccuracyData(squad.squadType, false)).ToString() + "%\n");
-        }
+                if (leader.piercingDamage > 0)
+                    stringBuilder.Append("Melee <i>Piercing</i> Damage: " + (leader.piercingDamage + squadData.GetPiercingDamageData(squad.squadType, true)).ToString() + "\n");
 
-        stringBuilder.Append("\n");
+                if (leader.fireDamage > 0)
+                    stringBuilder.Append("Melee <i>Fire</i> Damage: " + (leader.fireDamage + squadData.GetFireDamageData(squad.squadType, true)).ToString() + "\n");
+            }
 
-        stringBuilder.Append("<b>Leader Stats:</b>\n");
-        stringBuilder.Append("Health: " + (leaderHealth.GetMaxHealth() + squadData.GetHealthData(squad.squadType, true)).ToString() + "\n");
+            if (leaderShooter != null && (leaderShooter.bluntDamage > 0f || leaderShooter.piercingDamage > 0f || leaderShooter.fireDamage > 0f))
+            {
+                if (leaderShooter.bluntDamage > 0f)
+                    stringBuilder.Append("Ranged <i>Blunt</i> Damage: " + (leaderShooter.bluntDamage + squadData.GetRangedBluntDamageData(squad.squadType, true)).ToString() + "\n");
 
-        if (leader != null && (leader.bluntDamage > 0f || leader.slashDamage > 0f || leader.piercingDamage > 0f || leader.fireDamage > 0f))
-        {
-            if (leader.bluntDamage > 0)
-                stringBuilder.Append("Melee <i>Blunt</i> Damage: " + (leader.bluntDamage + squadData.GetBluntDamageData(squad.squadType, true)).ToString() + "\n");
+                if (leaderShooter.piercingDamage > 0f)
+                    stringBuilder.Append("Ranged <i>Piercing</i> Damage: " + (leaderShooter.piercingDamage + squadData.GetRangedPiercingDamageData(squad.squadType, true)).ToString() + "\n");
 
-            if (leader.slashDamage > 0)
-                stringBuilder.Append("Melee <i>Slash</i> Damage: " + (leader.slashDamage + squadData.GetSlashDamageData(squad.squadType, true)).ToString() + "\n");
+                if (leaderShooter.fireDamage > 0f)
+                    stringBuilder.Append("Ranged <i>Fire</i> Damage: " + (leaderShooter.fireDamage + squadData.GetRangedFireDamageData(squad.squadType, true)).ToString() + "\n");
 
-            if (leader.piercingDamage > 0)
-                stringBuilder.Append("Melee <i>Piercing</i> Damage: " + (leader.piercingDamage + squadData.GetPiercingDamageData(squad.squadType, true)).ToString() + "\n");
-
-            if (leader.fireDamage > 0)
-                stringBuilder.Append("Melee <i>Fire</i> Damage: " + (leader.fireDamage + squadData.GetFireDamageData(squad.squadType, true)).ToString() + "\n");
-        }
-
-        if (leaderShooter != null && (leaderShooter.bluntDamage > 0f || leaderShooter.piercingDamage > 0f || leaderShooter.fireDamage > 0f))
-        {
-            if (leaderShooter.bluntDamage > 0f)
-                stringBuilder.Append("Ranged <i>Blunt</i> Damage: " + (leaderShooter.bluntDamage + squadData.GetRangedBluntDamageData(squad.squadType, true)).ToString() + "\n");
-
-            if (leaderShooter.piercingDamage > 0f)
-                stringBuilder.Append("Ranged <i>Piercing</i> Damage: " + (leaderShooter.piercingDamage + squadData.GetRangedPiercingDamageData(squad.squadType, true)).ToString() + "\n");
-
-            if (leaderShooter.fireDamage > 0f)
-                stringBuilder.Append("Ranged <i>Fire</i> Damage: " + (leaderShooter.fireDamage + squadData.GetRangedFireDamageData(squad.squadType, true)).ToString() + "\n");
-
-            stringBuilder.Append("Ranged Accuracy: " + (leaderShooter.accuracy + squadData.GetRangedAccuracyData(squad.squadType, true)).ToString() + "%\n");
+                stringBuilder.Append("Ranged Accuracy: " + (leaderShooter.accuracy + squadData.GetRangedAccuracyData(squad.squadType, true)).ToString() + "%\n");
+            }
         }
 
         stringBuilder.Append("\n<b>Resistances:</b>\n");
-        stringBuilder.Append("Blunt: " + (leaderHealth.bluntResistance * 100).ToString() + "%\n");
-        stringBuilder.Append("Piercing: " + (leaderHealth.piercingResistance * 100).ToString() + "%\n");
-        stringBuilder.Append("Slash: " + (leaderHealth.slashResistance * 100).ToString() + "%\n");
-        stringBuilder.Append("Fire: " + (leaderHealth.fireResistance * 100).ToString() + "%\n");
+        if (unitHealth != null)
+        {
+            stringBuilder.Append("Blunt: " + (unitHealth.bluntResistance * 100).ToString() + "%\n");
+            stringBuilder.Append("Piercing: " + (unitHealth.piercingResistance * 100).ToString() + "%\n");
+            stringBuilder.Append("Slash: " + (unitHealth.slashResistance * 100).ToString() + "%\n");
+            stringBuilder.Append("Fire: " + (unitHealth.fireResistance * 100).ToString() + "%");
+        }
+        else if (leaderHealth != null)
+        {
+            stringBuilder.Append("Blunt: " + (leaderHealth.bluntResistance * 100).ToString() + "%\n");
+            stringBuilder.Append("Piercing: " + (leaderHealth.piercingResistance * 100).ToString() + "%\n");
+            stringBuilder.Append("Slash: " + (leaderHealth.slashResistance * 100).ToString() + "%\n");
+            stringBuilder.Append("Fire: " + (leaderHealth.fireResistance * 100).ToString() + "%");
+        }
 
         tooltipText.text = stringBuilder.ToString();
 
         SetBackgroundSize();
         transform.position = pos + new Vector2(-0.15f, 0.5f);
+    }
+
+    void Reset()
+    {
+        unit = null;
+        unitHealth = null;
+        unitShooter = null;
+        leader = null;
+        leaderHealth = null;
+        leaderShooter = null;
     }
 
     public void ActivateAbilityTooltip(string abilityName, Vector2 pos)

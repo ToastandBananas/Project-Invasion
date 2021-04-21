@@ -112,11 +112,11 @@ public class Defender : MonoBehaviour
                 transform.localScale = new Vector2(-1, 1); // Flip the sprite
 
             if (transform.position.x > 0.25f || (transform.position.x <= 0.25 && transform.position.y >= 2.9f && transform.position.y <= 3.1f))
-                transform.Translate(Vector2.left * currentSpeed * 2 * Time.deltaTime); // Retreat double the speed
+                transform.Translate(Vector2.left * runSpeed * 2 * Time.deltaTime); // Retreat double the speed
             else if (transform.position.x <= 0.25f && transform.position.y < 2.9f)
-                transform.Translate(Vector2.up * currentSpeed * 2 * Time.deltaTime);
+                transform.Translate(Vector2.up * runSpeed * 2 * Time.deltaTime);
             else if (transform.position.x <= 0.25f && transform.position.y > 3.1f)
-                transform.Translate(Vector2.down * currentSpeed * 2 * Time.deltaTime);
+                transform.Translate(Vector2.down * runSpeed * 2 * Time.deltaTime);
 
             if (transform.position.x <= -2.25f)
             {
@@ -281,9 +281,9 @@ public class Defender : MonoBehaviour
             {
                 // Deal damage to self if enemy has thorns active
                 if (targetAttackersHealth.thornsActive && targetAttackersHealth.thornsDamageMultiplier > 0f)
-                    health.DealDamage(bluntDamage * targetAttackersHealth.thornsDamageMultiplier, slashDamage * targetAttackersHealth.thornsDamageMultiplier, piercingDamage * targetAttackersHealth.thornsDamageMultiplier, fireDamage * targetAttackersHealth.thornsDamageMultiplier, true, false);
+                    health.TakeDamage(bluntDamage * targetAttackersHealth.thornsDamageMultiplier, slashDamage * targetAttackersHealth.thornsDamageMultiplier, piercingDamage * targetAttackersHealth.thornsDamageMultiplier, fireDamage * targetAttackersHealth.thornsDamageMultiplier, true, false);
 
-                targetAttackersHealth.DealDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false, shouldKnockback);
+                targetAttackersHealth.TakeDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false, shouldKnockback);
             }
         }
 

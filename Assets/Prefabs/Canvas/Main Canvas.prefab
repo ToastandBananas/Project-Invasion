@@ -1542,7 +1542,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e04511e4f58f6d4f8295c91ecf1ef3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  squadPrefab: {fileID: 5465530740085816144, guid: 45a70578ce5a3a34eae01cf233f99670, type: 3}
+  squadPrefab: {fileID: 5483327602183118298, guid: d914e01d04ada8a4e924d611e9caf422, type: 3}
 --- !u!1 &5793882539542894029
 GameObject:
   m_ObjectHideFlags: 0

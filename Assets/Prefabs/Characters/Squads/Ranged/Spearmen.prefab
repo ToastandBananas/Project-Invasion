@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 5465530740085816145}
   - component: {fileID: 5465530740085816144}
   m_Layer: 6
-  m_Name: Squad - Spearmen
+  m_Name: Spearmen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -180,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unlocked: 0
-  squadType: 2
+  squadType: 200
   goldCost: 150
   suppliesCost: 20
   description: A versatile squad that excels both in melee and ranged combat.

@@ -41,7 +41,7 @@ GameObject:
   - component: {fileID: 6395799488608723464}
   - component: {fileID: 6395799488608723467}
   - component: {fileID: 6395799488608723466}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Squad - Empty
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -102,7 +102,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60145fa9133d01408a07d606ee4e6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxSquadSize: 2
+  unlocked: 0
+  squadType: 0
+  goldCost: 100
+  suppliesCost: 5
+  description: 
+  squadFormation: 0
+  castleWallVersionOfSquad: {fileID: 0}
+  shouldRetreatWhenEnemyNear: 0
+  isRangedUnit: 0
+  isCastleWallSquad: 0
+  shootRange: 0
+  squadPlaced: 0
+  leader: {fileID: 0}
+  units: []
+  attackersNearby: []
+  leaderParent: {fileID: 0}
+  unitsParent: {fileID: 0}
+  myLaneSpawner: {fileID: 0}
+  rangeCollider: {fileID: 0}
+  abilityActive: 0
 --- !u!1 &6395799490161878293
 GameObject:
   m_ObjectHideFlags: 0

@@ -27,6 +27,9 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] float leaderRangedBluntDamage, leaderRangedPiercingDamage, leaderRangedFireDamage;
     [SerializeField] bool shouldRetreat;
 
+    [Header("Laborer Only Upgrades")]
+    [SerializeField] float miningSpeedMultiplier;
+
     [Header("Knight Only Upgrades")]
     [SerializeField] float inspireMultiplier;
     [SerializeField] float inspireTime, thornsDamageMultiplier, thornsTime;
@@ -82,6 +85,9 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             switch (squadType)
             {
+                case SquadType.Laborers:
+                    squadData.ApplyLaborerData(gold, supplies, health, miningSpeedMultiplier);
+                    break;
                 case SquadType.Knights:
                     squadData.ApplyKnightData(gold, supplies, health, leaderHealth, slashDamage, leaderSlashDamage, inspireMultiplier, inspireTime, thornsDamageMultiplier, thornsTime, inspireUnlocked, thornsUnlocked);
                     break;
@@ -107,8 +113,15 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (upgradeDescription.Equals("") == false)
             upgradeDescription.Clear();
 
+        // Laborer Ability Upgrades
+        if (squadType == SquadType.Laborers)
+        {
+            if (miningSpeedMultiplier > 0f)
+                upgradeDescription.Append("Mining Speed Multiplier: <color=green>+" + (miningSpeedMultiplier * 100f).ToString() + "%</color>\n");
+        }
+
         // Knight Ability Upgrades
-        if (squadType == SquadType.Knights)
+        else if (squadType == SquadType.Knights)
         {
             // Inspire
             if (inspireUnlocked)
@@ -117,7 +130,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     + (squadData.defaultInspireMultiplier * 100f).ToString() + "% for " + squadData.defaultInspireTime.ToString() + " seconds).\n");
 
             if (inspireMultiplier > 0f)
-                upgradeDescription.Append("<i>Inspire</i> Multiplier: <color=green>+" + inspireMultiplier.ToString() + "%</color>\n");
+                upgradeDescription.Append("<i>Inspire</i> Benefits Multiplier: <color=green>+" + (inspireMultiplier * 100f).ToString() + "%</color>\n");
 
             if (inspireTime > 0f)
                 upgradeDescription.Append("<i>Inspire</i> Time: <color=green>+" + inspireTime.ToString() + " seconds</color>\n");
@@ -129,14 +142,14 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     + " seconds, ignoring all resistances).\n");
 
             if (thornsDamageMultiplier > 0f)
-                upgradeDescription.Append("<i>Thorns</i> Damage Multiplier: <color=green>+" + thornsDamageMultiplier.ToString() + "%</color>\n");
+                upgradeDescription.Append("<i>Thorns</i> Damage Multiplier: <color=green>+" + (thornsDamageMultiplier * 100f).ToString() + "%</color>\n");
 
             if (thornsTime > 0f)
                 upgradeDescription.Append("<i>Thorns</i> Time: <color=green>+" + thornsTime.ToString() + " seconds</color>\n");
         }
 
         // Spearmen Ability Upgrades
-        if (squadType == SquadType.Spearmen)
+        else if (squadType == SquadType.Spearmen)
         {
             // Long Throw
             if (longThrowUnlocked)
@@ -156,7 +169,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         }
 
         // Archer Ability Upgrades
-        if (squadType == SquadType.Archers)
+        else if (squadType == SquadType.Archers)
         {
             // Stand Strong
             if (shouldRetreat == false)
@@ -179,7 +192,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     + "</b> will shoot twice as fast for the next " + squadData.defaultRapidFireTime.ToString() + " seconds).\n");
 
             if (rapidFireSpeedMultiplier > 0f)
-                upgradeDescription.Append("Increases fire speed for the <i>Rapid Fire</i> ability by a factor of <color=green>" + rapidFireSpeedMultiplier.ToString() + "</color>.\n");
+                upgradeDescription.Append("<i>Rapid Fire</i> Speed Multiplier: +<color=green>" + (rapidFireSpeedMultiplier * 100f).ToString() + "%</color>.\n");
 
             if (rapidFireTime > 0f)
                 upgradeDescription.Append("<i>Rapid Fire</i> Time: <color=green>+" + rapidFireTime.ToString() + " seconds</color>\n");

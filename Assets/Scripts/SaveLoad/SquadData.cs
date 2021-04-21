@@ -4,6 +4,11 @@ public class SquadData : MonoBehaviour
 {
     string squadDataSavePath = "SquadData.es3";
 
+    [Header("Laborer Data")]
+    public int laborerGoldCost;
+    public int laborerSuppliesCost;
+    public float laborerHealth, laborerMiningSpeedMultiplier;
+
     [Header("Knight Data")]
     public int knightSquadGoldCost;
     public int knightSquadSuppliesCost;
@@ -29,6 +34,7 @@ public class SquadData : MonoBehaviour
     public bool archerShouldRetreatWhenEnemyNear, archerFireArrowsUnlocked, archerRapidFireUnlocked;
 
     [Header("Defaults")]
+    public float defaultMiningSpeedMultiplier = 1f;
     public float defaultInspireMultiplier = 0.25f;
     public float defaultInspireTime = 60f;
     public float defaultThornsDamageMultiplier = 0.2f;
@@ -47,7 +53,16 @@ public class SquadData : MonoBehaviour
     public int fireArrowsCost = 75;
     public int rapidFireCost = 100;
 
-    [HideInInspector] public bool knightsUnlocked, spearmenUnlocked, archersUnlocked;
+    [HideInInspector] public bool laborersUnlocked, knightsUnlocked, spearmenUnlocked, archersUnlocked;
+
+    public void ApplyLaborerData(int gold, int supplies, float health, float miningSpeedMultiplier)
+    {
+        laborerGoldCost += gold;
+        laborerSuppliesCost += supplies;
+
+        laborerHealth += health;
+        laborerMiningSpeedMultiplier += miningSpeedMultiplier;
+    }
 
     public void ApplyKnightData(int gold, int supplies, float health, float leaderHealth, float slashDamage, float leaderSlashDamage, float inspireMultiplier, float inspireTime, float thornsDamageMultiplier, float thornsTime, bool inspireUnlocked, bool thornsUnlocked)
     {
@@ -137,6 +152,8 @@ public class SquadData : MonoBehaviour
     {
         switch (squadType)
         {
+            case SquadType.Laborers:
+                return laborerHealth;
             case SquadType.Knights:
                 if (isLeader) return knightLeaderHealth;
                 else return knightHealth;
@@ -248,6 +265,9 @@ public class SquadData : MonoBehaviour
     {
         switch (squadType)
         {
+            case SquadType.Laborers:
+                laborersUnlocked = true;
+                break;
             case SquadType.Knights:
                 knightsUnlocked = true;
                 break;
@@ -268,8 +288,10 @@ public class SquadData : MonoBehaviour
     {
         switch (squadType)
         {
+            case SquadType.Laborers:
+                return laborersUnlocked;
             case SquadType.Knights:
-                return knightInspireUnlocked;
+                return knightsUnlocked;
             case SquadType.Spearmen:
                 return spearmenUnlocked;
             case SquadType.Archers:
@@ -281,6 +303,13 @@ public class SquadData : MonoBehaviour
 
     public void SaveSquadData()
     {
+        // Laborer Data
+        ES3.Save("laborersUnlocked", laborersUnlocked, squadDataSavePath);
+        ES3.Save("laborerGoldCost", laborerGoldCost, squadDataSavePath);
+        ES3.Save("laborerSuppliesCost", laborerSuppliesCost, squadDataSavePath);
+        ES3.Save("laborerHealth", laborerHealth, squadDataSavePath);
+        ES3.Save("laborerMiningSpeedMultiplier", laborerMiningSpeedMultiplier, squadDataSavePath);
+
         // Knight Data
         ES3.Save("knightsUnlocked", knightsUnlocked, squadDataSavePath);
         ES3.Save("knightSquadGoldCost", knightSquadGoldCost, squadDataSavePath);
@@ -336,6 +365,13 @@ public class SquadData : MonoBehaviour
 
     public void LoadSquadData()
     {
+        // Laborer Data
+        laborersUnlocked = ES3.Load("laborersUnlocked", squadDataSavePath, true);
+        laborerGoldCost = ES3.Load("laborerGoldCost", squadDataSavePath, 0);
+        laborerSuppliesCost = ES3.Load("laborerSuppliesCost", squadDataSavePath, 0);
+        laborerHealth = ES3.Load("laborerHealth", squadDataSavePath, 0f);
+        laborerMiningSpeedMultiplier = ES3.Load("laborerMiningSpeedMultiplier", squadDataSavePath, defaultMiningSpeedMultiplier);
+
         // Knight Data
         knightsUnlocked = ES3.Load("knightsUnlocked", squadDataSavePath, false);
         knightSquadGoldCost = ES3.Load("knightSquadGoldCost", squadDataSavePath, 0);

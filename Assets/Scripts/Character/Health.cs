@@ -86,7 +86,7 @@ public class Health : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void DealDamage(float bluntDamage, float slashDamage, float piercingDamage, float fireDamage, bool ignoreResistances, bool knockback)
+    public void TakeDamage(float bluntDamage, float slashDamage, float piercingDamage, float fireDamage, bool ignoreResistances, bool knockback)
     {
         finalDamageAmount = 0f;
         if (ignoreResistances == false)
@@ -130,6 +130,9 @@ public class Health : MonoBehaviour
             else if (attacker != null && attacker.isLarge == false)
                 StartCoroutine(attacker.Knockback());
         }
+
+        if (defender != null && defender.squad.squadType == SquadType.Laborers && defender.isRetreating == false && currentHealth > 0)
+            defender.squad.Retreat();
     }
 
     float GetDamageAmount(float damage, float resistance)

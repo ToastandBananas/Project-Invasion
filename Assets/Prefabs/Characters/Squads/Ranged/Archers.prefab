@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1807769460393828022}
   - component: {fileID: 1807769460393828023}
   m_Layer: 6
-  m_Name: Squad - Archers
+  m_Name: Archers
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unlocked: 0
-  squadType: 3
+  squadType: 300
   goldCost: 200
   suppliesCost: 15
   description: A trio of archers commanded by a master of the bow.
