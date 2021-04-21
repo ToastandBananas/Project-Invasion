@@ -95,7 +95,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minAttackDistance: 0.115
   runSpeed: 0.25
-  isBeingKnockedBack: 0
+  isLarge: 0
   meleeWeaponType: 0
   bluntDamage: 0
   slashDamage: 25
@@ -106,9 +106,11 @@ MonoBehaviour:
   startingPiercingDamage: 0
   startingFireDamage: 0
   shouldKnockback: 0
+  voiceType: 0
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
+  isBeingKnockedBack: 0
   targetAttacker: {fileID: 0}
   targetAttackersHealth: {fileID: 0}
   anim: {fileID: 0}
@@ -143,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 180
   startingMaxHealth: 0
+  currentHealth: 180
   bluntResistance: -0.25
   slashResistance: 0.4
   piercingResistance: 0.25
