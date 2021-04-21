@@ -96,6 +96,7 @@ public class ResourceDisplay : MonoBehaviour
     public void AddGold(int amount)
     {
         gold += amount;
+        //TextPopup.CreateResourcePopup(new Vector3(7.8f, 5.97f), amount);
     }
 
     public void SpendGold(int amount)
@@ -104,6 +105,7 @@ public class ResourceDisplay : MonoBehaviour
         {
             gold -= amount;
             audioManager.PlayRandomSound(audioManager.goldSounds);
+            TextPopup.CreateResourcePopup(new Vector3(7.8f, 5.94f), -amount);
         }
     }
 
@@ -115,12 +117,16 @@ public class ResourceDisplay : MonoBehaviour
     public void AddSupplies(int amount)
     {
         supplies += amount;
+        //TextPopup.CreateResourcePopup(suppliesText.transform.position - new Vector3(-1f, 0), amount);
     }
 
     public void SpendSupplies(int amount)
     {
         if (HaveEnoughSupplies(amount))
+        {
             supplies -= amount;
+            TextPopup.CreateResourcePopup(new Vector3(9.25f, 5.94f), -amount);
+        }
     }
 
     public bool HaveEnoughSupplies(int suppliesAmount)

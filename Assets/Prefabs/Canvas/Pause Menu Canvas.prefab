@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &7935504755664692274
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,6 +1103,8 @@ MonoBehaviour:
   buttonsParent: {fileID: 6896476406219899113}
   quitConfirmation: {fileID: 8243544673645489769}
   gamePaused: 0
+  pausedAudioMixerSnapshot: {fileID: -4822668463839367458, guid: 0de41b9e32de45d4d9fcb4c5b6e712bf, type: 2}
+  unpausedAudioMixerSnapshot: {fileID: 24500006, guid: 0de41b9e32de45d4d9fcb4c5b6e712bf, type: 2}
 --- !u!1 &8243544673645489769
 GameObject:
   m_ObjectHideFlags: 0

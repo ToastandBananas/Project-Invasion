@@ -27,7 +27,7 @@ public class Sound
 
     public void Play(Vector3 soundPosition)
     {
-        source.volume = volume * (1 + Random.Range(-randomVolumeAddOn, randomVolumeAddOn)) * PlayerPrefsController.GetMasterVolume();
+        source.volume = volume * (1 + Random.Range(-randomVolumeAddOn, randomVolumeAddOn));
         source.pitch  = pitch * (1 + Random.Range(-randomPitchAddOn, randomPitchAddOn));
         
         source.Play();
@@ -43,8 +43,11 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
 
-    [Header("Master Audio Mixer:")]
+    [Header("Audio Mixer:")]
+    public AudioMixer masterMixer;
     public AudioMixerGroup masterAudioMixerGroup;
+    public AudioMixerGroup musicAudioMixerGroup;
+    public AudioMixerGroup effectsAudioMixerGroup;
 
     [Header("All Sounds")]
     public List<Sound[]> allSounds = new List<Sound[]>();
@@ -66,6 +69,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] fireballHitSounds;
 
     [Header("Music Sounds")]
+    public Sound[] splashScreenSounds;
     public Sound[] musicSounds;
     public Sound[] victorySounds;
     public Sound[] failSounds;
@@ -84,6 +88,8 @@ public class AudioManager : MonoBehaviour
     [Header("Voice Sounds")]
     public Sound[] humanMaleDeathSounds;
     public Sound[] humanMaleGruntSounds;
+
+    bool playedFirstSong;
 
     void Awake()
     {
@@ -109,6 +115,7 @@ public class AudioManager : MonoBehaviour
         allSounds.Add(fireballCastSounds);
         allSounds.Add(fireballHitSounds);
         allSounds.Add(goldSounds);
+        allSounds.Add(splashScreenSounds);
         allSounds.Add(musicSounds);
         allSounds.Add(victorySounds);
         allSounds.Add(failSounds);
@@ -129,11 +136,55 @@ public class AudioManager : MonoBehaviour
                 GameObject _go = new GameObject("Sound_" + i + " " + soundArray[i].soundName);
                 _go.transform.SetParent(transform);
                 soundArray[i].SetSource(_go.AddComponent<AudioSource>());
-                _go.GetComponent<AudioSource>().outputAudioMixerGroup = masterAudioMixerGroup;
+
+                if (soundArray == musicSounds)
+                    _go.GetComponent<AudioSource>().outputAudioMixerGroup = musicAudioMixerGroup;
+                else
+                    _go.GetComponent<AudioSource>().outputAudioMixerGroup = effectsAudioMixerGroup;
             }
         }
 
+        PlayMusic();
         PlayAmbienceSound();
+    }
+
+    public void SetMasterVolume(float volume)
+    {
+        if (volume <= -60f)
+            MuteMasterVolume();
+        else
+            masterMixer.SetFloat("MasterVolume", volume);
+    }
+
+    public void MuteMasterVolume()
+    {
+        masterMixer.SetFloat("MasterVolume", -80f);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        if (volume <= -60f)
+            MuteMusicVolume();
+        else
+            masterMixer.SetFloat("MusicVolume", volume);
+    }
+
+    public void MuteMusicVolume()
+    {
+        masterMixer.SetFloat("MusicVolume", -80f);
+    }
+
+    public void SetEffectsVolume(float volume)
+    {
+        if (volume <= -60f)
+            MuteEffectsVolume();
+        else
+            masterMixer.SetFloat("EffectsVolume", volume);
+    }
+
+    public void MuteEffectsVolume()
+    {
+        masterMixer.SetFloat("EffectsVolume", -80f);
     }
 
     public void PlaySound(Sound[] soundArray, string _soundName, Vector3 soundPosition)
@@ -177,6 +228,23 @@ public class AudioManager : MonoBehaviour
 
         // No sound with _soundName
         Debug.LogWarning("AudioManager: Sound not found in list: " + _soundName);
+    }
+
+    void PlayMusic()
+    {
+        int randomIndex = 0;
+        if (playedFirstSong)
+            randomIndex = Random.Range(0, musicSounds.Length);
+
+        for (int i = 0; i < musicSounds.Length; i++)
+        {
+            if (musicSounds[randomIndex] == musicSounds[i])
+            {
+                PlaySound(musicSounds, musicSounds[i].soundName, Vector3.zero);
+                Invoke("PlayMusic", musicSounds[i].clip.length);
+                return;
+            }
+        }
     }
 
     void PlayAmbienceSound()

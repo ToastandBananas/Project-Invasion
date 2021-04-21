@@ -43,7 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 440e7f8bd0a864947ac4947eed426a1a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  masterAudioMixerGroup: {fileID: 0}
+  masterMixer: {fileID: 24100000, guid: 0de41b9e32de45d4d9fcb4c5b6e712bf, type: 2}
+  masterAudioMixerGroup: {fileID: 24300002, guid: 0de41b9e32de45d4d9fcb4c5b6e712bf, type: 2}
+  musicAudioMixerGroup: {fileID: 3494396761219188923, guid: 0de41b9e32de45d4d9fcb4c5b6e712bf, type: 2}
+  effectsAudioMixerGroup: {fileID: -6886917481225780088, guid: 0de41b9e32de45d4d9fcb4c5b6e712bf, type: 2}
   windSounds: []
   bluntHitOpponentSounds:
   - soundName: Blunt Hit 1
@@ -164,9 +167,17 @@ MonoBehaviour:
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
-  musicSounds:
+  splashScreenSounds:
   - soundName: Battle Horn
     clip: {fileID: 8300000, guid: b2b5aae7142f2104e8abaca8bb7c2975, type: 3}
+    volume: 0.75
+    pitch: 1
+    randomVolumeAddOn: 0
+    randomPitchAddOn: 0
+    loop: 0
+  musicSounds:
+  - soundName: Spring Village
+    clip: {fileID: 8300000, guid: e1d67e063126f45478157c6b9e316632, type: 3}
     volume: 0.5
     pitch: 1
     randomVolumeAddOn: 0

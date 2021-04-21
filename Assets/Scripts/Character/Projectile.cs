@@ -124,7 +124,7 @@ public class Projectile : MonoBehaviour
                     audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, true);
 
                     if (PlayerPrefsController.DamagePopupsEnabled())
-                        DamagePopup.Create(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.castleAttackDamage, false, true);
+                        TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.castleAttackDamage, false, true);
                 }
             }
         }

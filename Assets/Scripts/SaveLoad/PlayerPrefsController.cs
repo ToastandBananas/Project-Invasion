@@ -3,8 +3,16 @@
 public class PlayerPrefsController : MonoBehaviour
 {
     const string MASTER_VOLUME_KEY = "Master Volume";
-    const float  MIN_VOLUME = 0f;
-    const float  MAX_VOLUME = 1f;
+    const float  MIN_MASTER_VOLUME = -60f;
+    const float  MAX_MASTER_VOLUME = 0f;
+
+    const string MUSIC_VOLUME_KEY = "Music Volume";
+    const float MIN_MUSIC_VOLUME = -60f;
+    const float MAX_MUSIC_VOLUME = 0f;
+
+    const string EFFECTS_VOLUME_KEY = "Effects Volume";
+    const float MIN_EFFECTS_VOLUME = -60f;
+    const float MAX_EFFECTS_VOLUME = 0f;
 
     const string DIFFICULTY_KEY = "Difficulty";
     const float  MIN_DIFFICULTY = 0f;
@@ -14,7 +22,7 @@ public class PlayerPrefsController : MonoBehaviour
 
     public static void SetMasterVolume(float volume)
     {
-        if (volume >= MIN_VOLUME && volume <= MAX_VOLUME)
+        if (volume >= MIN_MASTER_VOLUME && volume <= MAX_MASTER_VOLUME)
         {
             // Debug.Log("Master volume set to " + volume);
             PlayerPrefs.SetFloat(MASTER_VOLUME_KEY, volume);
@@ -25,7 +33,39 @@ public class PlayerPrefsController : MonoBehaviour
 
     public static float GetMasterVolume()
     {
-        return PlayerPrefs.GetFloat(MASTER_VOLUME_KEY);
+        return PlayerPrefs.GetFloat(MASTER_VOLUME_KEY, 0f);
+    }
+
+    public static void SetMusicVolume(float volume)
+    {
+        if (volume >= MIN_MUSIC_VOLUME && volume <= MAX_MUSIC_VOLUME)
+        {
+            // Debug.Log("Music volume set to " + volume);
+            PlayerPrefs.SetFloat(MUSIC_VOLUME_KEY, volume);
+        }
+        else
+            Debug.LogError("Music volume is out of range");
+    }
+
+    public static float GetMusicVolume()
+    {
+        return PlayerPrefs.GetFloat(MUSIC_VOLUME_KEY, 0f);
+    }
+
+    public static void SetEffectsVolume(float volume)
+    {
+        if (volume >= MIN_EFFECTS_VOLUME && volume <= MAX_EFFECTS_VOLUME)
+        {
+            // Debug.Log("Effects volume set to " + volume);
+            PlayerPrefs.SetFloat(EFFECTS_VOLUME_KEY, volume);
+        }
+        else
+            Debug.LogError("Effects volume is out of range");
+    }
+
+    public static float GetEffectsVolume()
+    {
+        return PlayerPrefs.GetFloat(EFFECTS_VOLUME_KEY, 0f);
     }
 
     public static void SetDifficulty(float difficulty)
@@ -41,7 +81,7 @@ public class PlayerPrefsController : MonoBehaviour
 
     public static float GetDifficulty()
     {
-        return PlayerPrefs.GetFloat(DIFFICULTY_KEY);
+        return PlayerPrefs.GetFloat(DIFFICULTY_KEY, 0f);
     }
 
     public static float GetDifficultyMultiplier()

@@ -5,11 +5,11 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject backdrop;
     [SerializeField] GameObject buttonsParent;
     [SerializeField] GameObject quitConfirmation;
-
     public bool gamePaused;
 
     AudioManager audioManager;
     OptionsController optionsController;
+    GameObject textPopupsObjectPoolParent;
 
     #region Singleton
     public static PauseMenu instance;
@@ -29,6 +29,7 @@ public class PauseMenu : MonoBehaviour
     {
         audioManager = AudioManager.instance;
         optionsController = OptionsController.instance;
+        textPopupsObjectPoolParent = GameObject.Find("Text Popups");
 
         if (backdrop.activeSelf) backdrop.SetActive(false);
         if (buttonsParent.activeSelf) buttonsParent.SetActive(false);
@@ -63,11 +64,13 @@ public class PauseMenu : MonoBehaviour
 
         if (backdrop.activeSelf)
         {
+            textPopupsObjectPoolParent.SetActive(false);
             gamePaused = true;
             Time.timeScale = 0;
         }
         else
         {
+            textPopupsObjectPoolParent.SetActive(true);
             gamePaused = false;
             Time.timeScale = 1;
         }
@@ -80,7 +83,6 @@ public class PauseMenu : MonoBehaviour
 
     public void QuitGame()
     {
-        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
-        Application.Quit();
+        LevelLoader.instance.QuitGame();
     }
 }

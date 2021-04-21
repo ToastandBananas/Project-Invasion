@@ -3,13 +3,21 @@ using UnityEngine.UI;
 
 public class OptionsController : MonoBehaviour
 {
-    [Header("Volume")]
-    [SerializeField] Slider volumeSlider;
-    [SerializeField] float defaultVolume = 0.8f;
+    [Header("Master Volume")]
+    [SerializeField] Slider masterVolumeSlider;
+    [SerializeField][Tooltip("Measured in db")][Range(-60f, 0f)] float defaultMasterVolume = 0f;
+
+    [Header("Music Volume")]
+    [SerializeField] Slider musicVolumeSlider;
+    [SerializeField][Tooltip("Measured in db")][Range(-60f, 0f)] float defaultMusicVolume = -8f;
+
+    [Header("Effects Volume")]
+    [SerializeField] Slider effectsVolumeSlider;
+    [SerializeField][Tooltip("Measured in db")][Range(-60f, 0f)] float defaultEffectsVolume = 0f;
 
     [Header("Difficulty")]
     [SerializeField] Slider difficultySlider;
-    [SerializeField] float defaultDifficulty = 0f;
+    [SerializeField][Range(0, 2)] int defaultDifficulty = 0;
 
     [Header("Damage Popups")]
     [SerializeField] Image damagePopupsCheckMark;
@@ -19,7 +27,6 @@ public class OptionsController : MonoBehaviour
     [HideInInspector] public bool optionsMenuOpen;
 
     AudioManager audioManager;
-    MusicPlayer musicPlayer;
 
     #region Singleton
     public static OptionsController instance;
@@ -37,7 +44,6 @@ public class OptionsController : MonoBehaviour
 
     void Start()
     {
-        musicPlayer = FindObjectOfType<MusicPlayer>();
         audioManager = AudioManager.instance;
 
         LoadSliderValues();
@@ -49,14 +55,6 @@ public class OptionsController : MonoBehaviour
             ToggleOptionsMenu();
         }
     }
-    
-    void Update()
-    {
-        if (musicPlayer != null && optionsMenuOpen)
-            musicPlayer.SetVolume(volumeSlider.value);
-        // else if (musicPlayer == null)
-            // Debug.LogWarning("No music player found... did you start from the splash screen?");
-    }
 
     void LateUpdate()
     {
@@ -66,7 +64,9 @@ public class OptionsController : MonoBehaviour
 
     public void SaveAndExit()
     {
-        PlayerPrefsController.SetMasterVolume(volumeSlider.value);
+        PlayerPrefsController.SetMasterVolume(masterVolumeSlider.value);
+        PlayerPrefsController.SetMusicVolume(musicVolumeSlider.value);
+        PlayerPrefsController.SetEffectsVolume(effectsVolumeSlider.value);
         PlayerPrefsController.SetDifficulty(difficultySlider.value);
         PlayerPrefsController.SetDamagePopups(damagePopupsEnabled);
 
@@ -75,7 +75,9 @@ public class OptionsController : MonoBehaviour
 
     public void SetDefaults()
     {
-        volumeSlider.value = defaultVolume;
+        masterVolumeSlider.value = defaultMasterVolume;
+        musicVolumeSlider.value = defaultMusicVolume;
+        effectsVolumeSlider.value = defaultEffectsVolume;
         difficultySlider.value = defaultDifficulty;
         damagePopupsEnabled = defaultDamagePopupsEnabled;
         damagePopupsCheckMark.gameObject.SetActive(defaultDamagePopupsEnabled);
@@ -97,7 +99,15 @@ public class OptionsController : MonoBehaviour
 
     void LoadSliderValues()
     {
-        volumeSlider.value = PlayerPrefsController.GetMasterVolume();
+        masterVolumeSlider.value = PlayerPrefsController.GetMasterVolume();
+        audioManager.SetMasterVolume(masterVolumeSlider.value);
+
+        musicVolumeSlider.value = PlayerPrefsController.GetMusicVolume();
+        audioManager.SetMusicVolume(musicVolumeSlider.value);
+
+        effectsVolumeSlider.value = PlayerPrefsController.GetEffectsVolume();
+        audioManager.SetEffectsVolume(effectsVolumeSlider.value);
+
         difficultySlider.value = PlayerPrefsController.GetDifficulty();
     }
 

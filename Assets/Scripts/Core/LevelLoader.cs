@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
 
 public class LevelLoader : MonoBehaviour
 {
@@ -109,7 +112,11 @@ public class LevelLoader : MonoBehaviour
     {
         audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
 
-        Application.Quit();
+        #if UNITY_EDITOR
+            EditorApplication.isPlaying = false;
+        #else
+            Application.Quit();
+        #endif
     }
 
     public void SaveCurrentLevelNumber()

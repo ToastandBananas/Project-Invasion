@@ -205,7 +205,7 @@ public class Attacker : MonoBehaviour
             castleHealth.TakeHealth(castleAttackDamage);
 
             if (PlayerPrefsController.DamagePopupsEnabled())
-                DamagePopup.Create(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), castleAttackDamage, false, true);
+                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), castleAttackDamage, false, true);
 
             if (castleHealth.GetHealth() <= 0f)
             {

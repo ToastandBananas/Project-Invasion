@@ -62,6 +62,10 @@ public class LevelController : MonoBehaviour
     public void HandleLoseCondition()
     {
         audioManager.PlaySound(audioManager.failSounds, audioManager.failSounds[0].soundName, Vector3.zero);
+
+        // Deactivate all TextPopups since they stay in front of the level lost canvas
+        GameObject.Find("Text Popups").SetActive(false);
+
         loseCanvas.SetActive(true);
         Time.timeScale = 0;
     }

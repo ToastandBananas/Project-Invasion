@@ -112,7 +112,7 @@ public class Health : MonoBehaviour
         currentHealth -= finalDamageAmount;
 
         if (PlayerPrefsController.DamagePopupsEnabled())
-            DamagePopup.Create(transform.position + new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(0.05f, 0.15f)), finalDamageAmount, false, defender != null);
+            TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(0.05f, 0.15f)), finalDamageAmount, false, defender != null);
         
         if (damageEffect != null)
             StartCoroutine(TriggerDamageEffect());
