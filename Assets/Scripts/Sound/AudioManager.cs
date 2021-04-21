@@ -48,6 +48,7 @@ public class AudioManager : MonoBehaviour
     public AudioMixerGroup masterAudioMixerGroup;
     public AudioMixerGroup musicAudioMixerGroup;
     public AudioMixerGroup effectsAudioMixerGroup;
+    public AudioMixerGroup voicesAudioMixerGroup;
 
     [Header("All Sounds")]
     public List<Sound[]> allSounds = new List<Sound[]>();
@@ -69,7 +70,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] fireballHitSounds;
 
     [Header("Music Sounds")]
-    public Sound[] splashScreenSounds;
+    public Sound[] splashScreenMusicSounds;
     public Sound[] musicSounds;
     public Sound[] victorySounds;
     public Sound[] failSounds;
@@ -87,7 +88,6 @@ public class AudioManager : MonoBehaviour
 
     [Header("Voice Sounds")]
     public Sound[] humanMaleDeathSounds;
-    public Sound[] humanMaleGruntSounds;
 
     bool playedFirstSong;
 
@@ -115,7 +115,7 @@ public class AudioManager : MonoBehaviour
         allSounds.Add(fireballCastSounds);
         allSounds.Add(fireballHitSounds);
         allSounds.Add(goldSounds);
-        allSounds.Add(splashScreenSounds);
+        allSounds.Add(splashScreenMusicSounds);
         allSounds.Add(musicSounds);
         allSounds.Add(victorySounds);
         allSounds.Add(failSounds);
@@ -124,7 +124,6 @@ public class AudioManager : MonoBehaviour
         allSounds.Add(throwSounds);
         allSounds.Add(buttonClickSounds);
         allSounds.Add(humanMaleDeathSounds);
-        allSounds.Add(humanMaleGruntSounds);
     }
 
     void Start()
@@ -139,6 +138,8 @@ public class AudioManager : MonoBehaviour
 
                 if (soundArray == musicSounds)
                     _go.GetComponent<AudioSource>().outputAudioMixerGroup = musicAudioMixerGroup;
+                else if (soundArray == humanMaleDeathSounds)
+                    _go.GetComponent<AudioSource>().outputAudioMixerGroup = voicesAudioMixerGroup;
                 else
                     _go.GetComponent<AudioSource>().outputAudioMixerGroup = effectsAudioMixerGroup;
             }
@@ -185,6 +186,19 @@ public class AudioManager : MonoBehaviour
     public void MuteEffectsVolume()
     {
         masterMixer.SetFloat("EffectsVolume", -80f);
+    }
+
+    public void SetVoiceVolume(float volume)
+    {
+        if (volume <= -40f)
+            MuteVoiceVolume();
+        else
+            masterMixer.SetFloat("VoicesVolume", volume);
+    }
+
+    public void MuteVoiceVolume()
+    {
+        masterMixer.SetFloat("VoicesVolume", -80f);
     }
 
     public void PlaySound(Sound[] soundArray, string _soundName, Vector3 soundPosition)
@@ -310,5 +324,15 @@ public class AudioManager : MonoBehaviour
             PlayRandomSound(throwSounds);
         else if (weaponType == RangedWeaponType.Fireball)
             PlayRandomSound(fireballCastSounds);
+    }
+
+    public void PlayDeathSound(VoiceType voiceType)
+    {
+        if (voiceType == VoiceType.HumanMale)
+            PlayRandomSound(humanMaleDeathSounds);
+        else if (voiceType == VoiceType.HumanFemale)
+            PlayRandomSound(humanMaleDeathSounds);
+        else if (voiceType == VoiceType.Undead)
+            PlayRandomSound(humanMaleDeathSounds);
     }
 }

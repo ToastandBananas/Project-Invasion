@@ -15,6 +15,10 @@ public class OptionsController : MonoBehaviour
     [SerializeField] Slider effectsVolumeSlider;
     [SerializeField][Tooltip("Measured in db")][Range(-60f, 0f)] float defaultEffectsVolume = 0f;
 
+    [Header("Voices Volume")]
+    [SerializeField] Slider voicesVolumeSlider;
+    [SerializeField] [Tooltip("Measured in db")] [Range(-40f, 0f)] float defaultVoiceVolume = -8f;
+
     [Header("Difficulty")]
     [SerializeField] Slider difficultySlider;
     [SerializeField][Range(0, 2)] int defaultDifficulty = 0;
@@ -67,6 +71,7 @@ public class OptionsController : MonoBehaviour
         PlayerPrefsController.SetMasterVolume(masterVolumeSlider.value);
         PlayerPrefsController.SetMusicVolume(musicVolumeSlider.value);
         PlayerPrefsController.SetEffectsVolume(effectsVolumeSlider.value);
+        PlayerPrefsController.SetVoiceVolume(voicesVolumeSlider.value);
         PlayerPrefsController.SetDifficulty(difficultySlider.value);
         PlayerPrefsController.SetDamagePopups(damagePopupsEnabled);
 
@@ -78,6 +83,7 @@ public class OptionsController : MonoBehaviour
         masterVolumeSlider.value = defaultMasterVolume;
         musicVolumeSlider.value = defaultMusicVolume;
         effectsVolumeSlider.value = defaultEffectsVolume;
+        voicesVolumeSlider.value = defaultVoiceVolume;
         difficultySlider.value = defaultDifficulty;
         damagePopupsEnabled = defaultDamagePopupsEnabled;
         damagePopupsCheckMark.gameObject.SetActive(defaultDamagePopupsEnabled);
@@ -107,6 +113,9 @@ public class OptionsController : MonoBehaviour
 
         effectsVolumeSlider.value = PlayerPrefsController.GetEffectsVolume();
         audioManager.SetEffectsVolume(effectsVolumeSlider.value);
+
+        voicesVolumeSlider.value = PlayerPrefsController.GetVoiceVolume();
+        audioManager.SetVoiceVolume(voicesVolumeSlider.value);
 
         difficultySlider.value = PlayerPrefsController.GetDifficulty();
     }

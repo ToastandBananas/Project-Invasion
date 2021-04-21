@@ -47,6 +47,7 @@ MonoBehaviour:
   masterAudioMixerGroup: {fileID: 24300002, guid: 0de41b9e32de45d4d9fcb4c5b6e712bf, type: 2}
   musicAudioMixerGroup: {fileID: 3494396761219188923, guid: 0de41b9e32de45d4d9fcb4c5b6e712bf, type: 2}
   effectsAudioMixerGroup: {fileID: -6886917481225780088, guid: 0de41b9e32de45d4d9fcb4c5b6e712bf, type: 2}
+  voicesAudioMixerGroup: {fileID: 1923503041433665943, guid: 0de41b9e32de45d4d9fcb4c5b6e712bf, type: 2}
   windSounds: []
   bluntHitOpponentSounds:
   - soundName: Blunt Hit 1
@@ -167,14 +168,7 @@ MonoBehaviour:
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
-  splashScreenSounds:
-  - soundName: Battle Horn
-    clip: {fileID: 8300000, guid: b2b5aae7142f2104e8abaca8bb7c2975, type: 3}
-    volume: 0.75
-    pitch: 1
-    randomVolumeAddOn: 0
-    randomPitchAddOn: 0
-    loop: 0
+  splashScreenMusicSounds: []
   musicSounds:
   - soundName: Spring Village
     clip: {fileID: 8300000, guid: e1d67e063126f45478157c6b9e316632, type: 3}
@@ -304,16 +298,64 @@ MonoBehaviour:
     loop: 0
   humanMaleDeathSounds:
   - soundName: Human Male Death 1
-    clip: {fileID: 8300000, guid: deb04e766d16cbf4c99f89ea2e5f9e6b, type: 3}
-    volume: 0.1
+    clip: {fileID: 8300000, guid: 523955d8af681a045aa6d05c5443dcd8, type: 3}
+    volume: 0.4
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
-  humanMaleGruntSounds:
-  - soundName: Human Male Grunt 1
+  - soundName: Human Male Death 2
+    clip: {fileID: 8300000, guid: eb98841c4798ec842b4c8ba47b231c2c, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Human Male Death 3
+    clip: {fileID: 8300000, guid: 68c22a541d8e0124b877eb67e1424bf4, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Human Male Death 4
+    clip: {fileID: 8300000, guid: 2fba598748057f04eae9d97970e52d36, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Human Male Death 6
+    clip: {fileID: 8300000, guid: ab43c4e621f0f6f4c9541f0b4a86c5b1, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Human Male Death 7
+    clip: {fileID: 8300000, guid: e2b4071aabbd59e4b92e866ec34c57b9, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Human Male Death 8
+    clip: {fileID: 8300000, guid: eca5c74c70b8c2c408d00c5929a9b94e, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Human Male Death 9
+    clip: {fileID: 8300000, guid: c6946f0a74a1dd945873202e2aa4c69d, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Human Male Death 10
     clip: {fileID: 8300000, guid: 3bba2c9e539a8c04faf44e00b56d705c, type: 3}
-    volume: 0.1
+    volume: 0.4
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25

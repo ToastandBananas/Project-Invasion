@@ -139,6 +139,11 @@ public class Health : MonoBehaviour
 
     void Die()
     {
+        if (defender != null)
+            AudioManager.instance.PlayDeathSound(defender.voiceType);
+        else if (attacker != null)
+            AudioManager.instance.PlayDeathSound(attacker.voiceType);
+
         isDead = true;
         thornsActive = false;
         anim.SetBool("isDead", true);

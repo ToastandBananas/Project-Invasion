@@ -5,6 +5,7 @@ public enum MeleeWeaponType { Blade, Blunt, Piercing }
 public enum RangedWeaponType { Bow, Crossbow, Fireball, Spear }
 public enum SquadFormation { Line, StaggeredLine, Wedge, Scattered, Wall }
 public enum SquadType { Null, Knights, Spearmen, Archers }
+public enum VoiceType { HumanMale, HumanFemale, Undead }
 
 public class GameManager : MonoBehaviour
 {

@@ -17,6 +17,9 @@ public class Defender : MonoBehaviour
     [HideInInspector] public float startingBluntDamage, startingSlashDamage, startingPiercingDamage, startingFireDamage;
     public bool shouldKnockback;
 
+    [Header("Voice")]
+    public VoiceType voiceType;
+
     [HideInInspector] public bool isAttacking;
     [HideInInspector] public bool isMoving;
     [HideInInspector] public bool isRetreating;

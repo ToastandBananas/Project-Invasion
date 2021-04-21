@@ -124,7 +124,7 @@ MonoBehaviour:
   meleeWeaponType: 0
   castleAttackDamage: 2
   bluntDamage: 0
-  slashDamage: 3
+  slashDamage: 4
   piercingDamage: 0
   fireDamage: 0
   startingBluntDamage: 0
@@ -132,6 +132,7 @@ MonoBehaviour:
   startingPiercingDamage: 0
   startingFireDamage: 0
   shouldKnockback: 0
+  voiceType: 2
   opponents: []
   currentDefenderAttacking: {fileID: 0}
   currentTargetsHealth: {fileID: 0}

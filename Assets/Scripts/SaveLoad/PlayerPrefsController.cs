@@ -14,6 +14,10 @@ public class PlayerPrefsController : MonoBehaviour
     const float MIN_EFFECTS_VOLUME = -60f;
     const float MAX_EFFECTS_VOLUME = 0f;
 
+    const string VOICE_VOLUME_KEY = "Effects Volume";
+    const float MIN_VOICE_VOLUME = -40f;
+    const float MAX_VOICE_VOLUME = 0f;
+
     const string DIFFICULTY_KEY = "Difficulty";
     const float  MIN_DIFFICULTY = 0f;
     const float  MAX_DIFFICULTY = 2f;
@@ -66,6 +70,22 @@ public class PlayerPrefsController : MonoBehaviour
     public static float GetEffectsVolume()
     {
         return PlayerPrefs.GetFloat(EFFECTS_VOLUME_KEY, 0f);
+    }
+
+    public static void SetVoiceVolume(float volume)
+    {
+        if (volume >= MIN_VOICE_VOLUME && volume <= MAX_VOICE_VOLUME)
+        {
+            // Debug.Log("Voice volume set to " + volume);
+            PlayerPrefs.SetFloat(VOICE_VOLUME_KEY, volume);
+        }
+        else
+            Debug.LogError("Voice volume is out of range");
+    }
+
+    public static float GetVoiceVolume()
+    {
+        return PlayerPrefs.GetFloat(VOICE_VOLUME_KEY, 0f);
     }
 
     public static void SetDifficulty(float difficulty)

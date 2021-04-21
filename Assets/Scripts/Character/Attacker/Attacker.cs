@@ -28,6 +28,9 @@ public class Attacker : MonoBehaviour
     [HideInInspector] public float startingBluntDamage, startingSlashDamage, startingPiercingDamage, startingFireDamage;
     public bool shouldKnockback;
 
+    [Header("Voice")]
+    public VoiceType voiceType;
+
     [HideInInspector] public List<Defender> opponents = new List<Defender>();
     [HideInInspector] public Defender currentDefenderAttacking;
     [HideInInspector] public Health currentTargetsHealth;
