@@ -135,9 +135,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlocked: 1
   squadType: 1
-  goldCost: 50
+  goldCost: 25
   suppliesCost: 15
   description: General laborers that excel in various trades, but fear combat.
+  maxUnitCount: 0
   squadFormation: 5
   castleWallVersionOfSquad: {fileID: 0}
   shouldRetreatWhenEnemyNear: 1

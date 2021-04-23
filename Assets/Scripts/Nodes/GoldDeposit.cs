@@ -12,12 +12,18 @@ public class GoldDeposit : MonoBehaviour
     public int hitsToProduceGold = 4;
     public int goldAmountEarnedEachProductionCycle = 20;
 
+    [HideInInspector] public SpriteRenderer sr;
     [HideInInspector] public ResourceNode resourceNode;
     [HideInInspector] public bool occupied;
 
     bool canProduce;
     
     ResourceDisplay resourceDisplay;
+
+    void Awake()
+    {
+        sr = GetComponent<SpriteRenderer>();
+    }
 
     void Start()
     {

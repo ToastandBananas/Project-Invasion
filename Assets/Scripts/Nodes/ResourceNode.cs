@@ -4,7 +4,10 @@ using UnityEngine;
 public class ResourceNode : MonoBehaviour
 {
     public ResourceType resourceType;
-    public Squad laborerSquadCurrentlyOnNode;
+
+    public List<Sprite> goldDepositSprites;
+
+    [HideInInspector] public Squad laborerSquadCurrentlyOnNode;
 
     [HideInInspector] public List<GoldDeposit> goldDeposits;
     [HideInInspector] public List<GoldDeposit> unoccupiedDeposits;
@@ -34,6 +37,17 @@ public class ResourceNode : MonoBehaviour
         // Add this node to our list of nodes
         defenderSpawner.AddNode(transform.position);
         defenderSpawner.goldNodes.Add(this);
+
+        // Choose a random sprite
+        for (int i = 0; i < resourceDepositCount; i++)
+        {
+            if (resourceType == ResourceType.Gold)
+            {
+                int randomIndex = Random.Range(0, goldDepositSprites.Count);
+                goldDeposits[i].sr.sprite = goldDepositSprites[randomIndex];
+                goldDepositSprites.Remove(goldDepositSprites[randomIndex]);
+            }
+        }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
