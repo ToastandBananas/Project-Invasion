@@ -168,7 +168,14 @@ MonoBehaviour:
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
-  splashScreenMusicSounds: []
+  splashScreenMusicSounds:
+  - soundName: Battle Horn
+    clip: {fileID: 8300000, guid: b2b5aae7142f2104e8abaca8bb7c2975, type: 3}
+    volume: 0.5
+    pitch: 1
+    randomVolumeAddOn: 0
+    randomPitchAddOn: 0
+    loop: 0
   musicSounds:
   - soundName: Spring Village
     clip: {fileID: 8300000, guid: e1d67e063126f45478157c6b9e316632, type: 3}
@@ -192,6 +199,14 @@ MonoBehaviour:
     pitch: 1
     randomVolumeAddOn: 0
     randomPitchAddOn: 0
+    loop: 0
+  pickaxeSounds:
+  - soundName: Pickaxe 1
+    clip: {fileID: 8300000, guid: 94673b115f1bf6543b936b5173a84d93, type: 3}
+    volume: 0.1
+    pitch: 1
+    randomVolumeAddOn: 0.025
+    randomPitchAddOn: 0.1
     loop: 0
   swordSlashOpponentSounds:
   - soundName: Sword Hit 1
@@ -263,35 +278,35 @@ MonoBehaviour:
   goldSounds:
   - soundName: Gold 1
     clip: {fileID: 8300000, guid: 9fb4cfef211e4be4fae425943e28f9bb, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Gold 2
     clip: {fileID: 8300000, guid: 0e07d57280c6ee844b7c3e8ffd63bea4, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Gold 3
     clip: {fileID: 8300000, guid: 0f5589d7f711bd6419086134038f57f3, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Gold 4
     clip: {fileID: 8300000, guid: 374a180cea2107742b4e4ababf8dce5d, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Gold 5
     clip: {fileID: 8300000, guid: 912548545ce1f0746a7237311f3be118, type: 3}
-    volume: 0.2
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25

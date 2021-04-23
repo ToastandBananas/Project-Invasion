@@ -7,13 +7,16 @@ public class DefenderSpawner : MonoBehaviour
     [HideInInspector] public Squad squad;
     [HideInInspector] public Squad ghostImageSquad;
 
+    [HideInInspector] public List<Vector2> gridCellsOccupied = new List<Vector2>();
+    [HideInInspector] public List<Vector2> gridCellsWithNodes = new List<Vector2>();
+    [HideInInspector] public List<ResourceNode> goldNodes = new List<ResourceNode>();
+
     GameObject defendersParent;
     const string DEFENDERS_PARENT_NAME = "Defenders";
     bool canPlaceSquad = true;
 
     Defender defender;
     ResourceDisplay currencyDisplay;
-    List<Vector2> gridCellsOccupied;
     Vector2 mouseHoverTilePos;
     int defaultSortingOrder = 5;
     int castleWallSortingOrder = 15;
@@ -39,12 +42,11 @@ public class DefenderSpawner : MonoBehaviour
     void Start()
     {
         pauseMenu = PauseMenu.instance;
+        currencyDisplay = FindObjectOfType<ResourceDisplay>();
+
         defendersParent = GameObject.Find(DEFENDERS_PARENT_NAME);
         if (defendersParent == null)
             defendersParent = new GameObject(DEFENDERS_PARENT_NAME);
-
-        currencyDisplay = FindObjectOfType<ResourceDisplay>();
-        gridCellsOccupied = new List<Vector2>();
 
         gameObject.SetActive(false);
     }
@@ -66,50 +68,54 @@ public class DefenderSpawner : MonoBehaviour
                 else
                     ghostImageSquad.SetSortingOrder(defaultSortingOrder);
 
-                if (IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x >= 0.5f && mouseHoverTilePos.x <= 7.5f && mouseHoverTilePos.y >= 0.5f && mouseHoverTilePos.y <= 5.5f)
+                // If hovering over a resource node with a non-laborer squad (therefore an invalid position)
+                if (IsCellOccupiedByResourceNode(mouseHoverTilePos) && ghostImageSquad.squadType != SquadType.Laborers)
                 {
-                    if (ghostImageSquad.leader != null)
-                        ghostImageSquad.leader.gameObject.SetActive(true);
-
-                    ghostImageSquad.transform.position = mouseHoverTilePos;
-                    
-                    if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()) && currencyDisplay.HaveEnoughSupplies(ghostImageSquad.GetSuppliesCost()))
-                        SetGhostImageColor(ghostImageColor);
+                    ShowLeader();
+                    SetupInvalidPosition();
                 }
+                // If hovering over a resource node with a laborer squad (therefore a valid postion)
+                else if (IsCellOccupiedByResourceNode(mouseHoverTilePos) && ghostImageSquad.squadType == SquadType.Laborers)
+                {
+                    // If there's a deposit available
+                    if (GetResourceNodeFromCoordinates(mouseHoverTilePos).unoccupiedDeposits.Count > 0)
+                        SetupValidPosition();
+                    else // If there's no deposits available
+                        SetupInvalidPosition();
+                }
+                // If this is a laborer squad and the player is not hovering over a valid node
+                else if (ghostImageSquad.squadType == SquadType.Laborers)
+                {
+                    SetupInvalidPosition();
+                }
+                // If hovering over a normal tile with a squad selected
+                else if (IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x >= 0.5f && mouseHoverTilePos.x <= 7.5f && mouseHoverTilePos.y >= 0.5f && mouseHoverTilePos.y <= 5.5f)
+                {
+                    ShowLeader();
+                    SetupValidPosition();
+                }
+                // If hovering over a castle wall tile with a ranged squad selected
                 else if (ghostImageSquad.isRangedUnit && IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x < 0.5f)
                 {
-                    if (ghostImageSquad.leader != null)
-                        ghostImageSquad.leader.gameObject.SetActive(false);
-
-                    ghostImageSquad.transform.position = mouseHoverTilePos;
-                    
-                    if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()) && currencyDisplay.HaveEnoughSupplies(ghostImageSquad.GetSuppliesCost()))
-                        SetGhostImageColor(ghostImageColor);
+                    HideLeader();
+                    SetupValidPosition();
                 }
-                else
+                else // If hovering over an invalid position
                 {
-                    if (ghostImageSquad.leader != null)
-                        ghostImageSquad.leader.gameObject.SetActive(true);
-
-                    Vector2 hoverPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-                    hoverPos = Camera.main.ScreenToWorldPoint(hoverPos);
-                    ghostImageSquad.transform.position = hoverPos;
-                    SetGhostImageColor(invalidColor);
+                    ShowLeader();
+                    SetupInvalidPosition();
                 }
             }
         }
+
+        if (Input.GetMouseButtonDown(0) && canPlaceSquad)
+            SpawnSquad(GetSquareClicked());
     }
 
     void FixedUpdate()
     {
         if (pauseMenu.gamePaused == false)
             CheckIfCanAffordSquad();
-    }
-
-    void OnMouseDown()
-    {
-        if (canPlaceSquad && pauseMenu.gamePaused == false)
-            StartCoroutine(SpawnSquad(GetSquareClicked()));
     }
 
     public void SetSelectedSquad(Squad squadToSelect)
@@ -160,56 +166,101 @@ public class DefenderSpawner : MonoBehaviour
         return new Vector2(newX, newY);
     }
 
-    IEnumerator SpawnSquad(Vector2 coordinates)
+    void SpawnSquad(Vector2 coordinates)
     {
-        if (!ghostImageSquad)
+        if (ghostImageSquad == null)
+            return;
+
+        if (currencyDisplay.HaveEnoughGold(squad.GetGoldCost()) && currencyDisplay.HaveEnoughSupplies(squad.GetSuppliesCost()))
         {
-            yield break;
-        }
-        else if (!IsCellOccupied(coordinates))
-        {
-            if (currencyDisplay.HaveEnoughGold(squad.GetGoldCost()) && currencyDisplay.HaveEnoughSupplies(squad.GetSuppliesCost()))
+            if (ghostImageSquad.squadType != SquadType.Laborers && IsCellOccupied(coordinates) == false && IsCellOccupiedByResourceNode(coordinates) == false)
             {
-                if (coordinates.x < 1f)
+                StartCoroutine(PlaceSquad(coordinates));
+            }
+            else if (ghostImageSquad.squadType == SquadType.Laborers && IsCellOccupiedByResourceNode(coordinates) && GetResourceNodeFromCoordinates(coordinates).unoccupiedDeposits.Count > 0)
+            {
+                ResourceNode node = GetResourceNodeFromCoordinates(coordinates);
+
+                bool nodeCompletelyUnoccupied = true;
+                foreach (GoldDeposit goldDeposit in node.goldDeposits)
                 {
-                    Squad oldGhostImageSquad = ghostImageSquad;
-                    ghostImageSquad = Instantiate(squad.castleWallVersionOfSquad, coordinates, Quaternion.identity);
-                    Destroy(oldGhostImageSquad.gameObject);
-                    yield return null;
+                    if (goldDeposit.occupied)
+                    {
+                        nodeCompletelyUnoccupied = false;
+                        break;
+                    }
                 }
 
-                if (ghostImageSquad.leader != null)
+                if (nodeCompletelyUnoccupied)
                 {
-                    ghostImageSquad.leader.sr.color = new Color(1f, 1f, 1f, 1f);
-                    if (coordinates.x >= 1f)
-                        ghostImageSquad.leader.GetComponent<BoxCollider2D>().enabled = true;
+                    // If there's not any workers on the node yet
+                    StartCoroutine(PlaceSquad(coordinates));
                 }
-
-                for (int i = 0; i < ghostImageSquad.units.Count; i++)
+                else
                 {
-                    ghostImageSquad.units[i].sr.color = new Color(1f, 1f, 1f, 1f);
-                    if (coordinates.x >= 1f)
-                        ghostImageSquad.units[i].GetComponent<BoxCollider2D>().enabled = true;
+                    // If there's already at least one worker on the node and there's still room for more
+                    AddLaborerToSquad(node);
                 }
-
-                AddCell(coordinates);
-                ghostImageSquad.SetLaneSpawner();
-                ghostImageSquad.squadPlaced = true;
-                ghostImageSquad.transform.position = coordinates;
-                ghostImageSquad.transform.SetParent(defendersParent.transform);
-
-                currencyDisplay.SpendGold(ghostImageSquad.GetGoldCost());
-                currencyDisplay.SpendSupplies(ghostImageSquad.GetSuppliesCost());
-
-                if (coordinates.x >= 1f)
-                    ghostImageSquad.GetComponent<BoxCollider2D>().enabled = true;
-
-                // Create a new ghost image squad in case the player wants to spawn another of the same squad
-                ghostImageSquad = Instantiate(squad, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
-
-                StartCoroutine(StartPlacementCooldown());
             }
         }
+    }
+
+    IEnumerator PlaceSquad(Vector2 coordinates)
+    {
+        // If trying to place a ranged squad on the wall, swap out the current ghost squad for it's wall version
+        if (coordinates.x < 1f)
+        {
+            Squad oldGhostImageSquad = ghostImageSquad;
+            ghostImageSquad = Instantiate(squad.castleWallVersionOfSquad, coordinates, Quaternion.identity);
+            Destroy(oldGhostImageSquad.gameObject);
+            yield return null;
+        }
+
+        if (ghostImageSquad.leader != null)
+        {
+            ghostImageSquad.leader.sr.color = new Color(1f, 1f, 1f, 1f);
+            if (coordinates.x >= 1f)
+                ghostImageSquad.leader.GetComponent<BoxCollider2D>().enabled = true;
+        }
+
+        for (int i = 0; i < ghostImageSquad.units.Count; i++)
+        {
+            ghostImageSquad.units[i].sr.color = new Color(1f, 1f, 1f, 1f);
+            if (coordinates.x >= 1f)
+                ghostImageSquad.units[i].GetComponent<BoxCollider2D>().enabled = true;
+        }
+
+        AddCell(coordinates);
+        ghostImageSquad.SetLaneSpawner();
+        ghostImageSquad.squadPlaced = true;
+        ghostImageSquad.transform.position = coordinates;
+        ghostImageSquad.transform.SetParent(defendersParent.transform);
+
+        currencyDisplay.SpendGold(ghostImageSquad.GetGoldCost());
+        currencyDisplay.SpendSupplies(ghostImageSquad.GetSuppliesCost());
+
+        if (coordinates.x >= 1f)
+            ghostImageSquad.GetComponent<BoxCollider2D>().enabled = true;
+
+        // Create a new ghost image squad in case the player wants to spawn another of the same squad
+        ghostImageSquad = Instantiate(squad, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
+
+        StartCoroutine(StartPlacementCooldown());
+    }
+
+    void AddLaborerToSquad(ResourceNode node)
+    {
+        Defender newLaborer = Instantiate(ghostImageSquad.units[0], node.transform.position, Quaternion.identity, node.laborerSquadCurrentlyOnNode.unitsParent);
+        newLaborer.sr.color = new Color(1f, 1f, 1f, 1f);
+        newLaborer.GetComponent<BoxCollider2D>().enabled = true;
+        newLaborer.squad = node.laborerSquadCurrentlyOnNode;
+        newLaborer.squad.units.Add(newLaborer);
+        newLaborer.squad.maxUnitCount++;
+
+        currencyDisplay.SpendGold(ghostImageSquad.GetGoldCost());
+        currencyDisplay.SpendSupplies(ghostImageSquad.GetSuppliesCost());
+
+        StartCoroutine(StartPlacementCooldown());
     }
 
     void CheckIfCanAffordSquad()
@@ -253,12 +304,48 @@ public class DefenderSpawner : MonoBehaviour
         canPlaceSquad = true;
     }
 
+    void ShowLeader()
+    {
+        if (ghostImageSquad.leader != null)
+            ghostImageSquad.leader.gameObject.SetActive(true);
+    }
+
+    void HideLeader()
+    {
+        // For castle wall squads
+        if (ghostImageSquad.leader != null)
+            ghostImageSquad.leader.gameObject.SetActive(false);
+    }
+
+    void SetupValidPosition()
+    {
+        ghostImageSquad.transform.position = mouseHoverTilePos;
+
+        if (currencyDisplay.HaveEnoughGold(ghostImageSquad.GetGoldCost()) && currencyDisplay.HaveEnoughSupplies(ghostImageSquad.GetSuppliesCost()))
+            SetGhostImageColor(ghostImageColor);
+    }
+
+    void SetupInvalidPosition()
+    {
+        Vector2 hoverPos = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        hoverPos = Camera.main.ScreenToWorldPoint(hoverPos);
+        ghostImageSquad.transform.position = hoverPos;
+        SetGhostImageColor(invalidColor);
+    }
+
     public bool IsCellOccupied(Vector2 gridPosition)
     {
         if (gridCellsOccupied.Contains(gridPosition))
-        {
             return true;
-        }
+
+        return false;
+    }
+
+    public bool IsCellOccupiedByResourceNode(Vector2 gridPosition)
+    {
+        if (gridCellsWithNodes.Contains(gridPosition))
+            return true;
+
         return false;
     }
 
@@ -270,5 +357,26 @@ public class DefenderSpawner : MonoBehaviour
     public void RemoveCell(Vector2 gridPosition)
     {
         gridCellsOccupied.Remove(gridPosition);
+    }
+
+    public void AddNode(Vector2 gridPosition)
+    {
+        gridCellsWithNodes.Add(new Vector2(Mathf.RoundToInt(gridPosition.x), Mathf.RoundToInt(gridPosition.y)));
+    }
+
+    public void RemoveNode(Vector2 gridPosition)
+    {
+        gridCellsWithNodes.Remove(new Vector2(Mathf.RoundToInt(gridPosition.x), Mathf.RoundToInt(gridPosition.y)));
+    }
+
+    public ResourceNode GetResourceNodeFromCoordinates(Vector3 coordinates)
+    {
+        foreach (ResourceNode goldNode in goldNodes)
+        {
+            if (new Vector3(Mathf.RoundToInt(goldNode.transform.position.x), Mathf.RoundToInt(goldNode.transform.position.y)) == coordinates)
+                return goldNode;
+        }
+
+        return null;
     }
 }

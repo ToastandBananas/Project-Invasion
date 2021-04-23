@@ -75,6 +75,9 @@ public class AudioManager : MonoBehaviour
     public Sound[] victorySounds;
     public Sound[] failSounds;
 
+    [Header("Pickaxe Sounds")]
+    public Sound[] pickaxeSounds;
+
     [Header("Sword Sounds")]
     public Sound[] swordSlashOpponentSounds;
     public Sound[] swordStabOpponentSounds;
@@ -119,6 +122,7 @@ public class AudioManager : MonoBehaviour
         allSounds.Add(musicSounds);
         allSounds.Add(victorySounds);
         allSounds.Add(failSounds);
+        allSounds.Add(pickaxeSounds);
         allSounds.Add(swordSlashOpponentSounds);
         allSounds.Add(swordStabOpponentSounds);
         allSounds.Add(throwSounds);
@@ -275,7 +279,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayPickUpGoldSound(int goldAmount)
+    public void PlayGoldSound(int goldAmount)
     {
         if (goldAmount <= 10)
             PlaySound(goldSounds, goldSounds[0].soundName, Vector3.zero);

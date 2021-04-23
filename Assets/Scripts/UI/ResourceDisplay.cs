@@ -10,7 +10,7 @@ public class ResourceDisplay : MonoBehaviour
     AudioManager audioManager;
     Text goldText, suppliesText;
 
-    [HideInInspector] public bool shouldGenerateGold = true;
+    bool shouldGenerateGold = false;
     float generateGoldWaitTime = 5f;
     float updateDisplayWaitTime = 0.01f;
 
@@ -96,6 +96,7 @@ public class ResourceDisplay : MonoBehaviour
     public void AddGold(int amount)
     {
         gold += amount;
+        audioManager.PlayRandomSound(audioManager.goldSounds);
         //TextPopup.CreateResourcePopup(new Vector3(7.8f, 5.97f), amount);
     }
 

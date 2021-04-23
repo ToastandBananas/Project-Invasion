@@ -10,7 +10,8 @@ public class Squad : MonoBehaviour
     [SerializeField] int suppliesCost = 5;
     public string description;
 
-    int maxUnitCount;
+    [HideInInspector] public int maxUnitCount;
+
     [Header("Squad Formation")]
     public SquadFormation squadFormation;
 

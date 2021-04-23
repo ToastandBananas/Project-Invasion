@@ -5,7 +5,7 @@ using UnityEngine;
 public class Attacker : MonoBehaviour
 {
     /// <summary>
-    /// For use in AttackerSpawner script (each enemy has a point value...each time a group of attackers is spawned, 
+    /// Spawn Points are for use in AttackerSpawner scripts (each enemy has a point value...each time a group of attackers is spawned, 
     /// there can only be a certain amount of points used, in order to prevent too many strong enemies from spawning at one time
     /// </summary>
     [Header("Spawn Info")]
@@ -38,9 +38,12 @@ public class Attacker : MonoBehaviour
 
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool isAttackingCastle;
+
     [HideInInspector] public AttackerSpawner myAttackerSpawner;
     [HideInInspector] public Health health;
     [HideInInspector] public RangeCollider rangeCollider;
+
+    [HideInInspector] public float minDistanceFromPosition = 0.025f;
 
     AudioManager audioManager;
     Animator anim;
@@ -152,7 +155,7 @@ public class Attacker : MonoBehaviour
 
             transform.position = Vector2.MoveTowards(transform.position, knockbackDestination, knockbackSpeed * Time.deltaTime);
 
-            if (Vector2.Distance(transform.position, knockbackDestination) <= 0.025f)
+            if (Vector2.Distance(transform.position, knockbackDestination) <= minDistanceFromPosition)
                 isBeingKnockedBack = false;
 
             yield return null;

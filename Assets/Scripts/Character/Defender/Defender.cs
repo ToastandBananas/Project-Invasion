@@ -33,8 +33,10 @@ public class Defender : MonoBehaviour
     [HideInInspector] public Squad squad;
     [HideInInspector] public Health health;
     [HideInInspector] public Shooter myShooter;
+    [HideInInspector] public Laborer laborer;
 
     [HideInInspector] public Vector2 unitPosition;
+    [HideInInspector] public float minDistanceFromPosition = 0.025f;
     float randomAttackOffsetY;
     Vector2 currentLocalPosition;
 
@@ -45,6 +47,7 @@ public class Defender : MonoBehaviour
     {
         squad = transform.parent.parent.GetComponent<Squad>();
         sr = transform.GetComponentInChildren<SpriteRenderer>();
+        TryGetComponent<Laborer>(out laborer);
     }
 
     void Start()
@@ -79,7 +82,7 @@ public class Defender : MonoBehaviour
         {
             if (squad.squadPlaced && isBeingKnockedBack == false)
             {
-                if (squad.attackersNearby.Count == 0 || (targetAttacker == null && Vector2.Distance(transform.localPosition, unitPosition) > 0.025f))
+                if (squad.attackersNearby.Count == 0 || targetAttacker == null)
                     MoveUnitIntoPosition();
                 else if (targetAttacker != null && squad.squadFormation != SquadFormation.Wall)
                     MoveTowardsAttacker();
@@ -105,8 +108,16 @@ public class Defender : MonoBehaviour
         anim.SetBool("isAttacking", false);
         if (squad.isRangedUnit)
             anim.SetBool("isShooting", false);
-        
-        while (transform.position.x > -1.25f)
+
+        if (squad.squadType == SquadType.Laborers)
+        {
+            Laborer laborer = GetComponent<Laborer>();
+            if (laborer.isWorking)
+                laborer.StopWorking();
+        }
+
+        // While the defender is still within the bounds of the visible map (-1.25 on the x is outside of our camera's view)
+        while (transform.position.x > -1.25f && health.isDead == false)
         {
             if (transform.localScale.x != -1)
                 transform.localScale = new Vector2(-1, 1); // Flip the sprite
@@ -136,24 +147,28 @@ public class Defender : MonoBehaviour
     public void MoveUnitIntoPosition()
     {
         currentLocalPosition = transform.localPosition;
-        if (currentLocalPosition != unitPosition && Vector2.Distance(transform.localPosition, unitPosition) > 0.025f)
+        if (currentLocalPosition != unitPosition && Vector2.Distance(currentLocalPosition, unitPosition) > minDistanceFromPosition)
         {
             isMoving = true;
             anim.SetBool("isMoving", true);
 
-            if (unitPosition.x <= transform.localPosition.x - 0.001f && transform.localScale.x != -1)
-                transform.localScale = new Vector2(-1, 1);
-            else if (unitPosition.x >= transform.localPosition.x && transform.localScale.x != 1)
-                transform.localScale = new Vector2(1, 1);
+            FaceLocalTarget(unitPosition);
 
             transform.position = Vector2.MoveTowards(transform.position, new Vector2(transform.parent.position.x, transform.parent.position.y) + unitPosition, currentSpeed * Time.deltaTime);
         }
         else
         {
-            isMoving = false;
-            anim.SetBool("isMoving", false);
-            if (transform.localScale.x != 1)
-                transform.localScale = new Vector2(1, 1);
+            if (isMoving)
+            {
+                isMoving = false;
+                anim.SetBool("isMoving", false);
+            }
+
+            if (laborer == null || (laborer != null && laborer.isWorking == false))
+            {
+                if (transform.localScale.x != 1)
+                    transform.localScale = new Vector2(1, 1);
+            }
         }
     }
 
@@ -165,10 +180,8 @@ public class Defender : MonoBehaviour
         if (isAttacking == false)
         {
             transform.position = Vector2.MoveTowards(transform.position, targetAttacker.transform.position, currentSpeed * Time.deltaTime);
-            if (transform.position.x <= targetAttacker.transform.position.x && transform.localScale.x != 1)
-                transform.localScale = new Vector2(1, 1);
-            else if (transform.position.x > targetAttacker.transform.position.x && transform.localScale.x != -1)
-                transform.localScale = new Vector2(-1, 1);
+
+            FaceTarget(targetAttacker.transform.position);
         }
     }
 
@@ -202,8 +215,6 @@ public class Defender : MonoBehaviour
     public void SetMovementSpeed(float speed)
     {
         currentSpeed = speed;
-        if (currentSpeed == 0 && transform.localScale.x != 1 && isAttacking == false)
-            transform.localScale = new Vector2(1, 1);
     }
 
     public void StopMoving()
@@ -241,7 +252,7 @@ public class Defender : MonoBehaviour
 
             transform.position = Vector2.MoveTowards(transform.position, knockbackDestination, knockbackSpeed * Time.deltaTime);
 
-            if (Vector2.Distance(transform.position, knockbackDestination) <= 0.025f)
+            if (Vector2.Distance(transform.position, knockbackDestination) <= minDistanceFromPosition)
                 isBeingKnockedBack = false;
 
             yield return null;
@@ -265,10 +276,7 @@ public class Defender : MonoBehaviour
     {
         if (targetAttacker == null) return;
 
-        if (transform.position.x <= targetAttacker.transform.position.x)
-            transform.localScale = new Vector2(1, 1);
-        else
-            transform.localScale = new Vector2(-1, 1);
+        FaceTarget(targetAttacker.transform.position);
 
         if (targetAttackersHealth != null)
         {
@@ -415,5 +423,21 @@ public class Defender : MonoBehaviour
         slashDamage += Mathf.RoundToInt(slashDamageAddOn);
         piercingDamage += Mathf.RoundToInt(piercingDamageAddOn);
         fireDamage += Mathf.RoundToInt(fireDamageAddOn);
+    }
+
+    public void FaceTarget(Vector2 targetPosition)
+    {
+        if (targetPosition.x < transform.position.x && transform.localScale.x != -1)
+            transform.localScale = new Vector2(-1, 1);
+        else if (targetPosition.x >= transform.position.x && transform.localScale.x != 1)
+            transform.localScale = new Vector2(1, 1);
+    }
+
+    public void FaceLocalTarget(Vector2 targetLocalPosition)
+    {
+        if (targetLocalPosition.x < transform.localPosition.x && transform.localScale.x != -1)
+            transform.localScale = new Vector2(-1, 1);
+        else if (targetLocalPosition.x >= transform.localPosition.x && transform.localScale.x != 1)
+            transform.localScale = new Vector2(1, 1);
     }
 }
