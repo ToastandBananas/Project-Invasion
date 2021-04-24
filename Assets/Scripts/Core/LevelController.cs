@@ -6,7 +6,6 @@ public class LevelController : MonoBehaviour
     [SerializeField] GameObject winCanvas, loseCanvas;
 
     [Header("Wave Info")]
-    public int waveNumber = 1;
     [SerializeField] int maxWaves = 5;
     public float waveDelay = 10f;
 
@@ -16,6 +15,7 @@ public class LevelController : MonoBehaviour
     [Header("Rewards")]
     public int upgradePointsReward = 100;
 
+    [HideInInspector] public int waveNumber = 1;
     [HideInInspector] public int numberOfAttackers = 0;
 
     AudioManager audioManager;

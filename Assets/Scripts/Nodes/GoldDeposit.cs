@@ -17,7 +17,9 @@ public class GoldDeposit : MonoBehaviour
     [HideInInspector] public bool occupied;
 
     bool canProduce;
-    
+    bool isDestroyed;
+
+    AudioManager audioManager;
     ResourceDisplay resourceDisplay;
 
     void Awake()
@@ -32,6 +34,7 @@ public class GoldDeposit : MonoBehaviour
 
         resourceNode = transform.GetComponentInParent<ResourceNode>();
         resourceDisplay = ResourceDisplay.instance;
+        audioManager = AudioManager.instance;
 
         GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(transform.position.y * -100);
     }
@@ -44,9 +47,24 @@ public class GoldDeposit : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && isDestroyed == false)
         {
             canProduce = false;
+            isDestroyed = true;
+
+            resourceNode.goldDeposits.Remove(this);
+            if (resourceNode.goldDeposits.Count == 0)
+            {
+                DefenderSpawner.instance.goldNodes.Remove(resourceNode);
+                DefenderSpawner.instance.RemoveNode(resourceNode.transform.position);
+
+                resourceNode.gameObject.SetActive(false);
+            }
+
+            Debug.Log("Smash");
+            audioManager.PlayRandomSound(audioManager.rockSmashSounds);
+            gameObject.SetActive(false);
+            // TODO: Animation for crumbling ore deposit
         }
     }
 }

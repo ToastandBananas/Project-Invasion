@@ -16,11 +16,12 @@ public class Skeleton : MonoBehaviour
         if (health.isDead)
             this.enabled = false;
 
-        if (attackerScript.isAttacking == false && attackerScript.currentDefenderAttacking != null
-            && Vector2.Distance(transform.position, attackerScript.currentDefenderAttacking.transform.position) <= attackerScript.minAttackDistance)
+        if (attackerScript.isAttacking == false)
         {
-            // Debug.Log(name + " is attacking " + defenderScript.targetAttacker.name);
-            attackerScript.Attack();
+            if (attackerScript.currentTargetDefender != null && Vector2.Distance(transform.position, attackerScript.currentTargetDefender.transform.position) <= attackerScript.minAttackDistance)
+            {
+                attackerScript.Attack();
+            }
         }
     }
 }

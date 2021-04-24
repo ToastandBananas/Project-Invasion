@@ -10,12 +10,15 @@ Sound Credits:
 - Battle Horn by Porphyr (https://freesound.org/people/Porphyr/sounds/188815/) Licenced under CC-BY 3.0
 - Battle Sound Effect by artisticdude (https://opengameart.org/content/battle-sound-effects) Licensed under CC-BY 3.0
 - Bow & bow2 by Hanbaal (https://freesound.org/people/Hanbaal/sounds/178872/)(https://freesound.org/people/Hanbaal/sounds/178873/) Licensed under CC0 1.0
+- Crowbar [pickaxe sounds] by damsur (https://freesound.org/people/damsur/sounds/443243/) Licensed under CC0 1.0
 - Fantasy Sound Effects Library by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/sounds/270405/) Licensed under CC-BY 3.0
 - Fireball Cast 1 by LiamG_SFX (https://freesound.org/people/LiamG_SFX/sounds/334234/) Licensed under CC-BY 3.0
 - Fireball Explosion by HighPixel (https://freesound.org/people/HighPixel/sounds/431174/) Licensed under CC0 1.0
 - Fleshy Fight Sounds by will_leamon (https://opengameart.org/content/fleshy-fight-sounds) Licensed under OGA-BY 3.0
 - Horror Sound Effects Library by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/packs/16688/) Licensed under CC-BY 3.0
 - Music: Orchestral Victory Fanfare by Sheyvan (https://freesound.org/people/Sheyvan/sounds/470083/) Licenced under CC-BY 3.0
+- Voices - Demon by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/packs/17723/) Licensed under CC-BY 3.0
+- Voices - Human by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/packs/17725/) Licensed under CC-BY 3.0
 - Red Eclipse Sounds by redeclipse (https://github.com/redeclipse/sounds) Licensed under CC-BY-SA 4.0
 - RPG Sound Pack by artisticdude (https://opengameart.org/content/rpg-sound-pack) Licensed under CC0 1.0
 - Throwing/Whip Effect by denao270 (https://freesound.org/people/denao270/sounds/346373/) Licensed under CC0 1.0

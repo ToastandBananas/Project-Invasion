@@ -36,7 +36,7 @@ public class Defender : MonoBehaviour
     [HideInInspector] public Laborer laborer;
 
     [HideInInspector] public Vector2 unitPosition;
-    [HideInInspector] public float minDistanceFromPosition = 0.025f;
+    [HideInInspector] public float minDistanceFromTargetPosition = 0.025f;
     float randomAttackOffsetY;
     Vector2 currentLocalPosition;
 
@@ -147,7 +147,7 @@ public class Defender : MonoBehaviour
     public void MoveUnitIntoPosition()
     {
         currentLocalPosition = transform.localPosition;
-        if (currentLocalPosition != unitPosition && Vector2.Distance(currentLocalPosition, unitPosition) > minDistanceFromPosition)
+        if (currentLocalPosition != unitPosition && Vector2.Distance(currentLocalPosition, unitPosition) > minDistanceFromTargetPosition)
         {
             isMoving = true;
             anim.SetBool("isMoving", true);
@@ -232,7 +232,7 @@ public class Defender : MonoBehaviour
         float knockbackDirection = -1f;
         for (int i = 0; i < squad.attackersNearby.Count; i++)
         {
-            if (squad.attackersNearby[i].currentDefenderAttacking == this)
+            if (squad.attackersNearby[i].currentTargetDefender == this)
             {
                 if (squad.attackersNearby[i].transform.position.x >= transform.position.x)
                     knockbackDirection = -1f;
@@ -252,7 +252,7 @@ public class Defender : MonoBehaviour
 
             transform.position = Vector2.MoveTowards(transform.position, knockbackDestination, knockbackSpeed * Time.deltaTime);
 
-            if (Vector2.Distance(transform.position, knockbackDestination) <= minDistanceFromPosition)
+            if (Vector2.Distance(transform.position, knockbackDestination) <= minDistanceFromTargetPosition)
                 isBeingKnockedBack = false;
 
             yield return null;
@@ -328,7 +328,7 @@ public class Defender : MonoBehaviour
 
         foreach (Attacker attacker in defender.squad.attackersNearby) // For each attacker in range of the defender who died...
         {
-            Defender theCurrentDefenderBeingAttacked = attacker.currentDefenderAttacking;
+            Defender theCurrentDefenderBeingAttacked = attacker.currentTargetDefender;
 
             if (attacker.opponents.Contains(defender))
                 attacker.opponents.Remove(defender);
@@ -342,13 +342,13 @@ public class Defender : MonoBehaviour
 
             if (theCurrentDefenderBeingAttacked == defender || theCurrentDefenderBeingAttacked == null) // If the attacker was fighting the defender who died (or if it became null somehow)
             {
-                attacker.currentDefenderAttacking = null;
+                attacker.currentTargetDefender = null;
                 attacker.currentTargetsHealth = null;
                 attacker.isAttacking = false;
 
                 if (attacker.opponents.Count > 0) // If the attacker already has another defender (opponent) attacking him
                 {
-                    attacker.currentDefenderAttacking = attacker.opponents[0];
+                    attacker.currentTargetDefender = attacker.opponents[0];
                     attacker.currentTargetsHealth = attacker.opponents[0].health;
                     if (Vector2.Distance(attacker.transform.position, attacker.opponents[0].transform.position) > attacker.minAttackDistance)
                         attacker.StopAttacking();
@@ -362,7 +362,7 @@ public class Defender : MonoBehaviour
                     if ((randomTargetIndex == defender.squad.units.Count || defender.squad.units.Count == 0) && attacker.opponents.Contains(defender.squad.leader) == false)
                     {
                         // Attack the squad's leader
-                        attacker.currentDefenderAttacking = defender.squad.leader;
+                        attacker.currentTargetDefender = defender.squad.leader;
                         attacker.currentTargetsHealth = defender.squad.leader.health;
                         attacker.opponents.Add(defender.squad.leader);
 
@@ -378,7 +378,7 @@ public class Defender : MonoBehaviour
                     else if (attacker.opponents.Contains(defender.squad.units[randomTargetIndex]) == false)
                     {
                         // Attack a random unit in the squad
-                        attacker.currentDefenderAttacking = defender.squad.units[randomTargetIndex];
+                        attacker.currentTargetDefender = defender.squad.units[randomTargetIndex];
                         attacker.currentTargetsHealth = defender.squad.units[randomTargetIndex].health;
                         attacker.opponents.Add(defender.squad.units[randomTargetIndex]);
 

@@ -158,8 +158,6 @@ public class AbilityIconController : MonoBehaviour
     {
         if (squad.squadType == SquadType.Archers)
             yield return new WaitForSeconds(squadData.archerRapidFireTime);
-        else
-            yield return new WaitForSeconds(20f);
 
         squad.abilityActive = false;
 

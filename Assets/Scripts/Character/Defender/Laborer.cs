@@ -32,7 +32,7 @@ public class Laborer : MonoBehaviour
         }
 
         // If the Laborer is not mining, but is close enough to his deposit, then start mining
-        if (isWorking == false && targetGoldDeposit != null && Vector2.Distance(transform.localPosition, defenderScript.unitPosition) <= defenderScript.minDistanceFromPosition)
+        if (isWorking == false && targetGoldDeposit != null && Vector2.Distance(transform.localPosition, defenderScript.unitPosition) <= defenderScript.minDistanceFromTargetPosition)
         {
             isWorking = true;
             defenderScript.anim.SetBool("isMining", true);
@@ -47,6 +47,8 @@ public class Laborer : MonoBehaviour
             health.SetMaxHealth(health.GetMaxHealth() + squadData.laborerHealth);
 
         health.SetCurrentHealthToMaxHealth();
+
+        defenderScript.anim.SetFloat("miningSpeed", squadData.laborerMiningSpeedMultiplier);
     }
 
     public void StopWorking()
@@ -71,6 +73,7 @@ public class Laborer : MonoBehaviour
         {
             hitsSinceResourceProduced = 0;
             targetGoldDeposit.ProduceGold();
+            TextPopup.CreateResourceGainPopup(transform.position + new Vector3(0f, 0.1f), targetGoldDeposit.goldAmountEarnedEachProductionCycle);
         }
     }
 }

@@ -76,7 +76,6 @@ MonoBehaviour:
   - {fileID: 3932850808275767506, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
   - {fileID: -444274776582976897, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
   - {fileID: 7265751164448541345, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
-  - {fileID: 3622816548171622154, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
   - {fileID: -4077561264862999367, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
   - {fileID: -8611577272318638862, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
   laborerSquadCurrentlyOnNode: {fileID: 0}

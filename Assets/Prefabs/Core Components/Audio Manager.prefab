@@ -179,7 +179,7 @@ MonoBehaviour:
   musicSounds:
   - soundName: Spring Village
     clip: {fileID: 8300000, guid: e1d67e063126f45478157c6b9e316632, type: 3}
-    volume: 0.5
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0
     randomPitchAddOn: 0
@@ -202,37 +202,108 @@ MonoBehaviour:
     loop: 0
   pickaxeSounds:
   - soundName: Pickaxe 1
-    clip: {fileID: 8300000, guid: 94673b115f1bf6543b936b5173a84d93, type: 3}
-    volume: 0.1
+    clip: {fileID: 8300000, guid: 59a8f06fabd20f545bcf9d9a5e7e34d7, type: 3}
+    volume: 0.25
     pitch: 1
-    randomVolumeAddOn: 0.025
+    randomVolumeAddOn: 0.1
     randomPitchAddOn: 0.1
+    loop: 0
+  - soundName: Pickaxe 2
+    clip: {fileID: 8300000, guid: 494b670e90a63eb4db97b8b3eda946fb, type: 3}
+    volume: 0.25
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.1
+    loop: 0
+  - soundName: Pickaxe 3
+    clip: {fileID: 8300000, guid: 33c7f095817c9204f93acc3b4d8f9f92, type: 3}
+    volume: 0.25
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.1
+    loop: 0
+  - soundName: Pickaxe 4
+    clip: {fileID: 8300000, guid: 67c9d07a3148c3848877428a98bc7c9b, type: 3}
+    volume: 0.25
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.1
+    loop: 0
+  - soundName: Pickaxe 5
+    clip: {fileID: 8300000, guid: 2caddfb20d04f254d8f163049ee6ff91, type: 3}
+    volume: 0.25
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.1
+    loop: 0
+  - soundName: Pickaxe 6
+    clip: {fileID: 8300000, guid: 39badcd0af12dcf499795b8f3cc7ed5a, type: 3}
+    volume: 0.25
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.1
+    loop: 0
+  - soundName: Pickaxe 7
+    clip: {fileID: 8300000, guid: 93a5b50b2bab22249a5a9d1499526d99, type: 3}
+    volume: 0.25
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.1
+    loop: 0
+  - soundName: Pickaxe 8
+    clip: {fileID: 8300000, guid: ef3df71549e1d654fbe08e49c2b1a823, type: 3}
+    volume: 0.25
+    pitch: 1
+    randomVolumeAddOn: 0.1
+    randomPitchAddOn: 0.1
+    loop: 0
+  rockSmashSounds:
+  - soundName: Rock Smash 2
+    clip: {fileID: 8300000, guid: db419ac5ca9bd564aae0e50ab58a1795, type: 3}
+    volume: 0.2
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.15
+    loop: 0
+  - soundName: Rock Smash 3
+    clip: {fileID: 8300000, guid: ee08702d660234c46aa526e8013dd097, type: 3}
+    volume: 0.2
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.15
+    loop: 0
+  - soundName: Rock Smash 4
+    clip: {fileID: 8300000, guid: 3a6af7eb7148ccd4a9e6f30423428781, type: 3}
+    volume: 0.2
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.15
     loop: 0
   swordSlashOpponentSounds:
   - soundName: Sword Hit 1
     clip: {fileID: 8300000, guid: 063c956152926a14ebcc83275d810bb8, type: 3}
-    volume: 0.05
+    volume: 0.075
     pitch: 1
     randomVolumeAddOn: 0.025
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Sword Hit 2
     clip: {fileID: 8300000, guid: e2973a2c88c4bb64392d4d6b4e7c6f0f, type: 3}
-    volume: 0.05
+    volume: 0.075
     pitch: 1
     randomVolumeAddOn: 0.025
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Sword Hit 3
     clip: {fileID: 8300000, guid: 86caf2fe79739bd4e9e85398a5bfca15, type: 3}
-    volume: 0.05
+    volume: 0.075
     pitch: 1
     randomVolumeAddOn: 0.025
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Sword Hit 4
     clip: {fileID: 8300000, guid: 9c4cecb839ef68346947c65755fc0a4d, type: 3}
-    volume: 0.05
+    volume: 0.075
     pitch: 1
     randomVolumeAddOn: 0.025
     randomPitchAddOn: 0.25
@@ -240,14 +311,14 @@ MonoBehaviour:
   swordStabOpponentSounds:
   - soundName: Sword Stab 1
     clip: {fileID: 8300000, guid: ae936a4419d1f7845af167803230ba36, type: 3}
-    volume: 0.05
+    volume: 0.075
     pitch: 1
     randomVolumeAddOn: 0.025
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Sword Stab 2
     clip: {fileID: 8300000, guid: f12f6010b29754b428310f211506ca2f, type: 3}
-    volume: 0.05
+    volume: 0.075
     pitch: 1
     randomVolumeAddOn: 0.025
     randomPitchAddOn: 0.25
@@ -255,7 +326,7 @@ MonoBehaviour:
   throwSounds:
   - soundName: Throw 1
     clip: {fileID: 8300000, guid: 3ff24fcbd590c364c95179bc56a0ec55, type: 3}
-    volume: 0.1
+    volume: 0.2
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
@@ -314,63 +385,63 @@ MonoBehaviour:
   humanMaleDeathSounds:
   - soundName: Human Male Death 1
     clip: {fileID: 8300000, guid: 523955d8af681a045aa6d05c5443dcd8, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Human Male Death 2
     clip: {fileID: 8300000, guid: eb98841c4798ec842b4c8ba47b231c2c, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Human Male Death 3
     clip: {fileID: 8300000, guid: 68c22a541d8e0124b877eb67e1424bf4, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Human Male Death 4
     clip: {fileID: 8300000, guid: 2fba598748057f04eae9d97970e52d36, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Human Male Death 6
     clip: {fileID: 8300000, guid: ab43c4e621f0f6f4c9541f0b4a86c5b1, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Human Male Death 7
     clip: {fileID: 8300000, guid: e2b4071aabbd59e4b92e866ec34c57b9, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Human Male Death 8
     clip: {fileID: 8300000, guid: eca5c74c70b8c2c408d00c5929a9b94e, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Human Male Death 9
     clip: {fileID: 8300000, guid: c6946f0a74a1dd945873202e2aa4c69d, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Human Male Death 10
     clip: {fileID: 8300000, guid: 3bba2c9e539a8c04faf44e00b56d705c, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25

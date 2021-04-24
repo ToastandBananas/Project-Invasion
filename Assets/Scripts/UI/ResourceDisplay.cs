@@ -106,7 +106,7 @@ public class ResourceDisplay : MonoBehaviour
         {
             gold -= amount;
             audioManager.PlayRandomSound(audioManager.goldSounds);
-            TextPopup.CreateResourcePopup(new Vector3(7.8f, 5.94f), -amount);
+            TextPopup.CreateResourceDisplayPopup(new Vector3(7.8f, 5.94f), -amount);
         }
     }
 
@@ -126,7 +126,7 @@ public class ResourceDisplay : MonoBehaviour
         if (HaveEnoughSupplies(amount))
         {
             supplies -= amount;
-            TextPopup.CreateResourcePopup(new Vector3(9.25f, 5.94f), -amount);
+            TextPopup.CreateResourceDisplayPopup(new Vector3(9.25f, 5.94f), -amount);
         }
     }
 

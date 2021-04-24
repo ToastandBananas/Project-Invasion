@@ -68,26 +68,33 @@ public class TextPopup : MonoBehaviour
         return damagePopup;
     }
     
-    // Create a resource popup for when the player gains or uses resources
-    public static TextPopup CreateResourcePopup(Vector3 position, float amount)
+    // Create a resource popup in the resource display for when the player uses resources
+    public static TextPopup CreateResourceDisplayPopup(Vector3 position, float amount)
     {
         TextPopup resourcePopup = textPopupObjectPool.GetPooledObject().GetComponent<TextPopup>();
 
-        resourcePopup.SetupResourcePopup(position, amount);
+        resourcePopup.SetupResourceDisplayPopup(position, amount);
 
         return resourcePopup;
     }
 
-    void SetupDamagePopup(Vector3 position, float damageAmount, bool isCriticalHit, bool isDefenderOrCastle)
+    // Create a resource popup next to Laborers when they gain gold or supplies
+    public static TextPopup CreateResourceGainPopup(Vector3 position, float amount)
     {
-        // Reset the size, move vector and disappear timer
-        transform.localScale = Vector3.one;
-        moveVector = new Vector3(0.2f, 0.4f);
-        disappearTimer = 0f;
+        TextPopup resourceGainPopup = textPopupObjectPool.GetPooledObject().GetComponent<TextPopup>();
+
+        resourceGainPopup.SetupResourceGainPopup(position, amount);
+
+        return resourceGainPopup;
+    }
+
+    void SetupDamagePopup(Vector3 position, float damageAmount, bool isCriticalHit, bool isDefenderOrStructure)
+    {
+        ResetPopup();
 
         textMesh.SetText(damageAmount.ToString());
 
-        if (isDefenderOrCastle)
+        if (isDefenderOrStructure)
         {
             // Defender being hit
             textColor = Utilities.HexToRGBAColor(defenderDefaultHitColor);
@@ -97,6 +104,8 @@ public class TextPopup : MonoBehaviour
             // Attacker being hit
             textColor = Utilities.HexToRGBAColor(attackerDefaultHitColor);
         }
+
+        textMesh.color = textColor;
 
         if (isCriticalHit)
         {
@@ -109,9 +118,6 @@ public class TextPopup : MonoBehaviour
             textMesh.fontSize = 1f;
         }
 
-        textMesh.color = textColor;
-        disappearTimer = DISAPPEAR_TIMER_MAX;
-
         sortingOrder++;
         textMesh.sortingOrder = sortingOrder;
 
@@ -119,12 +125,9 @@ public class TextPopup : MonoBehaviour
         transform.position = position;
     }
 
-    void SetupResourcePopup(Vector3 position, float amount)
+    void SetupResourceDisplayPopup(Vector3 position, float amount)
     {
-        // Reset the size, move vector and disappear timer
-        transform.localScale = Vector3.one;
-        moveVector = new Vector3(0.2f, 0.4f);
-        disappearTimer = 0f;
+        ResetPopup();
 
         if (amount > 0f) // Gaining resources
         {
@@ -143,14 +146,37 @@ public class TextPopup : MonoBehaviour
         }
         
         textMesh.fontSize = 1.4f;
-
         textMesh.color = textColor;
-        disappearTimer = DISAPPEAR_TIMER_MAX;
 
         sortingOrder++;
         textMesh.sortingOrder = sortingOrder;
 
         gameObject.SetActive(true);
         transform.position = position;
+    }
+
+    void SetupResourceGainPopup(Vector3 position, float amount)
+    {
+        ResetPopup();
+        
+        textMesh.SetText("+" + amount.ToString());
+        textColor = positiveValueColor;
+
+        textMesh.fontSize = 1f;
+        textMesh.color = textColor;
+
+        sortingOrder++;
+        textMesh.sortingOrder = sortingOrder;
+
+        gameObject.SetActive(true);
+        transform.position = position;
+    }
+
+    void ResetPopup()
+    {
+        // Reset the size, move vector and disappear timer
+        transform.localScale = Vector3.one;
+        moveVector = new Vector3(0.2f, 0.4f);
+        disappearTimer = DISAPPEAR_TIMER_MAX;
     }
 }

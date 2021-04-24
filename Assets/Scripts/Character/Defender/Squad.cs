@@ -187,7 +187,7 @@ public class Squad : MonoBehaviour
             Attacker attacker = myLaneSpawner.transform.GetChild(i).GetComponent<Attacker>();
             if (attacker != null && attacker.currentTargetsSquad == this)
             {
-                attacker.currentDefenderAttacking = null;
+                attacker.currentTargetDefender = null;
                 attacker.currentTargetsHealth = null;
                 attacker.currentTargetsSquad = null;
                 attacker.opponents.Clear();
@@ -290,7 +290,7 @@ public class Squad : MonoBehaviour
                             {
                                 // Send in the first defender
                                 defender.targetAttacker = attacker;
-                                attacker.currentDefenderAttacking = defender;
+                                attacker.currentTargetDefender = defender;
                                 attacker.opponents.Add(defender);
                                 totalDefendersAttackingAttacker++;
                             }
@@ -303,21 +303,21 @@ public class Squad : MonoBehaviour
                             }
                         }
 
-                        if (attacker.currentDefenderAttacking == null) // If the attacker's current target is still null at this point (because each unit already has a target), attack any random defender
+                        if (attacker.currentTargetDefender == null) // If the attacker's current target is still null at this point (because each unit already has a target), attack any random defender
                         {
                             int random = Random.Range(0, units.Count + 1); // We add one to account for the leader
 
                             if (random == units.Count) // Attack the leader of the squad
                             {
                                 attacker.opponents.Add(leader);
-                                attacker.currentDefenderAttacking = leader;
+                                attacker.currentTargetDefender = leader;
                                 if (leader.targetAttacker == null) // If the leader doesn't have a target, set its target to the attacker
                                     leader.targetAttacker = attacker;
                             }
                             else // Attack a random unit from the squad
                             {
                                 attacker.opponents.Add(units[random]);
-                                attacker.currentDefenderAttacking = units[random];
+                                attacker.currentTargetDefender = units[random];
                                 if (units[random].targetAttacker == null) // If the unit doesn't have a target, set its target to the attacker
                                     units[random].targetAttacker = attacker;
                             }
@@ -328,7 +328,7 @@ public class Squad : MonoBehaviour
                         if (leader.targetAttacker == null)
                             leader.targetAttacker = attacker;
 
-                        attacker.currentDefenderAttacking = leader;
+                        attacker.currentTargetDefender = leader;
                         attacker.opponents.Add(leader);
                         totalDefendersAttackingAttacker++;
                     }

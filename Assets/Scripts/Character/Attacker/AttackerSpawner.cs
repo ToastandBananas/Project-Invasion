@@ -59,11 +59,9 @@ public class AttackerSpawner : MonoBehaviour
     {
         levelController = LevelController.instance;
 
-        SetSpawnDelays();
-
         while (spawn)
         {
-            if (startNextWaveDelay)
+            if (startNextWaveDelay || levelController.waveNumber == 1)
             {
                 yield return new WaitForSeconds(levelController.waveDelay);
                 startNextWaveDelay = false;

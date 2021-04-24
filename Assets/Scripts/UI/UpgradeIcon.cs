@@ -5,9 +5,6 @@ using UnityEngine.UI;
 
 public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [Header("Squad Type To Upgrade")]
-    [SerializeField] SquadType squadType;
-
     [Header("Upgrade Points")]
     public int upgradePointsCost = 50;
 
@@ -50,6 +47,8 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
     [Header("Unlocked Already?")]
     public bool upgradeUnlocked;
+
+    [HideInInspector] public SquadType squadType;
 
     AudioManager audioManager;
     SquadData squadData;
@@ -117,7 +116,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (squadType == SquadType.Laborers)
         {
             if (miningSpeedMultiplier > 0f)
-                upgradeDescription.Append("Mining Speed Multiplier: <color=green>+" + (miningSpeedMultiplier * 100f).ToString() + "%</color>\n");
+                upgradeDescription.Append("Mining Speed: <color=green>+" + (miningSpeedMultiplier * 100f).ToString() + "%</color>\n");
         }
 
         // Knight Ability Upgrades
@@ -130,7 +129,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     + (squadData.defaultInspireMultiplier * 100f).ToString() + "% for " + squadData.defaultInspireTime.ToString() + " seconds).\n");
 
             if (inspireMultiplier > 0f)
-                upgradeDescription.Append("<i>Inspire</i> Benefits Multiplier: <color=green>+" + (inspireMultiplier * 100f).ToString() + "%</color>\n");
+                upgradeDescription.Append("<i>Inspire</i> Benefits: <color=green>+" + (inspireMultiplier * 100f).ToString() + "%</color>\n");
 
             if (inspireTime > 0f)
                 upgradeDescription.Append("<i>Inspire</i> Time: <color=green>+" + inspireTime.ToString() + " seconds</color>\n");
@@ -142,7 +141,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     + " seconds, ignoring all resistances).\n");
 
             if (thornsDamageMultiplier > 0f)
-                upgradeDescription.Append("<i>Thorns</i> Damage Multiplier: <color=green>+" + (thornsDamageMultiplier * 100f).ToString() + "%</color>\n");
+                upgradeDescription.Append("<i>Thorns</i> Damage: <color=green>+" + (thornsDamageMultiplier * 100f).ToString() + "%</color>\n");
 
             if (thornsTime > 0f)
                 upgradeDescription.Append("<i>Thorns</i> Time: <color=green>+" + thornsTime.ToString() + " seconds</color>\n");
@@ -181,7 +180,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     + "</b> will shoot fire arrows for the next " + squadData.defaultFireArrowTime.ToString() + " seconds).\n");
 
             if (fireArrowsDamageMultiplier > 0f)
-                upgradeDescription.Append("Increases damage for the <i>Fire Arrows</i> ability by a factor of <color=green>" + fireArrowsDamageMultiplier.ToString() + "</color>.\n");
+                upgradeDescription.Append("<i>Fire Arrows</i> Damage: <color=green>+" + fireArrowsDamageMultiplier.ToString() + "%</color>.\n");
 
             if (fireArrowsTime > 0f)
                 upgradeDescription.Append("<i>Fire Arrows</i> Time: <color=green>+" + fireArrowsTime.ToString() + " seconds</color>\n");
@@ -192,7 +191,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                     + "</b> will shoot twice as fast for the next " + squadData.defaultRapidFireTime.ToString() + " seconds).\n");
 
             if (rapidFireSpeedMultiplier > 0f)
-                upgradeDescription.Append("<i>Rapid Fire</i> Speed Multiplier: +<color=green>" + (rapidFireSpeedMultiplier * 100f).ToString() + "%</color>.\n");
+                upgradeDescription.Append("<i>Rapid Fire</i> Speed: <color=green>+" + (rapidFireSpeedMultiplier * 100f).ToString() + "%</color>.\n");
 
             if (rapidFireTime > 0f)
                 upgradeDescription.Append("<i>Rapid Fire</i> Time: <color=green>+" + rapidFireTime.ToString() + " seconds</color>\n");

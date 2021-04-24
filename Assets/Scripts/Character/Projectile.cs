@@ -120,11 +120,11 @@ public class Projectile : MonoBehaviour
                 collision.TryGetComponent<CastleCollider>(out CastleCollider castleCollider);
                 if (castleCollider != null)
                 {
-                    CastleHealth.instance.TakeHealth(myShooter.attacker.castleAttackDamage);
+                    CastleHealth.instance.TakeHealth(myShooter.attacker.buildingAttackDamage);
                     audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, true);
 
                     if (PlayerPrefsController.DamagePopupsEnabled())
-                        TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.castleAttackDamage, false, true);
+                        TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.buildingAttackDamage, false, true);
                 }
             }
         }

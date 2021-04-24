@@ -11,8 +11,8 @@ public class Lizard : MonoBehaviour
 
     void Update()
     {
-        if (attackerScript.isAttacking == false && attackerScript.currentDefenderAttacking != null
-            && Vector2.Distance(transform.position, attackerScript.currentDefenderAttacking.transform.position) <= 0.125f)//Mathf.Abs(attackerScript.currentDefenderAttacking.attackOffset.x))
+        if (attackerScript.isAttacking == false && attackerScript.currentTargetDefender != null
+            && Vector2.Distance(transform.position, attackerScript.currentTargetDefender.transform.position) <= 0.125f)//Mathf.Abs(attackerScript.currentDefenderAttacking.attackOffset.x))
         {
             attackerScript.Attack();
         }

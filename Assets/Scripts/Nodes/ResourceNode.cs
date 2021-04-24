@@ -9,8 +9,9 @@ public class ResourceNode : MonoBehaviour
 
     [HideInInspector] public Squad laborerSquadCurrentlyOnNode;
 
-    [HideInInspector] public List<GoldDeposit> goldDeposits;
-    [HideInInspector] public List<GoldDeposit> unoccupiedDeposits;
+    [HideInInspector] public List<GoldDeposit> goldDeposits = new List<GoldDeposit>();
+    [HideInInspector] public List<GoldDeposit> unoccupiedDeposits = new List<GoldDeposit>();
+    // [HideInInspector] public List<Attacker> attackersAttackingNode = new List<Attacker>();
 
     DefenderSpawner defenderSpawner;
 
@@ -47,12 +48,19 @@ public class ResourceNode : MonoBehaviour
                 goldDeposits[i].sr.sprite = goldDepositSprites[randomIndex];
                 goldDepositSprites.Remove(goldDepositSprites[randomIndex]);
             }
+
+            int coinToss = Random.Range(0, 2);
+            if (coinToss == 0)
+                goldDeposits[i].sr.flipX = false;
+            else
+                goldDeposits[i].sr.flipX = true;
         }
     }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.TryGetComponent<Defender>(out Defender defender);
+        collision.TryGetComponent(out Attacker attacker);
+        collision.TryGetComponent(out Defender defender);
 
         // If a laborer enters the square
         if (defender != null && defender.squad.squadType == SquadType.Laborers && defender.isRetreating == false)
@@ -83,5 +91,30 @@ public class ResourceNode : MonoBehaviour
 
             laborerSquadCurrentlyOnNode = defender.squad;
         }
+        else if (attacker != null && attacker.canAttackNodes) // If an attacker who can attack resource nodes enters the square
+        {
+            // attackersAttackingNode.Add(attacker);
+
+            // Set the Attacker's target Resource Node to this Node
+            attacker.currentTargetNode = this;
+
+            // Set the Attacker's target resource deposit to a random deposit within this Node
+            AssignTargetToAttacker(attacker);
+        }
     }
+
+    public void AssignTargetToAttacker(Attacker attacker)
+    {
+        if (resourceType == ResourceType.Gold && goldDeposits.Count > 0)
+            attacker.currentTargetGoldDeposit = goldDeposits[Random.Range(0, goldDeposits.Count)];
+        else
+            attacker.ClearTargetVariables();
+    }
+
+    /*void OnTriggerExit2D(Collider2D collision)
+    {
+        collision.TryGetComponent(out Attacker attacker);
+        if (attacker != null && attackersAttackingNode.Contains(attacker))
+            attackersAttackingNode.Remove(attacker);
+    }*/
 }

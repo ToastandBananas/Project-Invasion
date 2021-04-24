@@ -77,6 +77,7 @@ public class AudioManager : MonoBehaviour
 
     [Header("Pickaxe Sounds")]
     public Sound[] pickaxeSounds;
+    public Sound[] rockSmashSounds;
 
     [Header("Sword Sounds")]
     public Sound[] swordSlashOpponentSounds;
@@ -123,6 +124,7 @@ public class AudioManager : MonoBehaviour
         allSounds.Add(victorySounds);
         allSounds.Add(failSounds);
         allSounds.Add(pickaxeSounds);
+        allSounds.Add(rockSmashSounds);
         allSounds.Add(swordSlashOpponentSounds);
         allSounds.Add(swordStabOpponentSounds);
         allSounds.Add(throwSounds);

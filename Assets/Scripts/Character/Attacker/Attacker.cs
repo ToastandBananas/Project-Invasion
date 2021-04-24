@@ -19,11 +19,11 @@ public class Attacker : MonoBehaviour
     float currentSpeed = 1f;
     float knockbackSpeed = 1.25f;
     float knockbackDistance = 0.75f;
-    public bool isBeingKnockedBack;
+    public bool canAttackNodes;
 
     [Header("Weapon Info")]
     [SerializeField] MeleeWeaponType meleeWeaponType;
-    public float castleAttackDamage = 5f;
+    public float buildingAttackDamage = 5f;
     public float bluntDamage, slashDamage, piercingDamage, fireDamage;
     [HideInInspector] public float startingBluntDamage, startingSlashDamage, startingPiercingDamage, startingFireDamage;
     public bool shouldKnockback;
@@ -32,9 +32,12 @@ public class Attacker : MonoBehaviour
     public VoiceType voiceType;
 
     [HideInInspector] public List<Defender> opponents = new List<Defender>();
-    [HideInInspector] public Defender currentDefenderAttacking;
+
+    [HideInInspector] public Defender currentTargetDefender;
     [HideInInspector] public Health currentTargetsHealth;
     [HideInInspector] public Squad currentTargetsSquad;
+    [HideInInspector] public ResourceNode currentTargetNode;
+    [HideInInspector] public GoldDeposit currentTargetGoldDeposit;
 
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool isAttackingCastle;
@@ -43,7 +46,8 @@ public class Attacker : MonoBehaviour
     [HideInInspector] public Health health;
     [HideInInspector] public RangeCollider rangeCollider;
 
-    [HideInInspector] public float minDistanceFromPosition = 0.025f;
+    [HideInInspector] public bool isBeingKnockedBack;
+    [HideInInspector] public float minDistanceFromTargetPosition = 0.025f;
 
     AudioManager audioManager;
     Animator anim;
@@ -67,6 +71,15 @@ public class Attacker : MonoBehaviour
         StartCoroutine(Movement());
     }
 
+    void Update()
+    {
+        if (currentTargetNode != null && isAttacking == false)
+        {
+            if (currentTargetGoldDeposit != null && Vector2.Distance(transform.position, currentTargetGoldDeposit.transform.position) <= minAttackDistance)
+                Attack();
+        }
+    }
+
     void FixedUpdate()
     {
         if (health.isDead == false)
@@ -80,11 +93,18 @@ public class Attacker : MonoBehaviour
     {
         while (health.isDead == false)
         {
-            if (isBeingKnockedBack == false)
+            if (isBeingKnockedBack == false && isAttacking == false && isAttackingCastle == false)
             {
-                if (currentDefenderAttacking != null && Vector2.Distance(transform.position, currentDefenderAttacking.transform.position) > minAttackDistance && isAttacking == false && isAttackingCastle == false)
-                    MoveTowardsTarget();
-                else if (currentDefenderAttacking == null && isAttackingCastle == false)
+                if (currentTargetDefender != null && Vector2.Distance(transform.position, currentTargetDefender.transform.position) > minAttackDistance)
+                {
+                    MoveTowardsTarget(currentTargetDefender.transform.position);
+                }
+                else if (currentTargetNode != null)
+                {
+                    if (currentTargetGoldDeposit != null && Vector2.Distance(transform.position, currentTargetGoldDeposit.transform.position) > minAttackDistance)
+                        MoveTowardsTarget(currentTargetGoldDeposit.transform.position);
+                }
+                else if (currentTargetDefender == null && currentTargetNode == null)
                 {
                     transform.Translate(Vector2.left * currentSpeed * Time.deltaTime);
                     if (transform.localScale.x != 1)
@@ -111,12 +131,18 @@ public class Attacker : MonoBehaviour
         SetMovementSpeed(runSpeed);
     }
 
-    public void MoveTowardsTarget()
+    public void MoveTowardsTarget(Vector2 targetPosition)
     {
-        transform.position = Vector2.MoveTowards(transform.position, currentDefenderAttacking.transform.position, currentSpeed * Time.deltaTime);
-        if (transform.position.x <= currentDefenderAttacking.transform.position.x && transform.localScale.x != -1)
+        transform.position = Vector2.MoveTowards(transform.position, targetPosition, currentSpeed * Time.deltaTime);
+
+        FaceTarget(targetPosition);
+    }
+
+    void FaceTarget(Vector2 targetPosition)
+    {
+        if (transform.position.x <= targetPosition.x && transform.localScale.x != -1)
             transform.localScale = new Vector2(-1, 1);
-        else if (transform.position.x > currentDefenderAttacking.transform.position.x && transform.localScale.x != 1)
+        else if (transform.position.x > targetPosition.x && transform.localScale.x != 1)
             transform.localScale = new Vector2(1, 1);
     }
 
@@ -155,7 +181,7 @@ public class Attacker : MonoBehaviour
 
             transform.position = Vector2.MoveTowards(transform.position, knockbackDestination, knockbackSpeed * Time.deltaTime);
 
-            if (Vector2.Distance(transform.position, knockbackDestination) <= minDistanceFromPosition)
+            if (Vector2.Distance(transform.position, knockbackDestination) <= minDistanceFromTargetPosition)
                 isBeingKnockedBack = false;
 
             yield return null;
@@ -166,8 +192,8 @@ public class Attacker : MonoBehaviour
     {
         isAttacking = true;
         anim.SetBool("isAttacking", true);
-        if (currentDefenderAttacking != null)
-            currentTargetsHealth = currentDefenderAttacking.health;
+        if (currentTargetDefender != null)
+            currentTargetsHealth = currentTargetDefender.health;
     }
 
     public void StopAttacking()
@@ -179,11 +205,11 @@ public class Attacker : MonoBehaviour
 
     public void StrikeCurrentTarget()
     {
-        if (currentDefenderAttacking == null && isAttackingCastle == false) return;
+        if (currentTargetDefender == null && currentTargetNode == null && isAttackingCastle == false) return;
 
-        if (currentDefenderAttacking != null)
+        if (currentTargetDefender != null)
         {
-            if (transform.position.x <= currentDefenderAttacking.transform.position.x)
+            if (transform.position.x <= currentTargetDefender.transform.position.x)
                 transform.localScale = new Vector2(-1, 1);
             else
                 transform.localScale = new Vector2(1, 1);
@@ -192,10 +218,7 @@ public class Attacker : MonoBehaviour
             {
                 if (currentTargetsHealth.isDead)
                 {
-                    //opponents.Remove(currentDefenderAttacking);
-                    //currentTargetsHealth = null;
-                    //currentDefenderAttacking = null;
-                    currentDefenderAttacking.FindNewTargetForAttackers(currentDefenderAttacking);
+                    currentTargetDefender.FindNewTargetForAttackers(currentTargetDefender);
                     return;
                 }
 
@@ -206,12 +229,26 @@ public class Attacker : MonoBehaviour
                 currentTargetsHealth.TakeDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false, shouldKnockback);
             }
         }
-        else if (isAttackingCastle)
+        else if (currentTargetNode != null)
         {
-            castleHealth.TakeHealth(castleAttackDamage);
+            if (currentTargetGoldDeposit != null)
+            {
+                currentTargetGoldDeposit.TakeDamage(buildingAttackDamage);
+                if (currentTargetGoldDeposit.currentHealth <= 0)
+                {
+                    FindNewTargetDeposit();
+                }
+            }
 
             if (PlayerPrefsController.DamagePopupsEnabled())
-                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), castleAttackDamage, false, true);
+                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(0f, 0.15f)), buildingAttackDamage, false, true);
+        }
+        else if (isAttackingCastle)
+        {
+            castleHealth.TakeHealth(buildingAttackDamage);
+
+            if (PlayerPrefsController.DamagePopupsEnabled())
+                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), buildingAttackDamage, false, true);
 
             if (castleHealth.GetHealth() <= 0f)
             {
@@ -223,9 +260,24 @@ public class Attacker : MonoBehaviour
         audioManager.PlayMeleeHitSound(meleeWeaponType);
     }
 
+    void FindNewTargetDeposit()
+    {
+        currentTargetNode.AssignTargetToAttacker(this);
+    }
+
+    public void ClearTargetVariables()
+    {
+        currentTargetDefender = null;
+        currentTargetsSquad = null;
+        currentTargetsHealth = null;
+        currentTargetNode = null;
+        currentTargetGoldDeposit = null;
+        //StopAttacking();
+    }
+
     void UpdateAnimationState()
     {
-        if (currentDefenderAttacking == null && isAttackingCastle == false)
+        if (currentTargetDefender == null && isAttackingCastle == false)
             StopAttacking();
     }
 
@@ -236,14 +288,14 @@ public class Attacker : MonoBehaviour
 
     public void FindNewTargetForDefenders(Attacker attacker)
     {
-        if (attacker.currentDefenderAttacking != null)
+        if (attacker.currentTargetDefender != null)
         {
             // Remove the dead attacker from the attackersInRange list
-            if (attacker.currentDefenderAttacking.squad.attackersNearby.Contains(attacker))
-                attacker.currentDefenderAttacking.squad.attackersNearby.Remove(attacker);
+            if (attacker.currentTargetDefender.squad.attackersNearby.Contains(attacker))
+                attacker.currentTargetDefender.squad.attackersNearby.Remove(attacker);
 
-            if (attacker.currentDefenderAttacking.squad.rangeCollider != null && attacker.currentDefenderAttacking.squad.rangeCollider.attackersInRange.Contains(attacker))
-                attacker.currentDefenderAttacking.squad.rangeCollider.attackersInRange.Remove(attacker);
+            if (attacker.currentTargetDefender.squad.rangeCollider != null && attacker.currentTargetDefender.squad.rangeCollider.attackersInRange.Contains(attacker))
+                attacker.currentTargetDefender.squad.rangeCollider.attackersInRange.Remove(attacker);
 
             foreach (Defender opponent in attacker.opponents)
             {
@@ -253,7 +305,7 @@ public class Attacker : MonoBehaviour
             }
 
             // Find new target if possible (for the defender that killed this attacker)
-            if (attacker.currentDefenderAttacking.squad.attackersNearby.Count > 0)
+            if (attacker.currentTargetDefender.squad.attackersNearby.Count > 0)
             {
                 foreach (Defender opponent in attacker.opponents)
                 {
@@ -262,8 +314,8 @@ public class Attacker : MonoBehaviour
             }
             else // If there are no more attackers nearby, reorganize the squad
             {
-                attacker.currentDefenderAttacking.squad.AssignUnitPositions();
-                attacker.currentDefenderAttacking.squad.AssignLeaderPosition();
+                attacker.currentTargetDefender.squad.AssignUnitPositions();
+                attacker.currentTargetDefender.squad.AssignLeaderPosition();
             }
         }
         else
