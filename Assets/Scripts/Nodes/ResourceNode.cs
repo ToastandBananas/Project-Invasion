@@ -5,7 +5,7 @@ public class ResourceNode : MonoBehaviour
 {
     public ResourceType resourceType;
 
-    public List<Sprite> goldDepositSprites;
+    public List<RuntimeAnimatorController> goldDepositAnimatorControllers = new List<RuntimeAnimatorController>();
 
     [HideInInspector] public Squad laborerSquadCurrentlyOnNode;
 
@@ -44,9 +44,9 @@ public class ResourceNode : MonoBehaviour
         {
             if (resourceType == ResourceType.Gold)
             {
-                int randomIndex = Random.Range(0, goldDepositSprites.Count);
-                goldDeposits[i].sr.sprite = goldDepositSprites[randomIndex];
-                goldDepositSprites.Remove(goldDepositSprites[randomIndex]);
+                int randomIndex = Random.Range(0, goldDepositAnimatorControllers.Count);
+                goldDeposits[i].anim.runtimeAnimatorController = goldDepositAnimatorControllers[randomIndex];
+                goldDepositAnimatorControllers.Remove(goldDepositAnimatorControllers[randomIndex]);
             }
 
             int coinToss = Random.Range(0, 2);

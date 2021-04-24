@@ -78,6 +78,8 @@ MonoBehaviour:
   - {fileID: 7265751164448541345, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
   - {fileID: -4077561264862999367, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
   - {fileID: -8611577272318638862, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
+  goldDepositAnimatorControllers:
+  - {fileID: 9100000, guid: 127dbb695d6cb184bab619c29ffe56d9, type: 2}
   laborerSquadCurrentlyOnNode: {fileID: 0}
   goldDeposits: []
   unoccupiedDeposits: []

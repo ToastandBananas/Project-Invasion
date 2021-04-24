@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3547214081358913462}
   - component: {fileID: 5075302718265835943}
+  - component: {fileID: -8137551225027961605}
   - component: {fileID: 6968218598544714480}
   m_Layer: 0
   m_Name: Gold Deposit 3
@@ -84,6 +85,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &-8137551225027961605
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5421677003721451796}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 127dbb695d6cb184bab619c29ffe56d9, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &6968218598544714480
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +116,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfd5ea2fa73787c41818dd53b379b620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHealth: 100
+  currentHealth: 0
+  startingMaxHealth: 0
   miningXOffset: 0.125
+  hitsToProduceGold: 4
+  goldAmountEarnedEachProductionCycle: 20
+  anim: {fileID: 0}
+  sr: {fileID: 0}
   resourceNode: {fileID: 0}
   occupied: 0

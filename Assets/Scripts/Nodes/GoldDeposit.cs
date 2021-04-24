@@ -12,6 +12,7 @@ public class GoldDeposit : MonoBehaviour
     public int hitsToProduceGold = 4;
     public int goldAmountEarnedEachProductionCycle = 20;
 
+    [HideInInspector] public Animator anim;
     [HideInInspector] public SpriteRenderer sr;
     [HideInInspector] public ResourceNode resourceNode;
     [HideInInspector] public bool occupied;
@@ -24,6 +25,7 @@ public class GoldDeposit : MonoBehaviour
 
     void Awake()
     {
+        anim = GetComponent<Animator>();
         sr = GetComponent<SpriteRenderer>();
     }
 
@@ -36,7 +38,7 @@ public class GoldDeposit : MonoBehaviour
         resourceDisplay = ResourceDisplay.instance;
         audioManager = AudioManager.instance;
 
-        GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(transform.position.y * -100);
+        sr.sortingOrder = Mathf.RoundToInt(transform.position.y * -100);
     }
 
     public void ProduceGold()
@@ -47,24 +49,29 @@ public class GoldDeposit : MonoBehaviour
     public void TakeDamage(float damageAmount)
     {
         currentHealth -= damageAmount;
+
         if (currentHealth <= 0 && isDestroyed == false)
+            DestroyDeposit();
+    }
+
+    void DestroyDeposit()
+    {
+        canProduce = false;
+        isDestroyed = true;
+
+        resourceNode.goldDeposits.Remove(this);
+        if (resourceNode.goldDeposits.Count == 0)
         {
-            canProduce = false;
-            isDestroyed = true;
+            DefenderSpawner.instance.goldNodes.Remove(resourceNode);
+            DefenderSpawner.instance.RemoveNode(resourceNode.transform.position);
 
-            resourceNode.goldDeposits.Remove(this);
-            if (resourceNode.goldDeposits.Count == 0)
-            {
-                DefenderSpawner.instance.goldNodes.Remove(resourceNode);
-                DefenderSpawner.instance.RemoveNode(resourceNode.transform.position);
-
-                resourceNode.gameObject.SetActive(false);
-            }
-
-            Debug.Log("Smash");
-            audioManager.PlayRandomSound(audioManager.rockSmashSounds);
-            gameObject.SetActive(false);
-            // TODO: Animation for crumbling ore deposit
+            resourceNode.gameObject.GetComponent<BoxCollider2D>().enabled = false;
+            resourceNode.enabled = false;
         }
+
+        audioManager.PlayRandomSound(audioManager.rockSmashSounds);
+        // gameObject.SetActive(false);
+        // TODO: Animation for crumbling ore deposit
+        anim.SetBool("isDestroyed", true);
     }
 }
