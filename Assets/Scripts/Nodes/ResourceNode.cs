@@ -31,7 +31,7 @@ public class ResourceNode : MonoBehaviour
 
         for (int i = 0; i < goldDepositCount; i++)
         {
-            ResourceDeposit goldDeposit = Instantiate(gameAssets.goldDeposits[i], transform);
+            ResourceDeposit goldDeposit = Instantiate(gameAssets.goldDeposit, transform);
             resourceDepositCount++;
 
             int randomIndex = Random.Range(0, possibleDepositSpawnLocations.Count);
@@ -137,6 +137,14 @@ public class ResourceNode : MonoBehaviour
 
             if (isCloseEnough) myLaneSpawner = spawner;
         }
+    }
+
+    void OnDrawGizmos()
+    {
+        #if UNITY_EDITOR
+            if (Application.isPlaying == false)
+                Gizmos.DrawIcon(transform.position, "GoldDeposit_Icon.png", true);
+        #endif
     }
 
     /*void OnTriggerExit2D(Collider2D collision)

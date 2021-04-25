@@ -59,6 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   textPopup: {fileID: 5728257308560493625, guid: d6e3f96b614a5314db0c5f459d0cd778, type: 3}
+  goldDeposit: {fileID: 3136547286202961453, guid: a50e9ec12ee070645b1223fc12bfa1f6, type: 3}
   goldDepositAnimatorControllers:
   - {fileID: 9100000, guid: 127dbb695d6cb184bab619c29ffe56d9, type: 2}
   - {fileID: 9100000, guid: d9bcf7a7ec2b97e49b51ecba0d19fbf6, type: 2}

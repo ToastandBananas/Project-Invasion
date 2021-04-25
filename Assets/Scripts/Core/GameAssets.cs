@@ -6,9 +6,9 @@ public class GameAssets : MonoBehaviour
     [Header("Effects")]
     public Transform textPopup;
 
-    [Header("Resource Deposit Animator Controllers")]
+    [Header("Resource Deposits")]
+    public ResourceDeposit goldDeposit;
     public List<RuntimeAnimatorController> goldDepositAnimatorControllers = new List<RuntimeAnimatorController>();
-    public List<ResourceDeposit> goldDeposits = new List<ResourceDeposit>();
 
     #region Singleton
     public static GameAssets instance;
