@@ -16,14 +16,13 @@ public class ResourceNode : MonoBehaviour
 
     DefenderSpawner defenderSpawner;
 
-    int resourceDepositCount;
-
     void Start()
     {
         SetLaneSpawner();
 
         defenderSpawner = DefenderSpawner.instance;
-        resourceDepositCount = transform.childCount;
+
+        int resourceDepositCount = transform.childCount;
 
         if (resourceType == ResourceType.Gold)
         {

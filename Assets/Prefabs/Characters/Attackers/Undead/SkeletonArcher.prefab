@@ -125,7 +125,7 @@ MonoBehaviour:
   runSpeed: 0.5
   canAttackNodes: 1
   meleeWeaponType: 2
-  buildingAttackDamage: 5
+  buildingAttackDamage: 3
   bluntDamage: 0
   slashDamage: 0
   piercingDamage: 4
@@ -203,7 +203,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 30
   startingMaxHealth: 0
-  currentHealth: 100
+  currentHealth: 30
   bluntResistance: -0.5
   slashResistance: 0
   piercingResistance: 0.5

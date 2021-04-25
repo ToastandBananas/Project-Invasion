@@ -123,9 +123,9 @@ MonoBehaviour:
   minAttackDistance: 0.125
   maxOpponents: 2
   runSpeed: 0.3
-  isBeingKnockedBack: 0
+  canAttackNodes: 0
   meleeWeaponType: 1
-  castleAttackDamage: 12
+  buildingAttackDamage: 5
   bluntDamage: 10
   slashDamage: 0
   piercingDamage: 0
@@ -137,14 +137,18 @@ MonoBehaviour:
   shouldKnockback: 0
   voiceType: 2
   opponents: []
-  currentDefenderAttacking: {fileID: 0}
+  currentTargetDefender: {fileID: 0}
   currentTargetsHealth: {fileID: 0}
   currentTargetsSquad: {fileID: 0}
+  currentTargetNode: {fileID: 0}
+  currentTargetGoldDeposit: {fileID: 0}
   isAttacking: 0
   isAttackingCastle: 0
   myAttackerSpawner: {fileID: 0}
   health: {fileID: 0}
   rangeCollider: {fileID: 0}
+  isBeingKnockedBack: 0
+  minDistanceFromTargetPosition: 0.025
 --- !u!114 &1901521501687944946
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +207,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 150
   startingMaxHealth: 0
-  currentHealth: 100
+  currentHealth: 150
   bluntResistance: -0.5
   slashResistance: 0
   piercingResistance: 0.5

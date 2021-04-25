@@ -18,8 +18,6 @@ public class DefenderSpawner : MonoBehaviour
     Defender defender;
     ResourceDisplay currencyDisplay;
     Vector2 mouseHoverTilePos;
-    int defaultSortingOrder = 5;
-    int castleWallSortingOrder = 15;
 
     Color defaultColor = new Color(1f, 1f, 1f, 1f); // White
     Color invalidColor = new Color(1f, 0f, 0f, 0.4f); // Red and opaque
@@ -62,11 +60,6 @@ public class DefenderSpawner : MonoBehaviour
             if (ghostImageSquad != null)
             {
                 mouseHoverTilePos = GetSquareClicked();
-
-                if (mouseHoverTilePos.x < 0.5f)
-                    ghostImageSquad.SetSortingOrder(castleWallSortingOrder);
-                else
-                    ghostImageSquad.SetSortingOrder(defaultSortingOrder);
 
                 // If hovering over a resource node with a non-laborer squad (therefore an invalid position)
                 if (IsCellOccupiedByResourceNode(mouseHoverTilePos) && ghostImageSquad.squadType != SquadType.Laborers)

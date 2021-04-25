@@ -36,8 +36,8 @@ public class Attacker : MonoBehaviour
     [HideInInspector] public Defender currentTargetDefender;
     [HideInInspector] public Health currentTargetsHealth;
     [HideInInspector] public Squad currentTargetsSquad;
-    public ResourceNode currentTargetNode;
-    public GoldDeposit currentTargetGoldDeposit;
+    [HideInInspector] public ResourceNode currentTargetNode;
+    [HideInInspector] public GoldDeposit currentTargetGoldDeposit;
 
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool isAttackingCastle;
@@ -193,7 +193,12 @@ public class Attacker : MonoBehaviour
         isAttacking = true;
         anim.SetBool("isAttacking", true);
         if (currentTargetDefender != null)
+        {
             currentTargetsHealth = currentTargetDefender.health;
+
+            if (currentTargetDefender.targetAttacker == null)
+                currentTargetDefender.targetAttacker = this;
+        }
     }
 
     public void StopAttacking()

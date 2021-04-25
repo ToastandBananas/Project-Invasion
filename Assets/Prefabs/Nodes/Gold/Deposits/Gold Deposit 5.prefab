@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6520765548885914112}
   - component: {fileID: 7870087550148924369}
   - component: {fileID: -2791500065247779783}
-  - component: {fileID: 7735508657948178037}
+  - component: {fileID: 1324725347501247943}
   - component: {fileID: 8981695790858328407}
   m_Layer: 0
   m_Name: Gold Deposit 5
@@ -127,8 +127,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &7735508657948178037
-PolygonCollider2D:
+--- !u!58 &1324725347501247943
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -137,34 +137,12 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2857143, y: 0.2857143}
-    newSize: {x: 0.2857143, y: 0.2857143}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.036178887, y: 0.11016734}
-      - {x: 0.0019589774, y: 0.10950951}
-      - {x: -0.04617496, y: 0.027742047}
-      - {x: -0.09182048, y: 0.0077789873}
-      - {x: -0.101644486, y: -0.042971767}
-      - {x: -0.0671026, y: -0.08551155}
-      - {x: -0.031129286, y: -0.08188104}
-      - {x: 0.01044035, y: -0.07790286}
-      - {x: 0.026764616, y: -0.101926796}
-      - {x: 0.07368801, y: -0.09982846}
-      - {x: 0.10223086, y: -0.0673531}
-      - {x: 0.09822686, y: -0.01863278}
-      - {x: 0.076233365, y: 0.060517862}
+  m_Offset: {x: -0.008408383, y: -0.006806776}
+  serializedVersion: 2
+  m_Radius: 0.13069609
 --- !u!114 &8981695790858328407
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -180,10 +158,11 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   startingMaxHealth: 0
-  miningXOffset: 0.125
+  miningXOffset: 0.185
   hitsToProduceGold: 4
   goldAmountEarnedEachProductionCycle: 20
   anim: {fileID: 0}
   sr: {fileID: 0}
+  myLaborer: {fileID: 0}
   resourceNode: {fileID: 0}
   occupied: 0

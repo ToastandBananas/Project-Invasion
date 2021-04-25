@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6955301434933555402}
   - component: {fileID: -2682960590870819400}
   - component: {fileID: -4212819951371431052}
-  - component: {fileID: 6728009441659781672}
+  - component: {fileID: 5730616421012139328}
   - component: {fileID: 2943616861868008769}
   m_Layer: 0
   m_Name: Gold Deposit 2
@@ -127,8 +127,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!60 &6728009441659781672
-PolygonCollider2D:
+--- !u!58 &5730616421012139328
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -137,36 +137,12 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.2857143, y: 0.2857143}
-    newSize: {x: 0.2857143, y: 0.2857143}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Points:
-    m_Paths:
-    - - {x: 0.085486226, y: -0.007583961}
-      - {x: 0.08142774, y: 0.04773961}
-      - {x: 0.035020705, y: 0.10041486}
-      - {x: -0.0040185377, y: 0.101215616}
-      - {x: -0.034385756, y: 0.05301854}
-      - {x: -0.038986355, y: -0.00088487566}
-      - {x: -0.08359809, y: -0.00007147994}
-      - {x: -0.101215616, y: -0.019019306}
-      - {x: -0.09781693, y: -0.0687249}
-      - {x: -0.077477574, y: -0.08366954}
-      - {x: -0.02837076, y: -0.083669536}
-      - {x: -0.011830047, y: -0.06375165}
-      - {x: 0.06722316, y: -0.07182878}
-      - {x: 0.09961404, y: -0.077406086}
-      - {x: 0.10682122, y: -0.050965194}
+  m_Offset: {x: -0.008408383, y: -0.006806776}
+  serializedVersion: 2
+  m_Radius: 0.13069609
 --- !u!114 &2943616861868008769
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,10 +158,11 @@ MonoBehaviour:
   maxHealth: 100
   currentHealth: 0
   startingMaxHealth: 0
-  miningXOffset: 0.125
+  miningXOffset: 0.185
   hitsToProduceGold: 4
   goldAmountEarnedEachProductionCycle: 20
   anim: {fileID: 0}
   sr: {fileID: 0}
+  myLaborer: {fileID: 0}
   resourceNode: {fileID: 0}
   occupied: 0

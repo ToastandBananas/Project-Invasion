@@ -6,7 +6,7 @@ public class Health : MonoBehaviour
     [Header("Stats")]
     [SerializeField] float maxHealth = 100f;
     [HideInInspector] public float startingMaxHealth;
-    [SerializeField] float currentHealth = 100f;
+    float currentHealth;
     [Range(-1f, 1f)] public float bluntResistance, slashResistance, piercingResistance, fireResistance;
 
     [Header("Damage Particle Effect")]
@@ -25,8 +25,7 @@ public class Health : MonoBehaviour
     BoxCollider2D boxCollider;
     SpriteRenderer spriteRenderer;
     Transform deadCharactersParent;
-
-    float finalDamageAmount;
+    
     const string EFFECTS_PARENT_NAME = "Effects";
     Transform effectsParent;
     ObjectPool damageEffectObjectPool;
@@ -88,7 +87,7 @@ public class Health : MonoBehaviour
 
     public void TakeDamage(float bluntDamage, float slashDamage, float piercingDamage, float fireDamage, bool ignoreResistances, bool knockback)
     {
-        finalDamageAmount = 0f;
+        float finalDamageAmount = 0f;
         if (ignoreResistances == false)
         {
             if (bluntDamage > 0f) finalDamageAmount += GetDamageAmount(bluntDamage, bluntResistance);
@@ -123,7 +122,7 @@ public class Health : MonoBehaviour
             FindNewTargetForOpponent();
             Die();
         }
-        else if (knockback && currentHealth > 0f)
+        else if (knockback && currentHealth > 0f) // If being knocked back
         {
             if (defender != null && defender.isLarge == false)
                 StartCoroutine(defender.Knockback());

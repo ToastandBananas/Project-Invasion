@@ -37,8 +37,6 @@ public class Defender : MonoBehaviour
 
     [HideInInspector] public Vector2 unitPosition;
     [HideInInspector] public float minDistanceFromTargetPosition = 0.025f;
-    float randomAttackOffsetY;
-    Vector2 currentLocalPosition;
 
     AudioManager audioManager;
     ResourceDisplay currencyDisplay;
@@ -52,8 +50,6 @@ public class Defender : MonoBehaviour
 
     void Start()
     {
-        randomAttackOffsetY = Random.Range(-0.15f, 0.15f);
-
         audioManager = AudioManager.instance;
         currencyDisplay = ResourceDisplay.instance;
         anim = GetComponent<Animator>();
@@ -151,7 +147,7 @@ public class Defender : MonoBehaviour
 
     public void MoveUnitIntoPosition()
     {
-        currentLocalPosition = transform.localPosition;
+        Vector2 currentLocalPosition = transform.localPosition;
         if (currentLocalPosition != unitPosition && Vector2.Distance(currentLocalPosition, unitPosition) > minDistanceFromTargetPosition)
         {
             isMoving = true;
@@ -268,7 +264,17 @@ public class Defender : MonoBehaviour
     {
         isAttacking = true;
         anim.SetBool("isAttacking", true);
-        targetAttackersHealth = targetAttacker.health;
+
+        if (targetAttacker != null)
+        {
+            targetAttackersHealth = targetAttacker.health;
+
+            if (targetAttacker.currentTargetDefender == null)
+            {
+                targetAttacker.currentTargetDefender = this;
+                targetAttacker.currentTargetsSquad = squad;
+            }
+        }
     }
 
     public void StopAttacking()
