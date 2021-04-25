@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 3547214081358913462}
   - component: {fileID: 5075302718265835943}
   - component: {fileID: -8137551225027961605}
+  - component: {fileID: 4622402172993393822}
+  - component: {fileID: 7316805929488449006}
   - component: {fileID: 6968218598544714480}
   m_Layer: 0
   m_Name: Gold Deposit 3
@@ -74,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 7265751164448541345, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
+  m_Sprite: {fileID: -7107633501313116467, guid: 85ceb36c48a004240905a919bd1f8521, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.22916667, y: 0.22222222}
+  m_Size: {x: 0.2857143, y: 0.2857143}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -95,7 +97,7 @@ Animator:
   m_GameObject: {fileID: 5421677003721451796}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 127dbb695d6cb184bab619c29ffe56d9, type: 2}
+  m_Controller: {fileID: 9100000, guid: ef57ac19837f83346a58479fe336d12f, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -104,6 +106,67 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &4622402172993393822
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5421677003721451796}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!60 &7316805929488449006
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5421677003721451796}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.2857143, y: 0.2857143}
+    newSize: {x: 0.2857143, y: 0.2857143}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.0510519, y: 0.013236791}
+      - {x: 0.01816465, y: 0.034126043}
+      - {x: 0.01820394, y: 0.06517972}
+      - {x: -0.049664058, y: 0.11723159}
+      - {x: -0.085636854, y: 0.06422971}
+      - {x: -0.090386786, y: 0.024280757}
+      - {x: -0.07582309, y: 0.008724704}
+      - {x: -0.10121563, y: -0.011282652}
+      - {x: -0.099614024, y: -0.063063204}
+      - {x: -0.06306323, y: -0.102888696}
+      - {x: -0.0022366494, y: -0.09954568}
+      - {x: 0.029330403, y: -0.07922355}
+      - {x: 0.05170908, y: -0.09087673}
+      - {x: 0.10762201, y: -0.08701569}
+      - {x: 0.11082522, y: -0.046160404}
 --- !u!114 &6968218598544714480
 MonoBehaviour:
   m_ObjectHideFlags: 0

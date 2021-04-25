@@ -89,13 +89,13 @@ public class DefenderSpawner : MonoBehaviour
                     SetupInvalidPosition();
                 }
                 // If hovering over a normal tile with a squad selected
-                else if (IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x >= 0.5f && mouseHoverTilePos.x <= 7.5f && mouseHoverTilePos.y >= 0.5f && mouseHoverTilePos.y <= 5.5f)
+                else if (IsCellOccupied(mouseHoverTilePos) == false && IsWithinBounds())
                 {
                     ShowLeader();
                     SetupValidPosition();
                 }
                 // If hovering over a castle wall tile with a ranged squad selected
-                else if (ghostImageSquad.isRangedUnit && IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x < 0.5f)
+                else if (ghostImageSquad.isRangedUnit && IsCellOccupied(mouseHoverTilePos) == false && mouseHoverTilePos.x < 0.5f && mouseHoverTilePos.y <= 5.5f && mouseHoverTilePos.y >= 0.5f)
                 {
                     HideLeader();
                     SetupValidPosition();
@@ -171,7 +171,7 @@ public class DefenderSpawner : MonoBehaviour
         if (ghostImageSquad == null)
             return;
 
-        if (currencyDisplay.HaveEnoughGold(squad.GetGoldCost()) && currencyDisplay.HaveEnoughSupplies(squad.GetSuppliesCost()))
+        if (currencyDisplay.HaveEnoughGold(squad.GetGoldCost()) && currencyDisplay.HaveEnoughSupplies(squad.GetSuppliesCost()) && (IsWithinBounds() || IsWithinCastleBounds()))
         {
             if (ghostImageSquad.squadType != SquadType.Laborers && IsCellOccupied(coordinates) == false && IsCellOccupiedByResourceNode(coordinates) == false)
             {
@@ -208,7 +208,7 @@ public class DefenderSpawner : MonoBehaviour
     IEnumerator PlaceSquad(Vector2 coordinates)
     {
         // If trying to place a ranged squad on the wall, swap out the current ghost squad for it's wall version
-        if (coordinates.x < 1f)
+        if (mouseHoverTilePos.x < 1f)
         {
             Squad oldGhostImageSquad = ghostImageSquad;
             ghostImageSquad = Instantiate(squad.castleWallVersionOfSquad, coordinates, Quaternion.identity);
@@ -331,6 +331,22 @@ public class DefenderSpawner : MonoBehaviour
         hoverPos = Camera.main.ScreenToWorldPoint(hoverPos);
         ghostImageSquad.transform.position = hoverPos;
         SetGhostImageColor(invalidColor);
+    }
+
+    bool IsWithinBounds()
+    {
+        if (mouseHoverTilePos.x >= 0.5f && mouseHoverTilePos.x <= 7.5f && mouseHoverTilePos.y >= 0.5f && mouseHoverTilePos.y <= 5.5f)
+            return true;
+
+        return false;
+    }
+    
+    bool IsWithinCastleBounds()
+    {
+        if (mouseHoverTilePos.x < 1f && mouseHoverTilePos.y >= 0.5f && mouseHoverTilePos.y <= 5.5f)
+            return true;
+
+        return false;
     }
 
     public bool IsCellOccupied(Vector2 gridPosition)

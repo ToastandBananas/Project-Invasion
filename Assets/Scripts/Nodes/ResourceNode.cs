@@ -8,6 +8,7 @@ public class ResourceNode : MonoBehaviour
     public List<RuntimeAnimatorController> goldDepositAnimatorControllers = new List<RuntimeAnimatorController>();
 
     [HideInInspector] public Squad laborerSquadCurrentlyOnNode;
+    [HideInInspector] public AttackerSpawner myLaneSpawner;
 
     [HideInInspector] public List<GoldDeposit> goldDeposits = new List<GoldDeposit>();
     [HideInInspector] public List<GoldDeposit> unoccupiedDeposits = new List<GoldDeposit>();
@@ -19,6 +20,8 @@ public class ResourceNode : MonoBehaviour
 
     void Start()
     {
+        SetLaneSpawner();
+
         defenderSpawner = DefenderSpawner.instance;
         resourceDepositCount = transform.childCount;
 
@@ -81,7 +84,10 @@ public class ResourceNode : MonoBehaviour
 
             // Set the Laborer's target deposit to this one
             if (resourceType == ResourceType.Gold)
+            {
                 defender.GetComponent<Laborer>().targetGoldDeposit = unoccupiedDeposits[randomIndex];
+                unoccupiedDeposits[randomIndex].myLaborer = defender;
+            }
 
             //Set occupied to true for the deposit
             unoccupiedDeposits[randomIndex].occupied = true;
@@ -109,6 +115,18 @@ public class ResourceNode : MonoBehaviour
             attacker.currentTargetGoldDeposit = goldDeposits[Random.Range(0, goldDeposits.Count)];
         else
             attacker.ClearTargetVariables();
+    }
+
+    void SetLaneSpawner()
+    {
+        AttackerSpawner[] attackerSpawners = FindObjectsOfType<AttackerSpawner>();
+
+        foreach (AttackerSpawner spawner in attackerSpawners)
+        {
+            bool isCloseEnough = (Mathf.Abs(spawner.transform.position.y - transform.position.y) <= Mathf.Epsilon);
+
+            if (isCloseEnough) myLaneSpawner = spawner;
+        }
     }
 
     /*void OnTriggerExit2D(Collider2D collision)

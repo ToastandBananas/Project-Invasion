@@ -11,6 +11,8 @@ GameObject:
   - component: {fileID: 2371763833491932189}
   - component: {fileID: 2371763833491932187}
   - component: {fileID: -7768141877331363789}
+  - component: {fileID: 4147567086206024220}
+  - component: {fileID: 2302980251582383773}
   - component: {fileID: 3136547286202961453}
   m_Layer: 0
   m_Name: Gold Deposit 1
@@ -74,12 +76,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 3932850808275767506, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
+  m_Sprite: {fileID: 2906423344547426340, guid: 06fe15762d37baf4fb01216b8f3311e0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.22916667, y: 0.22222222}
+  m_Size: {x: 0.2857143, y: 0.2857143}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,6 +106,64 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &4147567086206024220
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2371763833491932188}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
+--- !u!60 &2302980251582383773
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2371763833491932188}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.3809524, y: 0.3809524}
+    newSize: {x: 0.2857143, y: 0.2857143}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.05745828, y: 0.018842384}
+      - {x: 0.05420059, y: 0.07096277}
+      - {x: 0.012598347, y: 0.11482923}
+      - {x: -0.049664058, y: 0.11723159}
+      - {x: -0.08003126, y: 0.013779417}
+      - {x: -0.10625343, y: 0.009525508}
+      - {x: -0.12363799, y: -0.012083455}
+      - {x: -0.1124268, y: -0.07907918}
+      - {x: -0.09509516, y: -0.11730307}
+      - {x: 0.07413144, y: -0.107693486}
+      - {x: 0.12604038, y: -0.102230854}
+      - {x: 0.10682122, y: -0.050965194}
 --- !u!114 &3136547286202961453
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -122,6 +182,7 @@ MonoBehaviour:
   miningXOffset: 0.125
   hitsToProduceGold: 4
   goldAmountEarnedEachProductionCycle: 20
+  anim: {fileID: 0}
   sr: {fileID: 0}
   resourceNode: {fileID: 0}
   occupied: 0

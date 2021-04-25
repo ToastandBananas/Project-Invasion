@@ -36,8 +36,8 @@ public class Attacker : MonoBehaviour
     [HideInInspector] public Defender currentTargetDefender;
     [HideInInspector] public Health currentTargetsHealth;
     [HideInInspector] public Squad currentTargetsSquad;
-    [HideInInspector] public ResourceNode currentTargetNode;
-    [HideInInspector] public GoldDeposit currentTargetGoldDeposit;
+    public ResourceNode currentTargetNode;
+    public GoldDeposit currentTargetGoldDeposit;
 
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool isAttackingCastle;
@@ -234,10 +234,9 @@ public class Attacker : MonoBehaviour
             if (currentTargetGoldDeposit != null)
             {
                 currentTargetGoldDeposit.TakeDamage(buildingAttackDamage);
+
                 if (currentTargetGoldDeposit.currentHealth <= 0)
-                {
                     FindNewTargetDeposit();
-                }
             }
 
             if (PlayerPrefsController.DamagePopupsEnabled())
@@ -260,7 +259,7 @@ public class Attacker : MonoBehaviour
         audioManager.PlayMeleeHitSound(meleeWeaponType);
     }
 
-    void FindNewTargetDeposit()
+    public void FindNewTargetDeposit()
     {
         currentTargetNode.AssignTargetToAttacker(this);
     }
@@ -272,7 +271,6 @@ public class Attacker : MonoBehaviour
         currentTargetsHealth = null;
         currentTargetNode = null;
         currentTargetGoldDeposit = null;
-        //StopAttacking();
     }
 
     void UpdateAnimationState()

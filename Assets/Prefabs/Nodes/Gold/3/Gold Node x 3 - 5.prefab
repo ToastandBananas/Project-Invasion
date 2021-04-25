@@ -74,12 +74,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resourceType: 0
-  goldDepositSprites:
-  - {fileID: 3932850808275767506, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
-  - {fileID: -444274776582976897, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
-  - {fileID: 7265751164448541345, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
-  - {fileID: -4077561264862999367, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
-  - {fileID: -8611577272318638862, guid: 59ffbb40e5594c746afb32562ab65ecd, type: 3}
+  goldDepositAnimatorControllers:
+  - {fileID: 9100000, guid: 127dbb695d6cb184bab619c29ffe56d9, type: 2}
+  - {fileID: 9100000, guid: d9bcf7a7ec2b97e49b51ecba0d19fbf6, type: 2}
+  - {fileID: 9100000, guid: ef57ac19837f83346a58479fe336d12f, type: 2}
+  - {fileID: 9100000, guid: 1a9c56f8bdd8f8e4ba5ded512e0f3dfe, type: 2}
+  - {fileID: 9100000, guid: ff5c25d28f2ecce48996e03e2712f242, type: 2}
   laborerSquadCurrentlyOnNode: {fileID: 0}
   goldDeposits: []
   unoccupiedDeposits: []

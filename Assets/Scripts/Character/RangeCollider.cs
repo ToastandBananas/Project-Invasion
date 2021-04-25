@@ -24,28 +24,42 @@ public class RangeCollider : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (squad != null && collision.TryGetComponent<Attacker>(out Attacker enemyAttacker))
+        if (squad != null && collision.TryGetComponent(out Attacker enemyAttacker))
         {
             attackersInRange.Add(enemyAttacker);
         }
-        else if (collision.TryGetComponent<Defender>(out Defender enemyDefender))
+        else if (attacker != null)
         {
-            if (attacker.myAttackerSpawner == enemyDefender.squad.myLaneSpawner)
-                defendersInRange.Add(enemyDefender);
+            if (collision.TryGetComponent(out Defender enemyDefender))
+            {
+                if (attacker.myAttackerSpawner == enemyDefender.squad.myLaneSpawner)
+                    defendersInRange.Add(enemyDefender);
+            }
+            else if (attacker.canAttackNodes && collision.TryGetComponent(out GoldDeposit goldDeposit))
+            {
+                if (attacker.myAttackerSpawner == goldDeposit.resourceNode.myLaneSpawner)
+                {
+                    attacker.currentTargetNode = goldDeposit.resourceNode;
+                    attacker.currentTargetGoldDeposit = goldDeposit;
+                }
+            }
         }
     }
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (squad != null && collision.TryGetComponent<Attacker>(out Attacker enemyAttacker))
+        if (squad != null && collision.TryGetComponent(out Attacker enemyAttacker))
         {
             if (attackersInRange.Contains(enemyAttacker))
                 attackersInRange.Remove(enemyAttacker);
         }
-        else if (collision.TryGetComponent<Defender>(out Defender enemyDefender))
+        else if (attacker != null)
         {
-            if (defendersInRange.Contains(enemyDefender))
-                defendersInRange.Remove(enemyDefender);
+            if (collision.TryGetComponent(out Defender enemyDefender))
+            {
+                if (defendersInRange.Contains(enemyDefender))
+                    defendersInRange.Remove(enemyDefender);
+            }
         }
     }
 }

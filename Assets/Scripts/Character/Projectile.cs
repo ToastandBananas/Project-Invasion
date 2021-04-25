@@ -103,8 +103,8 @@ public class Projectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        collision.TryGetComponent<Attacker>(out Attacker attacker);
-        collision.TryGetComponent<Defender>(out Defender defender);
+        collision.TryGetComponent(out Attacker attacker);
+        collision.TryGetComponent(out Defender defender);
 
         if (gameObject.activeInHierarchy)
         {
@@ -113,18 +113,64 @@ public class Projectile : MonoBehaviour
             {
                 Health health = collision.GetComponent<Health>();
 
-                if (health != null) StartCoroutine(HitTarget(health));
+                if (health != null)
+                    StartCoroutine(HitTarget(health, false));
+                else
+                    Deactivate();
             }
             else if (myShooter.attacker != null) // If this is an attacker
             {
-                collision.TryGetComponent<CastleCollider>(out CastleCollider castleCollider);
-                if (castleCollider != null)
+                if (myShooter.attacker.canAttackNodes && myShooter.attacker.currentTargetNode != null) // If attacking a Resource Node
                 {
-                    CastleHealth.instance.TakeHealth(myShooter.attacker.buildingAttackDamage);
-                    audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, true);
+                    if (myShooter.attacker.currentTargetGoldDeposit != null) // If attacking a Gold Deposit
+                    {
+                        collision.TryGetComponent(out GoldDeposit goldDeposit);
+                        if (goldDeposit != null && goldDeposit.resourceNode.myLaneSpawner == myShooter.attacker.myAttackerSpawner)
+                        {
+                            HitTarget(null, true);
 
-                    if (PlayerPrefsController.DamagePopupsEnabled())
-                        TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.buildingAttackDamage, false, true);
+                            goldDeposit.TakeDamage(myShooter.attacker.buildingAttackDamage);
+
+                            // Retreat the laborers if the deposit is getting attacked
+                            foreach (GoldDeposit deposit in goldDeposit.resourceNode.goldDeposits)
+                            {
+                                if (deposit.myLaborer != null)
+                                {
+                                    if (deposit.myLaborer.isRetreating == false)
+                                        deposit.myLaborer.squad.Retreat();
+
+                                    deposit.myLaborer = null;
+                                }
+                            }
+
+                            // If the gold deposit is destroyed, find new target deposits for each Attacker attacking this gold deposit
+                            if (goldDeposit.currentHealth <= 0)
+                            {
+                                for (int i = 0; i < myShooter.attacker.myAttackerSpawner.transform.childCount; i++)
+                                {
+                                    Attacker attackerInLane = myShooter.attacker.myAttackerSpawner.transform.GetChild(i).GetComponent<Attacker>();
+                                    if (attackerInLane.currentTargetGoldDeposit == goldDeposit)
+                                        attackerInLane.FindNewTargetDeposit();
+                                }
+                            }
+
+                            if (PlayerPrefsController.DamagePopupsEnabled())
+                                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.buildingAttackDamage, false, true);
+                        }
+                    }
+                }
+                else // If attacking the castle
+                {
+                    collision.TryGetComponent(out CastleCollider castleCollider);
+                    if (castleCollider != null)
+                    {
+                        HitTarget(null, true);
+
+                        CastleHealth.instance.TakeHealth(myShooter.attacker.buildingAttackDamage);
+
+                        if (PlayerPrefsController.DamagePopupsEnabled())
+                            TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.buildingAttackDamage, false, true);
+                    }
                 }
             }
         }
@@ -151,14 +197,15 @@ public class Projectile : MonoBehaviour
         Deactivate();
     }
 
-    IEnumerator HitTarget(Health health)
+    IEnumerator HitTarget(Health health, bool isAttackingBuilding)
     {
         moveProjectile = false;
 
         // Reduce health
-        health.TakeDamage(myShooter.bluntDamage, 0, myShooter.piercingDamage, myShooter.fireDamage, false, myShooter.shouldKnockback);
+        if (health != null)
+            health.TakeDamage(myShooter.bluntDamage, 0, myShooter.piercingDamage, myShooter.fireDamage, false, myShooter.shouldKnockback);
         
-        audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, false);
+        audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, isAttackingBuilding);
 
         // For projectiles that have an animation, such as a fireball
         if (anim != null)

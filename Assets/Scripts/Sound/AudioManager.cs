@@ -309,13 +309,13 @@ public class AudioManager : MonoBehaviour
             PlayRandomSound(swordStabOpponentSounds);
     }
 
-    public void PlayRangedHitSound(RangedWeaponType weaponType, bool isAttackingCastle)
+    public void PlayRangedHitSound(RangedWeaponType weaponType, bool isAttackingBuilding)
     {
         if (weaponType == RangedWeaponType.Fireball)
             PlayRandomSound(fireballHitSounds);
         else
         {
-            if (isAttackingCastle == false)
+            if (isAttackingBuilding == false)
                 PlayRandomSound(arrowHitOpponentSounds);
             else
                 PlayRandomSound(arrowHitWallSounds);

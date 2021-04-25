@@ -96,7 +96,6 @@ public class Defender : MonoBehaviour
 
     public IEnumerator Retreat()
     {
-        sr.sortingOrder = -650;
         isRetreating = true;
         isAttacking = false;
         isMoving = true;
@@ -125,9 +124,15 @@ public class Defender : MonoBehaviour
             if (transform.position.x > 0.25f || (transform.position.x <= 0.25 && transform.position.y >= 2.9f && transform.position.y <= 3.1f))
                 transform.Translate(Vector2.left * runSpeed * 2 * Time.deltaTime); // Retreat double the speed
             else if (transform.position.x <= 0.25f && transform.position.y < 2.9f)
+            {
+                sr.sortingOrder = -650;
                 transform.Translate(Vector2.up * runSpeed * 2 * Time.deltaTime);
+            }
             else if (transform.position.x <= 0.25f && transform.position.y > 3.1f)
+            {
+                sr.sortingOrder = -650;
                 transform.Translate(Vector2.down * runSpeed * 2 * Time.deltaTime);
+            }
 
             if (transform.position.x <= -2.25f)
             {

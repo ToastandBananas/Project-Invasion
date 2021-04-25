@@ -29,7 +29,6 @@ public class Shooter : MonoBehaviour
     AudioManager audioManager;
     Animator anim;
     CastleCollider castleCollider;
-    int randomIndex;
 
     void Start()
     {
@@ -64,7 +63,7 @@ public class Shooter : MonoBehaviour
     void FixedUpdate()
     {
         if ((defender != null && Vector2.Distance(transform.localPosition, defender.unitPosition) <= defender.minDistanceFromTargetPosition && defender.squad.squadPlaced && defender.isRetreating == false && defender.squad.rangeCollider.attackersInRange.Count > 0 && defender.squad.attackersNearby.Count == 0)
-            || (attacker != null && (attacker.rangeCollider.defendersInRange.Count > 0 || isShootingCastle)) && transform.position.x < 9.5f)
+            || (attacker != null && (attacker.rangeCollider.defendersInRange.Count > 0 || isShootingCastle || attacker.currentTargetGoldDeposit != null)) && transform.position.x < 9.5f)
         {
             if (anim.GetBool("isShooting") == false)
                 StartCoroutine(StartShooting());
@@ -91,31 +90,49 @@ public class Shooter : MonoBehaviour
         newProjectile.transform.position = gun.transform.position;
         newProjectile.transform.rotation = transform.rotation;
         newProjectile.myShooter = this;
-        
-        if (defender != null)
+
+        int randomIndex = 0;
+        if (defender != null && defender.squad.rangeCollider.attackersInRange.Count > 0)
             randomIndex = Random.Range(0, defender.squad.rangeCollider.attackersInRange.Count);
-        else if (attacker != null)
+        else if (attacker != null && attacker.rangeCollider.defendersInRange.Count > 0)
             randomIndex = Random.Range(0, attacker.rangeCollider.defendersInRange.Count);
 
         if (defender != null && defender.squad.rangeCollider.attackersInRange.Count > randomIndex)
         {
-            newProjectile.target = defender.squad.rangeCollider.attackersInRange[randomIndex].transform;
-            newProjectile.targetPos = newProjectile.target.position;
+            AssignTargetToProjectile(newProjectile, defender.squad.rangeCollider.attackersInRange[randomIndex].transform);
             StartCoroutine(newProjectile.ShootProjectile());
         }
-        else if (attacker != null && attacker.rangeCollider.defendersInRange.Count > randomIndex)
+        else if (attacker != null)
         {
-            newProjectile.target = attacker.rangeCollider.defendersInRange[randomIndex].transform;
-            newProjectile.targetPos = newProjectile.target.position;
-            StartCoroutine(newProjectile.ShootProjectile());
-        }
-        else if (isShootingCastle)
-        {
-            newProjectile.targetPos = new Vector3(Random.Range(-0.2f, 0f), transform.position.y);
-            StartCoroutine(newProjectile.ShootProjectile());
+            if (attacker.rangeCollider.defendersInRange.Count > randomIndex)
+            {
+                AssignTargetToProjectile(newProjectile, attacker.rangeCollider.defendersInRange[randomIndex].transform);
+                StartCoroutine(newProjectile.ShootProjectile());
+            }
+            else if (attacker.currentTargetNode != null)
+            {
+                if (attacker.currentTargetGoldDeposit != null)
+                {
+                    AssignTargetToProjectile(newProjectile, attacker.currentTargetGoldDeposit.transform);
+                    StartCoroutine(newProjectile.ShootProjectile());
+                }
+            }
+            else if (isShootingCastle)
+            {
+                newProjectile.targetPos = new Vector3(Random.Range(-0.2f, 0f), transform.position.y);
+                StartCoroutine(newProjectile.ShootProjectile());
+            }
+            else
+                newProjectile.Deactivate();
         }
         else
             newProjectile.Deactivate();
+    }
+
+    void AssignTargetToProjectile(Projectile projectile, Transform target)
+    {
+        projectile.target = target;
+        projectile.targetPos = target.position;
     }
 
     // For use as a keyframe in the shooter's animation

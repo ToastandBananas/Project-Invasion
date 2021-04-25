@@ -14,7 +14,10 @@ public class GoldDeposit : MonoBehaviour
 
     [HideInInspector] public Animator anim;
     [HideInInspector] public SpriteRenderer sr;
+
+    [HideInInspector] public Defender myLaborer;
     [HideInInspector] public ResourceNode resourceNode;
+
     [HideInInspector] public bool occupied;
 
     bool canProduce;
@@ -65,13 +68,12 @@ public class GoldDeposit : MonoBehaviour
             DefenderSpawner.instance.goldNodes.Remove(resourceNode);
             DefenderSpawner.instance.RemoveNode(resourceNode.transform.position);
 
-            resourceNode.gameObject.GetComponent<BoxCollider2D>().enabled = false;
-            resourceNode.enabled = false;
+            Destroy(resourceNode.gameObject, 1f);
         }
 
         audioManager.PlayRandomSound(audioManager.rockSmashSounds);
-        // gameObject.SetActive(false);
-        // TODO: Animation for crumbling ore deposit
         anim.SetBool("isDestroyed", true);
+
+        Destroy(gameObject, 1f);
     }
 }
