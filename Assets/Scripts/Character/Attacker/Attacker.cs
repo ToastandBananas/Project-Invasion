@@ -37,7 +37,7 @@ public class Attacker : MonoBehaviour
     [HideInInspector] public Health currentTargetsHealth;
     [HideInInspector] public Squad currentTargetsSquad;
     [HideInInspector] public ResourceNode currentTargetNode;
-    [HideInInspector] public GoldDeposit currentTargetGoldDeposit;
+    [HideInInspector] public ResourceDeposit currentTargetResourceDeposit;
 
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool isAttackingCastle;
@@ -75,7 +75,7 @@ public class Attacker : MonoBehaviour
     {
         if (currentTargetNode != null && isAttacking == false)
         {
-            if (currentTargetGoldDeposit != null && Vector2.Distance(transform.position, currentTargetGoldDeposit.transform.position) <= minAttackDistance)
+            if (currentTargetResourceDeposit != null && Vector2.Distance(transform.position, currentTargetResourceDeposit.transform.position) <= minAttackDistance)
                 Attack();
         }
     }
@@ -101,8 +101,8 @@ public class Attacker : MonoBehaviour
                 }
                 else if (currentTargetNode != null)
                 {
-                    if (currentTargetGoldDeposit != null && Vector2.Distance(transform.position, currentTargetGoldDeposit.transform.position) > minAttackDistance)
-                        MoveTowardsTarget(currentTargetGoldDeposit.transform.position);
+                    if (currentTargetResourceDeposit != null && Vector2.Distance(transform.position, currentTargetResourceDeposit.transform.position) > minAttackDistance)
+                        MoveTowardsTarget(currentTargetResourceDeposit.transform.position);
                 }
                 else if (currentTargetDefender == null && currentTargetNode == null)
                 {
@@ -236,11 +236,11 @@ public class Attacker : MonoBehaviour
         }
         else if (currentTargetNode != null)
         {
-            if (currentTargetGoldDeposit != null)
+            if (currentTargetResourceDeposit != null)
             {
-                currentTargetGoldDeposit.TakeDamage(buildingAttackDamage);
+                currentTargetResourceDeposit.TakeDamage(buildingAttackDamage);
 
-                if (currentTargetGoldDeposit.currentHealth <= 0)
+                if (currentTargetResourceDeposit.currentHealth <= 0)
                     FindNewTargetDeposit();
             }
 
@@ -275,7 +275,7 @@ public class Attacker : MonoBehaviour
         currentTargetsSquad = null;
         currentTargetsHealth = null;
         currentTargetNode = null;
-        currentTargetGoldDeposit = null;
+        currentTargetResourceDeposit = null;
     }
 
     void UpdateAnimationState()

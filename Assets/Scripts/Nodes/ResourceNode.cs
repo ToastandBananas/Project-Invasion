@@ -3,59 +3,69 @@ using UnityEngine;
 
 public class ResourceNode : MonoBehaviour
 {
-    public ResourceType resourceType;
-
-    public List<RuntimeAnimatorController> goldDepositAnimatorControllers = new List<RuntimeAnimatorController>();
+    [Header("Resource Counts")]
+    public int goldDepositCount;
+    public int suppliesDepositCount;
+    
+    [Header("Spawn Locations")]
+    public List<Vector2> possibleDepositSpawnLocations = new List<Vector2>();
 
     [HideInInspector] public Squad laborerSquadCurrentlyOnNode;
     [HideInInspector] public AttackerSpawner myLaneSpawner;
 
-    [HideInInspector] public List<GoldDeposit> goldDeposits = new List<GoldDeposit>();
-    [HideInInspector] public List<GoldDeposit> unoccupiedDeposits = new List<GoldDeposit>();
+    [HideInInspector] public List<ResourceDeposit> resourceDeposits = new List<ResourceDeposit>();
+    [HideInInspector] public List<ResourceDeposit> unoccupiedResourceDeposits = new List<ResourceDeposit>();
     // [HideInInspector] public List<Attacker> attackersAttackingNode = new List<Attacker>();
 
     DefenderSpawner defenderSpawner;
+    GameAssets gameAssets;
 
     void Start()
     {
         SetLaneSpawner();
 
         defenderSpawner = DefenderSpawner.instance;
+        gameAssets = GameAssets.instance;
 
-        int resourceDepositCount = transform.childCount;
+        int resourceDepositCount = 0;
 
-        if (resourceType == ResourceType.Gold)
+        for (int i = 0; i < goldDepositCount; i++)
         {
-            for (int i = 0; i < resourceDepositCount; i++)
-            {
-                goldDeposits.Add(transform.GetChild(i).GetComponent<GoldDeposit>());
-            }
+            ResourceDeposit goldDeposit = Instantiate(gameAssets.goldDeposits[i], transform);
+            resourceDepositCount++;
 
-            for (int i = 0; i < goldDeposits.Count; i++)
-            {
-                unoccupiedDeposits.Add(goldDeposits[i]);
-            }
+            int randomIndex = Random.Range(0, possibleDepositSpawnLocations.Count);
+            goldDeposit.transform.localPosition = possibleDepositSpawnLocations[randomIndex];
+            possibleDepositSpawnLocations.Remove(possibleDepositSpawnLocations[randomIndex]);
+        }
+
+        //int resourceDepositCount = transform.childCount;
+        
+        for (int i = 0; i < resourceDepositCount; i++)
+        {
+            resourceDeposits.Add(transform.GetChild(i).GetComponent<ResourceDeposit>());
+            unoccupiedResourceDeposits.Add(resourceDeposits[i]);
         }
 
         // Add this node to our list of nodes
         defenderSpawner.AddNode(transform.position);
-        defenderSpawner.goldNodes.Add(this);
+        defenderSpawner.resourceNodes.Add(this);
 
         // Choose a random sprite
-        for (int i = 0; i < resourceDepositCount; i++)
+        for (int i = 0; i < resourceDeposits.Count; i++)
         {
-            if (resourceType == ResourceType.Gold)
+            if (resourceDeposits[i].resourceType == ResourceType.Gold)
             {
-                int randomIndex = Random.Range(0, goldDepositAnimatorControllers.Count);
-                goldDeposits[i].anim.runtimeAnimatorController = goldDepositAnimatorControllers[randomIndex];
-                goldDepositAnimatorControllers.Remove(goldDepositAnimatorControllers[randomIndex]);
+                int randomIndex = Random.Range(0, gameAssets.goldDepositAnimatorControllers.Count);
+                resourceDeposits[i].anim.runtimeAnimatorController = gameAssets.goldDepositAnimatorControllers[randomIndex];
+                //gameAssets.goldDepositAnimatorControllers.Remove(gameAssets.goldDepositAnimatorControllers[randomIndex]);
             }
 
             int coinToss = Random.Range(0, 2);
             if (coinToss == 0)
-                goldDeposits[i].sr.flipX = false;
+                resourceDeposits[i].sr.flipX = false;
             else
-                goldDeposits[i].sr.flipX = true;
+                resourceDeposits[i].sr.flipX = true;
         }
     }
 
@@ -67,34 +77,35 @@ public class ResourceNode : MonoBehaviour
         // If a laborer enters the square
         if (defender != null && defender.squad.squadType == SquadType.Laborers && defender.isRetreating == false)
         {
-            // Choose a random deposit
-            int randomIndex = Random.Range(0, unoccupiedDeposits.Count);
-
-            // Get a random x offset for the Laborer's new unit position we will be assigning it
-            float coinToss = Random.Range(0, 2);
-            float xOffset;
-            if (coinToss == 0)
-                xOffset = unoccupiedDeposits[randomIndex].miningXOffset;
-            else
-                xOffset = -unoccupiedDeposits[randomIndex].miningXOffset;
-
-            // Set the Laborer's unit position to the left or right of the deposit
-            defender.unitPosition = unoccupiedDeposits[randomIndex].transform.localPosition + new Vector3(xOffset, 0);
-
-            // Set the Laborer's target deposit to this one
-            if (resourceType == ResourceType.Gold)
+            Laborer laborer = defender.GetComponent<Laborer>();
+            if (laborer.targetResourceDeposit == null && unoccupiedResourceDeposits.Count > 0)
             {
-                defender.GetComponent<Laborer>().targetGoldDeposit = unoccupiedDeposits[randomIndex];
-                unoccupiedDeposits[randomIndex].myLaborer = defender;
+                // Choose a random deposit
+                int randomIndex = Random.Range(0, unoccupiedResourceDeposits.Count);
+
+                // Get a random x offset for the Laborer's new unit position we will be assigning it
+                float coinToss = Random.Range(0, 2);
+                float xOffset;
+                if (coinToss == 0)
+                    xOffset = unoccupiedResourceDeposits[randomIndex].miningXOffset;
+                else
+                    xOffset = -unoccupiedResourceDeposits[randomIndex].miningXOffset;
+
+                // Set the Laborer's unit position to the left or right of the deposit
+                defender.unitPosition = unoccupiedResourceDeposits[randomIndex].transform.localPosition + new Vector3(xOffset, 0);
+
+                // Set the Laborer's target deposit to this one
+                laborer.targetResourceDeposit = unoccupiedResourceDeposits[randomIndex];
+                unoccupiedResourceDeposits[randomIndex].myLaborer = defender;
+
+                //Set occupied to true for the deposit
+                unoccupiedResourceDeposits[randomIndex].occupied = true;
+
+                // Remove the deposit from our list of unoccupied deposits
+                unoccupiedResourceDeposits.Remove(unoccupiedResourceDeposits[randomIndex]);
+
+                laborerSquadCurrentlyOnNode = defender.squad;
             }
-
-            //Set occupied to true for the deposit
-            unoccupiedDeposits[randomIndex].occupied = true;
-
-            // Remove the deposit from our list of unoccupied deposits
-            unoccupiedDeposits.Remove(unoccupiedDeposits[randomIndex]);
-
-            laborerSquadCurrentlyOnNode = defender.squad;
         }
         else if (attacker != null && attacker.canAttackNodes) // If an attacker who can attack resource nodes enters the square
         {
@@ -110,8 +121,8 @@ public class ResourceNode : MonoBehaviour
 
     public void AssignTargetToAttacker(Attacker attacker)
     {
-        if (resourceType == ResourceType.Gold && goldDeposits.Count > 0)
-            attacker.currentTargetGoldDeposit = goldDeposits[Random.Range(0, goldDeposits.Count)];
+        if (resourceDeposits.Count > 0)
+            attacker.currentTargetResourceDeposit = resourceDeposits[Random.Range(0, resourceDeposits.Count)];
         else
             attacker.ClearTargetVariables();
     }

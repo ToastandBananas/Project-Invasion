@@ -9,7 +9,7 @@ public class DefenderSpawner : MonoBehaviour
 
     [HideInInspector] public List<Vector2> gridCellsOccupied = new List<Vector2>();
     [HideInInspector] public List<Vector2> gridCellsWithNodes = new List<Vector2>();
-    [HideInInspector] public List<ResourceNode> goldNodes = new List<ResourceNode>();
+    [HideInInspector] public List<ResourceNode> resourceNodes = new List<ResourceNode>();
 
     GameObject defendersParent;
     const string DEFENDERS_PARENT_NAME = "Defenders";
@@ -71,7 +71,7 @@ public class DefenderSpawner : MonoBehaviour
                 else if (IsCellOccupiedByResourceNode(mouseHoverTilePos) && ghostImageSquad.squadType == SquadType.Laborers)
                 {
                     // If there's a deposit available
-                    if (GetResourceNodeFromCoordinates(mouseHoverTilePos).unoccupiedDeposits.Count > 0)
+                    if (GetResourceNodeFromCoordinates(mouseHoverTilePos).unoccupiedResourceDeposits.Count > 0)
                         SetupValidPosition();
                     else // If there's no deposits available
                         SetupInvalidPosition();
@@ -170,12 +170,12 @@ public class DefenderSpawner : MonoBehaviour
             {
                 StartCoroutine(PlaceSquad(coordinates));
             }
-            else if (ghostImageSquad.squadType == SquadType.Laborers && IsCellOccupiedByResourceNode(coordinates) && GetResourceNodeFromCoordinates(coordinates).unoccupiedDeposits.Count > 0)
+            else if (ghostImageSquad.squadType == SquadType.Laborers && IsCellOccupiedByResourceNode(coordinates) && GetResourceNodeFromCoordinates(coordinates).unoccupiedResourceDeposits.Count > 0)
             {
                 ResourceNode node = GetResourceNodeFromCoordinates(coordinates);
 
                 bool nodeCompletelyUnoccupied = true;
-                foreach (GoldDeposit goldDeposit in node.goldDeposits)
+                foreach (ResourceDeposit goldDeposit in node.resourceDeposits)
                 {
                     if (goldDeposit.occupied)
                     {
@@ -380,7 +380,7 @@ public class DefenderSpawner : MonoBehaviour
 
     public ResourceNode GetResourceNodeFromCoordinates(Vector3 coordinates)
     {
-        foreach (ResourceNode goldNode in goldNodes)
+        foreach (ResourceNode goldNode in resourceNodes)
         {
             if (new Vector3(Mathf.RoundToInt(goldNode.transform.position.x), Mathf.RoundToInt(goldNode.transform.position.y)) == coordinates)
                 return goldNode;

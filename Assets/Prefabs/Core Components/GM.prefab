@@ -58,7 +58,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3396fc684760e0f4cafd2482d1ad3a03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damagePopup: {fileID: 5728257308560493625, guid: d6e3f96b614a5314db0c5f459d0cd778, type: 3}
+  textPopup: {fileID: 5728257308560493625, guid: d6e3f96b614a5314db0c5f459d0cd778, type: 3}
+  goldDepositAnimatorControllers:
+  - {fileID: 9100000, guid: 127dbb695d6cb184bab619c29ffe56d9, type: 2}
+  - {fileID: 9100000, guid: d9bcf7a7ec2b97e49b51ecba0d19fbf6, type: 2}
+  - {fileID: 9100000, guid: ef57ac19837f83346a58479fe336d12f, type: 2}
+  - {fileID: 9100000, guid: 1a9c56f8bdd8f8e4ba5ded512e0f3dfe, type: 2}
+  - {fileID: 9100000, guid: ff5c25d28f2ecce48996e03e2712f242, type: 2}
 --- !u!114 &2299253872393943921
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71,6 +77,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144c68274cff6404986c03b51f004c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  laborerGoldCost: 0
+  laborerSuppliesCost: 0
+  laborerHealth: 0
+  laborerMiningSpeedMultiplier: 0
   knightSquadGoldCost: 0
   knightSquadSuppliesCost: 0
   knightHealth: 0
@@ -114,6 +124,7 @@ MonoBehaviour:
   archerShouldRetreatWhenEnemyNear: 1
   archerFireArrowsUnlocked: 0
   archerRapidFireUnlocked: 0
+  defaultMiningSpeedMultiplier: 1
   defaultInspireMultiplier: 0.25
   defaultInspireTime: 60
   defaultThornsDamageMultiplier: 0.2
@@ -129,3 +140,7 @@ MonoBehaviour:
   spearWallCost: 100
   fireArrowsCost: 75
   rapidFireCost: 100
+  laborersUnlocked: 0
+  knightsUnlocked: 0
+  spearmenUnlocked: 0
+  archersUnlocked: 0

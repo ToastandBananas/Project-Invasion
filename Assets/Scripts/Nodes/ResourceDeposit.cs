@@ -1,16 +1,20 @@
 using UnityEngine;
 
-public class GoldDeposit : MonoBehaviour
+public class ResourceDeposit : MonoBehaviour
 {
     [Header("Health")]
     public float maxHealth = 100f;
     public float currentHealth;
     [HideInInspector] public float startingMaxHealth;
 
-    [Header("Mining Stats")]
+    [Header("Resource Stats")]
+    public ResourceType resourceType;
+    public int hitsToProduce = 4;
+    public int goldEarnedEachProductionCycle;
+    public int suppliesEarnedEachProductionCycle;
+
+    [Header("Laborer Position Offset")]
     public float miningXOffset = 0.125f;
-    public int hitsToProduceGold = 4;
-    public int goldAmountEarnedEachProductionCycle = 20;
 
     [HideInInspector] public Animator anim;
     [HideInInspector] public SpriteRenderer sr;
@@ -20,7 +24,7 @@ public class GoldDeposit : MonoBehaviour
 
     [HideInInspector] public bool occupied;
 
-    bool canProduce;
+    bool canProduce = true;
     bool isDestroyed;
 
     AudioManager audioManager;
@@ -44,9 +48,25 @@ public class GoldDeposit : MonoBehaviour
         sr.sortingOrder = Mathf.RoundToInt(transform.position.y * -100);
     }
 
-    public void ProduceGold()
+    public void ProduceResources()
     {
-        resourceDisplay.AddGold(goldAmountEarnedEachProductionCycle);
+        if (canProduce)
+        {
+            if (resourceType == ResourceType.Gold)
+                resourceDisplay.AddGold(goldEarnedEachProductionCycle);
+            else if (resourceType == ResourceType.Wood)
+                resourceDisplay.AddSupplies(suppliesEarnedEachProductionCycle);
+        }
+    }
+
+    public void StopProducing()
+    {
+        canProduce = false;
+    }
+
+    public void StartProducing()
+    {
+        canProduce = true;
     }
 
     public void TakeDamage(float damageAmount)
@@ -62,10 +82,10 @@ public class GoldDeposit : MonoBehaviour
         canProduce = false;
         isDestroyed = true;
 
-        resourceNode.goldDeposits.Remove(this);
-        if (resourceNode.goldDeposits.Count == 0)
+        resourceNode.resourceDeposits.Remove(this);
+        if (resourceNode.resourceDeposits.Count == 0)
         {
-            DefenderSpawner.instance.goldNodes.Remove(resourceNode);
+            DefenderSpawner.instance.resourceNodes.Remove(resourceNode);
             DefenderSpawner.instance.RemoveNode(resourceNode.transform.position);
 
             Destroy(resourceNode.gameObject, 1f);

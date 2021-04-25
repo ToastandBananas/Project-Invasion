@@ -74,16 +74,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf53bd740d969d24fa24ae29ae990289, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceType: 0
-  goldDepositAnimatorControllers:
-  - {fileID: 9100000, guid: 127dbb695d6cb184bab619c29ffe56d9, type: 2}
-  - {fileID: 9100000, guid: d9bcf7a7ec2b97e49b51ecba0d19fbf6, type: 2}
-  - {fileID: 9100000, guid: ef57ac19837f83346a58479fe336d12f, type: 2}
-  - {fileID: 9100000, guid: 1a9c56f8bdd8f8e4ba5ded512e0f3dfe, type: 2}
-  - {fileID: 9100000, guid: ff5c25d28f2ecce48996e03e2712f242, type: 2}
+  goldDepositCount: 4
+  suppliesDepositCount: 0
+  possibleDepositSpawnLocations: []
   laborerSquadCurrentlyOnNode: {fileID: 0}
-  goldDeposits: []
-  unoccupiedDeposits: []
+  myLaneSpawner: {fileID: 0}
+  resourceDeposits: []
+  unoccupiedResourceDeposits: []
 --- !u!1001 &2919288740692585926
 PrefabInstance:
   m_ObjectHideFlags: 0

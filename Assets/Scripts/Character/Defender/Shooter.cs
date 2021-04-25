@@ -63,7 +63,7 @@ public class Shooter : MonoBehaviour
     void FixedUpdate()
     {
         if ((defender != null && Vector2.Distance(transform.localPosition, defender.unitPosition) <= defender.minDistanceFromTargetPosition && defender.squad.squadPlaced && defender.isRetreating == false && defender.squad.rangeCollider.attackersInRange.Count > 0 && defender.squad.attackersNearby.Count == 0)
-            || (attacker != null && (attacker.rangeCollider.defendersInRange.Count > 0 || isShootingCastle || attacker.currentTargetGoldDeposit != null)) && transform.position.x < 9.5f)
+            || (attacker != null && (attacker.rangeCollider.defendersInRange.Count > 0 || isShootingCastle || attacker.currentTargetResourceDeposit != null)) && transform.position.x < 9.5f)
         {
             if (anim.GetBool("isShooting") == false)
                 StartCoroutine(StartShooting());
@@ -111,9 +111,9 @@ public class Shooter : MonoBehaviour
             }
             else if (attacker.currentTargetNode != null)
             {
-                if (attacker.currentTargetGoldDeposit != null)
+                if (attacker.currentTargetResourceDeposit != null)
                 {
-                    AssignTargetToProjectile(newProjectile, attacker.currentTargetGoldDeposit.transform);
+                    AssignTargetToProjectile(newProjectile, attacker.currentTargetResourceDeposit.transform);
                     StartCoroutine(newProjectile.ShootProjectile());
                 }
             }

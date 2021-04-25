@@ -35,12 +35,12 @@ public class RangeCollider : MonoBehaviour
                 if (attacker.myAttackerSpawner == enemyDefender.squad.myLaneSpawner)
                     defendersInRange.Add(enemyDefender);
             }
-            else if (attacker.canAttackNodes && collision.TryGetComponent(out GoldDeposit goldDeposit))
+            else if (attacker.canAttackNodes && collision.TryGetComponent(out ResourceDeposit goldDeposit))
             {
                 if (attacker.myAttackerSpawner == goldDeposit.resourceNode.myLaneSpawner)
                 {
                     attacker.currentTargetNode = goldDeposit.resourceNode;
-                    attacker.currentTargetGoldDeposit = goldDeposit;
+                    attacker.currentTargetResourceDeposit = goldDeposit;
                 }
             }
         }

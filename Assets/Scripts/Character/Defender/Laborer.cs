@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Laborer : MonoBehaviour
 {
-    public GoldDeposit targetGoldDeposit;
+    [HideInInspector] public ResourceDeposit targetResourceDeposit;
 
     [HideInInspector] public bool isWorking = false;
 
@@ -32,12 +32,12 @@ public class Laborer : MonoBehaviour
         }
 
         // If the Laborer is not mining, but is close enough to his deposit, then start mining
-        if (isWorking == false && targetGoldDeposit != null && Vector2.Distance(transform.localPosition, defenderScript.unitPosition) <= defenderScript.minDistanceFromTargetPosition)
+        if (isWorking == false && targetResourceDeposit != null && Vector2.Distance(transform.localPosition, defenderScript.unitPosition) <= defenderScript.minDistanceFromTargetPosition)
         {
             isWorking = true;
             defenderScript.anim.SetBool("isMining", true);
             
-            defenderScript.FaceTarget(targetGoldDeposit.transform.position);
+            defenderScript.FaceTarget(targetResourceDeposit.transform.position);
         }
     }
 
@@ -53,12 +53,12 @@ public class Laborer : MonoBehaviour
 
     public void StopWorking()
     {
-        if (targetGoldDeposit != null)
+        if (targetResourceDeposit != null)
         {
             defenderScript.anim.SetBool("isMining", false);
-            targetGoldDeposit.occupied = false;
-            targetGoldDeposit.resourceNode.unoccupiedDeposits.Add(targetGoldDeposit);
-            targetGoldDeposit = null;
+            targetResourceDeposit.occupied = false;
+            targetResourceDeposit.resourceNode.unoccupiedResourceDeposits.Add(targetResourceDeposit);
+            targetResourceDeposit = null;
         }
 
         isWorking = false;
@@ -69,11 +69,11 @@ public class Laborer : MonoBehaviour
         audioManager.PlayRandomSound(audioManager.pickaxeSounds);
 
         hitsSinceResourceProduced++;
-        if (targetGoldDeposit != null && hitsSinceResourceProduced == targetGoldDeposit.hitsToProduceGold)
+        if (targetResourceDeposit != null && hitsSinceResourceProduced == targetResourceDeposit.hitsToProduce)
         {
             hitsSinceResourceProduced = 0;
-            targetGoldDeposit.ProduceGold();
-            TextPopup.CreateResourceGainPopup(transform.position + new Vector3(0f, 0.1f), targetGoldDeposit.goldAmountEarnedEachProductionCycle);
+            targetResourceDeposit.ProduceResources();
+            TextPopup.CreateResourceGainPopup(transform.position + new Vector3(0f, 0.1f), targetResourceDeposit.goldEarnedEachProductionCycle);
         }
     }
 }
