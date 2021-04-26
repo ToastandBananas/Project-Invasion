@@ -336,9 +336,9 @@ public class AudioManager : MonoBehaviour
     {
         if (voiceType == VoiceType.HumanMale)
             PlayRandomSound(humanMaleDeathSounds);
-        else if (voiceType == VoiceType.HumanFemale)
-            PlayRandomSound(humanMaleDeathSounds);
-        else if (voiceType == VoiceType.Undead)
-            PlayRandomSound(humanMaleDeathSounds);
+        //else if (voiceType == VoiceType.HumanFemale)
+            //PlayRandomSound(humanMaleDeathSounds);
+        //else if (voiceType == VoiceType.Undead)
+            //PlayRandomSound(humanMaleDeathSounds);
     }
 }

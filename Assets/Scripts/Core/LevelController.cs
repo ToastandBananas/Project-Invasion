@@ -75,7 +75,7 @@ public class LevelController : MonoBehaviour
         if (winCanvas != null)
             winCanvas.SetActive(true);
 
-        ApplyRewards();
+        ApplyUpgradePointReward();
 
         int randomIndex = Random.Range(0, audioManager.victorySounds.Length);
         audioManager.PlaySound(audioManager.victorySounds, audioManager.victorySounds[randomIndex].soundName, Vector3.zero);
@@ -85,7 +85,7 @@ public class LevelController : MonoBehaviour
         LevelLoader.instance.LoadUpgradeMenuScene();
     }
 
-    void ApplyRewards()
+    void ApplyUpgradePointReward()
     {
         ES3.Save("upgradePoints", ES3.Load("upgradePoints", 0) + upgradePointsReward);
     }
