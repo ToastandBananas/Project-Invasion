@@ -15185,8 +15185,8 @@ MonoBehaviour:
   fireArrowsDamageMultiplier: 0
   rapidFireTime: 0
   rapidFireSpeedMultiplier: 0
-  fireArrowsUnlocked: 1
-  rapidFireUnlocked: 0
+  fireArrowsUnlocked: 0
+  rapidFireUnlocked: 1
   prerequisites:
   - {fileID: 855635163364595044}
   upgradeUnlocked: 0

@@ -88,6 +88,8 @@ public class Health : MonoBehaviour
     public void TakeDamage(float bluntDamage, float slashDamage, float piercingDamage, float fireDamage, bool ignoreResistances, bool knockback)
     {
         float finalDamageAmount = 0f;
+
+        // If we shouldn't ignore damage resistances
         if (ignoreResistances == false)
         {
             if (bluntDamage > 0f) finalDamageAmount += GetDamageAmount(bluntDamage, bluntResistance);
@@ -141,6 +143,7 @@ public class Health : MonoBehaviour
 
     void Die()
     {
+        // Play the appropriate death sound
         if (defender != null)
             AudioManager.instance.PlayDeathSound(defender.voiceType);
         else if (attacker != null)
@@ -152,11 +155,41 @@ public class Health : MonoBehaviour
         boxCollider.enabled = false;
         spriteRenderer.sortingOrder = -8000;
 
+        // Rotate the body a random rotation
         float randomRotation = Random.Range(-70f, 70f);
         transform.eulerAngles = new Vector3(0, 0, randomRotation);
         transform.SetParent(deadCharactersParent);
 
-        if (attacker != null) {
+        // Defender:
+        if (defender != null)
+        {
+            // Disable character scripts to prevent further running of Update functions
+            if (defender.myShooter != null)
+                defender.myShooter.enabled = false;
+
+            defender.enabled = false;
+        }
+
+        // Attacker:
+        if (attacker != null)
+        {
+            // Drop supplies for the player
+            if (attacker.suppliesDroppedOnDeath > 0)
+            {
+                ResourceDisplay.instance.AddSupplies(attacker.suppliesDroppedOnDeath);
+                TextPopup.CreateResourceGainPopup(transform.position + new Vector3(0f, 0.2f), attacker.suppliesDroppedOnDeath, ResourceType.Supplies);
+            }
+
+            // Disable character scripts to prevent further running of Update functions
+            if (attacker.myShooter != null)
+            {
+                attacker.myShooter.enabled = false;
+                attacker.rangeCollider.enabled = false;
+            }
+
+            attacker.enabled = false;
+
+            // Subtract from total number of attackers left in the level
             if (levelController != null)
                 levelController.AttackerKilled();
             else

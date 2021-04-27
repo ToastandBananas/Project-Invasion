@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum ResourceType { Gold, Wood }
+public enum ResourceType { Gold, Supplies }
 public enum VoiceType { HumanMale, HumanFemale, Undead }
 public enum MeleeWeaponType { Blade, Blunt, Piercing }
 public enum RangedWeaponType { Bow, Crossbow, Fireball, Spear }

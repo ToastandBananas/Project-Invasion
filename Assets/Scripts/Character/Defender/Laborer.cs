@@ -73,7 +73,7 @@ public class Laborer : MonoBehaviour
         {
             hitsSinceResourceProduced = 0;
             targetResourceDeposit.ProduceResources();
-            TextPopup.CreateResourceGainPopup(transform.position + new Vector3(0f, 0.1f), targetResourceDeposit.goldEarnedEachProductionCycle);
+            TextPopup.CreateResourceGainPopup(transform.position + new Vector3(0f, 0.1f), targetResourceDeposit.goldEarnedEachProductionCycle, targetResourceDeposit.resourceType);
         }
     }
 }

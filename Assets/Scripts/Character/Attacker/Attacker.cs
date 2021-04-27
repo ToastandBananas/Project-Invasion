@@ -12,6 +12,9 @@ public class Attacker : MonoBehaviour
     public int spawnPoints = 20;
     public bool isLarge;
 
+    [Header("Supplies Reward")]
+    public int suppliesDroppedOnDeath = 1;
+
     [Header("Attack/Movement Info")]
     public float minAttackDistance = 0.115f;
     public int maxOpponents = 2;
@@ -45,6 +48,7 @@ public class Attacker : MonoBehaviour
     [HideInInspector] public AttackerSpawner myAttackerSpawner;
     [HideInInspector] public Health health;
     [HideInInspector] public RangeCollider rangeCollider;
+    [HideInInspector] public Shooter myShooter;
 
     [HideInInspector] public bool isBeingKnockedBack;
     [HideInInspector] public float minDistanceFromTargetPosition = 0.025f;
@@ -58,6 +62,8 @@ public class Attacker : MonoBehaviour
     {
         health = GetComponent<Health>();
         rangeCollider = GetComponentInChildren<RangeCollider>();
+        TryGetComponent<Shooter>(out myShooter);
+
         audioManager = AudioManager.instance;
         anim = GetComponent<Animator>();
         castleHealth = CastleHealth.instance;

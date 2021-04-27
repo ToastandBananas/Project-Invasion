@@ -54,7 +54,7 @@ public class ResourceDeposit : MonoBehaviour
         {
             if (resourceType == ResourceType.Gold)
                 resourceDisplay.AddGold(goldEarnedEachProductionCycle);
-            else if (resourceType == ResourceType.Wood)
+            else if (resourceType == ResourceType.Supplies)
                 resourceDisplay.AddSupplies(suppliesEarnedEachProductionCycle);
         }
     }

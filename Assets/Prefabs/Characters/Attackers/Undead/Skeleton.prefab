@@ -117,6 +117,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints: 20
   isLarge: 0
+  suppliesDroppedOnDeath: 2
   minAttackDistance: 0.125
   maxOpponents: 2
   runSpeed: 0.5
@@ -138,7 +139,7 @@ MonoBehaviour:
   currentTargetsHealth: {fileID: 0}
   currentTargetsSquad: {fileID: 0}
   currentTargetNode: {fileID: 0}
-  currentTargetGoldDeposit: {fileID: 0}
+  currentTargetResourceDeposit: {fileID: 0}
   isAttacking: 0
   isAttackingCastle: 0
   myAttackerSpawner: {fileID: 0}
@@ -172,7 +173,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 40
   startingMaxHealth: 0
-  currentHealth: 40
   bluntResistance: -0.5
   slashResistance: 0
   piercingResistance: 0.5

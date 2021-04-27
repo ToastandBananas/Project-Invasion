@@ -1,9 +1,13 @@
-using System.Collections;
 using TMPro;
 using UnityEngine;
 
 public class TextPopup : MonoBehaviour
 {
+    public Sprite goldIcon, suppliesIcon;
+
+    SpriteRenderer resourceIcon;
+    RectTransform resourceIconRectTransform;
+
     static ObjectPool textPopupObjectPool;
 
     TextMeshPro textMesh;
@@ -29,6 +33,9 @@ public class TextPopup : MonoBehaviour
     {
         textMesh = transform.GetComponent<TextMeshPro>();
         textPopupObjectPool = GameObject.Find("Effects").transform.Find("Text Popups").GetComponent<ObjectPool>();
+
+        resourceIcon = GetComponentInChildren<SpriteRenderer>();
+        resourceIconRectTransform = resourceIcon.GetComponent<RectTransform>();
     }
 
     void Update()
@@ -79,11 +86,11 @@ public class TextPopup : MonoBehaviour
     }
 
     // Create a resource popup next to Laborers when they gain gold or supplies
-    public static TextPopup CreateResourceGainPopup(Vector3 position, float amount)
+    public static TextPopup CreateResourceGainPopup(Vector3 position, float amount, ResourceType resourceType)
     {
         TextPopup resourceGainPopup = textPopupObjectPool.GetPooledObject().GetComponent<TextPopup>();
 
-        resourceGainPopup.SetupResourceGainPopup(position, amount);
+        resourceGainPopup.SetupResourceGainPopup(position, amount, resourceType);
 
         return resourceGainPopup;
     }
@@ -155,7 +162,7 @@ public class TextPopup : MonoBehaviour
         transform.position = position;
     }
 
-    void SetupResourceGainPopup(Vector3 position, float amount)
+    void SetupResourceGainPopup(Vector3 position, float amount, ResourceType resourceType)
     {
         ResetPopup();
         
@@ -168,6 +175,19 @@ public class TextPopup : MonoBehaviour
         sortingOrder++;
         textMesh.sortingOrder = sortingOrder;
 
+        if (resourceType == ResourceType.Gold)
+        {
+            resourceIcon.enabled = true;
+            resourceIcon.sprite = goldIcon;
+            resourceIconRectTransform.localScale = new Vector3(0.75f, 0.75f);
+        }
+        else if (resourceType == ResourceType.Supplies)
+        {
+            resourceIcon.enabled = true;
+            resourceIcon.sprite = suppliesIcon;
+            resourceIconRectTransform.localScale = new Vector3(0.15f, 0.15f);
+        }
+
         gameObject.SetActive(true);
         transform.position = position;
     }
@@ -178,5 +198,6 @@ public class TextPopup : MonoBehaviour
         transform.localScale = Vector3.one;
         moveVector = new Vector3(0.2f, 0.4f);
         disappearTimer = DISAPPEAR_TIMER_MAX;
+        resourceIcon.enabled = false;
     }
 }

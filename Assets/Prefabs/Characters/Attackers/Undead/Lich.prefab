@@ -120,6 +120,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints: 100
   isLarge: 0
+  suppliesDroppedOnDeath: 20
   minAttackDistance: 0.125
   maxOpponents: 2
   runSpeed: 0.3
@@ -141,12 +142,13 @@ MonoBehaviour:
   currentTargetsHealth: {fileID: 0}
   currentTargetsSquad: {fileID: 0}
   currentTargetNode: {fileID: 0}
-  currentTargetGoldDeposit: {fileID: 0}
+  currentTargetResourceDeposit: {fileID: 0}
   isAttacking: 0
   isAttackingCastle: 0
   myAttackerSpawner: {fileID: 0}
   health: {fileID: 0}
   rangeCollider: {fileID: 0}
+  myShooter: {fileID: 0}
   isBeingKnockedBack: 0
   minDistanceFromTargetPosition: 0.025
 --- !u!114 &1901521501687944946
@@ -207,7 +209,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 150
   startingMaxHealth: 0
-  currentHealth: 150
   bluntResistance: -0.5
   slashResistance: 0
   piercingResistance: 0.5
@@ -261,7 +262,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -1.6709564, y: 0}
+  m_Offset: {x: -1.5770924, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -272,7 +273,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.7580009, y: 0.9}
+  m_Size: {x: 2.9457288, y: 0.9}
   m_EdgeRadius: 0
 --- !u!114 &3639584708016005376
 MonoBehaviour:
