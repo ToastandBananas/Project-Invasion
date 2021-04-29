@@ -105,9 +105,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unlocked: 0
   squadType: 100
-  goldCost: 300
-  suppliesCost: 35
+  goldCost: 250
+  suppliesCost: 25
   description: Sturdy sword wielding knights.
+  maxUnitCount: 0
   squadFormation: 0
   castleWallVersionOfSquad: {fileID: 0}
   shouldRetreatWhenEnemyNear: 0

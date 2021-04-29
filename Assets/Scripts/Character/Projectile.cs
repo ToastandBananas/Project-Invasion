@@ -122,17 +122,17 @@ public class Projectile : MonoBehaviour
             {
                 if (myShooter.attacker.canAttackNodes && myShooter.attacker.currentTargetNode != null) // If attacking a Resource Node
                 {
-                    if (myShooter.attacker.currentTargetResourceDeposit != null) // If attacking a Gold Deposit
+                    if (myShooter.attacker.currentTargetResourceDeposit != null) // If attacking a Resource Deposit
                     {
-                        collision.TryGetComponent(out ResourceDeposit goldDeposit);
-                        if (goldDeposit != null && goldDeposit.resourceNode.myLaneSpawner == myShooter.attacker.myAttackerSpawner)
+                        collision.TryGetComponent(out ResourceDeposit resourceDeposit);
+                        if (resourceDeposit != null && resourceDeposit.resourceNode.myLaneSpawner == myShooter.attacker.myAttackerSpawner && myShooter.attacker.currentTargetResourceDeposit == resourceDeposit)
                         {
                             HitTarget(null, true);
 
-                            goldDeposit.TakeDamage(myShooter.attacker.structuralAttackDamage);
+                            resourceDeposit.TakeDamage(myShooter.attacker.structuralAttackDamage);
 
                             // Retreat the laborers if the deposit is getting attacked
-                            foreach (ResourceDeposit deposit in goldDeposit.resourceNode.resourceDeposits)
+                            foreach (ResourceDeposit deposit in resourceDeposit.resourceNode.resourceDeposits)
                             {
                                 if (deposit.myLaborer != null)
                                 {
@@ -143,13 +143,13 @@ public class Projectile : MonoBehaviour
                                 }
                             }
 
-                            // If the gold deposit is destroyed, find new target deposits for each Attacker attacking this gold deposit
-                            if (goldDeposit.currentHealth <= 0)
+                            // If the resource deposit is destroyed, find new target deposits for each Attacker attacking this resource deposit
+                            if (resourceDeposit.currentHealth <= 0)
                             {
                                 for (int i = 0; i < myShooter.attacker.myAttackerSpawner.transform.childCount; i++)
                                 {
                                     Attacker attackerInLane = myShooter.attacker.myAttackerSpawner.transform.GetChild(i).GetComponent<Attacker>();
-                                    if (attackerInLane.currentTargetResourceDeposit == goldDeposit)
+                                    if (attackerInLane.currentTargetResourceDeposit == resourceDeposit)
                                         attackerInLane.FindNewTargetDeposit();
                                 }
                             }

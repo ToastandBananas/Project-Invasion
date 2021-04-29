@@ -126,17 +126,17 @@ MonoBehaviour:
   defaultInspireTime: 60
   defaultThornsDamageMultiplier: 0.2
   defaultThornsTime: 30
-  defaultLongThrowTime: 30
+  defaultLongThrowTime: 45
   defaultSpearWallTime: 30
   defaultFireArrowTime: 30
   defaultRapidFireTime: 20
   defaultRapidFireSpeedMultiplier: 2
-  inspireCost: 100
-  thornsCost: 50
-  longThrowCost: 75
-  spearWallCost: 100
-  fireArrowsCost: 75
-  rapidFireCost: 100
+  inspireCost: 30
+  thornsCost: 10
+  longThrowCost: 25
+  spearWallCost: 20
+  fireArrowsCost: 15
+  rapidFireCost: 20
   laborersUnlocked: 0
   knightsUnlocked: 0
   spearmenUnlocked: 0
