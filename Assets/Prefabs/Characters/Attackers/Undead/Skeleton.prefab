@@ -117,13 +117,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints: 20
   isLarge: 0
-  suppliesDroppedOnDeath: 2
+  suppliesDroppedOnDeath: 3
   minAttackDistance: 0.125
   maxOpponents: 2
   runSpeed: 0.5
   canAttackNodes: 1
   meleeWeaponType: 0
-  buildingAttackDamage: 3
+  structuralAttackDamage: 3
   bluntDamage: 0
   slashDamage: 4
   piercingDamage: 0
@@ -145,6 +145,7 @@ MonoBehaviour:
   myAttackerSpawner: {fileID: 0}
   health: {fileID: 0}
   rangeCollider: {fileID: 0}
+  myShooter: {fileID: 0}
   isBeingKnockedBack: 0
   minDistanceFromTargetPosition: 0.025
 --- !u!114 &6051484160024838631

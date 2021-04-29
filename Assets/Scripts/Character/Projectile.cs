@@ -129,7 +129,7 @@ public class Projectile : MonoBehaviour
                         {
                             HitTarget(null, true);
 
-                            goldDeposit.TakeDamage(myShooter.attacker.buildingAttackDamage);
+                            goldDeposit.TakeDamage(myShooter.attacker.structuralAttackDamage);
 
                             // Retreat the laborers if the deposit is getting attacked
                             foreach (ResourceDeposit deposit in goldDeposit.resourceNode.resourceDeposits)
@@ -155,7 +155,7 @@ public class Projectile : MonoBehaviour
                             }
 
                             if (PlayerPrefsController.DamagePopupsEnabled())
-                                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.buildingAttackDamage, false, true);
+                                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.structuralAttackDamage, false, true);
                         }
                     }
                 }
@@ -166,10 +166,10 @@ public class Projectile : MonoBehaviour
                     {
                         HitTarget(null, true);
 
-                        CastleHealth.instance.TakeHealth(myShooter.attacker.buildingAttackDamage);
+                        CastleHealth.instance.TakeHealth(myShooter.attacker.structuralAttackDamage);
 
                         if (PlayerPrefsController.DamagePopupsEnabled())
-                            TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.buildingAttackDamage, false, true);
+                            TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.structuralAttackDamage, false, true);
                     }
                 }
             }

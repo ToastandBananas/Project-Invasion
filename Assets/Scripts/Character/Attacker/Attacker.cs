@@ -26,7 +26,7 @@ public class Attacker : MonoBehaviour
 
     [Header("Weapon Info")]
     [SerializeField] MeleeWeaponType meleeWeaponType;
-    public float buildingAttackDamage = 5f;
+    public float structuralAttackDamage = 5f;
     public float bluntDamage, slashDamage, piercingDamage, fireDamage;
     [HideInInspector] public float startingBluntDamage, startingSlashDamage, startingPiercingDamage, startingFireDamage;
     public bool shouldKnockback;
@@ -244,21 +244,21 @@ public class Attacker : MonoBehaviour
         {
             if (currentTargetResourceDeposit != null)
             {
-                currentTargetResourceDeposit.TakeDamage(buildingAttackDamage);
+                currentTargetResourceDeposit.TakeDamage(structuralAttackDamage);
 
                 if (currentTargetResourceDeposit.currentHealth <= 0)
                     FindNewTargetDeposit();
             }
 
             if (PlayerPrefsController.DamagePopupsEnabled())
-                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(0f, 0.15f)), buildingAttackDamage, false, true);
+                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(0f, 0.15f)), structuralAttackDamage, false, true);
         }
         else if (isAttackingCastle)
         {
-            castleHealth.TakeHealth(buildingAttackDamage);
+            castleHealth.TakeHealth(structuralAttackDamage);
 
             if (PlayerPrefsController.DamagePopupsEnabled())
-                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), buildingAttackDamage, false, true);
+                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.2f, -0.1f), Random.Range(0f, 0.15f)), structuralAttackDamage, false, true);
 
             if (castleHealth.GetHealth() <= 0f)
             {

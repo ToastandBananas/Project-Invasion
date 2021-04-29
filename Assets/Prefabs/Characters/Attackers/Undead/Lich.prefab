@@ -120,13 +120,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints: 100
   isLarge: 0
-  suppliesDroppedOnDeath: 20
+  suppliesDroppedOnDeath: 25
   minAttackDistance: 0.125
   maxOpponents: 2
   runSpeed: 0.3
   canAttackNodes: 0
   meleeWeaponType: 1
-  buildingAttackDamage: 5
+  structuralAttackDamage: 5
   bluntDamage: 10
   slashDamage: 0
   piercingDamage: 0
