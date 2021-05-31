@@ -24,23 +24,25 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] float leaderRangedBluntDamage, leaderRangedPiercingDamage, leaderRangedFireDamage;
     [SerializeField] bool shouldRetreat;
 
-    [Header("Laborer Only Upgrades")]
-    [SerializeField] float miningSpeedMultiplier;
+    [Header("Archer Only Upgrades")]
+    [SerializeField] float fireArrowsTime;
+    [SerializeField] float fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier;
+    [SerializeField] bool fireArrowsUnlocked, rapidFireUnlocked;
 
     [Header("Knight Only Upgrades")]
     [SerializeField] float inspireMultiplier;
     [SerializeField] float inspireTime, thornsDamageMultiplier, thornsTime;
     [SerializeField] bool inspireUnlocked, thornsUnlocked;
 
+    [Header("Laborer Only Upgrades")]
+    [SerializeField] float miningSpeedMultiplier;
+    [SerializeField] float doubleTimeTime;
+    [SerializeField] bool doubleTimeUnlocked;
+
     [Header("Spearmen Only Upgrades")]
     [SerializeField] float longThrowTime;
     [SerializeField] float spearWallTime;
     [SerializeField] bool longThrowUnlocked, spearWallUnlocked;
-
-    [Header("Archer Only Upgrades")]
-    [SerializeField] float fireArrowsTime;
-    [SerializeField] float fireArrowsDamageMultiplier, rapidFireTime, rapidFireSpeedMultiplier;
-    [SerializeField] bool fireArrowsUnlocked, rapidFireUnlocked;
 
     [Header("Prerequisites")]
     public UpgradeIcon[] prerequisites;
@@ -85,7 +87,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             switch (squadType)
             {
                 case SquadType.Laborers:
-                    squadData.ApplyLaborerData(gold, supplies, health, miningSpeedMultiplier);
+                    squadData.ApplyLaborerData(gold, supplies, health, miningSpeedMultiplier, doubleTimeTime, doubleTimeUnlocked);
                     break;
                 case SquadType.Knights:
                     squadData.ApplyKnightData(gold, supplies, health, leaderHealth, slashDamage, leaderSlashDamage, inspireMultiplier, inspireTime, thornsDamageMultiplier, thornsTime, inspireUnlocked, thornsUnlocked);
@@ -117,6 +119,14 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             if (miningSpeedMultiplier > 0f)
                 upgradeDescription.Append("Mining Speed: <color=green>+" + (miningSpeedMultiplier * 100f).ToString() + "%</color>\n");
+
+            // Double Time
+            if (doubleTimeUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Double Time</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString()
+                    + "</b> will mine twice as fast for " + squadData.defaultDoubleTimeTime.ToString() + " seconds).\n");
+
+            if (doubleTimeTime > 0f)
+                upgradeDescription.Append("Double Time Time: <color=green>+" + doubleTimeTime.ToString() + " seconds</color>\n");
         }
 
         // Knight Ability Upgrades

@@ -6,7 +6,7 @@ using UnityEngine.Events;
 
 public class AbilityIconController : MonoBehaviour
 {
-    public Sprite fireArrowsIcon, rapidFireIcon, thornsIcon, inspireIcon, longThrowIcon, spearWallIcon;
+    public Sprite fireArrowsIcon, rapidFireIcon, thornsIcon, inspireIcon, doubleTimeIcon, longThrowIcon, spearWallIcon;
 
     [HideInInspector] public Squad selectedSquad;
 
@@ -57,7 +57,7 @@ public class AbilityIconController : MonoBehaviour
 
     void Update()
     {
-        CheckIfIconsInteractable();
+        CheckIfIconIsInteractable();
     }
 
     public void EnableAbilityIcons()
@@ -66,14 +66,17 @@ public class AbilityIconController : MonoBehaviour
         {
             switch (selectedSquad.squadType)
             {
+                case SquadType.Archers:
+                    SetArcherIcons();
+                    break;
                 case SquadType.Knights:
                     SetKnightIcons();
                     break;
+                case SquadType.Laborers:
+                    SetLaborerIcons();
+                    break;
                 case SquadType.Spearmen:
                     SetSpearmenIcons();
-                    break;
-                case SquadType.Archers:
-                    SetArcherIcons();
                     break;
                 default:
                     break;
@@ -93,17 +96,17 @@ public class AbilityIconController : MonoBehaviour
         {
             // Fire Arrows
             if (squadData.archerFireArrowsUnlocked)
-                SetupIcon(0, squadData.fireArrowsCost, fireArrowsIcon, ActivateFireArrows);
+                SetupIcon(0, squadData.fireArrowsGoldCost, squadData.fireArrowsSuppliesCost, fireArrowsIcon, ActivateFireArrows);
 
             // Rapid Fire
             if (squadData.archerRapidFireUnlocked)
-                SetupIcon(1, squadData.rapidFireCost, rapidFireIcon, ActivateRapidFire);
+                SetupIcon(1, squadData.rapidFireGoldCost, squadData.rapidFireSuppliesCost, rapidFireIcon, ActivateRapidFire);
         }
     }
 
     void ActivateFireArrows()
     {
-        InitializeUseAbility(squadData.fireArrowsCost);
+        InitializeUseAbility(squadData.fireArrowsGoldCost, squadData.fireArrowsSuppliesCost);
 
         if (selectedSquad.leader != null)
         {
@@ -141,7 +144,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateRapidFire()
     {
-        InitializeUseAbility(squadData.rapidFireCost);
+        InitializeUseAbility(squadData.rapidFireGoldCost, squadData.rapidFireSuppliesCost);
 
         if (selectedSquad.leader != null)
             selectedSquad.leader.anim.SetFloat("shootSpeed", squadData.archerRapidFireSpeedMultipilier);
@@ -178,17 +181,17 @@ public class AbilityIconController : MonoBehaviour
         {
             // Inspire
             if (squadData.knightInspireUnlocked)
-                SetupIcon(0, squadData.inspireCost, inspireIcon, ActivateInspire);
+                SetupIcon(0, squadData.inspireGoldCost, squadData.inspireSuppliesCost, inspireIcon, ActivateInspire);
 
             // Thorns
             if (squadData.knightThornsUnlocked)
-                SetupIcon(1, squadData.thornsCost, thornsIcon, ActivateThorns);
+                SetupIcon(1, squadData.thornsGoldCost, squadData.thornsSuppliesCost, thornsIcon, ActivateThorns);
         }
     }
 
     void ActivateInspire()
     {
-        InitializeUseAbility(squadData.inspireCost);
+        InitializeUseAbility(squadData.inspireGoldCost, squadData.inspireSuppliesCost);
 
         Squad leftSquad  = null;
         Squad rightSquad = null;
@@ -284,7 +287,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateThorns()
     {
-        InitializeUseAbility(squadData.thornsCost);
+        InitializeUseAbility(squadData.thornsGoldCost, squadData.thornsSuppliesCost);
 
         if (selectedSquad.leader != null)
             selectedSquad.leader.health.thornsActive = true;
@@ -305,13 +308,47 @@ public class AbilityIconController : MonoBehaviour
         {
             squad.abilityActive = false;
 
-            if (selectedSquad.leader != null)
-                selectedSquad.leader.health.thornsActive = false;
+            if (squad.leader != null)
+                squad.leader.health.thornsActive = false;
 
             foreach (Defender unit in selectedSquad.units)
             {
                 unit.health.thornsActive = false;
             }
+        }
+    }
+    #endregion
+
+    #region Laborers
+    void SetLaborerIcons()
+    {
+        if (selectedSquad.abilityActive == false)
+        {
+            // Double Time
+            if (squadData.laborerDoubleTimeUnlocked)
+                SetupIcon(0, squadData.doubleTimeGoldCost, squadData.doubleTimeSuppliesCost, doubleTimeIcon, ActivateDoubleTime);
+        }
+    }
+
+    public void ActivateDoubleTime()
+    {
+        InitializeUseAbility(squadData.doubleTimeGoldCost, squadData.doubleTimeSuppliesCost);
+
+        foreach (Defender unit in selectedSquad.units)
+        {
+            unit.anim.SetFloat("miningSpeed", unit.anim.GetFloat("miningSpeed") * 2);
+        }
+
+        StartCoroutine(DeactivateDoubleTime(selectedSquad));
+    }
+
+    IEnumerator DeactivateDoubleTime(Squad squad)
+    {
+        yield return new WaitForSeconds(squadData.laborerDoubleTimeTime);
+
+        foreach (Defender unit in squad.units)
+        {
+            unit.anim.SetFloat("miningSpeed", unit.anim.GetFloat("miningSpeed") / 2);
         }
     }
     #endregion
@@ -323,17 +360,17 @@ public class AbilityIconController : MonoBehaviour
         {
             // Long Throw
             if (squadData.spearmenLongThrowUnlocked)
-                SetupIcon(0, squadData.longThrowCost, longThrowIcon, ActivateLongThrow);
+                SetupIcon(0, squadData.longThrowGoldCost, squadData.longThrowSuppliesCost, longThrowIcon, ActivateLongThrow);
 
             // Spear Wall
             if (squadData.spearmenSpearWallUnlocked)
-                SetupIcon(1, squadData.spearWallCost, spearWallIcon, ActivateSpearWall);
+                SetupIcon(1, squadData.spearWallGoldCost, squadData.spearWallSuppliesCost, spearWallIcon, ActivateSpearWall);
         }
     }
 
     void ActivateLongThrow()
     {
-        InitializeUseAbility(squadData.longThrowCost);
+        InitializeUseAbility(squadData.longThrowGoldCost, squadData.longThrowSuppliesCost);
 
         if (selectedSquad.isCastleWallSquad == false)
         {
@@ -363,7 +400,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateSpearWall()
     {
-        InitializeUseAbility(squadData.spearWallCost);
+        InitializeUseAbility(squadData.spearWallGoldCost, squadData.spearWallSuppliesCost);
 
         selectedSquad.squadFormation = SquadFormation.Wall;
         selectedSquad.AssignLeaderPosition();
@@ -439,21 +476,23 @@ public class AbilityIconController : MonoBehaviour
         tooltip.DeactivateTooltip();
     }
 
-    void SetupIcon(int iconIndex, int abilityCost, Sprite iconSprite, UnityAction listenerFunction)
+    void SetupIcon(int iconIndex, int abilityGoldCost, int abilitySuppliesCost, Sprite iconSprite, UnityAction listenerFunction)
     {
-        abilityIcons[iconIndex].abilityCost = abilityCost;
+        abilityIcons[iconIndex].abilityGoldCost = abilityGoldCost;
+        abilityIcons[iconIndex].abilitySuppliesCost = abilitySuppliesCost;
 
-        CheckIfIconsInteractable();
+        CheckIfIconIsInteractable();
 
         abilityIconButtons[iconIndex].transform.parent.gameObject.SetActive(true);
         abilityIconButtons[iconIndex].onClick.AddListener(listenerFunction);
         abilityIconImages[iconIndex].sprite = iconSprite;
     }
 
-    void InitializeUseAbility(int abilityCost)
+    void InitializeUseAbility(int abilityGoldCost, int abilitySuppliesCost)
     {
         selectedSquad.abilityActive = true;
-        resourceDisplay.SpendSupplies(abilityCost);
+        resourceDisplay.SpendGold(abilityGoldCost);
+        resourceDisplay.SpendSupplies(abilitySuppliesCost);
         PlayButtonClickSound();
         DisableAbilityIcons();
     }
@@ -463,13 +502,13 @@ public class AbilityIconController : MonoBehaviour
         audioManager.PlaySound(audioManager.buttonClickSounds, audioManager.buttonClickSounds[0].soundName, Vector3.zero);
     }
 
-    void CheckIfIconsInteractable()
+    void CheckIfIconIsInteractable()
     {
         for (int i = 0; i < abilityIcons.Count; i++)
         {
             if (abilityIcons[i].gameObject.activeSelf)
             {
-                if (resourceDisplay.HaveEnoughSupplies(abilityIcons[i].abilityCost) == false)
+                if (resourceDisplay.HaveEnoughSupplies(abilityIcons[i].abilitySuppliesCost) == false || resourceDisplay.HaveEnoughGold(abilityIcons[i].abilityGoldCost) == false)
                     abilityIconButtons[i].interactable = false;
                 else
                     abilityIconButtons[i].interactable = true;

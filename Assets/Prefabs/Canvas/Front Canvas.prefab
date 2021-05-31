@@ -287,6 +287,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8641351015469566102, guid: 907b7696d84471b4a9f9916e2805cf26, type: 3}
+      propertyPath: doubleTimeIcon
+      value: 
+      objectReference: {fileID: 21300000, guid: 859d1f77b8d4a4f43a42d7ab80a60f82, type: 3}
+    - target: {fileID: 8641351015469566102, guid: 907b7696d84471b4a9f9916e2805cf26, type: 3}
       propertyPath: fireArrowsIcon
       value: 
       objectReference: {fileID: 21300000, guid: 3cec0dbad60ea8f4e809baef354826bb, type: 3}

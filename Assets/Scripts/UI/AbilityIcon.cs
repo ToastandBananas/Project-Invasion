@@ -4,7 +4,8 @@ using UnityEngine.UI;
 
 public class AbilityIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-    [HideInInspector] public int abilityCost;
+    [HideInInspector] public int abilityGoldCost;
+    [HideInInspector] public int abilitySuppliesCost;
 
     Tooltip tooltip;
     Image image;

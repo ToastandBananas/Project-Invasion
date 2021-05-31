@@ -8,6 +8,8 @@ public class SquadData : MonoBehaviour
     public int laborerGoldCost;
     public int laborerSuppliesCost;
     public float laborerHealth, laborerMiningSpeedMultiplier;
+    public float laborerDoubleTimeTime;
+    public bool laborerDoubleTimeUnlocked;
 
     [Header("Knight Data")]
     public int knightSquadGoldCost;
@@ -34,34 +36,62 @@ public class SquadData : MonoBehaviour
     public bool archerShouldRetreatWhenEnemyNear, archerFireArrowsUnlocked, archerRapidFireUnlocked;
 
     [Header("Defaults")]
-    public float defaultMiningSpeedMultiplier = 1f;
-    public float defaultInspireMultiplier = 0.25f;
-    public float defaultInspireTime = 60f;
-    public float defaultThornsDamageMultiplier = 0.2f;
-    public float defaultThornsTime = 30f;
-    public float defaultLongThrowTime = 30f;
-    public float defaultSpearWallTime = 30f;
+    // Archers
     public float defaultFireArrowTime = 30f;
     public float defaultRapidFireTime = 20f;
     public float defaultRapidFireSpeedMultiplier = 2f;
 
+    // Knights
+    public float defaultInspireMultiplier = 0.25f;
+    public float defaultInspireTime = 60f;
+    public float defaultThornsDamageMultiplier = 0.2f;
+    public float defaultThornsTime = 30f;
+
+    // Laborers
+    public float defaultMiningSpeedMultiplier = 1f;
+    public float defaultDoubleTimeTime = 45f;
+
+    // Spearmen
+    public float defaultLongThrowTime = 30f;
+    public float defaultSpearWallTime = 30f;
+
     [Header("Ability Costs")]
-    public int inspireCost = 100;
-    public int thornsCost = 50;
-    public int longThrowCost = 75;
-    public int spearWallCost = 100;
-    public int fireArrowsCost = 75;
-    public int rapidFireCost = 100;
+    // Archers
+    public int fireArrowsGoldCost = 75;
+    public int fireArrowsSuppliesCost = 7;
+    public int rapidFireGoldCost = 100;
+    public int rapidFireSuppliesCost = 10;
+
+    // Knights
+    public int inspireGoldCost = 100;
+    public int inspireSuppliesCost = 5;
+    public int thornsGoldCost = 50;
+    public int thornsSuppliesCost = 5;
+
+    // Laborers
+    public int doubleTimeGoldCost = 0;
+    public int doubleTimeSuppliesCost = 40;
+
+    // Spearmen
+    public int longThrowGoldCost = 75;
+    public int longThrowSuppliesCost = 10;
+    public int spearWallGoldCost = 100;
+    public int spearWallSuppliesCost = 5;
 
     [HideInInspector] public bool laborersUnlocked, knightsUnlocked, spearmenUnlocked, archersUnlocked;
 
-    public void ApplyLaborerData(int gold, int supplies, float health, float miningSpeedMultiplier)
+    public void ApplyLaborerData(int gold, int supplies, float health, float miningSpeedMultiplier, float doubleTimeTime, bool doubleTimeUnlocked)
     {
         laborerGoldCost += gold;
         laborerSuppliesCost += supplies;
 
         laborerHealth += health;
         laborerMiningSpeedMultiplier += miningSpeedMultiplier;
+
+        laborerDoubleTimeTime += doubleTimeTime;
+
+        if (doubleTimeUnlocked)
+            laborerDoubleTimeUnlocked = true;
     }
 
     public void ApplyKnightData(int gold, int supplies, float health, float leaderHealth, float slashDamage, float leaderSlashDamage, float inspireMultiplier, float inspireTime, float thornsDamageMultiplier, float thornsTime, bool inspireUnlocked, bool thornsUnlocked)
@@ -309,6 +339,8 @@ public class SquadData : MonoBehaviour
         ES3.Save("laborerSuppliesCost", laborerSuppliesCost, squadDataSavePath);
         ES3.Save("laborerHealth", laborerHealth, squadDataSavePath);
         ES3.Save("laborerMiningSpeedMultiplier", laborerMiningSpeedMultiplier, squadDataSavePath);
+        ES3.Save("laborerDoubleTimeTime", laborerDoubleTimeTime, squadDataSavePath);
+        ES3.Save("laborerDoubleTimeUnlocked", laborerDoubleTimeUnlocked, squadDataSavePath);
 
         // Knight Data
         ES3.Save("knightsUnlocked", knightsUnlocked, squadDataSavePath);
@@ -371,6 +403,8 @@ public class SquadData : MonoBehaviour
         laborerSuppliesCost = ES3.Load("laborerSuppliesCost", squadDataSavePath, 0);
         laborerHealth = ES3.Load("laborerHealth", squadDataSavePath, 0f);
         laborerMiningSpeedMultiplier = ES3.Load("laborerMiningSpeedMultiplier", squadDataSavePath, defaultMiningSpeedMultiplier);
+        laborerDoubleTimeTime = ES3.Load("laborerDoubleTimeTime", squadDataSavePath, defaultDoubleTimeTime);
+        laborerDoubleTimeUnlocked = ES3.Load("laborerDoubleTimeUnlocked", squadDataSavePath, false);
 
         // Knight Data
         knightsUnlocked = ES3.Load("knightsUnlocked", squadDataSavePath, false);
