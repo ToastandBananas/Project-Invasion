@@ -15,6 +15,12 @@ public enum SquadType
     Archers = 300
 }
 
+public enum StructureType
+{
+    Null = 0,
+    WoodenStakes = 100
+}
+
 public class GameManager : MonoBehaviour
 {
     [HideInInspector] public SquadData squadData;
@@ -44,9 +50,11 @@ public class GameManager : MonoBehaviour
     {
         // Reload the scene 
         // --- DEBUG ONLY --- REMOVE
+        #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         // --- DEBUG ONLY --- REMOVE
+        #endif
     }
 
     public void SaveCurrentGame()

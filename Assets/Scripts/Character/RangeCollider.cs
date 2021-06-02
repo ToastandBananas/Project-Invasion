@@ -24,18 +24,22 @@ public class RangeCollider : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (squad != null && collision.TryGetComponent(out Attacker enemyAttacker))
+        if (squad != null && collision.CompareTag("Attacker") && collision.TryGetComponent(out Attacker enemyAttacker))
         {
             attackersInRange.Add(enemyAttacker);
         }
         else if (attacker != null)
         {
-            if (collision.TryGetComponent(out Defender enemyDefender))
+            if (collision.CompareTag("Defender") && collision.TryGetComponent(out Defender enemyDefender))
             {
                 if (attacker.myAttackerSpawner == enemyDefender.squad.myLaneSpawner)
                     defendersInRange.Add(enemyDefender);
             }
-            else if (attacker.canAttackNodes && collision.TryGetComponent(out ResourceDeposit goldDeposit))
+            else if (collision.CompareTag("Obstacle") && collision.TryGetComponent(out Obstacle obstacle))
+            {
+                attacker.currentTargetObstacle = obstacle;
+            }
+            else if (attacker.canAttackNodes && collision.CompareTag("Deposit") && collision.TryGetComponent(out ResourceDeposit goldDeposit))
             {
                 if (attacker.myAttackerSpawner == goldDeposit.resourceNode.myLaneSpawner)
                 {

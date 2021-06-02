@@ -41,6 +41,7 @@ public class Attacker : MonoBehaviour
     [HideInInspector] public Squad currentTargetsSquad;
     [HideInInspector] public ResourceNode currentTargetNode;
     [HideInInspector] public ResourceDeposit currentTargetResourceDeposit;
+    [HideInInspector] public Obstacle currentTargetObstacle;
 
     [HideInInspector] public bool isAttacking = false;
     [HideInInspector] public bool isAttackingCastle;
@@ -216,7 +217,7 @@ public class Attacker : MonoBehaviour
 
     public void StrikeCurrentTarget()
     {
-        if (currentTargetDefender == null && currentTargetNode == null && isAttackingCastle == false) return;
+        if (currentTargetDefender == null && currentTargetObstacle == null && currentTargetNode == null && isAttackingCastle == false) return;
 
         if (currentTargetDefender != null)
         {
@@ -239,6 +240,10 @@ public class Attacker : MonoBehaviour
 
                 currentTargetsHealth.TakeDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false, shouldKnockback);
             }
+        }
+        else if (currentTargetObstacle != null)
+        {
+            currentTargetObstacle.TakeDamage(structuralAttackDamage);
         }
         else if (currentTargetNode != null)
         {
@@ -286,7 +291,7 @@ public class Attacker : MonoBehaviour
 
     void UpdateAnimationState()
     {
-        if (currentTargetDefender == null && isAttackingCastle == false)
+        if (currentTargetDefender == null && currentTargetObstacle == null && currentTargetNode == null && isAttackingCastle == false)
             StopAttacking();
     }
 

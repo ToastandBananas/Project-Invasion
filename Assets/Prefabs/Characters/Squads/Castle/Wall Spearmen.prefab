@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 9176416422350433636}
   m_Layer: 6
   m_Name: Wall Spearmen
-  m_TagString: Untagged
+  m_TagString: Squad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -153,6 +153,7 @@ MonoBehaviour:
   goldCost: 150
   suppliesCost: 20
   description: 
+  maxUnitCount: 0
   squadFormation: 0
   castleWallVersionOfSquad: {fileID: 0}
   shouldRetreatWhenEnemyNear: 0

@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1807769460393828023}
   m_Layer: 6
   m_Name: Archers
-  m_TagString: Untagged
+  m_TagString: Squad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -78,6 +78,7 @@ MonoBehaviour:
   goldCost: 200
   suppliesCost: 15
   description: A trio of archers commanded by a master of the bow.
+  maxUnitCount: 0
   squadFormation: 2
   castleWallVersionOfSquad: {fileID: 5993080609283387823, guid: 4e0209b586b82de45b29e048d2c5900d, type: 3}
   shouldRetreatWhenEnemyNear: 1

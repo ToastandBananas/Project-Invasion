@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 8106335024500493336}
   m_Layer: 0
   m_Name: Lich
-  m_TagString: Untagged
+  m_TagString: Attacker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -143,6 +143,7 @@ MonoBehaviour:
   currentTargetsSquad: {fileID: 0}
   currentTargetNode: {fileID: 0}
   currentTargetResourceDeposit: {fileID: 0}
+  currentTargetObstacle: {fileID: 0}
   isAttacking: 0
   isAttackingCastle: 0
   myAttackerSpawner: {fileID: 0}

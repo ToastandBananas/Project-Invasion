@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 6395799488608723466}
   m_Layer: 6
   m_Name: Squad - Empty
-  m_TagString: Untagged
+  m_TagString: Squad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,6 +107,7 @@ MonoBehaviour:
   goldCost: 100
   suppliesCost: 5
   description: 
+  maxUnitCount: 0
   squadFormation: 0
   castleWallVersionOfSquad: {fileID: 0}
   shouldRetreatWhenEnemyNear: 0

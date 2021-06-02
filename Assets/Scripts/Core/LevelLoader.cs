@@ -25,7 +25,10 @@ public class LevelLoader : MonoBehaviour
         if (instance != null)
         {
             if (instance != this)
+            {
+                Debug.LogWarning("More than one instance of LevelLoader. Fix me!");
                 Destroy(gameObject);
+            }
         }
         else
             instance = this;

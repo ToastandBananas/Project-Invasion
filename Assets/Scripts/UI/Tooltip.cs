@@ -30,21 +30,24 @@ public class Tooltip : MonoBehaviour
         if (tooltipText.gameObject.activeSelf) tooltipText.gameObject.SetActive(false);
     }
     
-    public void ToggleSquadTooltip(Squad squad, Vector2 pos)
+    public void ToggleDefenderButtonTooltip(Squad squad, Structure structure, Vector2 pos)
     {
         tooltipBackground.gameObject.SetActive(!tooltipBackground.gameObject.activeSelf);
         tooltipText.gameObject.SetActive(!tooltipText.gameObject.activeSelf);
 
         if (tooltipText.gameObject.activeSelf)
-            CreateSquadTooltip(squad, pos);
+        {
+            if (squad != null)
+                CreateSquadTooltip(squad, pos);
+
+            if (structure != null)
+                CreateStructureTooltip(structure, pos);
+        }
     }
 
     void CreateSquadTooltip(Squad squad, Vector2 pos)
     {
         Reset();
-
-        if (stringBuilder.Equals("") == false)
-            stringBuilder.Clear();
 
         if (squad.transform.Find("Units").childCount > 0)
             unit = squad.transform.Find("Units").GetChild(0).GetComponent<Defender>();
@@ -174,6 +177,24 @@ public class Tooltip : MonoBehaviour
         transform.position = pos + new Vector2(-0.15f, 0.5f);
     }
 
+    void CreateStructureTooltip(Structure structure, Vector2 pos)
+    {
+        Reset();
+
+        stringBuilder.Append("<b><size=24>" + structure.structureType + "</size></b>\n\n");
+
+        stringBuilder.Append(structure.description + "\n\n");
+
+        stringBuilder.Append("<b>Cost:</b> " + structure.GetGoldCost().ToString() + " Gold, " + structure.GetSuppliesCost().ToString() + " Supplies\n\n");
+
+        stringBuilder.Append("Structural Health: " + structure.GetMaxHealth());
+
+        tooltipText.text = stringBuilder.ToString();
+
+        SetBackgroundSize();
+        transform.position = pos + new Vector2(-0.15f, 0.5f);
+    }
+
     void Reset()
     {
         unit = null;
@@ -182,6 +203,9 @@ public class Tooltip : MonoBehaviour
         leader = null;
         leaderHealth = null;
         leaderShooter = null;
+
+        if (stringBuilder.Equals("") == false)
+            stringBuilder.Clear();
     }
 
     public void ActivateAbilityTooltip(string abilityName, Vector2 pos)

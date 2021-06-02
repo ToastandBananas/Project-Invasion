@@ -105,7 +105,7 @@ public class Health : MonoBehaviour
             finalDamageAmount += fireDamage;
         }
 
-        if (finalDamageAmount >= 0f && finalDamageAmount < 1f)
+        if (finalDamageAmount < 1f)
             finalDamageAmount = 1f;
         else
             finalDamageAmount = Mathf.RoundToInt(finalDamageAmount);
@@ -179,6 +179,9 @@ public class Health : MonoBehaviour
                 ResourceDisplay.instance.AddSupplies(attacker.suppliesDroppedOnDeath);
                 TextPopup.CreateResourceGainPopup(transform.position + new Vector3(0f, 0.2f), attacker.suppliesDroppedOnDeath, ResourceType.Supplies);
             }
+
+            if (attacker.currentTargetObstacle != null)
+                attacker.currentTargetObstacle.attackersNearby.Remove(attacker);
 
             // Disable character scripts to prevent further running of Update functions
             if (attacker.myShooter != null)

@@ -130,7 +130,7 @@ GameObject:
   - component: {fileID: 5965062565509483933}
   m_Layer: 2
   m_Name: ArcherLeader
-  m_TagString: Untagged
+  m_TagString: Defender
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minAttackDistance: 0.115
   runSpeed: 0.35
-  isBeingKnockedBack: 0
+  isLarge: 0
   meleeWeaponType: 2
   bluntDamage: 0
   slashDamage: 0
@@ -221,9 +221,12 @@ MonoBehaviour:
   startingPiercingDamage: 0
   startingFireDamage: 0
   shouldKnockback: 0
+  voiceType: 0
+  boxCollider: {fileID: 1308844504721334518}
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
+  isBeingKnockedBack: 0
   targetAttacker: {fileID: 0}
   targetAttackersHealth: {fileID: 0}
   anim: {fileID: 0}
@@ -231,7 +234,9 @@ MonoBehaviour:
   squad: {fileID: 0}
   health: {fileID: 0}
   myShooter: {fileID: 0}
+  laborer: {fileID: 0}
   unitPosition: {x: 0, y: 0}
+  minDistanceFromTargetPosition: 0.025
 --- !u!114 &6530117672121802405
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -95,12 +95,12 @@ GameObject:
   - component: {fileID: 3560212358568429248}
   - component: {fileID: 2520816849295877863}
   - component: {fileID: 7339022116443032901}
+  - component: {fileID: 2906176726144475313}
   - component: {fileID: 3560212358568429253}
-  - component: {fileID: 9043923515328645396}
   - component: {fileID: 6723450833266960353}
   m_Layer: 0
   m_Name: Zombie
-  m_TagString: Untagged
+  m_TagString: Attacker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -186,6 +186,18 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.08433533, y: 0.105644226}
   m_EdgeRadius: 0
+--- !u!114 &2906176726144475313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3560212358568429249}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7ca69914981c5e4cb98f507682adb17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &3560212358568429253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,11 +212,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnPoints: 20
   isLarge: 0
-  suppliesDroppedOnDeath: 5
-  minAttackDistance: 0.115
+  suppliesDroppedOnDeath: 3
+  minAttackDistance: 0.1
   maxOpponents: 2
   runSpeed: 0.25
-  canAttackNodes: 1
+  canAttackNodes: 0
   meleeWeaponType: 2
   structuralAttackDamage: 4
   bluntDamage: 0
@@ -223,6 +235,7 @@ MonoBehaviour:
   currentTargetsSquad: {fileID: 0}
   currentTargetNode: {fileID: 0}
   currentTargetResourceDeposit: {fileID: 0}
+  currentTargetObstacle: {fileID: 0}
   isAttacking: 0
   isAttackingCastle: 0
   myAttackerSpawner: {fileID: 0}
@@ -231,18 +244,6 @@ MonoBehaviour:
   myShooter: {fileID: 0}
   isBeingKnockedBack: 0
   minDistanceFromTargetPosition: 0.025
---- !u!114 &9043923515328645396
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3560212358568429249}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7ef9c877f4d5a1e419e6bb3c217c071a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &6723450833266960353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,7 +256,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 65
+  maxHealth: 85
   startingMaxHealth: 0
   bluntResistance: -0.25
   slashResistance: 0.25

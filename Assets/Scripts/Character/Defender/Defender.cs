@@ -20,6 +20,9 @@ public class Defender : MonoBehaviour
     [Header("Voice")]
     public VoiceType voiceType;
 
+    [Header("Components")]
+    public BoxCollider2D boxCollider;
+
     [HideInInspector] public bool isAttacking;
     [HideInInspector] public bool isMoving;
     [HideInInspector] public bool isRetreating;
@@ -46,6 +49,9 @@ public class Defender : MonoBehaviour
         squad = transform.parent.parent.GetComponent<Squad>();
         sr = transform.GetComponentInChildren<SpriteRenderer>();
         TryGetComponent<Laborer>(out laborer);
+
+        if (boxCollider == null)
+            boxCollider = GetComponent<BoxCollider2D>();
     }
 
     void Start()

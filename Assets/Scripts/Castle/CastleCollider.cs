@@ -24,41 +24,11 @@ public class CastleCollider : MonoBehaviour
     void Start()
     {
         castleHealth = CastleHealth.instance;
-        /*wallsParent = transform.parent.Find("Walls");
-        for (int i = 0; i < wallsParent.childCount; i++)
-        {
-            castleWallSpriteRenderers.Add(wallsParent.GetChild(i).GetComponent<SpriteRenderer>());
-        }*/
     }
-
-    /*void OnMouseEnter()
-    {
-        foreach(SpriteRenderer sr in castleWallSpriteRenderers)
-        {
-            sr.color = highlightColor;
-        }
-    }
-
-    void OnMouseExit()
-    {
-        foreach (SpriteRenderer sr in castleWallSpriteRenderers)
-        {
-            sr.color = defaultColor;
-        }
-    }
-
-    void OnMouseDown()
-    {
-        // Pop up wall defender menu
-        if (DefenderSpawner.instance.ghostImageSquad == null)
-        {
-
-        }
-    }*/
 
     void OnTriggerEnter2D(Collider2D otherCollider)
     {
-        otherCollider.TryGetComponent<Attacker>(out Attacker attacker);
+        otherCollider.TryGetComponent(out Attacker attacker);
         if (attacker != null)
         {
             attacker.isAttackingCastle = true;
@@ -66,10 +36,10 @@ public class CastleCollider : MonoBehaviour
             return;
         }
 
-        otherCollider.TryGetComponent<RangeCollider>(out RangeCollider rangeCollider);
+        otherCollider.TryGetComponent(out RangeCollider rangeCollider);
         if (rangeCollider != null)
         {
-            rangeCollider.transform.parent.TryGetComponent<Shooter>(out Shooter rangedAttacker);
+            rangeCollider.transform.parent.TryGetComponent(out Shooter rangedAttacker);
             if (rangedAttacker != null)
                 rangedAttacker.isShootingCastle = true;
         }

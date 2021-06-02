@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 7600226714430284349}
   m_Layer: 2
   m_Name: RoyalKnight
-  m_TagString: Untagged
+  m_TagString: Defender
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -190,6 +190,7 @@ MonoBehaviour:
   startingFireDamage: 0
   shouldKnockback: 0
   voiceType: 0
+  boxCollider: {fileID: 2997345685612941142}
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
@@ -201,7 +202,9 @@ MonoBehaviour:
   squad: {fileID: 0}
   health: {fileID: 0}
   myShooter: {fileID: 0}
+  laborer: {fileID: 0}
   unitPosition: {x: 0, y: 0}
+  minDistanceFromTargetPosition: 0.025
 --- !u!114 &-1786544958824295306
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -228,7 +231,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 150
   startingMaxHealth: 0
-  currentHealth: 150
   bluntResistance: -0.2
   slashResistance: 0.5
   piercingResistance: 0.3

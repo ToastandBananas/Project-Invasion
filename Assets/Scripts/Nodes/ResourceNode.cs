@@ -109,8 +109,6 @@ public class ResourceNode : MonoBehaviour
         }
         else if (attacker != null && attacker.canAttackNodes) // If an attacker who can attack resource nodes enters the square
         {
-            // attackersAttackingNode.Add(attacker);
-
             // Set the Attacker's target Resource Node to this Node
             attacker.currentTargetNode = this;
 

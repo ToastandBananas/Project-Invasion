@@ -18,6 +18,8 @@ public class LevelController : MonoBehaviour
     [HideInInspector] public int waveNumber = 1;
     [HideInInspector] public int numberOfAttackers = 0;
 
+    [HideInInspector] public bool levelLost;
+
     AudioManager audioManager;
     AttackerSpawner[] attackerSpawners;
     SquadData squadData;
@@ -26,13 +28,23 @@ public class LevelController : MonoBehaviour
     public static LevelController instance;
     void Awake()
     {
-        if (instance == null)
+        if (instance != null)
+        {
+            if (instance != this)
+            {
+                Debug.LogWarning("More than one instance of LevelController. Fix me!");
+                Destroy(gameObject);
+            }
+        }
+        else
             instance = this;
     }
     #endregion
 
     void Start()
     {
+        levelLost = false;
+
         winCanvas.SetActive(false);
         loseCanvas.SetActive(false);
 
@@ -61,13 +73,18 @@ public class LevelController : MonoBehaviour
 
     public void HandleLoseCondition()
     {
-        audioManager.PlaySound(audioManager.failSounds, audioManager.failSounds[0].soundName, Vector3.zero);
+        if (levelLost == false)
+        {
+            levelLost = true;
 
-        // Deactivate all TextPopups since they stay in front of the level lost canvas
-        GameObject.Find("Text Popups").SetActive(false);
+            audioManager.PlaySound(audioManager.failSounds, audioManager.failSounds[0].soundName, Vector3.zero);
 
-        loseCanvas.SetActive(true);
-        Time.timeScale = 0;
+            // Deactivate all TextPopups since they stay in front of the level lost canvas
+            GameObject.Find("Text Popups").SetActive(false);
+
+            loseCanvas.SetActive(true);
+            Time.timeScale = 0;
+        }
     }
 
     IEnumerator HandleWinCondition()

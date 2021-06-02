@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 1844665286703767390}
   m_Layer: 2
   m_Name: Laborer
-  m_TagString: Untagged
+  m_TagString: Defender
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -129,6 +129,7 @@ MonoBehaviour:
   startingFireDamage: 0
   shouldKnockback: 0
   voiceType: 0
+  boxCollider: {fileID: 6446984947389936181}
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
@@ -140,7 +141,9 @@ MonoBehaviour:
   squad: {fileID: 0}
   health: {fileID: 0}
   myShooter: {fileID: 0}
+  laborer: {fileID: 0}
   unitPosition: {x: 0, y: 0}
+  minDistanceFromTargetPosition: 0.025
 --- !u!114 &1827562284831291307
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -153,7 +156,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d9056254f5bcc914aa58f3d61531b245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetGoldDeposit: {fileID: 0}
+  targetResourceDeposit: {fileID: 0}
   isWorking: 0
 --- !u!114 &1844665286703767390
 MonoBehaviour:
@@ -169,7 +172,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 20
   startingMaxHealth: 0
-  currentHealth: 20
   bluntResistance: -0.5
   slashResistance: -0.5
   piercingResistance: -0.5

@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 1481450064206490354}
   m_Layer: 2
   m_Name: KnightLeader
-  m_TagString: Untagged
+  m_TagString: Defender
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,6 +107,7 @@ MonoBehaviour:
   startingFireDamage: 0
   shouldKnockback: 0
   voiceType: 0
+  boxCollider: {fileID: 6084065210926008217}
   isAttacking: 0
   isMoving: 0
   isRetreating: 0
@@ -118,7 +119,9 @@ MonoBehaviour:
   squad: {fileID: 0}
   health: {fileID: 0}
   myShooter: {fileID: 0}
+  laborer: {fileID: 0}
   unitPosition: {x: 0, y: 0}
+  minDistanceFromTargetPosition: 0.025
 --- !u!114 &6249635443579284339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -145,7 +148,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 180
   startingMaxHealth: 0
-  currentHealth: 180
   bluntResistance: -0.25
   slashResistance: 0.4
   piercingResistance: 0.25

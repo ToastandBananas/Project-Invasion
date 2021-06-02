@@ -159,6 +159,10 @@ public class Projectile : MonoBehaviour
                         }
                     }
                 }
+                else if (myShooter.attacker.currentTargetObstacle != null) // If attacking an Obstacle
+                {
+
+                }
                 else // If attacking the castle
                 {
                     collision.TryGetComponent(out CastleCollider castleCollider);

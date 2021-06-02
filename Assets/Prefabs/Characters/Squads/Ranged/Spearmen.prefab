@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 5465530740085816144}
   m_Layer: 6
   m_Name: Spearmen
-  m_TagString: Untagged
+  m_TagString: Squad
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -184,6 +184,7 @@ MonoBehaviour:
   goldCost: 150
   suppliesCost: 20
   description: A versatile squad that excels both in melee and ranged combat.
+  maxUnitCount: 0
   squadFormation: 0
   castleWallVersionOfSquad: {fileID: 9176416422350433636, guid: f0938f4bb2cd03843ab8bbc5a0fbc55f, type: 3}
   shouldRetreatWhenEnemyNear: 0
