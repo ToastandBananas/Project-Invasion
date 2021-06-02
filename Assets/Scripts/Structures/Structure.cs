@@ -3,7 +3,6 @@ using UnityEngine;
 public class Structure : MonoBehaviour
 {
     [Header("Basic Info")]
-    public bool unlocked;
     public StructureType structureType;
     [SerializeField] int goldCost = 50;
     [SerializeField] int suppliesCost = 50;
@@ -53,6 +52,8 @@ public class Structure : MonoBehaviour
     public virtual void OnStructureDestroyed()
     {
         currentStructureCount--;
+        if (maxStructureCount > 0)
+            canPlaceMore = true;
 
         if (currentStructureCount == 0)
         {
@@ -90,6 +91,17 @@ public class Structure : MonoBehaviour
     public virtual void HideNextStructureGhostImage()
     {
         
+    }
+
+    public bool IsAttackersNearby()
+    {
+        for (int i = 0; i < obstacles.Length; i++)
+        {
+            if (obstacles[i].attackersNearby.Count > 0)
+                return true;
+        }
+
+        return false;
     }
 
     public void SetLaneSpawner()

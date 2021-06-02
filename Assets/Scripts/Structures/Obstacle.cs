@@ -25,9 +25,6 @@ public class Obstacle : MonoBehaviour
     {
         currentHealth -= damage;
 
-        if (PlayerPrefsController.DamagePopupsEnabled())
-            TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(0.05f, 0.15f)), damage, false, true);
-
         if (currentHealth <= 0f)
             DestroyObstacle();
     }
@@ -43,11 +40,15 @@ public class Obstacle : MonoBehaviour
 
         for (int i = 0; i < attackersNearby.Count; i++)
         {
-            attackersNearby[i].StopAttacking();
-            attackersNearby[i].currentTargetObstacle = null;
+            if (attackersNearby[i].currentTargetObstacle == this)
+            {
+                attackersNearby[i].StopAttacking();
+                attackersNearby[i].currentTargetObstacle = null;
+            }
         }
 
         // TODO: Destroy sound
+        // TODO: Destroy animation
 
         currentHealth = maxHealth;
         gameObject.SetActive(false);

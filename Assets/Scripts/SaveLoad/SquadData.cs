@@ -326,6 +326,20 @@ public class SquadData : MonoBehaviour
         GameManager.instance.SaveCurrentGame();
     }
 
+    public void UnlockStructure(StructureType structureType)
+    {
+        switch (structureType)
+        {
+            case StructureType.WoodenStakes:
+                woodenStakesUnlocked = true;
+                break;
+            default:
+                break;
+        }
+
+        GameManager.instance.SaveCurrentGame();
+    }
+
     public bool SquadUnlocked(SquadType squadType)
     {
         switch (squadType)

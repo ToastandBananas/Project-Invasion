@@ -37,7 +37,8 @@ public class RangeCollider : MonoBehaviour
             }
             else if (collision.CompareTag("Obstacle") && collision.TryGetComponent(out Obstacle obstacle))
             {
-                attacker.currentTargetObstacle = obstacle;
+                if (attacker.myAttackerSpawner == obstacle.parentStructure.myLaneSpawner)
+                    attacker.currentTargetObstacle = obstacle;
             }
             else if (attacker.canAttackNodes && collision.CompareTag("Deposit") && collision.TryGetComponent(out ResourceDeposit goldDeposit))
             {

@@ -67,7 +67,7 @@ public class Tooltip : MonoBehaviour
             unitShooter = unit.GetComponent<Shooter>();
         }
 
-        stringBuilder.Append("<b><size=24>" + squad.squadType + "</size></b>\n\n");
+        stringBuilder.Append("<b><size=24>" + squad.name + "</size></b>\n\n");
 
         stringBuilder.Append(squad.description + "\n\n");
 
@@ -181,7 +181,7 @@ public class Tooltip : MonoBehaviour
     {
         Reset();
 
-        stringBuilder.Append("<b><size=24>" + structure.structureType + "</size></b>\n\n");
+        stringBuilder.Append("<b><size=24>" + structure.name + "</size></b>\n\n");
 
         stringBuilder.Append(structure.description + "\n\n");
 

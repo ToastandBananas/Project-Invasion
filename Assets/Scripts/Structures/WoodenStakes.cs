@@ -7,7 +7,8 @@ public class WoodenStakes : Structure
     public SpriteRenderer[] stakeSpriteRenderers_Group2;
 
     [Header("Box Colliders")]
-    public BoxCollider2D boxCollider_Group1, boxCollider_Group2;
+    public BoxCollider2D boxCollider_Group1;
+    public BoxCollider2D boxCollider_Group2;
 
     void Awake()
     {
@@ -96,9 +97,6 @@ public class WoodenStakes : Structure
     {
         if (currentStructureCount == 2)
         {
-            currentStructureCount--;
-            canPlaceMore = true;
-
             for (int i = 0; i < stakeSpriteRenderers_Group2.Length; i++)
             {
                 stakeSpriteRenderers_Group2[i].color = ghostImageColor;

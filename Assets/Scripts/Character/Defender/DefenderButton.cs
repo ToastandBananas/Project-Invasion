@@ -19,11 +19,10 @@ public class DefenderButton : MonoBehaviour, IPointerEnterHandler, IPointerExitH
         gm = GameManager.instance;
         tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
 
-        if ((squadPrefab != null && gm.squadData.SquadUnlocked(squadPrefab.squadType) == false)
-            || (structurePrefab != null && gm.squadData.StructureUnlocked(structurePrefab.structureType) == false))
-        {
+        if (squadPrefab != null && gm.squadData.SquadUnlocked(squadPrefab.squadType) == false)
             transform.parent.gameObject.SetActive(false);
-        }
+        else if (structurePrefab != null && gm.squadData.StructureUnlocked(structurePrefab.structureType) == false)
+            transform.parent.gameObject.SetActive(false);
 
         SetCostDisplay();
     }

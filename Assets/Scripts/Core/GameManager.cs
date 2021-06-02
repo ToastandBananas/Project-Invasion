@@ -65,7 +65,6 @@ public class GameManager : MonoBehaviour
         // Autosave
         ES3AutoSaveMgr.Current.Save();
 
-
         // Save upgrade point total if the player is in the Upgrade Menu
         if (SceneManager.GetSceneByName("Upgrade Menu") == SceneManager.GetActiveScene())
             UpgradeManager.instance.SaveUpgradePoints();

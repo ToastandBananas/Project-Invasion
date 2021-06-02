@@ -244,6 +244,9 @@ public class Attacker : MonoBehaviour
         else if (currentTargetObstacle != null)
         {
             currentTargetObstacle.TakeDamage(structuralAttackDamage);
+
+            if (PlayerPrefsController.DamagePopupsEnabled())
+                TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(0f, 0.15f)), structuralAttackDamage, false, true);
         }
         else if (currentTargetNode != null)
         {

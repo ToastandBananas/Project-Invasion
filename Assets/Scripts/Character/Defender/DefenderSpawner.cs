@@ -130,7 +130,7 @@ public class DefenderSpawner : MonoBehaviour
                     {
                         focusedStructure = GetStructureFromCoordinates(mouseHoverTilePos);
                         // If there is already a Structure in this cell and it can still hold more Structures (such as with Wooden Stakes)
-                        if (focusedStructure != null && focusedStructure.structureType == ghostImageStructure.structureType && focusedStructure.canPlaceMore)
+                        if (focusedStructure != null && focusedStructure.structureType == ghostImageStructure.structureType && focusedStructure.canPlaceMore && focusedStructure.IsAttackersNearby() == false)
                         {
                             focusedStructure.ShowNextStructureGhostImage(currencyDisplay);
                             ghostImageStructure.gameObject.SetActive(false);
@@ -161,6 +161,9 @@ public class DefenderSpawner : MonoBehaviour
 
     public void SetSelectedSquad(Squad squadToSelect)
     {
+        if (structure != null)
+            ClearSelectedStructure();
+
         squad = squadToSelect;
 
         // Instantiate the squad
@@ -169,6 +172,9 @@ public class DefenderSpawner : MonoBehaviour
 
     public void SetSelectedStructure(Structure structureToSelect)
     {
+        if (squad != null)
+            ClearSelectedSquad();
+
         structure = structureToSelect;
 
         // Instantiate the structure
@@ -195,6 +201,9 @@ public class DefenderSpawner : MonoBehaviour
             Destroy(ghostImageStructure.gameObject);
             ghostImageStructure = null;
         }
+
+        if (focusedStructure != null)
+            focusedStructure.HideNextStructureGhostImage();
 
         gameObject.SetActive(false);
     }
@@ -322,8 +331,7 @@ public class DefenderSpawner : MonoBehaviour
             }
             else if (ghostImageStructure.maxStructureCount > 1) // If you can place multiple structures in one square (such as with Wooden Stakes), place another
             {
-                // focusedStructure = GetStructureFromCoordinates(coordinates);
-                if (focusedStructure.canPlaceMore && focusedStructure.structureType == ghostImageStructure.structureType)
+                if (focusedStructure.canPlaceMore && focusedStructure.structureType == ghostImageStructure.structureType && focusedStructure.IsAttackersNearby() == false)
                 {
                     focusedStructure.BuildNextStructure();
 

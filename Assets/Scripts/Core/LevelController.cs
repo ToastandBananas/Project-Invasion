@@ -9,8 +9,9 @@ public class LevelController : MonoBehaviour
     [SerializeField] int maxWaves = 5;
     public float waveDelay = 10f;
 
-    [Header("Squad Unlock")]
+    [Header("Unlocks")]
     public SquadType squadUnlock;
+    public StructureType structureUnlock;
 
     [Header("Rewards")]
     public int upgradePointsReward = 100;
@@ -51,7 +52,7 @@ public class LevelController : MonoBehaviour
         audioManager = AudioManager.instance;
         squadData = GameManager.instance.squadData;
 
-        ApplySquadUnlock();
+        ApplyUnlock();
 
         attackerSpawners = FindObjectsOfType<AttackerSpawner>();
         foreach (AttackerSpawner spawner in attackerSpawners)
@@ -107,10 +108,13 @@ public class LevelController : MonoBehaviour
         ES3.Save("upgradePoints", ES3.Load("upgradePoints", 0) + upgradePointsReward);
     }
 
-    void ApplySquadUnlock()
+    void ApplyUnlock()
     {
         if (squadUnlock != SquadType.Null)
             squadData.UnlockSquad(squadUnlock);
+
+        if (structureUnlock != StructureType.Null)
+            squadData.UnlockStructure(structureUnlock);
     }
 
     public void CheckIfWaveComplete()

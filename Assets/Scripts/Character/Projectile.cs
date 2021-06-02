@@ -161,7 +161,16 @@ public class Projectile : MonoBehaviour
                 }
                 else if (myShooter.attacker.currentTargetObstacle != null) // If attacking an Obstacle
                 {
+                    collision.TryGetComponent(out Obstacle obstacle);
+                    if (obstacle != null)
+                    {
+                        HitTarget(null, true);
 
+                        obstacle.TakeDamage(myShooter.attacker.structuralAttackDamage);
+
+                        if (PlayerPrefsController.DamagePopupsEnabled())
+                            TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.1f, 0.1f), Random.Range(0f, 0.15f)), myShooter.attacker.structuralAttackDamage, false, true);
+                    }
                 }
                 else // If attacking the castle
                 {
