@@ -279,6 +279,14 @@ MonoBehaviour:
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.15
     loop: 0
+  woodBreakingSounds:
+  - soundName: Wood Breaking 1
+    clip: {fileID: 8300000, guid: 0c34e68c86989d34e92ea1e36fcebb2b, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
   swordSlashOpponentSounds:
   - soundName: Sword Hit 1
     clip: {fileID: 8300000, guid: 063c956152926a14ebcc83275d810bb8, type: 3}
@@ -441,6 +449,59 @@ MonoBehaviour:
     loop: 0
   - soundName: Human Male Death 10
     clip: {fileID: 8300000, guid: 3bba2c9e539a8c04faf44e00b56d705c, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  humanFemaleDeathSounds: []
+  lichDeathSounds:
+  - soundName: Lich Death 1
+    clip: {fileID: 8300000, guid: 28caf7daf62661d489b7c1711fe17c16, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Lich Death 2
+    clip: {fileID: 8300000, guid: 3ff280dffdfc0b645a85c3c960e08e0f, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  skeletonDeathSounds:
+  - soundName: Skeleton Death 1
+    clip: {fileID: 8300000, guid: b0261dc9507a864478252a4e7756409c, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Skeleton Death 2
+    clip: {fileID: 8300000, guid: 3a1d3db8cf4c8034a9f1590a027ee55f, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Skeleton Death 3
+    clip: {fileID: 8300000, guid: ec5f786db4d33b5448a05dbecb516957, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  zombieDeathSounds:
+  - soundName: Zombie Death 1
+    clip: {fileID: 8300000, guid: 0204f8b2c8b4a9443b5ca370f4f35830, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  - soundName: Zombie Death 2
+    clip: {fileID: 8300000, guid: 985f524a4e0fdbc4f808136f0e6afb78, type: 3}
     volume: 0.3
     pitch: 1
     randomVolumeAddOn: 0.05

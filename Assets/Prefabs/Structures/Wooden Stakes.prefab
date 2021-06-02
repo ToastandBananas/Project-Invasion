@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504139762288720}
   - component: {fileID: 5944504139762288735}
+  - component: {fileID: 1841083046}
   m_Layer: 0
   m_Name: Stake (2)
   m_TagString: Untagged
@@ -83,6 +84,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083046
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504139762288721}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504139819746305
 GameObject:
   m_ObjectHideFlags: 0
@@ -93,6 +113,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504139819746304}
   - component: {fileID: 5944504139819746319}
+  - component: {fileID: 1841083042}
   m_Layer: 0
   m_Name: Stake (6)
   m_TagString: Untagged
@@ -166,6 +187,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083042
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504139819746305}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504139997800502
 GameObject:
   m_ObjectHideFlags: 0
@@ -176,6 +216,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504139997800501}
   - component: {fileID: 5944504139997800500}
+  - component: {fileID: 1841083035}
   m_Layer: 0
   m_Name: Stake (6)
   m_TagString: Untagged
@@ -249,6 +290,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083035
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504139997800502}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504140155095259
 GameObject:
   m_ObjectHideFlags: 0
@@ -259,6 +319,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504140155095258}
   - component: {fileID: 5944504140155095257}
+  - component: {fileID: 1841083038}
   m_Layer: 0
   m_Name: Stake (3)
   m_TagString: Untagged
@@ -332,6 +393,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083038
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504140155095259}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504140266996561
 GameObject:
   m_ObjectHideFlags: 0
@@ -342,6 +422,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504140266996560}
   - component: {fileID: 5944504140266996575}
+  - component: {fileID: 1841083047}
   m_Layer: 0
   m_Name: Stake (1)
   m_TagString: Untagged
@@ -415,6 +496,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083047
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504140266996561}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504140459171652
 GameObject:
   m_ObjectHideFlags: 0
@@ -425,6 +525,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504140459171651}
   - component: {fileID: 5944504140459171650}
+  - component: {fileID: 1841083036}
   m_Layer: 0
   m_Name: Stake (5)
   m_TagString: Untagged
@@ -498,6 +599,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083036
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504140459171652}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504140509341367
 GameObject:
   m_ObjectHideFlags: 0
@@ -508,6 +628,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504140509341366}
   - component: {fileID: 5944504140509341365}
+  - component: {fileID: 1841083043}
   m_Layer: 0
   m_Name: Stake (5)
   m_TagString: Untagged
@@ -581,6 +702,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083043
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504140509341367}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504140588532966
 GameObject:
   m_ObjectHideFlags: 0
@@ -671,6 +811,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504140671303729}
   - component: {fileID: 5944504140671303728}
+  - component: {fileID: 1841083048}
   m_Layer: 0
   m_Name: Stake
   m_TagString: Untagged
@@ -744,6 +885,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083048
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504140671303730}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504140795678273
 GameObject:
   m_ObjectHideFlags: 0
@@ -754,6 +914,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504140795678272}
   - component: {fileID: 5944504140795678287}
+  - component: {fileID: 1841083045}
   m_Layer: 0
   m_Name: Stake (3)
   m_TagString: Untagged
@@ -827,6 +988,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083045
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504140795678273}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504140938019508
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,6 +1097,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504141059221442}
   - component: {fileID: 5944504141059221441}
+  - component: {fileID: 1841083044}
   m_Layer: 0
   m_Name: Stake (4)
   m_TagString: Untagged
@@ -990,6 +1171,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083044
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504141059221443}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504141302166231
 GameObject:
   m_ObjectHideFlags: 0
@@ -1000,6 +1200,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504141302166230}
   - component: {fileID: 5944504141302166229}
+  - component: {fileID: 1841083039}
   m_Layer: 0
   m_Name: Stake (2)
   m_TagString: Untagged
@@ -1073,6 +1274,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083039
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504141302166231}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504141316651270
 GameObject:
   m_ObjectHideFlags: 0
@@ -1083,6 +1303,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504141316651269}
   - component: {fileID: 5944504141316651268}
+  - component: {fileID: 1841083040}
   m_Layer: 0
   m_Name: Stake (1)
   m_TagString: Untagged
@@ -1156,6 +1377,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083040
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504141316651270}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504141570012290
 GameObject:
   m_ObjectHideFlags: 0
@@ -1166,6 +1406,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504141570012289}
   - component: {fileID: 5944504141570012288}
+  - component: {fileID: 1841083037}
   m_Layer: 0
   m_Name: Stake (4)
   m_TagString: Untagged
@@ -1239,6 +1480,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083037
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504141570012290}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504141589772076
 GameObject:
   m_ObjectHideFlags: 0
@@ -1249,6 +1509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5944504141589772075}
   - component: {fileID: 5944504141589772074}
+  - component: {fileID: 1841083041}
   m_Layer: 0
   m_Name: Stake
   m_TagString: Untagged
@@ -1322,6 +1583,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &1841083041
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5944504141589772076}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 270d968fa513a68479742ea354aca6ad, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5944504141592070327
 GameObject:
   m_ObjectHideFlags: 0
@@ -1383,6 +1663,22 @@ MonoBehaviour:
   activeColor: {r: 1, g: 1, b: 1, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 0.4}
   ghostImageColor: {r: 1, g: 1, b: 1, a: 0.4}
+  stakeAnims_Group1:
+  - {fileID: 1841083048}
+  - {fileID: 1841083047}
+  - {fileID: 1841083046}
+  - {fileID: 1841083045}
+  - {fileID: 1841083044}
+  - {fileID: 1841083043}
+  - {fileID: 1841083042}
+  stakeAnims_Group2:
+  - {fileID: 1841083041}
+  - {fileID: 1841083040}
+  - {fileID: 1841083039}
+  - {fileID: 1841083038}
+  - {fileID: 1841083037}
+  - {fileID: 1841083036}
+  - {fileID: 1841083035}
   stakeSpriteRenderers_Group1:
   - {fileID: 5944504140671303728}
   - {fileID: 5944504140266996575}

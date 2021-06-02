@@ -228,7 +228,7 @@ MonoBehaviour:
   startingPiercingDamage: 0
   startingFireDamage: 0
   shouldKnockback: 0
-  voiceType: 2
+  voiceType: 4
   opponents: []
   currentTargetDefender: {fileID: 0}
   currentTargetsHealth: {fileID: 0}

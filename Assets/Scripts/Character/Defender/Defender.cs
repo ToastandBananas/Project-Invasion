@@ -98,51 +98,54 @@ public class Defender : MonoBehaviour
 
     public IEnumerator Retreat()
     {
-        isRetreating = true;
-        isAttacking = false;
-        isMoving = true;
-
-        targetAttacker = null;
-        targetAttackersHealth = null;
-
-        anim.SetBool("isMoving", true);
-        anim.SetBool("isAttacking", false);
-        if (squad.isRangedUnit)
-            anim.SetBool("isShooting", false);
-
-        if (squad.squadType == SquadType.Laborers)
+        if (isRetreating == false)
         {
-            Laborer laborer = GetComponent<Laborer>();
-            if (laborer.isWorking)
-                laborer.StopWorking();
-        }
+            isRetreating = true;
+            isAttacking = false;
+            isMoving = true;
 
-        // While the defender is still within the bounds of the visible map (-1.25 on the x is outside of our camera's view)
-        while (transform.position.x > -1.25f && health.isDead == false)
-        {
-            if (transform.localScale.x != -1)
-                transform.localScale = new Vector2(-1, 1); // Flip the sprite
+            targetAttacker = null;
+            targetAttackersHealth = null;
 
-            if (transform.position.x > 0.25f || (transform.position.x <= 0.25 && transform.position.y >= 2.9f && transform.position.y <= 3.1f))
-                transform.Translate(Vector2.left * runSpeed * 2 * Time.deltaTime); // Retreat double the speed
-            else if (transform.position.x <= 0.25f && transform.position.y < 2.9f)
+            anim.SetBool("isMoving", true);
+            anim.SetBool("isAttacking", false);
+            if (squad.isRangedUnit)
+                anim.SetBool("isShooting", false);
+
+            if (squad.squadType == SquadType.Laborers)
             {
-                sr.sortingOrder = -650;
-                transform.Translate(Vector2.up * runSpeed * 2 * Time.deltaTime);
-            }
-            else if (transform.position.x <= 0.25f && transform.position.y > 3.1f)
-            {
-                sr.sortingOrder = -650;
-                transform.Translate(Vector2.down * runSpeed * 2 * Time.deltaTime);
+                Laborer laborer = GetComponent<Laborer>();
+                if (laborer.isWorking)
+                    laborer.StopWorking();
             }
 
-            if (transform.position.x <= -2.25f)
+            // While the defender is still within the bounds of the visible map (-1.25 on the x is outside of our camera's view)
+            while (transform.position.x > -1.25f && health.isDead == false)
             {
-                Destroy(squad.gameObject); // Destroy the squad
-                break;
-            }
+                if (transform.localScale.x != -1)
+                    transform.localScale = new Vector2(-1, 1); // Flip the sprite
 
-            yield return null;
+                if (transform.position.x > 0.25f || (transform.position.x <= 0.25 && transform.position.y >= 2.9f && transform.position.y <= 3.1f))
+                    transform.Translate(Vector2.left * runSpeed * 2 * Time.deltaTime); // Retreat double the speed
+                else if (transform.position.x <= 0.25f && transform.position.y < 2.9f)
+                {
+                    sr.sortingOrder = -650;
+                    transform.Translate(Vector2.up * runSpeed * 2 * Time.deltaTime);
+                }
+                else if (transform.position.x <= 0.25f && transform.position.y > 3.1f)
+                {
+                    sr.sortingOrder = -650;
+                    transform.Translate(Vector2.down * runSpeed * 2 * Time.deltaTime);
+                }
+
+                if (transform.position.x <= -2.25f)
+                {
+                    Destroy(squad.gameObject); // Destroy the squad
+                    break;
+                }
+
+                yield return null;
+            }
         }
     }
 

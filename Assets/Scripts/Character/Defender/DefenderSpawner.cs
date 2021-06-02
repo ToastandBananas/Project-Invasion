@@ -278,7 +278,7 @@ public class DefenderSpawner : MonoBehaviour
     IEnumerator PlaceSquad(Vector2 coordinates)
     {
         // If trying to place a ranged squad on the wall, swap out the current ghost squad for it's wall version
-        if (mouseHoverTilePos.x < 1f)
+        if (mouseHoverTilePos.x < 1f && squad.castleWallVersionOfSquad != null)
         {
             Squad oldGhostImageSquad = ghostImageSquad;
             ghostImageSquad = Instantiate(squad.castleWallVersionOfSquad, coordinates, Quaternion.identity);

@@ -262,6 +262,6 @@ public class Projectile : MonoBehaviour
 
     void UpdateSortingLayer()
     {
-        sr.sortingOrder = Mathf.RoundToInt(transform.position.y * -100);
+        sr.sortingOrder = Mathf.RoundToInt(transform.position.y * 100);
     }
 }

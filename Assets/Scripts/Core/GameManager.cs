@@ -2,7 +2,7 @@
 using UnityEngine.SceneManagement;
 
 public enum ResourceType { Gold, Supplies }
-public enum VoiceType { HumanMale, HumanFemale, Undead }
+public enum VoiceType { HumanMale, HumanFemale, Skeleton, Lich, Zombie }
 public enum MeleeWeaponType { Blade, Blunt, Piercing }
 public enum RangedWeaponType { Bow, Crossbow, Fireball, Spear }
 public enum SquadFormation { Line, StaggeredLine, Wedge, Scattered, Wall, Random }

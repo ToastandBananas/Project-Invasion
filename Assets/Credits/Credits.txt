@@ -17,10 +17,12 @@ Sound Credits:
 - Fleshy Fight Sounds by will_leamon (https://opengameart.org/content/fleshy-fight-sounds) Licensed under OGA-BY 3.0
 - Horror Sound Effects Library by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/packs/16688/) Licensed under CC-BY 3.0
 - Music: Orchestral Victory Fanfare by Sheyvan (https://freesound.org/people/Sheyvan/sounds/470083/) Licenced under CC-BY 3.0
-- Voices - Demon by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/packs/17723/) Licensed under CC-BY 3.0
-- Voices - Human by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/packs/17725/) Licensed under CC-BY 3.0
+- Plywood Break by cmusounddesign (https://freesound.org/people/cmusounddesign/sounds/96167/) Licensed under CC-BY 3.0
 - Red Eclipse Sounds by redeclipse (https://github.com/redeclipse/sounds) Licensed under CC-BY-SA 4.0
 - RPG Sound Pack by artisticdude (https://opengameart.org/content/rpg-sound-pack) Licensed under CC0 1.0
 - Throwing/Whip Effect by denao270 (https://freesound.org/people/denao270/sounds/346373/) Licensed under CC0 1.0
-- Wet Click by Breviceps (https://freesound.org/people/Breviceps/sounds/448080/) Licensed under CC0 1.0
 - UI Sound Effects Library by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/packs/17311/) Licensed under CC-BY 3.0
+- Voices - Demon by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/packs/17723/) Licensed under CC-BY 3.0
+- Voices - Human by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/packs/17725/) Licensed under CC-BY 3.0
+- Wet Click by Breviceps (https://freesound.org/people/Breviceps/sounds/448080/) Licensed under CC0 1.0
+- Zombie Death Sounds by tonsil5 (https://freesound.org/people/tonsil5/packs/31188/) Licensed under CC0 1.0

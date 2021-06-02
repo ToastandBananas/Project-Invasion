@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -47,10 +48,13 @@ public class Obstacle : MonoBehaviour
             }
         }
 
-        // TODO: Destroy sound
-        // TODO: Destroy animation
-
         currentHealth = maxHealth;
+        StartCoroutine(WaitToSetInactive(parentStructure.destroyAnimationTime));
+    }
+
+    IEnumerator WaitToSetInactive(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
         gameObject.SetActive(false);
     }
 

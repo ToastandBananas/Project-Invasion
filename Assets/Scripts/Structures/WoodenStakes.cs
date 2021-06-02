@@ -2,6 +2,10 @@ using UnityEngine;
 
 public class WoodenStakes : Structure
 {
+    [Header("Animators")]
+    public Animator[] stakeAnims_Group1;
+    public Animator[] stakeAnims_Group2;
+
     [Header("Sprite Renderers")]
     public SpriteRenderer[] stakeSpriteRenderers_Group1;
     public SpriteRenderer[] stakeSpriteRenderers_Group2;
@@ -26,12 +30,12 @@ public class WoodenStakes : Structure
 
         for (int i = 0; i < stakeSpriteRenderers_Group1.Length; i++)
         {
-            stakeSpriteRenderers_Group1[i].sortingOrder = Mathf.RoundToInt(transform.position.y * -90);
+            stakeSpriteRenderers_Group1[i].sortingOrder = Mathf.RoundToInt((transform.position.y * -100) + 10);
         }
 
         for (int i = 0; i < stakeSpriteRenderers_Group2.Length; i++)
         {
-            stakeSpriteRenderers_Group2[i].sortingOrder = Mathf.RoundToInt(transform.position.y * -89);
+            stakeSpriteRenderers_Group2[i].sortingOrder = Mathf.RoundToInt((transform.position.y * -100) + 9);
         }
 
         transform.GetChild(1).gameObject.SetActive(false);
@@ -58,6 +62,7 @@ public class WoodenStakes : Structure
         for (int i = 0; i < stakeSpriteRenderers_Group2.Length; i++)
         {
             stakeSpriteRenderers_Group2[i].color = activeColor;
+            stakeAnims_Group2[i].SetBool("isDestroyed", false);
         }
 
         boxCollider_Group2.enabled = true;
@@ -95,12 +100,30 @@ public class WoodenStakes : Structure
 
     public override void OnStructureDestroyed()
     {
-        if (currentStructureCount == 2)
+        if (currentStructureCount == 1)
+        {
+            for (int i = 0; i < stakeSpriteRenderers_Group1.Length; i++)
+            {
+                boxCollider_Group1.enabled = false;
+                stakeAnims_Group1[i].SetBool("isDestroyed", true);
+
+                audioManager.PlayRandomSound(audioManager.woodBreakingSounds);
+
+                if (destroyAnimationTime == 0f)
+                    destroyAnimationTime = stakeAnims_Group1[i].GetCurrentAnimatorClipInfo(0).Length;
+            }
+        }
+        else if (currentStructureCount == 2)
         {
             for (int i = 0; i < stakeSpriteRenderers_Group2.Length; i++)
             {
-                stakeSpriteRenderers_Group2[i].color = ghostImageColor;
                 boxCollider_Group2.enabled = false;
+                stakeAnims_Group2[i].SetBool("isDestroyed", true);
+
+                audioManager.PlayRandomSound(audioManager.woodBreakingSounds);
+
+                if (destroyAnimationTime == 0f)
+                    destroyAnimationTime = stakeAnims_Group2[i].GetCurrentAnimatorClipInfo(0).Length;
             }
         }
 

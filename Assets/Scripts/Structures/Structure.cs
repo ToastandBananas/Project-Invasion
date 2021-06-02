@@ -17,10 +17,13 @@ public class Structure : MonoBehaviour
     [HideInInspector] public bool structurePlaced = false;
 
     [HideInInspector] public AttackerSpawner myLaneSpawner;
+    [HideInInspector] public AudioManager audioManager;
 
     [HideInInspector] public Color activeColor = new Color(1f, 1f, 1f, 1f); // White
     [HideInInspector] public Color invalidColor = new Color(1f, 0f, 0f, 0.4f); // Red and opaque
     [HideInInspector] public Color ghostImageColor = new Color(1f, 1f, 1f, 0.4f); // White and opaque
+
+    [HideInInspector] public float destroyAnimationTime;
 
     DefenderSpawner defenderSpawner;
 
@@ -28,6 +31,7 @@ public class Structure : MonoBehaviour
     {
         currentStructureCount = 1;
 
+        audioManager = AudioManager.instance;
         defenderSpawner = DefenderSpawner.instance;
     }
 
@@ -59,7 +63,7 @@ public class Structure : MonoBehaviour
         {
             defenderSpawner.RemoveCell(new Vector2(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y)));
             defenderSpawner.structures.Remove(this);
-            Destroy(gameObject);
+            Destroy(gameObject, destroyAnimationTime);
         }
     }
 

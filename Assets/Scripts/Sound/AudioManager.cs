@@ -79,6 +79,9 @@ public class AudioManager : MonoBehaviour
     public Sound[] pickaxeSounds;
     public Sound[] rockSmashSounds;
 
+    [Header("Structure Sounds")]
+    public Sound[] woodBreakingSounds;
+
     [Header("Sword Sounds")]
     public Sound[] swordSlashOpponentSounds;
     public Sound[] swordStabOpponentSounds;
@@ -92,6 +95,10 @@ public class AudioManager : MonoBehaviour
 
     [Header("Voice Sounds")]
     public Sound[] humanMaleDeathSounds;
+    public Sound[] humanFemaleDeathSounds;
+    public Sound[] lichDeathSounds;
+    public Sound[] skeletonDeathSounds;
+    public Sound[] zombieDeathSounds;
 
     bool playedFirstSong;
 
@@ -125,11 +132,16 @@ public class AudioManager : MonoBehaviour
         allSounds.Add(failSounds);
         allSounds.Add(pickaxeSounds);
         allSounds.Add(rockSmashSounds);
+        allSounds.Add(woodBreakingSounds);
         allSounds.Add(swordSlashOpponentSounds);
         allSounds.Add(swordStabOpponentSounds);
         allSounds.Add(throwSounds);
         allSounds.Add(buttonClickSounds);
         allSounds.Add(humanMaleDeathSounds);
+        allSounds.Add(humanFemaleDeathSounds);
+        allSounds.Add(lichDeathSounds);
+        allSounds.Add(skeletonDeathSounds);
+        allSounds.Add(zombieDeathSounds);
     }
 
     void Start()
@@ -336,9 +348,13 @@ public class AudioManager : MonoBehaviour
     {
         if (voiceType == VoiceType.HumanMale)
             PlayRandomSound(humanMaleDeathSounds);
-        //else if (voiceType == VoiceType.HumanFemale)
-            //PlayRandomSound(humanMaleDeathSounds);
-        //else if (voiceType == VoiceType.Undead)
-            //PlayRandomSound(humanMaleDeathSounds);
+        else if (voiceType == VoiceType.HumanFemale)
+            PlayRandomSound(humanFemaleDeathSounds);
+        else if (voiceType == VoiceType.Skeleton)
+            PlayRandomSound(skeletonDeathSounds);
+        else if (voiceType == VoiceType.Lich)
+            PlayRandomSound(lichDeathSounds);
+        else if (voiceType == VoiceType.Zombie)
+            PlayRandomSound(zombieDeathSounds);
     }
 }
