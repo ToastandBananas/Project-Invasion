@@ -24,7 +24,15 @@ public class Obstacle : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        currentHealth -= damage;
+        float finalDamageAmount = damage;
+        finalDamageAmount *= PlayerPrefsController.GetDifficultyMultiplier_EnemyAttackDamage();
+
+        if (finalDamageAmount < 1f)
+            finalDamageAmount = 1f;
+        else
+            finalDamageAmount = Mathf.RoundToInt(finalDamageAmount);
+
+        currentHealth -= finalDamageAmount;
 
         if (currentHealth <= 0f)
             DestroyObstacle();

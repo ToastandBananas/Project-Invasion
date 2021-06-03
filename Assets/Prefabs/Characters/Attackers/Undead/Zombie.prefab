@@ -198,6 +198,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7ca69914981c5e4cb98f507682adb17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackerScript: {fileID: 0}
+  health: {fileID: 0}
+  minResurrectWaitTime: 4
+  maxResurrectWaitTime: 10
 --- !u!114 &3560212358568429253
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -213,7 +217,7 @@ MonoBehaviour:
   spawnPoints: 20
   isLarge: 0
   suppliesDroppedOnDeath: 3
-  minAttackDistance: 0.1
+  minAttackDistance: 0.08
   maxOpponents: 2
   runSpeed: 0.25
   canAttackNodes: 0
@@ -239,6 +243,7 @@ MonoBehaviour:
   isAttacking: 0
   isAttackingCastle: 0
   myAttackerSpawner: {fileID: 0}
+  anim: {fileID: 0}
   health: {fileID: 0}
   rangeCollider: {fileID: 0}
   myShooter: {fileID: 0}
@@ -256,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 85
+  maxHealth: 75
   startingMaxHealth: 0
   bluntResistance: -0.25
   slashResistance: 0.25

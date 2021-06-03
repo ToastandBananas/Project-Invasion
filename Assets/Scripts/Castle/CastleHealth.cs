@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class CastleHealth : MonoBehaviour
 {
-    [SerializeField] float baseHealth = 100f;
-    [SerializeField] float health;
-
+    [SerializeField] float baseHealth = 200f;
+    [SerializeField] float currentHealth;
     float maxHealth;
+
     Text healthText;
     RectTransform healthBar;
     float maskStartingWidth;
@@ -26,8 +26,8 @@ public class CastleHealth : MonoBehaviour
 
     void Start()
     {
-        health = baseHealth * PlayerPrefsController.GetDifficultyMultiplier();
-        maxHealth = health;
+        currentHealth = baseHealth * PlayerPrefsController.GetDifficultyMultiplier_CastleHealth();
+        maxHealth = currentHealth;
 
         healthText = GetComponentInChildren<Text>();
         healthBar = transform.Find("Health Bar").GetComponent<RectTransform>();
@@ -39,24 +39,42 @@ public class CastleHealth : MonoBehaviour
 
     void UpdateDisplay()
     {
-        healthText.text = Mathf.RoundToInt(health).ToString() + " / " + maxHealth.ToString();
-        if (health > 0)
-            healthBar.sizeDelta = new Vector2(maskStartingWidth * (health / maxHealth), healthBar.sizeDelta.y);
+        healthText.text = Mathf.RoundToInt(currentHealth).ToString() + " / " + maxHealth.ToString();
+        if (currentHealth > 0)
+            healthBar.sizeDelta = new Vector2(maskStartingWidth * (currentHealth / maxHealth), healthBar.sizeDelta.y);
         else
             healthBar.sizeDelta = new Vector2(0f, healthBar.sizeDelta.y);
     }
 
     public void TakeHealth(float damageAmount)
     {
-        health -= damageAmount;
+        // Adjust the damage amount based off of current difficulty settings
+        float finalDamageAmount = damageAmount;
+        finalDamageAmount *= PlayerPrefsController.GetDifficultyMultiplier_EnemyAttackDamage();
+
+        if (finalDamageAmount < 1f)
+            finalDamageAmount = 1f;
+        else
+            finalDamageAmount = Mathf.RoundToInt(finalDamageAmount);
+
+        currentHealth -= finalDamageAmount;
+
         UpdateDisplay();
 
-        if (health <= 0)
+        if (currentHealth <= 0)
             levelController.HandleLoseCondition(); // Load lose screen
+    }
+
+    public void OnDifficultyChanged()
+    {
+        float currentHealthPercent = currentHealth / maxHealth;
+        maxHealth = baseHealth * PlayerPrefsController.GetDifficultyMultiplier_CastleHealth();
+        currentHealth = maxHealth * currentHealthPercent;
+        UpdateDisplay();
     }
 
     public float GetHealth()
     {
-        return health;
+        return currentHealth;
     }
 }

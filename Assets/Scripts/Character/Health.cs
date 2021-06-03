@@ -105,6 +105,10 @@ public class Health : MonoBehaviour
             finalDamageAmount += fireDamage;
         }
 
+        // Adjust the damage based off of current difficulty settings
+        if (defender != null)
+            finalDamageAmount *= PlayerPrefsController.GetDifficultyMultiplier_EnemyAttackDamage();
+
         if (finalDamageAmount < 1f)
             finalDamageAmount = 1f;
         else
@@ -166,7 +170,7 @@ public class Health : MonoBehaviour
             // Disable character scripts to prevent further running of Update functions
             if (defender.myShooter != null)
                 defender.myShooter.enabled = false;
-
+            
             defender.enabled = false;
         }
 
@@ -189,14 +193,57 @@ public class Health : MonoBehaviour
                 attacker.myShooter.enabled = false;
                 attacker.rangeCollider.enabled = false;
             }
-
+            
             attacker.enabled = false;
 
             // Subtract from total number of attackers left in the level
-            if (levelController != null)
-                levelController.AttackerKilled();
-            else
-                Debug.LogError("No level controller exists...fix me!");
+            levelController.AttackerKilled();
+        }
+    }
+
+    public IEnumerator Resurrect(float waitToResurrectTime, Enemy enemyScript)
+    {
+        if (attacker != null)
+        {
+            levelController.AttackerResurrected();
+            attacker.suppliesDroppedOnDeath = 0;
+        }
+
+        yield return new WaitForSeconds(waitToResurrectTime);
+
+        isDead = false;
+        SetCurrentHealthToMaxHealth();
+        boxCollider.enabled = true;
+
+        transform.rotation = Quaternion.Euler(Vector3.zero);
+
+        if (attacker != null)
+        {
+            attacker.anim.SetBool("isDead", false);
+            attacker.anim.Play("Raise");
+
+            if (attacker.myShooter != null)
+            {
+                attacker.myShooter.enabled = true;
+                attacker.rangeCollider.enabled = true;
+            }
+
+            if (enemyScript != null)
+                enemyScript.enabled = true;
+
+            attacker.enabled = true;
+
+            StartCoroutine(attacker.Movement());
+        }
+        else if (defender != null)
+        {
+            defender.anim.SetBool("isDead", false);
+            defender.anim.Play("Idle");
+
+            if (defender.myShooter != null)
+                defender.myShooter.enabled = true;
+
+            defender.enabled = true;
         }
     }
 

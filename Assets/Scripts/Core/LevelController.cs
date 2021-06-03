@@ -72,6 +72,11 @@ public class LevelController : MonoBehaviour
         }
     }
 
+    public void AttackerResurrected()
+    {
+        numberOfAttackers++;
+    }
+
     public void HandleLoseCondition()
     {
         if (levelLost == false)

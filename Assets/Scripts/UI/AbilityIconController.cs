@@ -311,7 +311,7 @@ public class AbilityIconController : MonoBehaviour
             if (squad.leader != null)
                 squad.leader.health.thornsActive = false;
 
-            foreach (Defender unit in selectedSquad.units)
+            foreach (Defender unit in squad.units)
             {
                 unit.health.thornsActive = false;
             }

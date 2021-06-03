@@ -20,8 +20,8 @@ public class Knight : MonoBehaviour
         if (health.isDead)
             this.enabled = false;
 
-        if (defenderScript.isAttacking == false && defenderScript.targetAttacker != null
-            && Vector2.Distance(transform.position, defenderScript.targetAttacker.transform.position) <= defenderScript.minAttackDistance)
+        if (defenderScript.isAttacking == false && defenderScript.currentTargetAttacker != null
+            && Vector2.Distance(transform.position, defenderScript.currentTargetAttacker.transform.position) <= defenderScript.minAttackDistance)
         {
             // Debug.Log(name + " is attacking " + defenderScript.targetAttacker.name);
             defenderScript.Attack();

@@ -1,20 +1,30 @@
 using UnityEngine;
 
-public class Zombie : MonoBehaviour
+public class Zombie : Enemy
 {
-    Attacker attackerScript;
-    Health health;
+    public float minResurrectWaitTime = 4f;
+    public float maxResurrectWaitTime = 10f;
 
-    void Start()
-    {
-        attackerScript = GetComponent<Attacker>();
-        health = GetComponent<Health>();
-    }
+    bool hasBeenResurrected;
 
-    void Update()
+    public override void Update()
     {
         if (health.isDead)
-            this.enabled = false;
+        {
+            if (hasBeenResurrected == false)
+            {
+                int random = Random.Range(0, 3);
+                if (random == 0)
+                {
+                    hasBeenResurrected = true;
+                    StartCoroutine(attackerScript.health.Resurrect(Random.Range(minResurrectWaitTime, maxResurrectWaitTime), this));
+                }
+                else
+                    this.enabled = false;
+            }
+            else
+                this.enabled = false;
+        }
 
         if (attackerScript.isAttacking == false)
         {

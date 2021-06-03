@@ -47,6 +47,7 @@ public class Attacker : MonoBehaviour
     [HideInInspector] public bool isAttackingCastle;
 
     [HideInInspector] public AttackerSpawner myAttackerSpawner;
+    [HideInInspector] public Animator anim;
     [HideInInspector] public Health health;
     [HideInInspector] public RangeCollider rangeCollider;
     [HideInInspector] public Shooter myShooter;
@@ -55,7 +56,6 @@ public class Attacker : MonoBehaviour
     [HideInInspector] public float minDistanceFromTargetPosition = 0.025f;
 
     AudioManager audioManager;
-    Animator anim;
     CastleHealth castleHealth;
     SpriteRenderer sr;
 
@@ -89,6 +89,10 @@ public class Attacker : MonoBehaviour
 
     void FixedUpdate()
     {
+        // If the current target is dead, get a new target or move on
+        if (currentTargetDefender != null && currentTargetDefender.health.isDead)
+            GetNewTarget();
+
         if (health.isDead == false)
         {
             UpdateAnimationState();
@@ -96,7 +100,7 @@ public class Attacker : MonoBehaviour
         }
     }
 
-    IEnumerator Movement()
+    public IEnumerator Movement()
     {
         while (health.isDead == false)
         {
@@ -156,7 +160,7 @@ public class Attacker : MonoBehaviour
     public IEnumerator Knockback()
     {
         float knockbackDirection = 1f;
-        if (currentTargetsSquad.leader.targetAttacker == this)
+        if (currentTargetsSquad.leader.currentTargetAttacker == this)
         {
             if (currentTargetsSquad.leader.transform.position.x <= transform.position.x)
                 knockbackDirection = 1f;
@@ -167,7 +171,7 @@ public class Attacker : MonoBehaviour
         {
             for (int i = 0; i < currentTargetsSquad.units.Count; i++)
             {
-                if (currentTargetsSquad.units[i].targetAttacker == this)
+                if (currentTargetsSquad.units[i].currentTargetAttacker == this)
                 {
                     if (currentTargetsSquad.units[i].transform.position.x <= transform.position.x)
                         knockbackDirection = 1f;
@@ -203,8 +207,8 @@ public class Attacker : MonoBehaviour
         {
             currentTargetsHealth = currentTargetDefender.health;
 
-            if (currentTargetDefender.targetAttacker == null)
-                currentTargetDefender.targetAttacker = this;
+            if (currentTargetDefender.currentTargetAttacker == null)
+                currentTargetDefender.currentTargetAttacker = this;
         }
     }
 
@@ -316,8 +320,8 @@ public class Attacker : MonoBehaviour
 
             foreach (Defender opponent in attacker.opponents)
             {
-                opponent.targetAttacker = null;
-                opponent.targetAttackersHealth = null;
+                opponent.currentTargetAttacker = null;
+                opponent.currentTargetAttackersHealth = null;
                 opponent.StopAttacking();
             }
 
@@ -346,8 +350,8 @@ public class Attacker : MonoBehaviour
                 if (opponent.squad.rangeCollider != null && opponent.squad.rangeCollider.attackersInRange.Contains(attacker))
                     opponent.squad.rangeCollider.attackersInRange.Remove(attacker);
 
-                opponent.targetAttacker = null;
-                opponent.targetAttackersHealth = null;
+                opponent.currentTargetAttacker = null;
+                opponent.currentTargetAttackersHealth = null;
                 opponent.StopAttacking();
             }
 
@@ -374,10 +378,53 @@ public class Attacker : MonoBehaviour
             if (randomTargetIndex >= theDefender.squad.attackersNearby.Count && randomTargetIndex > 0)
                 randomTargetIndex = theDefender.squad.attackersNearby.Count - 1;
 
-            theDefender.targetAttacker = theDefender.squad.attackersNearby[randomTargetIndex];
-            theDefender.targetAttackersHealth = theDefender.squad.attackersNearby[randomTargetIndex].health;
+            theDefender.currentTargetAttacker = theDefender.squad.attackersNearby[randomTargetIndex];
+            theDefender.currentTargetAttackersHealth = theDefender.squad.attackersNearby[randomTargetIndex].health;
             if (theDefender.squad.attackersNearby[randomTargetIndex].opponents.Contains(theDefender) == false)
                 theDefender.squad.attackersNearby[randomTargetIndex].opponents.Add(theDefender);
+        }
+    }
+
+    public void GetNewTarget()
+    {
+        // Debug.Log("Target defender is null");
+        if (opponents.Contains(currentTargetDefender))
+            opponents.Remove(currentTargetDefender);
+
+        StopAttacking();
+        currentTargetDefender = null;
+        currentTargetsHealth = null;
+
+        if (opponents.Count > 0)
+        {
+            // Debug.Log("Getting new opponent from opponents list");
+            currentTargetDefender = opponents[0];
+            currentTargetsHealth = opponents[0].health;
+            currentTargetsSquad = opponents[0].squad;
+
+            if (currentTargetsSquad.attackersNearby.Contains(this) == false)
+                currentTargetsSquad.attackersNearby.Add(this);
+        }
+        else if (currentTargetsSquad != null)
+        {
+            // Debug.Log("Getting new opponent from squad");
+            if (currentTargetsSquad.units.Count > 0)
+            {
+                currentTargetDefender = currentTargetsSquad.units[0];
+                currentTargetsHealth = currentTargetsSquad.units[0].health;
+                opponents.Add(currentTargetDefender);
+
+                if (currentTargetsSquad.attackersNearby.Contains(this) == false)
+                    currentTargetsSquad.attackersNearby.Add(this);
+            }
+            else if (currentTargetsSquad.leader != null)
+            {
+                opponents.Add(currentTargetsSquad.leader);
+                currentTargetDefender = currentTargetsSquad.leader;
+                currentTargetsHealth = currentTargetsSquad.leader.health;
+            }
+            else
+                currentTargetsSquad = null;
         }
     }
 

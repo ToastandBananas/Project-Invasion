@@ -28,8 +28,8 @@ public class Defender : MonoBehaviour
     [HideInInspector] public bool isRetreating;
     [HideInInspector] public bool isBeingKnockedBack;
 
-    [HideInInspector] public Attacker targetAttacker;
-    [HideInInspector] public Health targetAttackersHealth;
+    [HideInInspector] public Attacker currentTargetAttacker;
+    [HideInInspector] public Health currentTargetAttackersHealth;
 
     [HideInInspector] public Animator anim;
     [HideInInspector] public SpriteRenderer sr;
@@ -71,6 +71,9 @@ public class Defender : MonoBehaviour
 
     void FixedUpdate()
     {
+        if (currentTargetAttacker != null && currentTargetAttacker.health.isDead)
+            GetNewTarget();
+
         if (health.isDead == false)
         {
             UpdateAnimationState();
@@ -84,9 +87,9 @@ public class Defender : MonoBehaviour
         {
             if (squad.squadPlaced && isBeingKnockedBack == false)
             {
-                if (squad.attackersNearby.Count == 0 || targetAttacker == null)
+                if (squad.attackersNearby.Count == 0 || currentTargetAttacker == null)
                     MoveUnitIntoPosition();
-                else if (targetAttacker != null && squad.squadFormation != SquadFormation.Wall)
+                else if (currentTargetAttacker != null && squad.squadFormation != SquadFormation.Wall)
                     MoveTowardsAttacker();
                 else if (squad.squadFormation == SquadFormation.Wall)
                     AttackNearestAttacker();
@@ -100,15 +103,15 @@ public class Defender : MonoBehaviour
     {
         if (isRetreating == false)
         {
+            StopAttacking();
+
             isRetreating = true;
-            isAttacking = false;
             isMoving = true;
 
-            targetAttacker = null;
-            targetAttackersHealth = null;
+            currentTargetAttacker = null;
+            currentTargetAttackersHealth = null;
 
             anim.SetBool("isMoving", true);
-            anim.SetBool("isAttacking", false);
             if (squad.isRangedUnit)
                 anim.SetBool("isShooting", false);
 
@@ -189,9 +192,9 @@ public class Defender : MonoBehaviour
 
         if (isAttacking == false)
         {
-            transform.position = Vector2.MoveTowards(transform.position, targetAttacker.transform.position, currentSpeed * Time.deltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, currentTargetAttacker.transform.position, currentSpeed * Time.deltaTime);
 
-            FaceTarget(targetAttacker.transform.position);
+            FaceTarget(currentTargetAttacker.transform.position);
         }
     }
 
@@ -216,9 +219,9 @@ public class Defender : MonoBehaviour
                 }
             }
 
-            targetAttacker = nearestAttacker;
-            if (targetAttacker != null)
-                targetAttackersHealth = targetAttacker.health;
+            currentTargetAttacker = nearestAttacker;
+            if (currentTargetAttacker != null)
+                currentTargetAttackersHealth = currentTargetAttacker.health;
         }
     }
 
@@ -274,14 +277,14 @@ public class Defender : MonoBehaviour
         isAttacking = true;
         anim.SetBool("isAttacking", true);
 
-        if (targetAttacker != null)
+        if (currentTargetAttacker != null)
         {
-            targetAttackersHealth = targetAttacker.health;
+            currentTargetAttackersHealth = currentTargetAttacker.health;
 
-            if (targetAttacker.currentTargetDefender == null)
+            if (currentTargetAttacker.currentTargetDefender == null)
             {
-                targetAttacker.currentTargetDefender = this;
-                targetAttacker.currentTargetsSquad = squad;
+                currentTargetAttacker.currentTargetDefender = this;
+                currentTargetAttacker.currentTargetsSquad = squad;
             }
         }
     }
@@ -294,24 +297,24 @@ public class Defender : MonoBehaviour
 
     public void StrikeCurrentTarget()
     {
-        if (targetAttacker == null) return;
+        if (currentTargetAttacker == null) return;
 
-        FaceTarget(targetAttacker.transform.position);
+        FaceTarget(currentTargetAttacker.transform.position);
 
-        if (targetAttackersHealth != null)
+        if (currentTargetAttackersHealth != null)
         {
-            if (targetAttackersHealth.isDead)
+            if (currentTargetAttackersHealth.isDead)
             {
-                targetAttacker.FindNewTargetForDefenders(targetAttacker);
+                currentTargetAttacker.FindNewTargetForDefenders(currentTargetAttacker);
                 return;
             }
             else
             {
                 // Deal damage to self if enemy has thorns active
-                if (targetAttackersHealth.thornsActive && targetAttackersHealth.thornsDamageMultiplier > 0f)
-                    health.TakeDamage(bluntDamage * targetAttackersHealth.thornsDamageMultiplier, slashDamage * targetAttackersHealth.thornsDamageMultiplier, piercingDamage * targetAttackersHealth.thornsDamageMultiplier, fireDamage * targetAttackersHealth.thornsDamageMultiplier, true, false);
+                if (currentTargetAttackersHealth.thornsActive && currentTargetAttackersHealth.thornsDamageMultiplier > 0f)
+                    health.TakeDamage(bluntDamage * currentTargetAttackersHealth.thornsDamageMultiplier, slashDamage * currentTargetAttackersHealth.thornsDamageMultiplier, piercingDamage * currentTargetAttackersHealth.thornsDamageMultiplier, fireDamage * currentTargetAttackersHealth.thornsDamageMultiplier, true, false);
 
-                targetAttackersHealth.TakeDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false, shouldKnockback);
+                currentTargetAttackersHealth.TakeDamage(bluntDamage, slashDamage, piercingDamage, fireDamage, false, shouldKnockback);
             }
         }
 
@@ -320,7 +323,7 @@ public class Defender : MonoBehaviour
 
     void UpdateAnimationState()
     {
-        if (targetAttacker == null)
+        if (currentTargetAttacker == null)
         {
             isAttacking = false;
             anim.SetBool("isAttacking", false);
@@ -335,8 +338,8 @@ public class Defender : MonoBehaviour
 
     public void FindNewTargetForAttackers(Defender defender)
     {
-        targetAttacker = null;
-        targetAttackersHealth = null;
+        currentTargetAttacker = null;
+        currentTargetAttackersHealth = null;
 
         if (transform.parent == defender.squad.unitsParent) // Remove the defender from the units list
             defender.squad.units.Remove(defender);
@@ -386,10 +389,10 @@ public class Defender : MonoBehaviour
                         attacker.currentTargetsHealth = defender.squad.leader.health;
                         attacker.opponents.Add(defender.squad.leader);
 
-                        if (defender.squad.leader.targetAttacker == null)
+                        if (defender.squad.leader.currentTargetAttacker == null)
                         {
-                            defender.squad.leader.targetAttacker = attacker;
-                            defender.squad.leader.targetAttackersHealth = attacker.health;
+                            defender.squad.leader.currentTargetAttacker = attacker;
+                            defender.squad.leader.currentTargetAttackersHealth = attacker.health;
                         }
 
                         if (Vector2.Distance(attacker.transform.position, defender.squad.leader.transform.position) > attacker.minAttackDistance)
@@ -402,10 +405,10 @@ public class Defender : MonoBehaviour
                         attacker.currentTargetsHealth = defender.squad.units[randomTargetIndex].health;
                         attacker.opponents.Add(defender.squad.units[randomTargetIndex]);
 
-                        if (defender.squad.units[randomTargetIndex].targetAttacker == null)
+                        if (defender.squad.units[randomTargetIndex].currentTargetAttacker == null)
                         {
-                            defender.squad.units[randomTargetIndex].targetAttacker = attacker;
-                            defender.squad.units[randomTargetIndex].targetAttackersHealth = attacker.health;
+                            defender.squad.units[randomTargetIndex].currentTargetAttacker = attacker;
+                            defender.squad.units[randomTargetIndex].currentTargetAttackersHealth = attacker.health;
                         }
 
                         if (Vector2.Distance(attacker.transform.position, defender.squad.units[randomTargetIndex].transform.position) > attacker.minAttackDistance)
@@ -419,9 +422,9 @@ public class Defender : MonoBehaviour
             {
                 foreach (Defender potentialOpponent in defender.squad.units)
                 {
-                    if (potentialOpponent.targetAttacker == null && attacker.opponents.Contains(potentialOpponent) == false)
+                    if (potentialOpponent.currentTargetAttacker == null && attacker.opponents.Contains(potentialOpponent) == false)
                     {
-                        potentialOpponent.targetAttacker = attacker;
+                        potentialOpponent.currentTargetAttacker = attacker;
                         attacker.opponents.Add(potentialOpponent);
                         if (attacker.maxOpponents == attacker.opponents.Count)
                             return;
@@ -430,10 +433,27 @@ public class Defender : MonoBehaviour
 
                 if (attacker.maxOpponents > attacker.opponents.Count && defender.squad.leader != null && attacker.opponents.Contains(defender.squad.leader) == false)
                 {
-                    defender.squad.leader.targetAttacker = attacker;
+                    defender.squad.leader.currentTargetAttacker = attacker;
                     attacker.opponents.Add(defender.squad.leader);
                 }
             }
+        }
+    }
+
+    public void GetNewTarget()
+    {
+        StopAttacking();
+
+        if (squad.attackersNearby.Contains(currentTargetAttacker))
+            squad.attackersNearby.Remove(currentTargetAttacker);
+
+        currentTargetAttacker = null;
+        currentTargetAttackersHealth = null;
+
+        if (squad.attackersNearby.Count > 0)
+        {
+            currentTargetAttacker = squad.attackersNearby[0];
+            currentTargetAttackersHealth = squad.attackersNearby[0].health;
         }
     }
 

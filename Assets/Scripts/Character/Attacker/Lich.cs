@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public class Lich : MonoBehaviour
+public class Lich : Enemy
 {
     [SerializeField] Attacker skeleton;
     [SerializeField] Attacker skeletonWarrior;
@@ -12,15 +12,11 @@ public class Lich : MonoBehaviour
     Vector2 currentTilePos;
 
     Animator anim;
-    Attacker attackerScript;
-    Health health;
     int random;
 
     IEnumerator Start()
     {
         anim = GetComponent<Animator>();
-        attackerScript = GetComponent<Attacker>();
-        health = GetComponent<Health>();
 
         while (true)
         {
@@ -33,7 +29,7 @@ public class Lich : MonoBehaviour
         }
     }
 
-    void Update()
+    public override void Update()
     {
         if (health.isDead)
             this.enabled = false;

@@ -285,18 +285,18 @@ public class Squad : MonoBehaviour
                             if (totalDefendersAttackingAttacker == attacker.maxOpponents)
                                 return;
 
-                            if (defender.targetAttacker == null && totalDefendersAttackingAttacker == 0)
+                            if (defender.currentTargetAttacker == null && totalDefendersAttackingAttacker == 0)
                             {
                                 // Send in the first defender
-                                defender.targetAttacker = attacker;
+                                defender.currentTargetAttacker = attacker;
                                 attacker.currentTargetDefender = defender;
                                 attacker.opponents.Add(defender);
                                 totalDefendersAttackingAttacker++;
                             }
-                            else if (defender.targetAttacker == null && totalDefendersAttackingAttacker > 0 && totalDefendersAttackingAttacker < attacker.maxOpponents)
+                            else if (defender.currentTargetAttacker == null && totalDefendersAttackingAttacker > 0 && totalDefendersAttackingAttacker < attacker.maxOpponents)
                             {
                                 // Send in the maximum defenders possible per the attacker type
-                                defender.targetAttacker = attacker;
+                                defender.currentTargetAttacker = attacker;
                                 attacker.opponents.Add(defender);
                                 totalDefendersAttackingAttacker++;
                             }
@@ -310,22 +310,22 @@ public class Squad : MonoBehaviour
                             {
                                 attacker.opponents.Add(leader);
                                 attacker.currentTargetDefender = leader;
-                                if (leader.targetAttacker == null) // If the leader doesn't have a target, set its target to the attacker
-                                    leader.targetAttacker = attacker;
+                                if (leader.currentTargetAttacker == null) // If the leader doesn't have a target, set its target to the attacker
+                                    leader.currentTargetAttacker = attacker;
                             }
                             else // Attack a random unit from the squad
                             {
                                 attacker.opponents.Add(units[random]);
                                 attacker.currentTargetDefender = units[random];
-                                if (units[random].targetAttacker == null) // If the unit doesn't have a target, set its target to the attacker
-                                    units[random].targetAttacker = attacker;
+                                if (units[random].currentTargetAttacker == null) // If the unit doesn't have a target, set its target to the attacker
+                                    units[random].currentTargetAttacker = attacker;
                             }
                         }
                     }
                     else
                     {
-                        if (leader.targetAttacker == null)
-                            leader.targetAttacker = attacker;
+                        if (leader.currentTargetAttacker == null)
+                            leader.currentTargetAttacker = attacker;
 
                         attacker.currentTargetDefender = leader;
                         attacker.opponents.Add(leader);
@@ -348,16 +348,16 @@ public class Squad : MonoBehaviour
                 if (attacker.currentTargetsSquad = this)
                     attacker.currentTargetsSquad = null;
 
-                if (leader != null && leader.targetAttacker != null && leader.targetAttacker == attacker)
-                    leader.targetAttacker.health.FindNewTargetForOpponent();
+                if (leader != null && leader.currentTargetAttacker != null && leader.currentTargetAttacker == attacker)
+                    leader.currentTargetAttacker.health.FindNewTargetForOpponent();
                 else
                 {
                     if (units.Count > 0)
                     {
                         foreach (Defender unit in units)
                         {
-                            if (unit.targetAttacker != null && unit.targetAttacker == attacker)
-                                unit.targetAttacker.health.FindNewTargetForOpponent();
+                            if (unit.currentTargetAttacker != null && unit.currentTargetAttacker == attacker)
+                                unit.currentTargetAttacker.health.FindNewTargetForOpponent();
                         }
                     }
                 }

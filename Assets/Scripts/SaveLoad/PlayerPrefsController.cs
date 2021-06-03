@@ -94,6 +94,7 @@ public class PlayerPrefsController : MonoBehaviour
         {
             // Debug.Log("Master difficulty set to " + difficulty);
             PlayerPrefs.SetFloat(DIFFICULTY_KEY, difficulty);
+            CastleHealth.instance.OnDifficultyChanged();
         }
         else
             Debug.LogError("Difficulty setting is out of range.");
@@ -104,7 +105,7 @@ public class PlayerPrefsController : MonoBehaviour
         return PlayerPrefs.GetFloat(DIFFICULTY_KEY, 0f);
     }
 
-    public static float GetDifficultyMultiplier()
+    public static float GetDifficultyMultiplier_CastleHealth()
     {
         // Castle health will be multiplied by the number returned
         if (PlayerPrefs.GetFloat(DIFFICULTY_KEY) == 0f) // Easy difficulty
@@ -113,6 +114,17 @@ public class PlayerPrefsController : MonoBehaviour
             return 0.75f;
         else
             return 0.5f; // Hard difficulty
+    }
+
+    public static float GetDifficultyMultiplier_EnemyAttackDamage()
+    {
+        // Enemy attack damage will be multiplied by the number returned
+        if (PlayerPrefs.GetFloat(DIFFICULTY_KEY) == 0f) // Easy difficulty
+            return 0.75f;
+        else if (PlayerPrefs.GetFloat(DIFFICULTY_KEY) == 1f) // Medium difficulty
+            return 1f;
+        else
+            return 1.15f; // Hard difficulty
     }
 
     public static void SetDamagePopups(bool popupsEnabled)
