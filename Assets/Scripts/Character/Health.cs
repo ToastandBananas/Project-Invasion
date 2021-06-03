@@ -220,7 +220,7 @@ public class Health : MonoBehaviour
         if (attacker != null)
         {
             attacker.anim.SetBool("isDead", false);
-            attacker.anim.Play("Raise");
+            attacker.anim.Play("StandUp");
 
             if (attacker.myShooter != null)
             {
@@ -238,7 +238,7 @@ public class Health : MonoBehaviour
         else if (defender != null)
         {
             defender.anim.SetBool("isDead", false);
-            defender.anim.Play("Idle");
+            defender.anim.Play("StandUp");
 
             if (defender.myShooter != null)
                 defender.myShooter.enabled = true;

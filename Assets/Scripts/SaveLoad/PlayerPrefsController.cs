@@ -124,7 +124,7 @@ public class PlayerPrefsController : MonoBehaviour
         else if (PlayerPrefs.GetFloat(DIFFICULTY_KEY) == 1f) // Medium difficulty
             return 1f;
         else
-            return 1.15f; // Hard difficulty
+            return 1.25f; // Hard difficulty
     }
 
     public static void SetDamagePopups(bool popupsEnabled)
