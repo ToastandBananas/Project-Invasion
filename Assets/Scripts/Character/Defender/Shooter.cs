@@ -136,8 +136,11 @@ public class Shooter : MonoBehaviour
 
     void AssignTargetToProjectile(Projectile projectile, Transform target)
     {
-        projectile.target = target;
-        projectile.targetPos = target.position;
+        if (target != null)
+        {
+            projectile.target = target;
+            projectile.targetPos = target.position;
+        }
     }
 
     // For use as a keyframe in the shooter's animation

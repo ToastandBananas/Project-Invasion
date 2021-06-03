@@ -261,7 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 346c0eecb33ba3d45829282afb09e107, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 75
+  maxHealth: 70
   startingMaxHealth: 0
   bluntResistance: -0.25
   slashResistance: 0.25

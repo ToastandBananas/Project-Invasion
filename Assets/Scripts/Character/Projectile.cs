@@ -79,6 +79,8 @@ public class Projectile : MonoBehaviour
 
             if (target != null)
                 targetPos = target.position;
+            else
+                targetPos = myShooter.transform.position + (Vector3.left * 2);
 
             // Compute the next position, with arc added in
             x0 = startPos.x;

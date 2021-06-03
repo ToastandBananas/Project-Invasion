@@ -233,6 +233,8 @@ public class Health : MonoBehaviour
 
             attacker.enabled = true;
 
+            transform.SetParent(attacker.myAttackerSpawner.transform);
+
             StartCoroutine(attacker.Movement());
         }
         else if (defender != null)
@@ -244,6 +246,10 @@ public class Health : MonoBehaviour
                 defender.myShooter.enabled = true;
 
             defender.enabled = true;
+            
+            transform.SetParent(defender.squad.unitsParent);
+            if (defender.squad.units.Contains(defender) == false)
+                defender.squad.units.Add(defender);
         }
     }
 
