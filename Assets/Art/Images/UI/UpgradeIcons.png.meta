@@ -1,0 +1,738 @@
+fileFormatVersion: 2
+guid: 113411ed631839c41bcad9624b9ecf88
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1853091812240255975
+    second: UpgradeIcons_0
+  - first:
+      213: -3756019059309665670
+    second: UpgradeIcons_1
+  - first:
+      213: -2889678041515858806
+    second: UpgradeIcons_2
+  - first:
+      213: -6906745942558526650
+    second: UpgradeIcons_3
+  - first:
+      213: 7362465455875783212
+    second: UpgradeIcons_4
+  - first:
+      213: 686095400030572978
+    second: UpgradeIcons_5
+  - first:
+      213: 42108304028850019
+    second: UpgradeIcons_6
+  - first:
+      213: -1259146384207752979
+    second: UpgradeIcons_7
+  - first:
+      213: -9212228442085108240
+    second: UpgradeIcons_8
+  - first:
+      213: 6012119055133807157
+    second: UpgradeIcons_9
+  - first:
+      213: -7102370534733445332
+    second: UpgradeIcons_10
+  - first:
+      213: -39491536537507945
+    second: UpgradeIcons_11
+  - first:
+      213: 8427934016922531116
+    second: UpgradeIcons_12
+  - first:
+      213: 4841987198636760244
+    second: UpgradeIcons_13
+  - first:
+      213: -488513279062939179
+    second: UpgradeIcons_14
+  - first:
+      213: 5867938409816614722
+    second: UpgradeIcons_15
+  - first:
+      213: 8490816731486044849
+    second: UpgradeIcons_16
+  - first:
+      213: -8290342840950912019
+    second: UpgradeIcons_17
+  - first:
+      213: 8760166139922677159
+    second: UpgradeIcons_18
+  - first:
+      213: -6290847961906166766
+    second: UpgradeIcons_19
+  - first:
+      213: -1247688245777569315
+    second: UpgradeIcons_20
+  - first:
+      213: -518701702938660660
+    second: UpgradeIcons_21
+  - first:
+      213: 2534549266001180178
+    second: UpgradeIcons_22
+  - first:
+      213: -2679652506653560746
+    second: UpgradeIcons_23
+  - first:
+      213: 7564747762392907349
+    second: UpgradeIcons_24
+  - first:
+      213: 4361493002497184759
+    second: UpgradeIcons_25
+  - first:
+      213: -957147862853514238
+    second: UpgradeIcons_26
+  - first:
+      213: -8657569678921409211
+    second: UpgradeIcons_27
+  - first:
+      213: 8863896603124035754
+    second: UpgradeIcons_28
+  - first:
+      213: 5378551338882299122
+    second: UpgradeIcons_29
+  - first:
+      213: -8581138076779673550
+    second: UpgradeIcons_30
+  - first:
+      213: 8968478504112663444
+    second: UpgradeIcons_31
+  - first:
+      213: 3930174284404443900
+    second: UpgradeIcons_32
+  - first:
+      213: -1216398318845604521
+    second: UpgradeIcons_33
+  - first:
+      213: -8123812862963576982
+    second: UpgradeIcons_34
+  - first:
+      213: 4533122492906395833
+    second: UpgradeIcons_35
+  - first:
+      213: 1093544841643127128
+    second: UpgradeIcons_36
+  - first:
+      213: -184657733963029588
+    second: UpgradeIcons_37
+  - first:
+      213: -8389782984231066190
+    second: UpgradeIcons_38
+  - first:
+      213: -1747779608737027147
+    second: UpgradeIcons_39
+  - first:
+      213: 7149478138702234976
+    second: UpgradeIcons_40
+  - first:
+      213: -3612985629916590732
+    second: UpgradeIcons_41
+  - first:
+      213: -4079433777630456802
+    second: UpgradeIcons_42
+  - first:
+      213: 4020329005528323184
+    second: UpgradeIcons_43
+  - first:
+      213: -991869328230050304
+    second: UpgradeIcons_44
+  - first:
+      213: 8772836902346492377
+    second: UpgradeIcons_45
+  - first:
+      213: 8684504530433269460
+    second: UpgradeIcons_46
+  - first:
+      213: 7651412759852173163
+    second: UpgradeIcons_47
+  - first:
+      213: 3190607877359313712
+    second: UpgradeIcons_48
+  - first:
+      213: -3193120760702166485
+    second: UpgradeIcons_49
+  - first:
+      213: -794808020278706673
+    second: UpgradeIcons_50
+  - first:
+      213: 5945891939829923003
+    second: UpgradeIcons_51
+  - first:
+      213: -6782498978371983135
+    second: UpgradeIcons_52
+  - first:
+      213: -2618195236880625495
+    second: UpgradeIcons_53
+  - first:
+      213: 1861161871094359973
+    second: UpgradeIcons_54
+  - first:
+      213: -3785615733374223956
+    second: UpgradeIcons_55
+  - first:
+      213: 7850548974610450508
+    second: UpgradeIcons_56
+  - first:
+      213: -5738732582208319345
+    second: UpgradeIcons_57
+  - first:
+      213: 4253207781124313235
+    second: UpgradeIcons_58
+  - first:
+      213: 2703103850113737523
+    second: UpgradeIcons_59
+  - first:
+      213: 5394714823318260315
+    second: UpgradeIcons_60
+  - first:
+      213: 8830129830283803451
+    second: UpgradeIcons_61
+  - first:
+      213: 5235017058442217387
+    second: UpgradeIcons_62
+  - first:
+      213: 2615608753556900283
+    second: UpgradeIcons_63
+  - first:
+      213: -8207499004520855257
+    second: UpgradeIcons_64
+  - first:
+      213: 8067273992921314656
+    second: UpgradeIcons_65
+  - first:
+      213: -8460875124985891655
+    second: UpgradeIcons_66
+  - first:
+      213: 6908151655192437139
+    second: UpgradeIcons_67
+  - first:
+      213: 7408102875116042208
+    second: UpgradeIcons_68
+  - first:
+      213: -718882172838092022
+    second: UpgradeIcons_69
+  - first:
+      213: -4493449729806663484
+    second: UpgradeIcons_70
+  - first:
+      213: -9136810120264778958
+    second: UpgradeIcons_71
+  - first:
+      213: 8458439457398170494
+    second: UpgradeIcons_72
+  - first:
+      213: -8548344762405372073
+    second: UpgradeIcons_73
+  - first:
+      213: 3851324291333393010
+    second: UpgradeIcons_74
+  - first:
+      213: -6097995479581541831
+    second: UpgradeIcons_75
+  - first:
+      213: 8310258933685525634
+    second: UpgradeIcons_76
+  - first:
+      213: -6774517020311233761
+    second: UpgradeIcons_77
+  - first:
+      213: 8285398608565424456
+    second: UpgradeIcons_78
+  - first:
+      213: 5461022258664918690
+    second: UpgradeIcons_79
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: UpgradeIcons_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9141c3b90de7846e0800000000000000
+      internalID: -1853091812240255975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_1
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a722048d090ffdbc0800000000000000
+      internalID: -3756019059309665670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_2
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a846334a12dc5e7d0800000000000000
+      internalID: -2889678041515858806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_3
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 643bde3a82f4620a0800000000000000
+      internalID: -6906745942558526650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_4
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 96
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2a7f88f25bbc2660800000000000000
+      internalID: 7362465455875783212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b11ad89120858900800000000000000
+      internalID: 686095400030572978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_6
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 367dbb78749959000800000000000000
+      internalID: 42108304028850019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_7
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de05419e80d968ee0800000000000000
+      internalID: -1259146384207752979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_8
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f554c75a07972080800000000000000
+      internalID: -9212228442085108240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_9
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5329b945d665f6350800000000000000
+      internalID: 6012119055133807157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_11
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7972c0128a2b37ff0800000000000000
+      internalID: -39491536537507945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_12
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c253915d55906f470800000000000000
+      internalID: 8427934016922531116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_13
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bc9bb504b1323340800000000000000
+      internalID: 4841987198636760244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_14
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 32
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d9646dc2c37839f0800000000000000
+      internalID: -488513279062939179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_16
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b24b2db4d075d570800000000000000
+      internalID: 8490816731486044849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_17
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: deb0bea3c19c2fc80800000000000000
+      internalID: -8290342840950912019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_18
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7adfe7fd0bc529970800000000000000
+      internalID: 8760166139922677159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: UpgradeIcons_19
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 0
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 214c796eb1b62b8a0800000000000000
+      internalID: -6290847961906166766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

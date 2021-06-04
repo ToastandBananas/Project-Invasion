@@ -1,31 +1,27 @@
 using UnityEngine;
 
-public class Laborer : MonoBehaviour
+public class Laborer : Ally
 {
     [HideInInspector] public ResourceDeposit targetResourceDeposit;
 
     [HideInInspector] public bool isWorking = false;
 
     AudioManager audioManager;
-    Defender defenderScript;
-    Health health;
-    SquadData squadData;
 
     int hitsSinceResourceProduced;
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         audioManager = AudioManager.instance;
-        defenderScript = GetComponent<Defender>();
-        health = GetComponent<Health>();
-        squadData = GameManager.instance.squadData;
 
         SetLaborerData();
     }
     
-    void Update()
+    public override void Update()
     {
-        if (health.isDead)
+        if (defenderScript.health.isDead)
         {
             StopWorking();
             this.enabled = false;
@@ -44,9 +40,9 @@ public class Laborer : MonoBehaviour
     public void SetLaborerData()
     {
         if (squadData.laborerHealth > 0)
-            health.SetMaxHealth(health.GetMaxHealth() + squadData.laborerHealth);
+            defenderScript.health.SetMaxHealth(defenderScript.health.GetMaxHealth() + squadData.laborerHealth);
 
-        health.SetCurrentHealthToMaxHealth();
+        defenderScript.health.SetCurrentHealthToMaxHealth();
 
         defenderScript.anim.SetFloat("miningSpeed", squadData.laborerMiningSpeedMultiplier);
     }

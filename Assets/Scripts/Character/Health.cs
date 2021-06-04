@@ -201,7 +201,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    public IEnumerator Resurrect(float waitToResurrectTime, Enemy enemyScript)
+    public IEnumerator Resurrect(float waitToResurrectTime, Ally allyScript, Enemy enemyScript)
     {
         if (attacker != null)
         {
@@ -244,6 +244,9 @@ public class Health : MonoBehaviour
 
             if (defender.myShooter != null)
                 defender.myShooter.enabled = true;
+
+            if (allyScript != null)
+                allyScript.enabled = true;
 
             defender.enabled = true;
             

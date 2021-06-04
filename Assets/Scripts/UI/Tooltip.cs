@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
 
 public class Tooltip : MonoBehaviour
 {
@@ -10,7 +10,7 @@ public class Tooltip : MonoBehaviour
     Vector2 backgroundSize;
     
     RectTransform tooltipBackground;
-    Text tooltipText;
+    TextMeshProUGUI tooltipText;
     SquadData squadData;
 
     AbilityIconController abilityIconController;
@@ -24,7 +24,7 @@ public class Tooltip : MonoBehaviour
         squadData = GameManager.instance.squadData;
 
         tooltipBackground = transform.GetChild(0).GetComponent<RectTransform>();
-        tooltipText = transform.GetChild(1).GetComponent<Text>();
+        tooltipText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
         if (tooltipBackground.gameObject.activeSelf) tooltipBackground.gameObject.SetActive(false);
         if (tooltipText.gameObject.activeSelf) tooltipText.gameObject.SetActive(false);
@@ -218,7 +218,7 @@ public class Tooltip : MonoBehaviour
     {
         tooltipBackground.gameObject.SetActive(false);
         tooltipText.gameObject.SetActive(false);
-        tooltipText.alignment = TextAnchor.LowerLeft;
+        tooltipText.alignment = TextAlignmentOptions.BottomLeft;
     }
 
     void CreateAbilityTooltip(string abilityName, Vector2 pos)
@@ -229,7 +229,7 @@ public class Tooltip : MonoBehaviour
         if (abilityIconController.selectedSquad == null || abilityIconController.selectedSquad.isCastleWallSquad == false)
         {
             transform.position = pos + new Vector2(-1.1f, -0.05f);
-            tooltipText.alignment = TextAnchor.MiddleRight;
+            tooltipText.alignment = TextAlignmentOptions.MidlineRight;
         }
         else
             transform.position = pos + new Vector2(0.75f, 0.05f); // For castle wall squads

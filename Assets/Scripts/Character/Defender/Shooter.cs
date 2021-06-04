@@ -30,15 +30,19 @@ public class Shooter : MonoBehaviour
     Animator anim;
     CastleCollider castleCollider;
 
+    void Awake()
+    {
+        attacker = GetComponent<Attacker>();
+        defender = GetComponent<Defender>();
+        if (defender != null)
+            defender.myShooter = this;
+    }
+
     void Start()
     {
         audioManager = AudioManager.instance;
         anim = GetComponent<Animator>();
         castleCollider = CastleCollider.instance;
-        attacker = GetComponent<Attacker>();
-        defender = GetComponent<Defender>();
-        if (defender != null)
-            defender.myShooter = this;
 
         projectilesParent = GameObject.Find(PROJECTILES_PARENT_NAME).transform;
         gun = transform.Find("Gun").gameObject;
