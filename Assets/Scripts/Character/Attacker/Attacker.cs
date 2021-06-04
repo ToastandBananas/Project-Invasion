@@ -113,7 +113,9 @@ public class Attacker : MonoBehaviour
                 else if (currentTargetNode != null)
                 {
                     if (currentTargetResourceDeposit != null && Vector2.Distance(transform.position, currentTargetResourceDeposit.transform.position) > minAttackDistance)
+                    {
                         MoveTowardsTarget(currentTargetResourceDeposit.transform.position);
+                    }
                 }
                 else if (currentTargetDefender == null && currentTargetNode == null)
                 {
@@ -284,6 +286,7 @@ public class Attacker : MonoBehaviour
 
     public void FindNewTargetDeposit()
     {
+        StopAttacking();
         currentTargetNode.AssignTargetToAttacker(this);
     }
 

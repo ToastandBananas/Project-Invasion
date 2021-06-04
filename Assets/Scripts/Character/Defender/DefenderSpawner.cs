@@ -57,7 +57,7 @@ public class DefenderSpawner : MonoBehaviour
     {
         if (pauseMenu.gamePaused == false)
         {
-            if (Input.GetMouseButtonDown(1))
+            if (GameControls.gamePlayActions.deselect.WasPressed)
             {
                 ClearSelectedSquad();
                 ClearSelectedStructure();
@@ -144,7 +144,7 @@ public class DefenderSpawner : MonoBehaviour
             }
         }
 
-        if (Input.GetMouseButtonDown(0) && canPlaceSquad)
+        if (GameControls.gamePlayActions.select.WasPressed && canPlaceSquad)
         {
             if (ghostImageSquad != null)
                 SpawnSquad(GetSquareClicked());

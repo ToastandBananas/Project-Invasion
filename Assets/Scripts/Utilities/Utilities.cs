@@ -4,8 +4,7 @@ public class Utilities : MonoBehaviour
 {
     public static Vector2 GetMouseWorldPosition()
     {
-        Vector2 screenMousePosition = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-        return Camera.main.ScreenToWorldPoint(screenMousePosition);
+        return Camera.main.ScreenToWorldPoint(new Vector2(Input.mousePosition.x, Input.mousePosition.y));
     }
 
     public static string ColorToHex(Color32 color)

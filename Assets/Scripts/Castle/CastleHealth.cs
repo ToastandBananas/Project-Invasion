@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CastleHealth : MonoBehaviour
@@ -67,10 +68,13 @@ public class CastleHealth : MonoBehaviour
 
     public void OnDifficultyChanged()
     {
-        float currentHealthPercent = currentHealth / maxHealth;
-        maxHealth = baseHealth * PlayerPrefsController.GetDifficultyMultiplier_CastleHealth();
-        currentHealth = maxHealth * currentHealthPercent;
-        UpdateDisplay();
+        if (SceneManager.GetActiveScene().name == "Main Menu" == false)
+        {
+            float currentHealthPercent = currentHealth / maxHealth;
+            maxHealth = baseHealth * PlayerPrefsController.GetDifficultyMultiplier_CastleHealth();
+            currentHealth = maxHealth * currentHealthPercent;
+            UpdateDisplay();
+        }
     }
 
     public float GetHealth()

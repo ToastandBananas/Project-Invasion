@@ -5,10 +5,14 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject backdrop;
     [SerializeField] GameObject buttonsParent;
     [SerializeField] GameObject quitConfirmation;
+    [SerializeField] GameObject quitToMainMenuConfirmation;
+
     public bool gamePaused;
 
     AudioManager audioManager;
+    DefenderSpawner defenderSpawner;
     OptionsController optionsController;
+    TutorialInfographic tutorialInfographic;
     GameObject textPopupsObjectPoolParent;
 
     #region Singleton
@@ -28,7 +32,9 @@ public class PauseMenu : MonoBehaviour
     void Start()
     {
         audioManager = AudioManager.instance;
+        defenderSpawner = DefenderSpawner.instance;
         optionsController = OptionsController.instance;
+        tutorialInfographic = TutorialInfographic.instance;
         textPopupsObjectPoolParent = GameObject.Find("Text Popups");
 
         if (backdrop.activeSelf) backdrop.SetActive(false);
@@ -38,12 +44,14 @@ public class PauseMenu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && optionsController.optionsMenuOpen == false)
+        if (GameControls.gamePlayActions.menuPause.WasPressed && optionsController.optionsMenuOpen == false && tutorialInfographic.isActive == false)
         {
-            if (quitConfirmation.activeSelf == false)
+            if (quitConfirmation.activeSelf == false && quitToMainMenuConfirmation.activeSelf == false)
                 TogglePauseMenu();
-            else
+            else if (quitConfirmation.activeSelf)
                 ToggleQuitConfirmation();
+            else
+                ToggleQuitToMainMenuConfirmation();
         }
     }
 
@@ -52,7 +60,15 @@ public class PauseMenu : MonoBehaviour
         backdrop.SetActive(!backdrop.activeSelf);
         buttonsParent.SetActive(!buttonsParent.activeSelf);
         quitConfirmation.SetActive(!quitConfirmation.activeSelf);
-        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
+        PlayButtonClickSound();
+    }
+
+    public void ToggleQuitToMainMenuConfirmation()
+    {
+        backdrop.SetActive(!backdrop.activeSelf);
+        buttonsParent.SetActive(!buttonsParent.activeSelf);
+        quitToMainMenuConfirmation.SetActive(!quitToMainMenuConfirmation.activeSelf);
+        PlayButtonClickSound();
     }
 
     public void TogglePauseMenu()
@@ -60,10 +76,13 @@ public class PauseMenu : MonoBehaviour
         backdrop.SetActive(!backdrop.activeSelf);
         buttonsParent.SetActive(!buttonsParent.activeSelf);
 
-        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
+        PlayButtonClickSound();
 
         if (backdrop.activeSelf)
         {
+            defenderSpawner.ClearSelectedSquad();
+            defenderSpawner.ClearSelectedStructure();
+
             textPopupsObjectPoolParent.SetActive(false);
             gamePaused = true;
             Time.timeScale = 0;
@@ -81,8 +100,25 @@ public class PauseMenu : MonoBehaviour
         optionsController.ToggleOptionsMenu();
     }
 
+    public void ShowHowToPlayInfographic()
+    {
+        tutorialInfographic.ShowInfographic();
+    }
+
+    public void QuitToMainMenu()
+    {
+        PlayButtonClickSound();
+        LevelLoader.instance.LoadMainMenu();
+    }
+
     public void QuitGame()
     {
+        PlayButtonClickSound();
         LevelLoader.instance.QuitGame();
+    }
+
+    void PlayButtonClickSound()
+    {
+        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
     }
 }

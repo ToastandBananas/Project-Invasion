@@ -148,6 +148,8 @@ public class Projectile : MonoBehaviour
                             // If the resource deposit is destroyed, find new target deposits for each Attacker attacking this resource deposit
                             if (resourceDeposit.currentHealth <= 0)
                             {
+                                myShooter.attacker.StopAttacking();
+
                                 for (int i = 0; i < myShooter.attacker.myAttackerSpawner.transform.childCount; i++)
                                 {
                                     Attacker attackerInLane = myShooter.attacker.myAttackerSpawner.transform.GetChild(i).GetComponent<Attacker>();

@@ -45,6 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ed44f550864ee8e458e6b50c5c162f73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  inControlManagerPrefab: {fileID: 1447369286511806373, guid: b2cbcbbc4eb50744f999efe4e00b6988, type: 3}
   squadData: {fileID: 0}
 --- !u!114 &2588159061488272133
 MonoBehaviour:
@@ -74,36 +75,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 144c68274cff6404986c03b51f004c7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  laborerGoldCost: 0
-  laborerSuppliesCost: 0
-  laborerHealth: 0
-  laborerMiningSpeedMultiplier: 0
-  knightSquadGoldCost: 0
-  knightSquadSuppliesCost: 0
-  knightHealth: 0
-  knightLeaderHealth: 0
-  knightSlashDamage: 0
-  knightLeaderSlashDamage: 0
-  knightInspireMultiplier: 0
-  knightInspireTime: 0
-  knightThornsDamageMultiplier: 0
-  knightThornsTime: 0
-  knightInspireUnlocked: 0
-  knightThornsUnlocked: 0
-  spearmenSquadGoldCost: 0
-  spearmenSquadSuppliesCost: 0
-  spearmenHealth: 0
-  spearmenLeaderHealth: 0
-  spearmenAccuracy: 0
-  spearmenLeaderAccuracy: 0
-  spearmenPiercingDamage: 0
-  spearmenRangedPiercingDamage: 0
-  spearmenLeaderPiercingDamage: 0
-  spearmenLeaderRangedPiercingDamage: 0
-  spearmenLongThrowTime: 0
-  spearmenSpearWallTime: 0
-  spearmenLongThrowUnlocked: 0
-  spearmenSpearWallUnlocked: 0
   archerSquadGoldCost: 0
   archerSquadSuppliesCost: 0
   archerHealth: 0
@@ -121,23 +92,68 @@ MonoBehaviour:
   archerShouldRetreatWhenEnemyNear: 1
   archerFireArrowsUnlocked: 0
   archerRapidFireUnlocked: 0
-  defaultMiningSpeedMultiplier: 1
+  knightSquadGoldCost: 0
+  knightSquadSuppliesCost: 0
+  knightHealth: 0
+  knightLeaderHealth: 0
+  knightSlashDamage: 0
+  knightLeaderSlashDamage: 0
+  knightInspireMultiplier: 0
+  knightInspireTime: 0
+  knightThornsDamageMultiplier: 0
+  knightThornsTime: 0
+  knightInspireUnlocked: 0
+  knightThornsUnlocked: 0
+  laborerGoldCost: 0
+  laborerSuppliesCost: 0
+  laborerHealth: 0
+  laborerMiningSpeedMultiplier: 0
+  laborerDoubleTimeTime: 0
+  laborerDoubleTimeUnlocked: 0
+  spearmenSquadGoldCost: 0
+  spearmenSquadSuppliesCost: 0
+  spearmenHealth: 0
+  spearmenLeaderHealth: 0
+  spearmenAccuracy: 0
+  spearmenLeaderAccuracy: 0
+  spearmenPiercingDamage: 0
+  spearmenRangedPiercingDamage: 0
+  spearmenLeaderPiercingDamage: 0
+  spearmenLeaderRangedPiercingDamage: 0
+  spearmenLongThrowTime: 0
+  spearmenSpearWallTime: 0
+  spearmenLongThrowUnlocked: 0
+  spearmenSpearWallUnlocked: 0
+  woodenStakesGoldCost: 0
+  woodenStakesSuppliesCost: 0
+  woodenStakesHealth: 0
+  defaultFireArrowTime: 30
+  defaultRapidFireTime: 20
+  defaultRapidFireSpeedMultiplier: 2
   defaultInspireMultiplier: 0.25
   defaultInspireTime: 60
   defaultThornsDamageMultiplier: 0.2
   defaultThornsTime: 30
+  defaultMiningSpeedMultiplier: 1
+  defaultDoubleTimeTime: 45
   defaultLongThrowTime: 45
   defaultSpearWallTime: 30
-  defaultFireArrowTime: 30
-  defaultRapidFireTime: 20
-  defaultRapidFireSpeedMultiplier: 2
-  inspireCost: 30
-  thornsCost: 10
-  longThrowCost: 25
-  spearWallCost: 20
-  fireArrowsCost: 15
-  rapidFireCost: 20
-  laborersUnlocked: 0
-  knightsUnlocked: 0
-  spearmenUnlocked: 0
+  fireArrowsGoldCost: 75
+  fireArrowsSuppliesCost: 7
+  rapidFireGoldCost: 100
+  rapidFireSuppliesCost: 10
+  inspireGoldCost: 100
+  inspireSuppliesCost: 5
+  thornsGoldCost: 50
+  thornsSuppliesCost: 5
+  doubleTimeGoldCost: 0
+  doubleTimeSuppliesCost: 40
+  longThrowGoldCost: 75
+  longThrowSuppliesCost: 10
+  spearWallGoldCost: 100
+  spearWallSuppliesCost: 5
   archersUnlocked: 0
+  knightsUnlocked: 0
+  laborersUnlocked: 0
+  spearmenUnlocked: 0
+  woodenStakesUnlocked: 0

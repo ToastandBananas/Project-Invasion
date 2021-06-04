@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using InControl;
 
 public enum ResourceType { Gold, Supplies }
 public enum VoiceType { HumanMale, HumanFemale, Skeleton, Lich, Zombie }
@@ -23,6 +24,8 @@ public enum StructureType
 
 public class GameManager : MonoBehaviour
 {
+    public InControlManager inControlManagerPrefab;
+
     [HideInInspector] public SquadData squadData;
     
     public static GameManager instance;
@@ -32,13 +35,13 @@ public class GameManager : MonoBehaviour
         if (instance != null)
         {
             if (instance != this)
+            {
+                Debug.LogWarning("More than one instance of GameManager. Fix me!");
                 Destroy(gameObject);
+            }
         }
         else
-        {
             instance = this;
-            //DontDestroyOnLoad(this);
-        }
         #endregion
 
         squadData = GetComponent<SquadData>();
@@ -46,15 +49,25 @@ public class GameManager : MonoBehaviour
         LoadCurrentGame();
     }
 
+    void Start()
+    {
+        // This should only ever happen when testing in the Unity Editor, as there will be an InControlManager in the main menu and it will not be destroyed on load
+        if (GameObject.Find("InControl Manager") == null)
+        {
+            InControlManager inControlManager = Instantiate(inControlManagerPrefab);
+            inControlManager.name = "InControl Manager";
+        }
+    }
+
     void Update()
     {
-        // Reload the scene 
         // --- DEBUG ONLY --- REMOVE
+        // Reload the scene 
         #if UNITY_EDITOR
         if (Input.GetKeyDown(KeyCode.R))
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        // --- DEBUG ONLY --- REMOVE
         #endif
+        // --- DEBUG ONLY --- REMOVE
     }
 
     public void SaveCurrentGame()

@@ -68,7 +68,7 @@ public class Obstacle : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Attacker>(out Attacker attacker))
+        if (collision.TryGetComponent(out Attacker attacker))
         {
             attackersNearby.Add(attacker);
             attacker.currentTargetObstacle = this;
@@ -78,7 +78,7 @@ public class Obstacle : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.TryGetComponent<Attacker>(out Attacker attacker))
+        if (collision.TryGetComponent(out Attacker attacker))
         {
             attackersNearby.Remove(attacker);
             attacker.currentTargetObstacle = null;

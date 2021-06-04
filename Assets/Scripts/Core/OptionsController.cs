@@ -62,7 +62,7 @@ public class OptionsController : MonoBehaviour
 
     void LateUpdate()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) && optionsMenuOpen)
+        if (GameControls.gamePlayActions.menuGoBack.WasPressed && optionsMenuOpen)
             SaveAndExit();
     }
 

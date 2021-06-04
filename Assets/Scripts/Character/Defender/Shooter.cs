@@ -54,7 +54,7 @@ public class Shooter : MonoBehaviour
         // Find which object pool to use for this shooter's projectiles
         for (int i = 0; i < projectilesParent.childCount; i++)
         {
-            if (projectilesParent.GetChild(i).TryGetComponent<ObjectPool>(out ObjectPool objPool))
+            if (projectilesParent.GetChild(i).TryGetComponent(out ObjectPool objPool))
             {
                 if (objPool.objectToPool == projectilePrefab)
                     projectileObjectPool = objPool;

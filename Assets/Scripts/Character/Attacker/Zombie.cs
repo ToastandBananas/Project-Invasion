@@ -32,6 +32,13 @@ public class Zombie : Enemy
             {
                 attackerScript.Attack();
             }
+            else if (attackerScript.currentTargetDefender != null && attackerScript.currentTargetDefender.isRetreating)
+            {
+                if (attackerScript.opponents.Contains(attackerScript.currentTargetDefender))
+                    attackerScript.opponents.Remove(attackerScript.currentTargetDefender);
+
+                attackerScript.GetNewTarget();
+            }
         }
     }
 }
