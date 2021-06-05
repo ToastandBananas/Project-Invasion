@@ -10,7 +10,6 @@ public class Defender : MonoBehaviour
     float knockbackSpeed = 1.25f;
     float knockbackDistance = 0.5f;
     public bool isLarge;
-    public bool isLeader;
 
     [Header("Weapon Info")]
     [SerializeField] MeleeWeaponType meleeWeaponType;

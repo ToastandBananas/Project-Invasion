@@ -29,9 +29,9 @@ MonoBehaviour:
     referenceMode: 2
     serializationDepthLimit: 64
     assemblyNames:
-    - Assembly-CSharp
-    - Assembly-CSharp-firstpass
     - InControl
+    - Assembly-CSharp-firstpass
+    - Assembly-CSharp
     - PsdPlugin
     - InControl.Editor
     showAdvancedSettings: 0
