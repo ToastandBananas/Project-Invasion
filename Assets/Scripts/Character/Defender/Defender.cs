@@ -112,7 +112,7 @@ public class Defender : MonoBehaviour
             currentTargetAttackersHealth = null;
 
             anim.SetBool("isMoving", true);
-            if (squad.isRangedUnit)
+            if (squad.isRangedUnit && myShooter != null)
                 anim.SetBool("isShooting", false);
 
             if (squad.squadType == SquadType.Laborers)
@@ -291,8 +291,11 @@ public class Defender : MonoBehaviour
 
     public void StopAttacking()
     {
-        isAttacking = false;
-        anim.SetBool("isAttacking", false);
+        if (isAttacking)
+        {
+            isAttacking = false;
+            anim.SetBool("isAttacking", false);
+        }
     }
 
     public void StrikeCurrentTarget()
@@ -323,7 +326,7 @@ public class Defender : MonoBehaviour
 
     void UpdateAnimationState()
     {
-        if (currentTargetAttacker == null)
+        if (currentTargetAttacker == null && isAttacking)
         {
             isAttacking = false;
             anim.SetBool("isAttacking", false);

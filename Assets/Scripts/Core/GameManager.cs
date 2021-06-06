@@ -13,7 +13,8 @@ public enum SquadType
     Laborers = 1,
     Knights = 100,
     Spearmen = 200,
-    Archers = 300
+    Archers = 300,
+    Priests = 400
 }
 
 public enum StructureType

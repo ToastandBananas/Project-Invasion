@@ -38,21 +38,28 @@ public class Squad : MonoBehaviour
 
     #region Formation Positions
     // Line formation positions:
+    // 2 units
+    Vector2 leaderPosition_Line_Two = new Vector2(-0.15f, 0);
+    Vector2[] unitPositions_Line_Two = { new Vector2(0.05f, 0.15f), new Vector2(0.05f, -0.15f) };
+
     // 3 units
-    Vector2[] leaderPositions_Line_Three = { new Vector2(-0.15f, 0) };
+    Vector2 leaderPosition_Line_Three = new Vector2(-0.15f, 0);
     Vector2[] unitPositions_Line_Three   = { new Vector2(0.05f, 0f), new Vector2(0.05f, 0.25f), new Vector2(0.05f, -0.25f) };
+
     // 4 units
-    Vector2[] leaderPositions_Line_Four = { new Vector2(-0.15f, 0) };
+    Vector2 leaderPosition_Line_Four = new Vector2(-0.15f, 0);
     Vector2[] unitPositions_Line_Four   = { new Vector2(0.05f, 0.1f), new Vector2(0.05f, -0.1f), new Vector2(0.05f, 0.3f), new Vector2(0.05f, -0.3f) };
 
     // Wedge formation positions:
     // 3 units
-    Vector2[] leaderPositions_Wedge_Three = { new Vector2(-0.15f, 0) };
+    Vector2 leaderPosition_Wedge_Three = new Vector2(-0.15f, 0);
     Vector2[] unitPositions_Wedge_Three   = { new Vector2(0.05f, 0f), new Vector2(0f, 0.25f), new Vector2(0f, -0.25f) };
 
     // Wall formation positions:
+    // 2 units
+    //Vector2[] unitPositions_Wall_Two = { new Vector2(0.025f, 0.15f), new Vector2(0.025f, -0.15f) };
+
     // 4 units
-    Vector2[] leaderPositions_Wall_Four = { new Vector2(0.05f, 0) };
     Vector2[] unitPositions_Wall_Four = { new Vector2(0.025f, 0.125f), new Vector2(0.025f, -0.125f), new Vector2(0.025f, 0.25f), new Vector2(0.025f, -0.25f) };
     #endregion
 
@@ -84,7 +91,8 @@ public class Squad : MonoBehaviour
     {
         if (squadFormation == SquadFormation.Line)
         {
-            if (maxUnitCount == 3) AssignPositions(unitPositions_Line_Three);
+            if (maxUnitCount == 2) AssignPositions(unitPositions_Line_Two);
+            else if (maxUnitCount == 3) AssignPositions(unitPositions_Line_Three);
             else if (maxUnitCount == 4) AssignPositions(unitPositions_Line_Four);
             else LogFormationError();
         }
@@ -103,6 +111,7 @@ public class Squad : MonoBehaviour
         }
         else if (squadFormation == SquadFormation.Wall)
         {
+            //if (maxUnitCount == 2) AssignPositions(unitPositions_Wall_Two);
             if (maxUnitCount == 4) AssignPositions(unitPositions_Wall_Four);
             else LogFormationError();
         }
@@ -121,8 +130,9 @@ public class Squad : MonoBehaviour
         {
             if (squadFormation == SquadFormation.Line)
             {
-                if (maxUnitCount == 3) leader.unitPosition = leaderPositions_Line_Three[0];
-                if (maxUnitCount == 4) leader.unitPosition = leaderPositions_Line_Four[0];
+                if (maxUnitCount == 2) leader.unitPosition = leaderPosition_Line_Two;
+                else if (maxUnitCount == 3) leader.unitPosition = leaderPosition_Line_Three;
+                else if (maxUnitCount == 4) leader.unitPosition = leaderPosition_Line_Four;
                 else LogFormationError();
             }
             else if (squadFormation == SquadFormation.StaggeredLine)
@@ -131,17 +141,12 @@ public class Squad : MonoBehaviour
             }
             else if (squadFormation == SquadFormation.Wedge)
             {
-                if (maxUnitCount == 3) leader.unitPosition = leaderPositions_Wedge_Three[0];
+                if (maxUnitCount == 3) leader.unitPosition = leaderPosition_Wedge_Three;
                 else LogFormationError();
             }
             else if (squadFormation == SquadFormation.Scattered)
             {
                 LogFormationError();
-            }
-            else if (squadFormation == SquadFormation.Wall)
-            {
-                if (maxUnitCount == 4) leader.unitPosition = leaderPositions_Wall_Four[0];
-                else LogFormationError();
             }
             else if (squadFormation == SquadFormation.Random)
             {
@@ -179,18 +184,21 @@ public class Squad : MonoBehaviour
     {
         // Retreat all units (likely because the squad leader died)
         DefenderSpawner.instance.RemoveCell(transform.position);
-        
-        // First clear out current target data for attackers who are attacking this squad
-        for (int i = 0; i < myLaneSpawner.transform.childCount; i++)
+
+        if (myLaneSpawner.transform.childCount > 0)
         {
-            Attacker attacker = myLaneSpawner.transform.GetChild(i).GetComponent<Attacker>();
-            if (attacker != null && attacker.currentTargetsSquad == this)
+            // First clear out current target data for attackers who are attacking this squad
+            for (int i = 0; i < myLaneSpawner.transform.childCount; i++)
             {
-                attacker.currentTargetDefender = null;
-                attacker.currentTargetsHealth = null;
-                attacker.currentTargetsSquad = null;
-                attacker.opponents.Clear();
-                attacker.StopAttacking();
+                Attacker attacker = myLaneSpawner.transform.GetChild(i).GetComponent<Attacker>();
+                if (attacker != null && attacker.currentTargetsSquad == this)
+                {
+                    attacker.currentTargetDefender = null;
+                    attacker.currentTargetsHealth = null;
+                    attacker.currentTargetsSquad = null;
+                    attacker.opponents.Clear();
+                    attacker.StopAttacking();
+                }
             }
         }
 
@@ -268,7 +276,7 @@ public class Squad : MonoBehaviour
     {
         if (isCastleWallSquad == false)
         {
-            if (collision.TryGetComponent<Attacker>(out Attacker attacker))
+            if (collision.TryGetComponent(out Attacker attacker))
             {
                 if (shouldRetreatWhenEnemyNear)
                     Retreat();
@@ -340,7 +348,7 @@ public class Squad : MonoBehaviour
     {
         if (isCastleWallSquad == false)
         {
-            if (collision.TryGetComponent<Attacker>(out Attacker attacker))
+            if (collision.TryGetComponent(out Attacker attacker))
             {
                 if (attackersNearby.Contains(attacker))
                     attackersNearby.Remove(attacker);

@@ -79,6 +79,8 @@ public class Tooltip : MonoBehaviour
                 stringBuilder.Append("<b>Shoot Range:</b> ");
             else if (squad.squadType == SquadType.Spearmen)
                 stringBuilder.Append("<b>Throw Range:</b> ");
+            else if (squad.squadType == SquadType.Priests)
+                stringBuilder.Append("<b>Heal Range:</b> ");
             else
                 Debug.LogError("Squad type not accounted for in order to show the shoot/throw range in the squad's tooltip. Fix me!");
 
