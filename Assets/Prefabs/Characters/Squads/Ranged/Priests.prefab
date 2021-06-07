@@ -105,13 +105,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1590619381707866835}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: 0.025}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -168,7 +168,7 @@ GameObject:
   - component: {fileID: 489898748894608546}
   - component: {fileID: 125393482924912416}
   - component: {fileID: 3713388717030035938}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Range Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -347,7 +347,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8514740531974194169, guid: 721c52e58815b534f806947b862d7d39, type: 3}
       propertyPath: m_Name
-      value: Priest
+      value: Priest (0)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 721c52e58815b534f806947b862d7d39, type: 3}

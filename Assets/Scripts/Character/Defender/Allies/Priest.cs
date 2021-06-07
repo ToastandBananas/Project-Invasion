@@ -1,18 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class Priest : MonoBehaviour
+public class Priest : Ally
 {
-    // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
-        
+        base.Start();
+
+        SetPriestData();
+    }
+    
+    public override void Update()
+    {
+        if (defenderScript.health.isDead)
+            this.enabled = false;
     }
 
-    // Update is called once per frame
-    void Update()
+    void SetPriestData()
     {
-        
+        if (defenderScript.squad.leader == defenderScript)
+        {
+            // Leader:
+            if (squadData.priestLeaderHealth > 0)
+                defenderScript.health.SetMaxHealth(defenderScript.health.GetMaxHealth() + squadData.priestLeaderHealth);
+
+            if (squadData.priestLeaderHealAmount > 0)
+                defenderScript.myShooter.SetHealAmount(squadData.priestLeaderHealAmount);
+        }
+        else // Unit:
+        {
+            if (squadData.priestHealth > 0)
+                defenderScript.health.SetMaxHealth(defenderScript.health.GetMaxHealth() + squadData.priestHealth);
+
+            if (squadData.priestHealAmount > 0)
+                defenderScript.myShooter.SetHealAmount(squadData.priestHealAmount);
+        }
+
+        defenderScript.health.SetCurrentHealthToMaxHealth();
     }
 }

@@ -33,8 +33,8 @@ public class Health : MonoBehaviour
     void Start()
     {
         levelController = FindObjectOfType<LevelController>();
-        TryGetComponent<Attacker>(out attacker);
-        TryGetComponent<Defender>(out defender);
+        TryGetComponent(out attacker);
+        TryGetComponent(out defender);
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
@@ -47,7 +47,7 @@ public class Health : MonoBehaviour
         effectsParent = GameObject.Find(EFFECTS_PARENT_NAME).transform;
         for (int i = 0; i < effectsParent.childCount; i++)
         {
-            if (effectsParent.GetChild(i).TryGetComponent<ObjectPool>(out ObjectPool objPool))
+            if (effectsParent.GetChild(i).TryGetComponent(out ObjectPool objPool))
             {
                 if (objPool.objectToPool == damageEffect)
                 {
@@ -63,6 +63,9 @@ public class Health : MonoBehaviour
         currentHealth += Mathf.RoundToInt(healAmount);
         if (currentHealth > maxHealth)
             SetCurrentHealthToMaxHealth();
+
+        if (PlayerPrefsController.DamagePopupsEnabled())
+            TextPopup.CreateHealPopup(transform.position + new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(0.05f, 0.15f)), healAmount);
     }
 
     public void SetMaxHealth(float newMaxHealthAmount)

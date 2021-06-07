@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5271330415224014278}
   - component: {fileID: 5644844254804432452}
   - component: {fileID: 8963117743635327110}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Range Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -211,6 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217abb3f4f5d5cc4886f21420095d476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defenderScript: {fileID: 0}
+  squadData: {fileID: 0}
 --- !u!114 &2646634371028402975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -223,6 +225,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25791bab66042e0498911bf35f832a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healAmount: 3
+  defender: {fileID: 0}
+  healingTarget: {fileID: 0}
 --- !u!114 &1346207100769918638
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -607,6 +612,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217abb3f4f5d5cc4886f21420095d476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defenderScript: {fileID: 0}
+  squadData: {fileID: 0}
 --- !u!114 &6384066313788730040
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -619,6 +626,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25791bab66042e0498911bf35f832a96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healAmount: 3
+  defender: {fileID: 0}
+  healingTarget: {fileID: 0}
 --- !u!114 &7965963620874532617
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -65,9 +65,11 @@ public class AudioManager : MonoBehaviour
     public Sound[] bowDrawSounds;
     public Sound[] bowReleaseSounds;
 
-    [Header("Fireball Sounds")]
+    [Header("Magic Sounds")]
     public Sound[] fireballCastSounds;
     public Sound[] fireballHitSounds;
+    public Sound[] healingOrbCastSounds;
+    public Sound[] healingOrbHitSounds;
 
     [Header("Music Sounds")]
     public Sound[] splashScreenMusicSounds;
@@ -125,6 +127,8 @@ public class AudioManager : MonoBehaviour
         allSounds.Add(bowReleaseSounds);
         allSounds.Add(fireballCastSounds);
         allSounds.Add(fireballHitSounds);
+        allSounds.Add(healingOrbCastSounds);
+        allSounds.Add(healingOrbHitSounds);
         allSounds.Add(goldSounds);
         allSounds.Add(splashScreenMusicSounds);
         allSounds.Add(musicSounds);
@@ -325,6 +329,8 @@ public class AudioManager : MonoBehaviour
     {
         if (weaponType == RangedWeaponType.Fireball)
             PlayRandomSound(fireballHitSounds);
+        else if (weaponType == RangedWeaponType.HealingOrb)
+            PlayRandomSound(healingOrbHitSounds);
         else
         {
             if (isAttackingBuilding == false)
@@ -342,6 +348,8 @@ public class AudioManager : MonoBehaviour
             PlayRandomSound(throwSounds);
         else if (weaponType == RangedWeaponType.Fireball)
             PlayRandomSound(fireballCastSounds);
+        else if (weaponType == RangedWeaponType.HealingOrb)
+            PlayRandomSound(healingOrbCastSounds);
     }
 
     public void PlayDeathSound(VoiceType voiceType)

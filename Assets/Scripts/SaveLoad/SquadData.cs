@@ -27,6 +27,14 @@ public class SquadData : MonoBehaviour
     public float laborerDoubleTimeTime;
     public bool laborerDoubleTimeUnlocked;
 
+    [Header("Priest Data")]
+    public int priestGoldCost;
+    public int priestSuppliesCost;
+    public float priestHealth, priestLeaderHealth;
+    public float priestHealAmount, priestLeaderHealAmount;
+    public float priestBlessTime;
+    public bool priestResurrectUnlocked, priestBlessUnlocked;
+
     [Header("Spearmen Data")]
     public int spearmenSquadGoldCost;
     public int spearmenSquadSuppliesCost;
@@ -56,6 +64,9 @@ public class SquadData : MonoBehaviour
     public float defaultMiningSpeedMultiplier = 1f;
     public float defaultDoubleTimeTime = 45f;
 
+    // Priests
+    public float defaultBlessTime = 60f;
+
     // Spearmen
     public float defaultLongThrowTime = 30f;
     public float defaultSpearWallTime = 30f;
@@ -77,13 +88,17 @@ public class SquadData : MonoBehaviour
     public int doubleTimeGoldCost = 0;
     public int doubleTimeSuppliesCost = 40;
 
+    // Priests
+    public int blessGoldCost = 120;
+    public int blessSuppliesCost = 10;
+
     // Spearmen
     public int longThrowGoldCost = 75;
     public int longThrowSuppliesCost = 10;
     public int spearWallGoldCost = 100;
     public int spearWallSuppliesCost = 5;
 
-    [HideInInspector] public bool archersUnlocked, knightsUnlocked, laborersUnlocked, spearmenUnlocked, woodenStakesUnlocked;
+    [HideInInspector] public bool archersUnlocked, knightsUnlocked, laborersUnlocked, priestsUnlocked, spearmenUnlocked, woodenStakesUnlocked;
 
     public void ApplyArcherData(int gold, int supplies, float health, float leaderHealth, float piercingDamage, float leaderPiercingDamage, float rangedPiercingDamage, float leaderRangedPiercingDamage, float accuracy, float leaderAccuracy, float fireArrowsDamageMultiplier, float fireArrowsTime, float rapidFireSpeedMultiplier, float rapidFireTime, bool shouldRetreat, bool fireArrowsUnlocked, bool rapidFireUnlocked)
     {
@@ -154,6 +169,23 @@ public class SquadData : MonoBehaviour
 
         if (doubleTimeUnlocked)
             laborerDoubleTimeUnlocked = true;
+    }
+
+    public void ApplyPriestData(int gold, int supplies, float health, float leaderHealth, float healAmount, float leaderHealAmount, float blessTime, bool blessUnlocked, bool resurrectUnlocked)
+    {
+        priestGoldCost += gold;
+        priestSuppliesCost += supplies;
+        priestHealth += health;
+        priestLeaderHealth += leaderHealth;
+        priestHealAmount += healAmount;
+        priestLeaderHealAmount += leaderHealAmount;
+        priestBlessTime += blessTime;
+
+        if (blessUnlocked)
+            priestBlessUnlocked = true;
+
+        if (resurrectUnlocked)
+            priestResurrectUnlocked = true;
     }
 
     public void ApplySpearmenData(int gold, int supplies, float health, float leaderHealth, float piercingDamage, float leaderPiercingDamage, float rangedPiercingDamage, float leaderRangedPiercingDamage, float accuracy, float leaderAccuracy, float longThrowTime, float spearWallTime, bool longThrowUnlocked, bool spearWallUnlocked)
@@ -319,6 +351,9 @@ public class SquadData : MonoBehaviour
             case SquadType.Archers:
                 archersUnlocked = true;
                 break;
+            case SquadType.Priests:
+                priestsUnlocked = true;
+                break;
             default:
                 break;
         }
@@ -352,6 +387,8 @@ public class SquadData : MonoBehaviour
                 return spearmenUnlocked;
             case SquadType.Archers:
                 return archersUnlocked;
+            case SquadType.Priests:
+                return priestsUnlocked;
             default:
                 return false;
         }
@@ -413,6 +450,18 @@ public class SquadData : MonoBehaviour
         ES3.Save("laborerMiningSpeedMultiplier", laborerMiningSpeedMultiplier, squadDataSavePath);
         ES3.Save("laborerDoubleTimeTime", laborerDoubleTimeTime, squadDataSavePath);
         ES3.Save("laborerDoubleTimeUnlocked", laborerDoubleTimeUnlocked, squadDataSavePath);
+
+        // Priest Data
+        ES3.Save("priestsUnlocked", priestsUnlocked, squadDataSavePath);
+        ES3.Save("priestGoldCost", priestGoldCost, squadDataSavePath);
+        ES3.Save("priestSuppliesCost", priestSuppliesCost, squadDataSavePath);
+        ES3.Save("priestHealth", priestHealth, squadDataSavePath);
+        ES3.Save("priestLeaderHealth", priestLeaderHealth, squadDataSavePath);
+        ES3.Save("priestHealAmount", priestHealAmount, squadDataSavePath);
+        ES3.Save("priestLeaderHealAmount", priestLeaderHealAmount, squadDataSavePath);
+        ES3.Save("priestBlessTime", priestBlessTime, squadDataSavePath);
+        ES3.Save("priestBlessUnlocked", priestBlessUnlocked, squadDataSavePath);
+        ES3.Save("priestResurrectUnlocked", priestResurrectUnlocked, squadDataSavePath);
 
         // Spearmen Data
         ES3.Save("spearmenUnlocked", spearmenUnlocked, squadDataSavePath);
@@ -483,6 +532,18 @@ public class SquadData : MonoBehaviour
         laborerMiningSpeedMultiplier = ES3.Load("laborerMiningSpeedMultiplier", squadDataSavePath, defaultMiningSpeedMultiplier);
         laborerDoubleTimeTime = ES3.Load("laborerDoubleTimeTime", squadDataSavePath, defaultDoubleTimeTime);
         laborerDoubleTimeUnlocked = ES3.Load("laborerDoubleTimeUnlocked", squadDataSavePath, false);
+
+        // Priest Data
+        priestsUnlocked = ES3.Load("priestsUnlocked", squadDataSavePath, false);
+        priestGoldCost = ES3.Load("priestGoldCost", squadDataSavePath, 0);
+        priestSuppliesCost = ES3.Load("priestSuppliesCost", squadDataSavePath, 0);
+        priestHealth = ES3.Load("priestHealth", squadDataSavePath, 0f);
+        priestLeaderHealth = ES3.Load("priestLeaderHealth", squadDataSavePath, 0f);
+        priestHealAmount = ES3.Load("priestHealAmount", squadDataSavePath, 0f);
+        priestLeaderHealAmount = ES3.Load("priestLeaderHealAmount", squadDataSavePath, 0f);
+        priestBlessTime = ES3.Load("priestBlessTime", squadDataSavePath, defaultBlessTime);
+        priestBlessUnlocked = ES3.Load("priestBlessUnlocked", squadDataSavePath, false);
+        priestResurrectUnlocked = ES3.Load("priestResurrectUnlocked", squadDataSavePath, false);
 
         // Spearmen Data
         spearmenUnlocked = ES3.Load("spearmenUnlocked", squadDataSavePath, true);

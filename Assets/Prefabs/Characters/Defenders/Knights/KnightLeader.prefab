@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5832600236005045684}
   - component: {fileID: 520684694161886450}
+  - component: {fileID: 4267698368563495031}
   - component: {fileID: 6084065210926008217}
   - component: {fileID: 7773648469546404248}
   - component: {fileID: 6249635443579284339}
@@ -55,6 +56,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &4267698368563495031
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2493623317874014044}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &6084065210926008217
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -112,8 +134,8 @@ MonoBehaviour:
   isMoving: 0
   isRetreating: 0
   isBeingKnockedBack: 0
-  targetAttacker: {fileID: 0}
-  targetAttackersHealth: {fileID: 0}
+  currentTargetAttacker: {fileID: 0}
+  currentTargetAttackersHealth: {fileID: 0}
   anim: {fileID: 0}
   sr: {fileID: 0}
   squad: {fileID: 0}
@@ -134,6 +156,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bbf5517ab82e53498af85bc1d270620, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  defenderScript: {fileID: 0}
+  squadData: {fileID: 0}
 --- !u!114 &1481450064206490354
 MonoBehaviour:
   m_ObjectHideFlags: 0

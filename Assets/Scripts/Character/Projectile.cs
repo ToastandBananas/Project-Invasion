@@ -107,10 +107,11 @@ public class Projectile : MonoBehaviour
     {
         collision.TryGetComponent(out Attacker attacker);
         collision.TryGetComponent(out Defender defender);
-
+        
         if (gameObject.activeInHierarchy)
         {
-            if ((attacker != null && myShooter.defender != null && (attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner || myShooter.defender.squad.isCastleWallSquad)) // If shooting an attacker
+            if ((attacker != null && myShooter.defender != null && myShooter.isHealer == false && (attacker.myAttackerSpawner == myShooter.defender.squad.myLaneSpawner || myShooter.defender.squad.isCastleWallSquad)) // If shooting an attacker
+                || (myShooter.isHealer && collision.transform == target) // If healing
                 || (defender != null && myShooter.attacker != null && defender.squad.myLaneSpawner == myShooter.attacker.myAttackerSpawner)) // If shooting a defender
             {
                 Health health = collision.GetComponent<Health>();
@@ -210,7 +211,7 @@ public class Projectile : MonoBehaviour
 
         audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, true);
 
-        yield return new WaitForSeconds(10f);
+        yield return new WaitForSeconds(5f);
         Deactivate();
     }
 
@@ -220,7 +221,12 @@ public class Projectile : MonoBehaviour
 
         // Reduce health
         if (health != null)
-            health.TakeDamage(myShooter.bluntDamage, 0, myShooter.piercingDamage, myShooter.fireDamage, false, myShooter.shouldKnockback);
+        {
+            if (myShooter.isHealer == false)
+                health.TakeDamage(myShooter.bluntDamage, 0f, myShooter.piercingDamage, myShooter.fireDamage, false, myShooter.shouldKnockback);
+            else
+                health.Heal(myShooter.healAmount);
+        }
         
         audioManager.PlayRangedHitSound(myShooter.rangedWeaponType, isAttackingBuilding);
 

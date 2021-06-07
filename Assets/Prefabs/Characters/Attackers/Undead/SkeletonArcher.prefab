@@ -147,6 +147,7 @@ MonoBehaviour:
   isAttacking: 0
   isAttackingCastle: 0
   myAttackerSpawner: {fileID: 0}
+  anim: {fileID: 0}
   health: {fileID: 0}
   rangeCollider: {fileID: 0}
   myShooter: {fileID: 0}
@@ -171,9 +172,11 @@ MonoBehaviour:
   bluntDamage: 0
   piercingDamage: 7
   fireDamage: 0
+  healAmount: 0
   startingBluntDamage: 0
   startingPiercingDamage: 0
   startingFireDamage: 0
+  startingHealAmount: 0
   secondaryRangedDamageMultiplier: 2
   shouldKnockback: 0
   isShootingSecondaryProjectile: 0
@@ -192,6 +195,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ef9c877f4d5a1e419e6bb3c217c071a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackerScript: {fileID: 0}
+  health: {fileID: 0}
 --- !u!114 &8210798006624109378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -225,7 +230,7 @@ GameObject:
   - component: {fileID: 7101417024942116832}
   - component: {fileID: 9178919577468988280}
   - component: {fileID: 3679307354656271962}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Range Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

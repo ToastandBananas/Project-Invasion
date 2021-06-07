@@ -172,9 +172,11 @@ MonoBehaviour:
   bluntDamage: 0
   piercingDamage: 0
   fireDamage: 25
+  healAmount: 0
   startingBluntDamage: 0
   startingPiercingDamage: 0
   startingFireDamage: 0
+  startingHealAmount: 0
   secondaryRangedDamageMultiplier: 2
   shouldKnockback: 0
   isShootingSecondaryProjectile: 0
@@ -232,7 +234,7 @@ GameObject:
   - component: {fileID: 7133891618912731322}
   - component: {fileID: 9146796759489635362}
   - component: {fileID: 3639584708016005376}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Range Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

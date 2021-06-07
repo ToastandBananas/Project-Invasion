@@ -10,10 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 8456077792658122098}
   - component: {fileID: 2491155833434725428}
+  - component: {fileID: 6134981693887710048}
   - component: {fileID: 8198094912794318687}
   - component: {fileID: 5641329080689678686}
   - component: {fileID: 518102808973977476}
-  - component: {fileID: 518102808973977477}
+  - component: {fileID: 8291829478569558453}
   - component: {fileID: 3541131178843421236}
   m_Layer: 2
   m_Name: Priest Leader
@@ -57,6 +58,27 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!50 &6134981693887710048
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 518102808973977498}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 0
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &8198094912794318687
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -136,7 +158,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 217abb3f4f5d5cc4886f21420095d476, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &518102808973977477
+  defenderScript: {fileID: 0}
+  squadData: {fileID: 0}
+--- !u!114 &8291829478569558453
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -145,9 +169,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 518102808973977498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 25791bab66042e0498911bf35f832a96, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b26245d63fd4d349897dca7a8f0c7a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  projectilePrefab: {fileID: 7971738638773633142, guid: 403d94a1ed56504418678e394314a2e3, type: 3}
+  secondaryProjectilePrefab: {fileID: 0}
+  rangedWeaponType: 4
+  accuracy: 100
+  bluntDamage: 0
+  piercingDamage: 0
+  fireDamage: 0
+  healAmount: 3
+  startingBluntDamage: 0
+  startingPiercingDamage: 0
+  startingFireDamage: 0
+  startingHealAmount: 0
+  secondaryRangedDamageMultiplier: 1
+  shouldKnockback: 0
+  isShootingSecondaryProjectile: 0
+  isShootingCastle: 0
+  isHealer: 0
+  attacker: {fileID: 0}
+  defender: {fileID: 0}
 --- !u!114 &3541131178843421236
 MonoBehaviour:
   m_ObjectHideFlags: 0

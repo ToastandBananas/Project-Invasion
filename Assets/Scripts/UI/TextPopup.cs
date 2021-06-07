@@ -74,6 +74,16 @@ public class TextPopup : MonoBehaviour
 
         return damagePopup;
     }
+
+    // Create a heal popup
+    public static TextPopup CreateHealPopup(Vector3 position, float healAmount)
+    {
+        TextPopup healPopup = textPopupObjectPool.GetPooledObject().GetComponent<TextPopup>();
+
+        healPopup.SetupHealPopup(position, healAmount);
+
+        return healPopup;
+    }
     
     // Create a resource popup in the resource display for when the player uses resources
     public static TextPopup CreateResourceDisplayPopup(Vector3 position, float amount)
@@ -124,6 +134,21 @@ public class TextPopup : MonoBehaviour
             // Normal Hit
             textMesh.fontSize = 1f;
         }
+
+        sortingOrder++;
+        textMesh.sortingOrder = sortingOrder;
+
+        gameObject.SetActive(true);
+        transform.position = position;
+    }
+
+    void SetupHealPopup(Vector3 position, float healAmount)
+    {
+        ResetPopup();
+
+        textMesh.SetText(healAmount.ToString());
+        textMesh.color = positiveValueColor;
+        textMesh.fontSize = 1f;
 
         sortingOrder++;
         textMesh.sortingOrder = sortingOrder;

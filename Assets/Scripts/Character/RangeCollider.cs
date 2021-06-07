@@ -3,8 +3,8 @@ using UnityEngine;
 
 public class RangeCollider : MonoBehaviour
 {
-    [HideInInspector] public List<Attacker> attackersInRange = new List<Attacker>();
-    [HideInInspector] public List<Defender> defendersInRange = new List<Defender>();
+    public List<Attacker> attackersInRange = new List<Attacker>();
+    public List<Defender> defendersInRange = new List<Defender>();
 
     [HideInInspector] public BoxCollider2D boxCollider;
     [HideInInspector] public Vector2 originalOffset;
@@ -15,18 +15,50 @@ public class RangeCollider : MonoBehaviour
 
     void Start()
     {
-        attacker = transform.parent.GetComponent<Attacker>();
-        squad = transform.parent.GetComponent<Squad>();
+        attacker = transform.GetComponentInParent<Attacker>();
+        squad = transform.GetComponentInParent<Squad>();
         boxCollider = GetComponent<BoxCollider2D>();
         originalOffset = boxCollider.offset;
         originalSize = boxCollider.size;
     }
 
+    public Defender GetFurthestDefenderWithLowHealth()
+    {
+        Defender furthestDefender = null;
+        float furthestDefenderDistance = 0;
+
+        for (int i = 0; i < defendersInRange.Count; i++)
+        {
+            if (defendersInRange[i].health.GetCurrentHealth() < defendersInRange[i].health.GetMaxHealth())
+            {
+                if (i == 0)
+                {
+                    furthestDefender = defendersInRange[i];
+                    furthestDefenderDistance = Vector2.Distance(transform.position, defendersInRange[i].transform.position);
+                }
+                else
+                {
+                    float dist = Vector2.Distance(transform.position, defendersInRange[i].transform.position);
+                    if (dist > furthestDefenderDistance)
+                    {
+                        furthestDefender = defendersInRange[i];
+                        furthestDefenderDistance = dist;
+                    }
+                }
+            }
+        }
+
+        return furthestDefender;
+    }
+
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (squad != null && collision.CompareTag("Attacker") && collision.TryGetComponent(out Attacker enemyAttacker))
+        if (squad != null)
         {
-            attackersInRange.Add(enemyAttacker);
+            if (squad.squadType == SquadType.Priests && collision.TryGetComponent(out Defender friendlyDefender))
+                defendersInRange.Add(friendlyDefender);
+            else if (collision.CompareTag("Attacker") && collision.TryGetComponent(out Attacker enemyAttacker))
+                attackersInRange.Add(enemyAttacker);
         }
         else if (attacker != null)
         {
@@ -53,18 +85,17 @@ public class RangeCollider : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D collision)
     {
-        if (squad != null && collision.TryGetComponent(out Attacker enemyAttacker))
+        if (squad != null)
         {
-            if (attackersInRange.Contains(enemyAttacker))
+            if (squad.squadType == SquadType.Priests && collision.TryGetComponent(out Defender friendlyDefender) && defendersInRange.Contains(friendlyDefender))
+                defendersInRange.Remove(friendlyDefender);
+            else if (collision.TryGetComponent(out Attacker enemyAttacker) && attackersInRange.Contains(enemyAttacker))
                 attackersInRange.Remove(enemyAttacker);
         }
         else if (attacker != null)
         {
-            if (collision.TryGetComponent(out Defender enemyDefender))
-            {
-                if (defendersInRange.Contains(enemyDefender))
-                    defendersInRange.Remove(enemyDefender);
-            }
+            if (collision.TryGetComponent(out Defender enemyDefender) && defendersInRange.Contains(enemyDefender))
+                defendersInRange.Remove(enemyDefender);
         }
     }
 }

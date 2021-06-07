@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4302829985702380950}
   - component: {fileID: 8576453138332560926}
   - component: {fileID: 7610116912520618795}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Range Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -148,7 +148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60145fa9133d01408a07d606ee4e6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
   squadType: 200
   goldCost: 150
   suppliesCost: 20

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7971738638773633141}
   - component: {fileID: 2891985731502062879}
   - component: {fileID: 3343027969001440795}
-  m_Layer: 2
+  m_Layer: 7
   m_Name: Healing Orb
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.56, y: 0.56}
+  m_Size: {x: 0.2, y: 0.2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -140,18 +140,18 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.051311255, y: -0.00029075146}
+  m_Offset: {x: 0.006071627, y: 0.0063912272}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.26666668, y: 0.26666668}
-    newSize: {x: 0.56, y: 0.56}
+    oldSize: {x: 0.2, y: 0.2}
+    newSize: {x: 0.2, y: 0.2}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.09444094, y: 0.0898087}
+  m_Size: {x: 0.06258619, y: 0.061946988}
   m_EdgeRadius: 0
 --- !u!114 &3343027969001440795
 MonoBehaviour:
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultSprite: {fileID: 3250600605310217045, guid: ce92b41f06bcb974488bdf5980677ffc, type: 3}
   groundedSprite: {fileID: 0}
-  speed: 3
+  speed: 2
   arcMultiplier: 0
   target: {fileID: 0}
   targetPos: {x: 0, y: 0, z: 0}

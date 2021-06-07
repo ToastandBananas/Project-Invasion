@@ -48,7 +48,7 @@ public class Defender : MonoBehaviour
     {
         squad = transform.parent.parent.GetComponent<Squad>();
         sr = transform.GetComponentInChildren<SpriteRenderer>();
-        TryGetComponent<Laborer>(out laborer);
+        TryGetComponent(out laborer);
 
         if (boxCollider == null)
             boxCollider = GetComponent<BoxCollider2D>();

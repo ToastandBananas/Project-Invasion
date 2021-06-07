@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1096310180766307234}
   - component: {fileID: 4865567575721932842}
   - component: {fileID: 6709457847026136351}
-  m_Layer: 2
+  m_Layer: 8
   m_Name: Range Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42,7 +42,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 1.5, y: 0.025}
@@ -179,7 +179,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d60145fa9133d01408a07d606ee4e6f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  unlocked: 0
   squadType: 200
   goldCost: 150
   suppliesCost: 20

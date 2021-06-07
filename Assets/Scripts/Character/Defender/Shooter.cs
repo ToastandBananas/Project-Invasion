@@ -12,15 +12,19 @@ public class Shooter : MonoBehaviour
     [Header("Weapon Stats")]
     public RangedWeaponType rangedWeaponType;
     [Range(0f, 100f)] public float accuracy = 100f;
-    public float bluntDamage, piercingDamage, fireDamage;
-    [HideInInspector] public float startingBluntDamage, startingPiercingDamage, startingFireDamage;
+    public float bluntDamage, piercingDamage, fireDamage, healAmount;
+    [HideInInspector] public float startingBluntDamage, startingPiercingDamage, startingFireDamage, startingHealAmount;
     public float secondaryRangedDamageMultiplier = 1f;
     public bool shouldKnockback;
 
     [HideInInspector] public bool isShootingSecondaryProjectile;
     [HideInInspector] public bool isShootingCastle;
+    [HideInInspector] public bool isHealer;
     [HideInInspector] public Attacker attacker;
     [HideInInspector] public Defender defender;
+
+    Defender currentHealingTarget;
+    bool isShooting, isHealing;
 
     const string PROJECTILES_PARENT_NAME = "Projectiles";
     Transform projectilesParent;
@@ -50,6 +54,10 @@ public class Shooter : MonoBehaviour
         startingBluntDamage = bluntDamage;
         startingPiercingDamage = piercingDamage;
         startingFireDamage = fireDamage;
+        startingHealAmount = healAmount;
+
+        if (startingHealAmount > 0)
+            isHealer = true;
 
         // Find which object pool to use for this shooter's projectiles
         for (int i = 0; i < projectilesParent.childCount; i++)
@@ -66,20 +74,57 @@ public class Shooter : MonoBehaviour
 
     void FixedUpdate()
     {
-        if ((defender != null && Vector2.Distance(transform.localPosition, defender.unitPosition) <= defender.minDistanceFromTargetPosition && defender.squad.squadPlaced && defender.isRetreating == false && defender.squad.rangeCollider.attackersInRange.Count > 0 && defender.squad.attackersNearby.Count == 0)
+        if (isHealer)
+        {
+            if (defender != null)
+                currentHealingTarget = defender.squad.rangeCollider.GetFurthestDefenderWithLowHealth();
+
+            if (currentHealingTarget == null && isHealing)
+                StopHealing();
+        }
+
+        if ((defender != null && defender.isRetreating == false && defender.squad.squadPlaced && Vector2.Distance(transform.localPosition, defender.unitPosition) <= defender.minDistanceFromTargetPosition && defender.squad.attackersNearby.Count == 0 && ((isHealer == false && defender.squad.rangeCollider.attackersInRange.Count > 0) || (isHealer && defender.squad.rangeCollider.defendersInRange.Count > 0 && currentHealingTarget != null)))
             || (attacker != null && (attacker.rangeCollider.defendersInRange.Count > 0 || isShootingCastle || attacker.currentTargetResourceDeposit != null || attacker.currentTargetObstacle != null)) && transform.position.x < 9.5f)
         {
-            if (anim.GetBool("isShooting") == false)
+            if (isHealer == false && isShooting == false)
                 StartCoroutine(StartShooting());
+            else if (isHealer && isHealing == false)
+                StartCoroutine(StartHealing());
         }
         else
-            anim.SetBool("isShooting", false);
+        {
+            if (isHealing)
+                StopHealing();
+            else if (isShooting)
+                StopShooting();
+        }
     }
 
     IEnumerator StartShooting()
     {
         yield return new WaitForSeconds(Random.Range(0f, 1.5f));
+        isShooting = true;
         anim.SetBool("isShooting", true);
+    }
+
+    void StopShooting()
+    {
+        isShooting = false;
+        anim.SetBool("isShooting", false);
+    }
+
+    IEnumerator StartHealing()
+    {
+        yield return new WaitForSeconds(Random.Range(0f, 1.5f));
+        isHealing = true;
+        anim.SetBool("isHealing", true);
+    }
+
+    void StopHealing()
+    {
+        anim.Play("Idle", 0);
+        isHealing = false;
+        anim.SetBool("isHealing", false);
     }
 
     public void Fire()
@@ -101,9 +146,13 @@ public class Shooter : MonoBehaviour
         else if (attacker != null && attacker.rangeCollider.defendersInRange.Count > 0)
             randomIndex = Random.Range(0, attacker.rangeCollider.defendersInRange.Count);
 
-        if (defender != null && defender.squad.rangeCollider.attackersInRange.Count > randomIndex)
+        if (defender != null && (defender.squad.rangeCollider.attackersInRange.Count > randomIndex || defender.squad.rangeCollider.defendersInRange.Count > randomIndex))
         {
-            AssignTargetToProjectile(newProjectile, defender.squad.rangeCollider.attackersInRange[randomIndex].transform);
+            if (isHealer == false) // If not a healer
+                AssignTargetToProjectile(newProjectile, defender.squad.rangeCollider.attackersInRange[randomIndex].transform);
+            else // If healer
+                AssignTargetToProjectile(newProjectile, currentHealingTarget.transform);
+
             StartCoroutine(newProjectile.ShootProjectile());
         }
         else if (attacker != null)
@@ -158,6 +207,11 @@ public class Shooter : MonoBehaviour
         bluntDamage += Mathf.RoundToInt(bluntDamageAddOn);
         piercingDamage += Mathf.RoundToInt(piercingDamageAddOn);
         fireDamage += Mathf.RoundToInt(fireDamageAddOn);
+    }
+
+    public void SetHealAmount(float healAmountAddOn)
+    {
+        healAmount += Mathf.RoundToInt(healAmountAddOn);
     }
 
     /*bool IsAttackerInLane()

@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7599516821781681351}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &249260636072239058
 MonoBehaviour:
@@ -92,6 +92,52 @@ MonoBehaviour:
   objectToPool: {fileID: 3480619949053003782, guid: 384729c819fae0a4d8f089e3169eed88, type: 3}
   amountToPool: 30
   pooledObjects: []
+--- !u!1 &3158925852672343962
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2757565672970516958}
+  - component: {fileID: 1436215149557326361}
+  m_Layer: 0
+  m_Name: Healing Orbs
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2757565672970516958
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3158925852672343962}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 7599516821781681351}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1436215149557326361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3158925852672343962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e9080f6f43d4744ab98b41403bc8cac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToPool: {fileID: 7971738638773633142, guid: 403d94a1ed56504418678e394314a2e3, type: 3}
+  amountToPool: 15
+  pooledObjects: []
 --- !u!1 &5836423713582438447
 GameObject:
   m_ObjectHideFlags: 0
@@ -136,7 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToPool: {fileID: 3480619949053003782, guid: 9aa59a9ceb66ed147961e6baec8167dc, type: 3}
-  amountToPool: 2
+  amountToPool: 4
   pooledObjects: []
 --- !u!1 &7599516821781681348
 GameObject:
@@ -168,6 +214,7 @@ Transform:
   - {fileID: 7599516822616945662}
   - {fileID: 2219606623057667183}
   - {fileID: 7002293526268621645}
+  - {fileID: 2757565672970516958}
   - {fileID: 4334954173847091387}
   m_Father: {fileID: 0}
   m_RootOrder: 0

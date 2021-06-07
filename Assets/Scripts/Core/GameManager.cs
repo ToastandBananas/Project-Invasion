@@ -5,7 +5,7 @@ using InControl;
 public enum ResourceType { Gold, Supplies }
 public enum VoiceType { HumanMale, HumanFemale, Skeleton, Lich, Zombie }
 public enum MeleeWeaponType { Blade, Blunt, Piercing }
-public enum RangedWeaponType { Bow, Crossbow, Fireball, Spear }
+public enum RangedWeaponType { Bow, Crossbow, Fireball, Spear, HealingOrb }
 public enum SquadFormation { Line, StaggeredLine, Wedge, Scattered, Wall, Random }
 public enum SquadType
 {
