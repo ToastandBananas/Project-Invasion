@@ -23,6 +23,7 @@ public class Defender : MonoBehaviour
     [Header("Components")]
     public BoxCollider2D boxCollider;
 
+    [HideInInspector] public bool isLeader;
     [HideInInspector] public bool isAttacking;
     [HideInInspector] public bool isMoving;
     [HideInInspector] public bool isRetreating;
@@ -32,6 +33,7 @@ public class Defender : MonoBehaviour
     [HideInInspector] public Health currentTargetAttackersHealth;
 
     [HideInInspector] public Animator anim;
+    [HideInInspector] public Ally allyScript;
     [HideInInspector] public SpriteRenderer sr;
     [HideInInspector] public Squad squad;
     [HideInInspector] public Health health;
@@ -59,12 +61,16 @@ public class Defender : MonoBehaviour
         audioManager = AudioManager.instance;
         currencyDisplay = ResourceDisplay.instance;
         anim = GetComponent<Animator>();
+        TryGetComponent(out allyScript);
         health = GetComponent<Health>();
 
         startingBluntDamage = bluntDamage;
         startingSlashDamage = slashDamage;
         startingPiercingDamage = piercingDamage;
         startingFireDamage = fireDamage;
+
+        if (transform.parent == squad.leaderParent)
+            isLeader = true;
 
         StartCoroutine(Movement());
     }

@@ -5,6 +5,7 @@ public class RangeCollider : MonoBehaviour
 {
     public List<Attacker> attackersInRange = new List<Attacker>();
     public List<Defender> defendersInRange = new List<Defender>();
+    public List<Squad>    squadsInRange    = new List<Squad>();
 
     [HideInInspector] public BoxCollider2D boxCollider;
     [HideInInspector] public Vector2 originalOffset;
@@ -53,14 +54,21 @@ public class RangeCollider : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (squad != null)
+        if (squad != null) // If this Range Collider belongs to a friendly Squad
         {
-            if (squad.squadType == SquadType.Priests && collision.TryGetComponent(out Defender friendlyDefender))
-                defendersInRange.Add(friendlyDefender);
+            if (squad.squadType == SquadType.Priests && collision.CompareTag("Defender"))
+            {
+                if (collision.TryGetComponent(out Defender friendlyDefender))
+                {
+                    defendersInRange.Add(friendlyDefender);
+                    if (squadsInRange.Contains(friendlyDefender.squad) == false)
+                        squadsInRange.Add(friendlyDefender.squad);
+                }
+            }
             else if (collision.CompareTag("Attacker") && collision.TryGetComponent(out Attacker enemyAttacker))
                 attackersInRange.Add(enemyAttacker);
         }
-        else if (attacker != null)
+        else if (attacker != null) // If this Range Collider belongs to an Attacker
         {
             if (collision.CompareTag("Defender") && collision.TryGetComponent(out Defender enemyDefender))
             {
@@ -87,9 +95,11 @@ public class RangeCollider : MonoBehaviour
     {
         if (squad != null)
         {
-            if (squad.squadType == SquadType.Priests && collision.TryGetComponent(out Defender friendlyDefender) && defendersInRange.Contains(friendlyDefender))
+            if (squad.squadType == SquadType.Priests && collision.CompareTag("Defender") && collision.TryGetComponent(out Defender friendlyDefender) && defendersInRange.Contains(friendlyDefender))
                 defendersInRange.Remove(friendlyDefender);
-            else if (collision.TryGetComponent(out Attacker enemyAttacker) && attackersInRange.Contains(enemyAttacker))
+            else if (squad.squadType == SquadType.Priests && collision.CompareTag("Squad") && collision.TryGetComponent(out Squad friendlySquad) && squadsInRange.Contains(friendlySquad))
+                squadsInRange.Remove(friendlySquad);
+            else if (collision.CompareTag("Attacker") && collision.TryGetComponent(out Attacker enemyAttacker) && attackersInRange.Contains(enemyAttacker))
                 attackersInRange.Remove(enemyAttacker);
         }
         else if (attacker != null)

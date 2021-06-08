@@ -181,6 +181,7 @@ MonoBehaviour:
   shouldKnockback: 0
   isShootingSecondaryProjectile: 0
   isShootingCastle: 0
+  isHealer: 0
   attacker: {fileID: 0}
   defender: {fileID: 0}
 --- !u!114 &2640494761710373425
@@ -230,7 +231,7 @@ GameObject:
   - component: {fileID: 7101417024942116832}
   - component: {fileID: 9178919577468988280}
   - component: {fileID: 3679307354656271962}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Range Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -291,6 +292,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackersInRange: []
   defendersInRange: []
+  squadsInRange: []
   boxCollider: {fileID: 0}
   originalOffset: {x: 0, y: 0}
   originalSize: {x: 0, y: 0}

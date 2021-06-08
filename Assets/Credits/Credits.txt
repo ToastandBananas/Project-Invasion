@@ -17,6 +17,7 @@ Sound Credits:
 - Fireball Explosion by HighPixel (https://freesound.org/people/HighPixel/sounds/431174/) Licensed under CC0 1.0
 - Fleshy Fight Sounds by will_leamon (https://opengameart.org/content/fleshy-fight-sounds) Licensed under OGA-BY 3.0
 - Horror Sound Effects Library by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/packs/16688/) Licensed under CC-BY 3.0
+- Magic Spell Cast Whoosh Delay by Ryusa (https://freesound.org/people/ryusa/sounds/531081/) Licensed under CC-BY 3.0
 - Music: Orchestral Victory Fanfare by Sheyvan (https://freesound.org/people/Sheyvan/sounds/470083/) Licenced under CC-BY 3.0
 - Plywood Break by cmusounddesign (https://freesound.org/people/cmusounddesign/sounds/96167/) Licensed under CC-BY 3.0
 - Red Eclipse Sounds by redeclipse (https://github.com/redeclipse/sounds) Licensed under CC-BY-SA 4.0

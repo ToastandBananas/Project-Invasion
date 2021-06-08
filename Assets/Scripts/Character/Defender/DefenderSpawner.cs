@@ -312,6 +312,9 @@ public class DefenderSpawner : MonoBehaviour
         if (coordinates.x >= 1f)
             ghostImageSquad.GetComponent<BoxCollider2D>().enabled = true;
 
+        if (ghostImageSquad.rangeCollider != null)
+            ghostImageSquad.rangeCollider.boxCollider.enabled = true;
+
         // Create a new ghost image squad in case the player wants to spawn another of the same squad
         ghostImageSquad = Instantiate(squad, Camera.main.ScreenToWorldPoint(Input.mousePosition), Quaternion.identity);
 

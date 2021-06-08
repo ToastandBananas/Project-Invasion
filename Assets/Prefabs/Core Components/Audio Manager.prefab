@@ -168,6 +168,30 @@ MonoBehaviour:
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
+  healingOrbCastSounds:
+  - soundName: Healing Orb Cast 1
+    clip: {fileID: 8300000, guid: f562ce46a6c2ec74eaf48900993c6ff1, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  healingOrbHitSounds:
+  - soundName: Healing Orb Hit 1
+    clip: {fileID: 0}
+    volume: 0.2
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.25
+    loop: 0
+  resurrectSounds:
+  - soundName: Resurrect
+    clip: {fileID: 8300000, guid: 6c441bc8f623f3f438d3bfd6b255e896, type: 3}
+    volume: 0.4
+    pitch: 1
+    randomVolumeAddOn: 0.05
+    randomPitchAddOn: 0.05
+    loop: 0
   splashScreenMusicSounds:
   - soundName: Battle Horn
     clip: {fileID: 8300000, guid: b2b5aae7142f2104e8abaca8bb7c2975, type: 3}

@@ -105,6 +105,16 @@ public class TextPopup : MonoBehaviour
         return resourceGainPopup;
     }
 
+    // Create a text popup with a given string
+    public static TextPopup CreateTextStringPopup(Vector3 position, string stringText)
+    {
+        TextPopup resourceGainPopup = textPopupObjectPool.GetPooledObject().GetComponent<TextPopup>();
+
+        resourceGainPopup.SetupTextStringPopup(position, stringText);
+
+        return resourceGainPopup;
+    }
+
     void SetupDamagePopup(Vector3 position, float damageAmount, bool isCriticalHit, bool isDefenderOrStructure)
     {
         ResetPopup();
@@ -212,6 +222,21 @@ public class TextPopup : MonoBehaviour
             resourceIcon.sprite = suppliesIcon;
             resourceIconRectTransform.localScale = new Vector3(0.15f, 0.15f);
         }
+
+        gameObject.SetActive(true);
+        transform.position = position;
+    }
+
+    void SetupTextStringPopup(Vector3 position, string stringText)
+    {
+        ResetPopup();
+
+        textMesh.SetText(stringText);
+        textMesh.color = Color.white;
+        textMesh.fontSize = 1.2f;
+
+        sortingOrder++;
+        textMesh.sortingOrder = sortingOrder;
 
         gameObject.SetActive(true);
         transform.position = position;

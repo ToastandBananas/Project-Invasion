@@ -28,7 +28,8 @@ public class GameManager : MonoBehaviour
     public InControlManager inControlManagerPrefab;
 
     [HideInInspector] public SquadData squadData;
-    
+    [HideInInspector] public Transform deadCharactersParent;
+
     public static GameManager instance;
     void Awake()
     {
@@ -58,6 +59,8 @@ public class GameManager : MonoBehaviour
             InControlManager inControlManager = Instantiate(inControlManagerPrefab);
             inControlManager.name = "InControl Manager";
         }
+
+        deadCharactersParent = GameObject.Find("Dead Characters").transform;
     }
 
     void Update()

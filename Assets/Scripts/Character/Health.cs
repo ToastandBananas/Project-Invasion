@@ -21,10 +21,10 @@ public class Health : MonoBehaviour
     Defender defender;
 
     LevelController levelController;
+    GameManager gm;
     Animator anim;
     BoxCollider2D boxCollider;
     SpriteRenderer spriteRenderer;
-    Transform deadCharactersParent;
     
     const string EFFECTS_PARENT_NAME = "Effects";
     Transform effectsParent;
@@ -33,12 +33,12 @@ public class Health : MonoBehaviour
     void Start()
     {
         levelController = FindObjectOfType<LevelController>();
+        gm = GameManager.instance;
         TryGetComponent(out attacker);
         TryGetComponent(out defender);
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
         spriteRenderer = transform.GetChild(0).GetComponent<SpriteRenderer>();
-        deadCharactersParent = GameObject.Find("Dead Characters").transform;
 
         startingMaxHealth = maxHealth;
         currentHealth = maxHealth;
@@ -165,11 +165,16 @@ public class Health : MonoBehaviour
         // Rotate the body a random rotation
         float randomRotation = Random.Range(-70f, 70f);
         transform.eulerAngles = new Vector3(0, 0, randomRotation);
-        transform.SetParent(deadCharactersParent);
+        transform.SetParent(gm.deadCharactersParent);
 
         // Defender:
         if (defender != null)
         {
+            defender.squad.deadUnits.Add(defender);
+
+            if (defender.squad.abilityIconController.resurrectAbilityActive && defender.squad.abilityIconController.squadHighlighter.selectedSquad == defender.squad)
+                defender.squad.HighlightSquad();
+
             // Disable character scripts to prevent further running of Update functions
             if (defender.myShooter != null)
                 defender.myShooter.enabled = false;
@@ -223,7 +228,7 @@ public class Health : MonoBehaviour
         if (attacker != null)
         {
             attacker.anim.SetBool("isDead", false);
-            attacker.anim.Play("StandUp");
+            attacker.anim.Play("StandUp", 0);
 
             if (attacker.myShooter != null)
             {
@@ -243,7 +248,7 @@ public class Health : MonoBehaviour
         else if (defender != null)
         {
             defender.anim.SetBool("isDead", false);
-            defender.anim.Play("StandUp");
+            defender.anim.Play("StandUp", 0);
 
             if (defender.myShooter != null)
                 defender.myShooter.enabled = true;
@@ -252,10 +257,17 @@ public class Health : MonoBehaviour
                 allyScript.enabled = true;
 
             defender.enabled = true;
-            
-            transform.SetParent(defender.squad.unitsParent);
-            if (defender.squad.units.Contains(defender) == false)
-                defender.squad.units.Add(defender);
+
+            if (defender.squad != null && (defender.squad.leader != null || defender.squad.leader.health.isDead == false))
+            {
+                defender.squad.deadUnits.Remove(defender);
+
+                transform.SetParent(defender.squad.unitsParent);
+                if (defender.squad.units.Contains(defender) == false)
+                    defender.squad.units.Add(defender);
+            }
+            else
+                defender.Retreat();
         }
     }
 

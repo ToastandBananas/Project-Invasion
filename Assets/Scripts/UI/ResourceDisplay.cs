@@ -102,7 +102,7 @@ public class ResourceDisplay : MonoBehaviour
 
     public void SpendGold(int amount)
     {
-        if (HaveEnoughGold(amount))
+        if (HaveEnoughGold(amount) && amount > 0)
         {
             gold -= amount;
             audioManager.PlayRandomSound(audioManager.goldSounds);
@@ -123,7 +123,7 @@ public class ResourceDisplay : MonoBehaviour
 
     public void SpendSupplies(int amount)
     {
-        if (HaveEnoughSupplies(amount))
+        if (HaveEnoughSupplies(amount) && amount > 0)
         {
             supplies -= amount;
             TextPopup.CreateResourceDisplayPopup(new Vector3(9.25f, 5.94f), -amount);

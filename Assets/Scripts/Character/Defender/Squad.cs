@@ -19,22 +19,24 @@ public class Squad : MonoBehaviour
     public bool shouldRetreatWhenEnemyNear;
     public bool isRangedUnit;
     public bool isCastleWallSquad;
-    [SerializeField] int shootRange;
+    public int shootRange;
 
     [Header("Other")]
     public bool squadPlaced;
 
     [HideInInspector] public Defender leader;
     [HideInInspector] public List<Defender> units = new List<Defender>();
+    [HideInInspector] public List<Defender> deadUnits = new List<Defender>();
     [HideInInspector] public List<Attacker> attackersNearby = new List<Attacker>();
 
     [HideInInspector] public Transform leaderParent;
     [HideInInspector] public Transform unitsParent;
+    [HideInInspector] public AbilityIconController abilityIconController;
     [HideInInspector] public AttackerSpawner myLaneSpawner;
     [HideInInspector] public RangeCollider rangeCollider;
     [HideInInspector] public bool abilityActive;
 
-    AbilityIconController abilityIconController;
+    bool isHighlighted;
 
     #region Formation Positions
     // Line formation positions:
@@ -257,19 +259,46 @@ public class Squad : MonoBehaviour
         shootRange = newShootRange;
     }
 
+    public void HighlightSquad()
+    {
+        isHighlighted = true;
+        abilityIconController.squadHighlighter.selectedSquad = this;
+
+        if ((abilityIconController.activeAbilitySquad == this || abilityIconController.activeAbilitySquad.rangeCollider.squadsInRange.Contains(this))
+            && (abilityIconController.resurrectAbilityActive == false || deadUnits.Count > 0))
+        {
+            abilityIconController.squadHighlighter.ShowValidHighlight();
+        }
+        else
+            abilityIconController.squadHighlighter.ShowInvalidHighlight();
+    }
+
+    public void RemoveHighlightFromSquad()
+    {
+        isHighlighted = false;
+        if (abilityIconController.squadHighlighter.selectedSquad == this)
+            abilityIconController.squadHighlighter.selectedSquad = null;
+    }
+
     void OnMouseEnter()
     {
         abilityIconController.selectedSquad = this;
         abilityIconController.EnableAbilityIcons();
+
+        if (abilityIconController.abilitySelectSquadActive)
+            HighlightSquad();
     }
 
     void OnMouseExit()
     {
-        if (abilityIconController.selectedSquad = this)
+        if (abilityIconController.selectedSquad == this)
         {
             abilityIconController.selectedSquad = null;
             abilityIconController.DisableAbilityIcons();
         }
+
+        if (isHighlighted)
+            RemoveHighlightFromSquad();
     }
 
     void OnTriggerEnter2D(Collider2D collision)

@@ -70,6 +70,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] fireballHitSounds;
     public Sound[] healingOrbCastSounds;
     public Sound[] healingOrbHitSounds;
+    public Sound[] resurrectSounds;
 
     [Header("Music Sounds")]
     public Sound[] splashScreenMusicSounds;
@@ -129,6 +130,7 @@ public class AudioManager : MonoBehaviour
         allSounds.Add(fireballHitSounds);
         allSounds.Add(healingOrbCastSounds);
         allSounds.Add(healingOrbHitSounds);
+        allSounds.Add(resurrectSounds);
         allSounds.Add(goldSounds);
         allSounds.Add(splashScreenMusicSounds);
         allSounds.Add(musicSounds);
@@ -160,7 +162,7 @@ public class AudioManager : MonoBehaviour
 
                 if (soundArray == musicSounds)
                     _go.GetComponent<AudioSource>().outputAudioMixerGroup = musicAudioMixerGroup;
-                else if (soundArray == humanMaleDeathSounds)
+                else if (SoundIsVoice(soundArray))
                     _go.GetComponent<AudioSource>().outputAudioMixerGroup = voicesAudioMixerGroup;
                 else
                     _go.GetComponent<AudioSource>().outputAudioMixerGroup = effectsAudioMixerGroup;
@@ -330,7 +332,7 @@ public class AudioManager : MonoBehaviour
         if (weaponType == RangedWeaponType.Fireball)
             PlayRandomSound(fireballHitSounds);
         else if (weaponType == RangedWeaponType.HealingOrb)
-            PlayRandomSound(healingOrbHitSounds);
+            return; // PlayRandomSound(healingOrbHitSounds);
         else
         {
             if (isAttackingBuilding == false)
@@ -364,5 +366,13 @@ public class AudioManager : MonoBehaviour
             PlayRandomSound(lichDeathSounds);
         else if (voiceType == VoiceType.Zombie)
             PlayRandomSound(zombieDeathSounds);
+    }
+
+    bool SoundIsVoice(Sound[] soundArray)
+    {
+        if (soundArray == humanMaleDeathSounds || soundArray == humanFemaleDeathSounds || soundArray == lichDeathSounds || soundArray == skeletonDeathSounds || soundArray == zombieDeathSounds)
+            return true;
+
+        return false;
     }
 }

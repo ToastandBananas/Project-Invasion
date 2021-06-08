@@ -47,6 +47,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   inControlManagerPrefab: {fileID: 1447369286511806373, guid: b2cbcbbc4eb50744f999efe4e00b6988, type: 3}
   squadData: {fileID: 0}
+  deadCharactersParent: {fileID: 0}
 --- !u!114 &2588159061488272133
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +111,15 @@ MonoBehaviour:
   laborerMiningSpeedMultiplier: 0
   laborerDoubleTimeTime: 0
   laborerDoubleTimeUnlocked: 0
+  priestGoldCost: 0
+  priestSuppliesCost: 0
+  priestHealth: 0
+  priestLeaderHealth: 0
+  priestHealAmount: 0
+  priestLeaderHealAmount: 0
+  priestBlessTime: 0
+  priestResurrectUnlocked: 0
+  priestBlessUnlocked: 0
   spearmenSquadGoldCost: 0
   spearmenSquadSuppliesCost: 0
   spearmenHealth: 0
@@ -136,6 +146,7 @@ MonoBehaviour:
   defaultThornsTime: 30
   defaultMiningSpeedMultiplier: 1
   defaultDoubleTimeTime: 45
+  defaultBlessTime: 60
   defaultLongThrowTime: 45
   defaultSpearWallTime: 30
   fireArrowsGoldCost: 75
@@ -148,6 +159,8 @@ MonoBehaviour:
   thornsSuppliesCost: 5
   doubleTimeGoldCost: 0
   doubleTimeSuppliesCost: 40
+  blessGoldCost: 120
+  blessSuppliesCost: 10
   longThrowGoldCost: 75
   longThrowSuppliesCost: 10
   spearWallGoldCost: 100
@@ -155,5 +168,6 @@ MonoBehaviour:
   archersUnlocked: 0
   knightsUnlocked: 0
   laborersUnlocked: 0
+  priestsUnlocked: 0
   spearmenUnlocked: 0
   woodenStakesUnlocked: 0

@@ -6,9 +6,15 @@ using UnityEngine.Events;
 
 public class AbilityIconController : MonoBehaviour
 {
-    public Sprite fireArrowsIcon, rapidFireIcon, thornsIcon, inspireIcon, doubleTimeIcon, longThrowIcon, spearWallIcon;
+    [Header("Ability Icons")]
+    public Sprite fireArrowsIcon;
+    public Sprite rapidFireIcon, thornsIcon, inspireIcon, doubleTimeIcon, longThrowIcon, spearWallIcon, blessIcon, resurrectIcon;
 
+    [HideInInspector] public SquadHighlighter squadHighlighter;
     [HideInInspector] public Squad selectedSquad;
+    [HideInInspector] public Squad activeAbilitySquad;
+    [HideInInspector] public bool abilitySelectSquadActive;
+    [HideInInspector] public bool resurrectAbilityActive;
 
     List<Button>      abilityIconButtons = new List<Button>();
     List<Image>       abilityIconImages  = new List<Image>();
@@ -16,9 +22,11 @@ public class AbilityIconController : MonoBehaviour
 
     AudioManager audioManager;
     DefenderSpawner defenderSpawner;
+    GameManager gm;
     ResourceDisplay resourceDisplay;
     SquadData squadData;
     Tooltip tooltip;
+    Transform deadCharactersParent;
 
     LayerMask squadMask;
 
@@ -40,9 +48,12 @@ public class AbilityIconController : MonoBehaviour
     {
         audioManager = AudioManager.instance;
         defenderSpawner = DefenderSpawner.instance;
+        gm = GameManager.instance;
         resourceDisplay = ResourceDisplay.instance;
         squadData = GameManager.instance.squadData;
+        squadHighlighter = SquadHighlighter.instance;
         tooltip = GameObject.Find("Tooltip").GetComponent<Tooltip>();
+        deadCharactersParent = GameObject.Find("Dead Characters").transform;
         squadMask = LayerMask.GetMask("Squads");
 
         for (int i = 0; i < transform.childCount; i++)
@@ -58,11 +69,20 @@ public class AbilityIconController : MonoBehaviour
     void Update()
     {
         CheckIfIconIsInteractable();
+
+        if (GameControls.gamePlayActions.select.WasPressed && abilitySelectSquadActive)
+        {
+            if (resurrectAbilityActive)
+                ResurrectUnits();
+        }
+
+        if (GameControls.gamePlayActions.deselect.WasPressed && abilitySelectSquadActive)
+            Reset();
     }
 
     public void EnableAbilityIcons()
     {
-        if (defenderSpawner.ghostImageSquad == null)
+        if (defenderSpawner.ghostImageSquad == null && abilitySelectSquadActive == false)
         {
             switch (selectedSquad.squadType)
             {
@@ -77,6 +97,9 @@ public class AbilityIconController : MonoBehaviour
                     break;
                 case SquadType.Spearmen:
                     SetSpearmenIcons();
+                    break;
+                case SquadType.Priests:
+                    SetPriestIcons();
                     break;
                 default:
                     break;
@@ -106,7 +129,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateFireArrows()
     {
-        InitializeUseAbility(squadData.fireArrowsGoldCost, squadData.fireArrowsSuppliesCost);
+        InitializeUseAbility(squadData.fireArrowsGoldCost, squadData.fireArrowsSuppliesCost, true);
 
         if (selectedSquad.leader != null)
         {
@@ -144,7 +167,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateRapidFire()
     {
-        InitializeUseAbility(squadData.rapidFireGoldCost, squadData.rapidFireSuppliesCost);
+        InitializeUseAbility(squadData.rapidFireGoldCost, squadData.rapidFireSuppliesCost, true);
 
         if (selectedSquad.leader != null)
             selectedSquad.leader.anim.SetFloat("shootSpeed", squadData.archerRapidFireSpeedMultipilier);
@@ -191,7 +214,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateInspire()
     {
-        InitializeUseAbility(squadData.inspireGoldCost, squadData.inspireSuppliesCost);
+        InitializeUseAbility(squadData.inspireGoldCost, squadData.inspireSuppliesCost, true);
 
         Squad leftSquad  = null;
         Squad rightSquad = null;
@@ -287,7 +310,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateThorns()
     {
-        InitializeUseAbility(squadData.thornsGoldCost, squadData.thornsSuppliesCost);
+        InitializeUseAbility(squadData.thornsGoldCost, squadData.thornsSuppliesCost, true);
 
         if (selectedSquad.leader != null)
             selectedSquad.leader.health.thornsActive = true;
@@ -332,7 +355,7 @@ public class AbilityIconController : MonoBehaviour
 
     public void ActivateDoubleTime()
     {
-        InitializeUseAbility(squadData.doubleTimeGoldCost, squadData.doubleTimeSuppliesCost);
+        InitializeUseAbility(squadData.doubleTimeGoldCost, squadData.doubleTimeSuppliesCost, true);
 
         foreach (Defender unit in selectedSquad.units)
         {
@@ -353,6 +376,98 @@ public class AbilityIconController : MonoBehaviour
     }
     #endregion
 
+    #region Priests
+    void SetPriestIcons()
+    {
+        if (selectedSquad.abilityActive == false)
+        {
+            // Resurrect
+            if (squadData.priestResurrectUnlocked)
+                SetupIcon(0, 0, 0, resurrectIcon, ActivateResurrect_SquadSelect); // We don't want to use resources right away, since we won't know how much to spend until we choose a Squad to resurrect from
+
+            // Bless
+            //if (squadData.priestBlessUnlocked)
+                //SetupIcon(0, squadData.blessGoldCost, squadData.blessSuppliesCost, blessIcon, ActivateBless);
+        }
+    }
+
+    void ActivateResurrect_SquadSelect()
+    {
+        abilitySelectSquadActive = true;
+        resurrectAbilityActive = true;
+        activeAbilitySquad = selectedSquad;
+        activeAbilitySquad.HighlightSquad();
+
+        InitializeUseAbility(0, 0, false);
+    }
+
+    void ResurrectUnits()
+    {
+        if (squadHighlighter.selectedSquad == null)
+        {
+            TextPopup.CreateTextStringPopup(Utilities.GetMouseWorldPosition(), "Invalid Target");
+            Reset();
+            return;
+        }
+        else if (activeAbilitySquad.rangeCollider.squadsInRange.Contains(squadHighlighter.selectedSquad) == false && squadHighlighter.selectedSquad != activeAbilitySquad)
+        {
+            TextPopup.CreateTextStringPopup(squadHighlighter.selectedSquad.transform.position, "Target Not In Range");
+            Reset();
+            return;
+        }
+        else if (squadHighlighter.selectedSquad.deadUnits.Count == 0)
+        {
+            TextPopup.CreateTextStringPopup(squadHighlighter.selectedSquad.transform.position, "No Units To Resurrect");
+            Reset();
+            return;
+        }
+
+        int goldCost = Mathf.RoundToInt(squadHighlighter.selectedSquad.GetGoldCost() / squadHighlighter.selectedSquad.maxUnitCount * squadHighlighter.selectedSquad.deadUnits.Count);
+        int suppliesCost = Mathf.RoundToInt(squadHighlighter.selectedSquad.GetSuppliesCost() / squadHighlighter.selectedSquad.maxUnitCount * squadHighlighter.selectedSquad.deadUnits.Count);
+
+        if (resourceDisplay.HaveEnoughGold(goldCost) && resourceDisplay.HaveEnoughSupplies(suppliesCost))
+        {
+            activeAbilitySquad.abilityActive = true;
+            activeAbilitySquad.leader.anim.Play("Resurrect", 0);
+            for (int i = 0; i < activeAbilitySquad.units.Count; i++)
+            {
+                activeAbilitySquad.units[i].anim.Play("Resurrect", 0);
+            }
+
+            float resurrectAnimationTime = activeAbilitySquad.leader.anim.GetCurrentAnimatorStateInfo(0).length;
+
+            for (int i = 0; i < squadHighlighter.selectedSquad.deadUnits.Count; i++)
+            {
+                ResurrectUnitFromSquad(squadHighlighter.selectedSquad.deadUnits[i], resurrectAnimationTime);
+            }
+
+            resourceDisplay.SpendGold(goldCost);
+            resourceDisplay.SpendSupplies(suppliesCost);
+
+            audioManager.PlayRandomSound(audioManager.resurrectSounds);
+
+            StartCoroutine(DeactivateResurrect(resurrectAnimationTime, activeAbilitySquad));
+            Reset();
+        }
+        else // Not enough supplies or gold, so cancel using the ability
+        {
+            TextPopup.CreateTextStringPopup(squadHighlighter.selectedSquad.transform.position, "Not enough resources");
+            Reset();
+        }
+    }
+
+    void ResurrectUnitFromSquad(Defender defenderToResurrect, float resurrectAnimationTime)
+    {
+        StartCoroutine(defenderToResurrect.health.Resurrect(resurrectAnimationTime, defenderToResurrect.allyScript, null));
+    }
+    
+    IEnumerator DeactivateResurrect(float waitTime, Squad activeSquad)
+    {
+        yield return new WaitForSeconds(waitTime);
+        activeSquad.abilityActive = false;
+    }
+    #endregion
+
     #region Spearmen
     void SetSpearmenIcons()
     {
@@ -370,7 +485,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateLongThrow()
     {
-        InitializeUseAbility(squadData.longThrowGoldCost, squadData.longThrowSuppliesCost);
+        InitializeUseAbility(squadData.longThrowGoldCost, squadData.longThrowSuppliesCost, true);
 
         if (selectedSquad.isCastleWallSquad == false)
         {
@@ -400,7 +515,7 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateSpearWall()
     {
-        InitializeUseAbility(squadData.spearWallGoldCost, squadData.spearWallSuppliesCost);
+        InitializeUseAbility(squadData.spearWallGoldCost, squadData.spearWallSuppliesCost, true);
 
         selectedSquad.squadFormation = SquadFormation.Wall;
         selectedSquad.AssignLeaderPosition();
@@ -488,9 +603,11 @@ public class AbilityIconController : MonoBehaviour
         abilityIconImages[iconIndex].sprite = iconSprite;
     }
 
-    void InitializeUseAbility(int abilityGoldCost, int abilitySuppliesCost)
+    void InitializeUseAbility(int abilityGoldCost, int abilitySuppliesCost, bool activateAbilityImmediately)
     {
-        selectedSquad.abilityActive = true;
+        if (activateAbilityImmediately)
+            selectedSquad.abilityActive = true;
+
         resourceDisplay.SpendGold(abilityGoldCost);
         resourceDisplay.SpendSupplies(abilitySuppliesCost);
         PlayButtonClickSound();
@@ -514,5 +631,16 @@ public class AbilityIconController : MonoBehaviour
                     abilityIconButtons[i].interactable = true;
             }
         }
+    }
+
+    void Reset()
+    {
+        abilitySelectSquadActive = false;
+        resurrectAbilityActive = false;
+        activeAbilitySquad = null;
+        squadHighlighter.DisableHighlighter();
+
+        if (selectedSquad != null)
+            EnableAbilityIcons();
     }
 }

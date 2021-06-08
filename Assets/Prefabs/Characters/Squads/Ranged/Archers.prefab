@@ -87,6 +87,7 @@ MonoBehaviour:
   squadPlaced: 0
   leader: {fileID: 0}
   units: []
+  deadUnits: []
   attackersNearby: []
   leaderParent: {fileID: 0}
   unitsParent: {fileID: 0}
@@ -168,7 +169,7 @@ GameObject:
   - component: {fileID: 8125241175160363185}
   - component: {fileID: 2483910159988643762}
   - component: {fileID: 4665881051902344013}
-  m_Layer: 8
+  m_Layer: 2
   m_Name: Range Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -196,7 +197,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5059901145793556741}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
@@ -229,6 +230,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackersInRange: []
   defendersInRange: []
+  squadsInRange: []
   boxCollider: {fileID: 0}
   originalOffset: {x: 0, y: 0}
   originalSize: {x: 0, y: 0}
