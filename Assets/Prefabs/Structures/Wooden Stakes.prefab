@@ -773,7 +773,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05936706, y: 0.030000001}
+  m_Offset: {x: -0.05936706, y: 0.020299315}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -784,7 +784,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24081588, y: 0.9356624}
+  m_Size: {x: 0.24081588, y: 0.87314725}
   m_EdgeRadius: 0
 --- !u!114 &3431011708692622765
 MonoBehaviour:
@@ -1059,7 +1059,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.05936706, y: 0.030000001}
+  m_Offset: {x: -0.05936706, y: 0.020299315}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -1070,7 +1070,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.24081588, y: 0.9356624}
+  m_Size: {x: 0.24081588, y: 0.87314725}
   m_EdgeRadius: 0
 --- !u!114 &6045130526925487653
 MonoBehaviour:
@@ -1660,9 +1660,11 @@ MonoBehaviour:
   canPlaceMore: 0
   structurePlaced: 0
   myLaneSpawner: {fileID: 0}
+  audioManager: {fileID: 0}
   activeColor: {r: 1, g: 1, b: 1, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 0.4}
   ghostImageColor: {r: 1, g: 1, b: 1, a: 0.4}
+  destroyAnimationTime: 0
   stakeAnims_Group1:
   - {fileID: 1841083048}
   - {fileID: 1841083047}

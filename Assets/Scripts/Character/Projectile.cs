@@ -130,7 +130,7 @@ public class Projectile : MonoBehaviour
                         collision.TryGetComponent(out ResourceDeposit resourceDeposit);
                         if (resourceDeposit != null && resourceDeposit.resourceNode.myLaneSpawner == myShooter.attacker.myAttackerSpawner && myShooter.attacker.currentTargetResourceDeposit == resourceDeposit)
                         {
-                            HitTarget(null, true);
+                            StartCoroutine(HitTarget(null, true));
 
                             resourceDeposit.TakeDamage(myShooter.attacker.structuralAttackDamage);
 
@@ -169,7 +169,7 @@ public class Projectile : MonoBehaviour
                     collision.TryGetComponent(out Obstacle obstacle);
                     if (obstacle != null)
                     {
-                        HitTarget(null, true);
+                        StartCoroutine(HitTarget(null, true));
 
                         obstacle.TakeDamage(myShooter.attacker.structuralAttackDamage);
 
@@ -182,7 +182,7 @@ public class Projectile : MonoBehaviour
                     collision.TryGetComponent(out CastleCollider castleCollider);
                     if (castleCollider != null)
                     {
-                        HitTarget(null, true);
+                        StartCoroutine(HitTarget(null, true));
 
                         CastleHealth.instance.TakeHealth(myShooter.attacker.structuralAttackDamage);
 
