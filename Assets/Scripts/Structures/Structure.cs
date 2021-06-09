@@ -28,12 +28,13 @@ public class Structure : MonoBehaviour
 
     DefenderSpawner defenderSpawner;
 
-    void Start()
+    public virtual void Start()
     {
         currentStructureCount = 1;
 
         audioManager = AudioManager.instance;
         defenderSpawner = DefenderSpawner.instance;
+        squadData = GameManager.instance.squadData;
     }
 
     public int GetGoldCost()

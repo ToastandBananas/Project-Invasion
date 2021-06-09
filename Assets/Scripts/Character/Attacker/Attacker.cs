@@ -162,7 +162,7 @@ public class Attacker : MonoBehaviour
     public IEnumerator Knockback()
     {
         float knockbackDirection = 1f;
-        if (currentTargetsSquad.leader.currentTargetAttacker == this)
+        if (currentTargetsSquad.leader != null && currentTargetsSquad.leader.currentTargetAttacker == this)
         {
             if (currentTargetsSquad.leader.transform.position.x <= transform.position.x)
                 knockbackDirection = 1f;

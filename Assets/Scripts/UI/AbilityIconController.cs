@@ -214,35 +214,58 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateInspire()
     {
-        InitializeUseAbility(squadData.inspireGoldCost, squadData.inspireSuppliesCost, true);
-
         Squad leftSquad  = null;
         Squad rightSquad = null;
 
         Collider2D leftSquadCollider  = Physics2D.OverlapCircle(new Vector2(selectedSquad.transform.position.x - 1, selectedSquad.transform.position.y), 0.5f, squadMask);
         Collider2D rightSquadCollider = Physics2D.OverlapCircle(new Vector2(selectedSquad.transform.position.x + 1, selectedSquad.transform.position.y), 0.5f, squadMask);
 
-        Inspire_SetStatsForSquad(selectedSquad);
+        int inspireCount = 0;
+
+        if (selectedSquad.leader.health.isInspired == false)
+        {
+            Inspire_SetStatsForSquad(selectedSquad);
+            inspireCount++;
+        }
 
         if (leftSquadCollider != null)
         {
             leftSquad = leftSquadCollider.GetComponent<Squad>();
-            Inspire_SetStatsForSquad(leftSquad);
+            if (leftSquad.leader.health.isInspired == false)
+            {
+                Inspire_SetStatsForSquad(leftSquad);
+                inspireCount++;
+            }
         }
 
         if (rightSquadCollider != null)
         {
             rightSquad = rightSquadCollider.GetComponent<Squad>();
-            Inspire_SetStatsForSquad(rightSquad);
+            if (rightSquad.leader.health.isInspired == false)
+            {
+                Inspire_SetStatsForSquad(rightSquad);
+                inspireCount++;
+            }
         }
 
-        StartCoroutine(DeactivateInspire(selectedSquad, leftSquad, rightSquad));
+        if (inspireCount > 0)
+        {
+            InitializeUseAbility(squadData.inspireGoldCost, squadData.inspireSuppliesCost, true);
+            StartCoroutine(DeactivateInspire(selectedSquad, leftSquad, rightSquad));
+        }
+        else
+        {
+            PlayButtonClickSound();
+            TextPopup.CreateTextStringPopup(selectedSquad.transform.position, "Targets are already inspired");
+            Reset();
+        }
     }
 
     void Inspire_SetStatsForSquad(Squad squad)
     {
         if (squad.leader != null)
         {
+            squad.leader.health.isInspired = true;
             squad.leader.health.SetMaxHealth(squad.leader.health.GetMaxHealth() + (squad.leader.health.GetMaxHealth() * squadData.knightInspireMultiplier));
             squad.leader.health.Heal(squad.leader.health.GetMaxHealth() * squadData.knightInspireMultiplier);
 
@@ -254,6 +277,7 @@ public class AbilityIconController : MonoBehaviour
 
         foreach (Defender unit in squad.units)
         {
+            unit.health.isInspired = true;
             unit.health.SetMaxHealth(unit.health.GetMaxHealth() + (unit.health.GetMaxHealth() * squadData.knightInspireMultiplier));
             unit.health.Heal(unit.health.GetMaxHealth() * squadData.knightInspireMultiplier);
 
@@ -268,6 +292,7 @@ public class AbilityIconController : MonoBehaviour
     {
         if (squad.leader != null)
         {
+            squad.leader.health.isInspired = false;
             squad.leader.health.SetMaxHealth(squad.leader.health.GetMaxHealth() - (squad.leader.health.startingMaxHealth * squadData.knightInspireMultiplier));
             if (squad.leader.health.GetCurrentHealth() > squad.leader.health.GetMaxHealth())
                 squad.leader.health.SetCurrentHealthToMaxHealth();
@@ -280,6 +305,7 @@ public class AbilityIconController : MonoBehaviour
 
         foreach (Defender unit in squad.units)
         {
+            unit.health.isInspired = false;
             unit.health.SetMaxHealth(unit.health.GetMaxHealth() - (unit.health.startingMaxHealth * squadData.knightInspireMultiplier));
             if (unit.health.GetCurrentHealth() > unit.health.GetMaxHealth())
                 unit.health.SetCurrentHealthToMaxHealth();
@@ -430,7 +456,7 @@ public class AbilityIconController : MonoBehaviour
             activeAbilitySquad.abilityActive = true;
             PlayCastSpellAnims_Priests(activeAbilitySquad);
 
-            float resurrectAnimationTime = activeAbilitySquad.leader.anim.GetCurrentAnimatorStateInfo(0).length;
+            float resurrectAnimationTime = audioManager.resurrectSounds[0].clip.length;
 
             for (int i = 0; i < squadHighlighter.selectedSquad.deadUnits.Count; i++)
             {
@@ -467,10 +493,6 @@ public class AbilityIconController : MonoBehaviour
     {
         if (selectedSquad.rangeCollider.squadsInRange.Count > 0)
         {
-            InitializeUseAbility(squadData.blessGoldCost, squadData.blessSuppliesCost, true);
-            PlayCastSpellAnims_Priests(selectedSquad);
-            audioManager.PlayRandomSound(audioManager.blessSounds);
-
             Squad firstSquad = null;
             Squad secondSquad = null;
             if (selectedSquad.rangeCollider.squadsInRange.Count > 0)
@@ -478,28 +500,52 @@ public class AbilityIconController : MonoBehaviour
             if (selectedSquad.rangeCollider.squadsInRange.Count > 1)
                 secondSquad = selectedSquad.rangeCollider.squadsInRange[1];
 
+            int blessCount = 0;
+            if (firstSquad != null && firstSquad.leader.health.isBlessed == false)
+                blessCount++;
+            if (secondSquad != null && secondSquad.leader.health.isBlessed == false)
+                blessCount++;
+
+            if (blessCount == 0)
+            {
+                PlayButtonClickSound();
+                TextPopup.CreateTextStringPopup(selectedSquad.transform.position, "Targets already blessed");
+                Reset();
+                return;
+            }
+
+            InitializeUseAbility(squadData.blessGoldCost, squadData.blessSuppliesCost, true);
+            PlayCastSpellAnims_Priests(selectedSquad);
+            audioManager.PlayRandomSound(audioManager.blessSounds);
+            
             StartCoroutine(Bless(selectedSquad, firstSquad, secondSquad));
         }
         else
         {
             PlayButtonClickSound();
             TextPopup.CreateTextStringPopup(selectedSquad.transform.position, "No squads in range");
+            Reset();
         }
     }
 
     IEnumerator Bless(Squad priestSquad, Squad firstSquad, Squad secondSquad)
     {
-        yield return new WaitForSeconds(priestSquad.leader.anim.GetCurrentAnimatorStateInfo(0).length);
+        yield return new WaitForSeconds(audioManager.blessSounds[0].clip.length);
 
         for (int i = 0; i < priestSquad.rangeCollider.squadsInRange.Count; i++)
         {
-            priestSquad.rangeCollider.squadsInRange[i].leader.health.isBlessed = true;
-            for (int j = 0; j < priestSquad.rangeCollider.squadsInRange[i].units.Count; j++)
+            if (priestSquad.rangeCollider.squadsInRange[i].leader.health.isBlessed == false)
             {
-                priestSquad.rangeCollider.squadsInRange[i].units[j].health.isBlessed = true;
+                priestSquad.rangeCollider.squadsInRange[i].leader.health.isBlessed = true;
+                priestSquad.rangeCollider.squadsInRange[i].leader.effectAnim1.SetBool("blessActive", true);
+                for (int j = 0; j < priestSquad.rangeCollider.squadsInRange[i].units.Count; j++)
+                {
+                    priestSquad.rangeCollider.squadsInRange[i].units[j].health.isBlessed = true;
+                    priestSquad.rangeCollider.squadsInRange[i].units[j].effectAnim1.SetBool("blessActive", true);
+                }
             }
         }
-
+        
         StartCoroutine(DeactivateBless(squadData.priestBlessTime, priestSquad, firstSquad, secondSquad));
     }
 
@@ -512,18 +558,22 @@ public class AbilityIconController : MonoBehaviour
         if (firstSquad != null)
         {
             firstSquad.leader.health.isBlessed = false;
+            firstSquad.leader.effectAnim1.SetBool("blessActive", false);
             for (int i = 0; i < firstSquad.units.Count; i++)
             {
                 firstSquad.units[i].health.isBlessed = false;
+                firstSquad.units[i].effectAnim1.SetBool("blessActive", false);
             }
         }
 
         if (secondSquad != null)
         {
             secondSquad.leader.health.isBlessed = false;
+            secondSquad.leader.effectAnim1.SetBool("blessActive", false);
             for (int i = 0; i < secondSquad.units.Count; i++)
             {
                 secondSquad.units[i].health.isBlessed = false;
+                secondSquad.units[i].effectAnim1.SetBool("blessActive", false);
             }
         }
     }
@@ -585,36 +635,38 @@ public class AbilityIconController : MonoBehaviour
 
     void ActivateSpearWall()
     {
-        InitializeUseAbility(squadData.spearWallGoldCost, squadData.spearWallSuppliesCost, true);
-
-        selectedSquad.squadFormation = SquadFormation.Wall;
-        selectedSquad.AssignLeaderPosition();
-        selectedSquad.AssignUnitPositions();
-
-        if (selectedSquad.leader != null)
-            selectedSquad.leader.shouldKnockback = true;
-
-        foreach (Defender unit in selectedSquad.units)
+        if (selectedSquad.attackersNearby.Count == 0)
         {
-            unit.shouldKnockback = true;
+            InitializeUseAbility(squadData.spearWallGoldCost, squadData.spearWallSuppliesCost, true);
+
+            selectedSquad.squadFormation = SquadFormation.Wall;
+            selectedSquad.AssignLeaderPosition();
+            selectedSquad.AssignUnitPositions();
+
+            StartCoroutine(DeactivateSpearWall(selectedSquad, selectedSquad.leader.health.bluntResistance, selectedSquad.leader.health.piercingResistance, selectedSquad.leader.health.slashResistance, selectedSquad.leader.health.fireResistance));
+
+            if (selectedSquad.leader != null)
+            {
+                selectedSquad.leader.shouldKnockback = true;
+                selectedSquad.leader.health.bluntResistance = 1f;
+                selectedSquad.leader.health.piercingResistance = 1f;
+                selectedSquad.leader.health.slashResistance = 1f;
+                selectedSquad.leader.health.fireResistance = 1f;
+            }
+
+            foreach (Defender unit in selectedSquad.units)
+            {
+                unit.shouldKnockback = true;
+                unit.health.bluntResistance = 1f;
+                unit.health.piercingResistance = 1f;
+                unit.health.slashResistance = 1f;
+                unit.health.fireResistance = 1f;
+            }
         }
-
-        StartCoroutine(DeactivateSpearWall(selectedSquad, selectedSquad.leader.health.bluntResistance, selectedSquad.leader.health.piercingResistance, selectedSquad.leader.health.slashResistance, selectedSquad.leader.health.fireResistance));
-
-        if (selectedSquad.leader != null)
+        else
         {
-            selectedSquad.leader.health.bluntResistance = 1f;
-            selectedSquad.leader.health.piercingResistance = 1f;
-            selectedSquad.leader.health.slashResistance = 1f;
-            selectedSquad.leader.health.fireResistance = 1f;
-        }
-
-        foreach (Defender unit in selectedSquad.units)
-        {
-            unit.health.bluntResistance = 1f;
-            unit.health.piercingResistance = 1f;
-            unit.health.slashResistance = 1f;
-            unit.health.fireResistance = 1f;
+            PlayButtonClickSound();
+            TextPopup.CreateTextStringPopup(selectedSquad.transform.position, "Cannot activate. Enemies nearby.");
         }
     }
 

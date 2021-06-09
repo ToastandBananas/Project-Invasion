@@ -32,9 +32,9 @@ public class Defender : MonoBehaviour
     [HideInInspector] public Attacker currentTargetAttacker;
     [HideInInspector] public Health currentTargetAttackersHealth;
 
-    [HideInInspector] public Animator anim;
     [HideInInspector] public Ally allyScript;
-    [HideInInspector] public SpriteRenderer sr;
+    [HideInInspector] public Animator anim, effectAnim1, effectAnim2, effectAnim3;
+    [HideInInspector] public SpriteRenderer sr, effectSR1, effectSR2, effectSR3;
     [HideInInspector] public Squad squad;
     [HideInInspector] public Health health;
     [HideInInspector] public Shooter myShooter;
@@ -48,21 +48,29 @@ public class Defender : MonoBehaviour
 
     void Awake()
     {
-        squad = transform.parent.parent.GetComponent<Squad>();
-        sr = transform.GetComponentInChildren<SpriteRenderer>();
+        transform.parent.parent.TryGetComponent(out squad);
+        transform.GetChild(0).TryGetComponent(out sr); // SpriteRenderer
         TryGetComponent(out laborer);
 
         if (boxCollider == null)
-            boxCollider = GetComponent<BoxCollider2D>();
+            TryGetComponent(out boxCollider);
     }
 
     void Start()
     {
         audioManager = AudioManager.instance;
         currencyDisplay = ResourceDisplay.instance;
-        anim = GetComponent<Animator>();
+
         TryGetComponent(out allyScript);
-        health = GetComponent<Health>();
+        TryGetComponent(out health);
+        TryGetComponent(out anim);
+
+        transform.GetChild(0).GetChild(0).TryGetComponent(out effectAnim1);
+        transform.GetChild(0).GetChild(1).TryGetComponent(out effectAnim2);
+        transform.GetChild(0).GetChild(2).TryGetComponent(out effectAnim3);
+        transform.GetChild(0).GetChild(0).TryGetComponent(out effectSR1);
+        transform.GetChild(0).GetChild(1).TryGetComponent(out effectSR2);
+        transform.GetChild(0).GetChild(2).TryGetComponent(out effectSR3);
 
         startingBluntDamage = bluntDamage;
         startingSlashDamage = slashDamage;
@@ -343,6 +351,10 @@ public class Defender : MonoBehaviour
     {
         if (isRetreating == false)
             sr.sortingOrder = Mathf.RoundToInt(transform.position.y * -100);
+
+        effectSR1.sortingOrder = sr.sortingOrder - 1;
+        effectSR2.sortingOrder = sr.sortingOrder - 2;
+        effectSR3.sortingOrder = sr.sortingOrder - 3;
     }
 
     public void FindNewTargetForAttackers(Defender defender)

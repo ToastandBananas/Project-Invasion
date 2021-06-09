@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentStructure: {fileID: 5944504141592070325}
-  maxHealth: 150
+  maxHealth: 200
   attackersNearby: []
 --- !u!1 &5944504140671303730
 GameObject:
@@ -1085,7 +1085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentStructure: {fileID: 5944504141592070325}
-  maxHealth: 150
+  maxHealth: 200
   attackersNearby: []
 --- !u!1 &5944504141059221443
 GameObject:
@@ -1649,7 +1649,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   structureType: 100
   goldCost: 25
-  suppliesCost: 40
+  suppliesCost: 35
   description: Use wooden stakes to slow enemy advances. A second row can be built
     on each square, but only if there are no attackers nearby.
   maxStructureCount: 2
@@ -1661,6 +1661,7 @@ MonoBehaviour:
   structurePlaced: 0
   myLaneSpawner: {fileID: 0}
   audioManager: {fileID: 0}
+  squadData: {fileID: 0}
   activeColor: {r: 1, g: 1, b: 1, a: 1}
   invalidColor: {r: 1, g: 0, b: 0, a: 0.4}
   ghostImageColor: {r: 1, g: 1, b: 1, a: 0.4}

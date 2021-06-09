@@ -12,8 +12,7 @@ public class Health : MonoBehaviour
     [Header("Damage Particle Effect")]
     [SerializeField] GameObject damageEffect;
 
-    [HideInInspector] public bool isBlessed;
-    [HideInInspector] public bool thornsActive;
+    [HideInInspector] public bool isBlessed, isInspired, thornsActive;
     [HideInInspector] public float thornsDamageMultiplier;
 
     [HideInInspector] public bool isDead = false;

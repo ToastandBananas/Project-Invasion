@@ -41,8 +41,10 @@ public class WoodenStakes : Structure
         transform.GetChild(1).gameObject.SetActive(false);
     }
 
-    void Start()
+    public override void Start()
     {
+        base.Start();
+
         SetWoodenStakesData();
     }
 

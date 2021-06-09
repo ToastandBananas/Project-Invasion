@@ -2,6 +2,7 @@ Art Credits:
 - 700+ RPG Icons by Lorc (https://opengameart.org/content/700-rpg-icons) Licensed under CC-BY 3.0
 - Main Menu Background Image by Enrique Meseguer from Pixabay (https://pixabay.com/photos/castle-fantasy-dark-medieval-2596885/) Licensed under Pixabay License
 - Fantasy UI Elements by Ravenmore (http://dycha.net)(https://opengameart.org/content/fantasy-ui-elements-by-ravenmore) Licensed under CC-BY 3.0
+- Iron Plague (cursor) by Daniel Cook (https://opengameart.org/content/iron-plague-pointercursor) Licensed under CC-BY 3.0
 - Level Failed Background Image by Yuri B from Pixabay (https://pixabay.com/photos/skull-skull-and-crossbones-skeleton-3296026/) Licensed under Pixabay License
 - Oryx Wee Fantasy by Oryx Design Lab (https://www.oryxdesignlab.com/products/wee-fantasy) Licensed under Oryx Design Lab License
 - Powers Icons by Clint Bellanger (https://opengameart.org/content/powers-icons) Licensed under CC0 1.0
