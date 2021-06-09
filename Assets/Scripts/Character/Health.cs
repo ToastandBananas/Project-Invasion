@@ -12,7 +12,8 @@ public class Health : MonoBehaviour
     [Header("Damage Particle Effect")]
     [SerializeField] GameObject damageEffect;
 
-    [HideInInspector] public bool thornsActive = false;
+    [HideInInspector] public bool isBlessed;
+    [HideInInspector] public bool thornsActive;
     [HideInInspector] public float thornsDamageMultiplier;
 
     [HideInInspector] public bool isDead = false;
@@ -112,6 +113,9 @@ public class Health : MonoBehaviour
         if (defender != null)
             finalDamageAmount *= PlayerPrefsController.GetDifficultyMultiplier_EnemyAttackDamage();
 
+        if (isBlessed)
+            finalDamageAmount *= 1f - gm.squadData.priestBlessPercentDamageReduction;
+
         if (finalDamageAmount < 1f)
             finalDamageAmount = 1f;
         else
@@ -157,6 +161,7 @@ public class Health : MonoBehaviour
             AudioManager.instance.PlayDeathSound(attacker.voiceType);
 
         isDead = true;
+        isBlessed = false;
         thornsActive = false;
         anim.SetBool("isDead", true);
         boxCollider.enabled = false;
@@ -178,6 +183,9 @@ public class Health : MonoBehaviour
             // Disable character scripts to prevent further running of Update functions
             if (defender.myShooter != null)
                 defender.myShooter.enabled = false;
+
+            if (defender.allyScript != null)
+                defender.allyScript.enabled = false;
             
             defender.enabled = false;
         }
@@ -209,7 +217,7 @@ public class Health : MonoBehaviour
         }
     }
 
-    public IEnumerator Resurrect(float waitToResurrectTime, Ally allyScript, Enemy enemyScript)
+    public IEnumerator Resurrect(float waitToResurrectTime, Enemy enemyScript)
     {
         if (attacker != null)
         {
@@ -253,8 +261,8 @@ public class Health : MonoBehaviour
             if (defender.myShooter != null)
                 defender.myShooter.enabled = true;
 
-            if (allyScript != null)
-                allyScript.enabled = true;
+            if (defender.allyScript != null)
+                defender.allyScript.enabled = true;
 
             defender.enabled = true;
 

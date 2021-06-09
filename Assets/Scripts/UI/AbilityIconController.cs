@@ -386,8 +386,8 @@ public class AbilityIconController : MonoBehaviour
                 SetupIcon(0, 0, 0, resurrectIcon, ActivateResurrect_SquadSelect); // We don't want to use resources right away, since we won't know how much to spend until we choose a Squad to resurrect from
 
             // Bless
-            //if (squadData.priestBlessUnlocked)
-                //SetupIcon(0, squadData.blessGoldCost, squadData.blessSuppliesCost, blessIcon, ActivateBless);
+            if (squadData.priestBlessUnlocked)
+                SetupIcon(1, squadData.blessGoldCost, squadData.blessSuppliesCost, blessIcon, ActivateBless);
         }
     }
 
@@ -405,19 +405,19 @@ public class AbilityIconController : MonoBehaviour
     {
         if (squadHighlighter.selectedSquad == null)
         {
-            TextPopup.CreateTextStringPopup(Utilities.GetMouseWorldPosition(), "Invalid Target");
+            TextPopup.CreateTextStringPopup(Utilities.GetMouseWorldPosition(), "Invalid target");
             Reset();
             return;
         }
         else if (activeAbilitySquad.rangeCollider.squadsInRange.Contains(squadHighlighter.selectedSquad) == false && squadHighlighter.selectedSquad != activeAbilitySquad)
         {
-            TextPopup.CreateTextStringPopup(squadHighlighter.selectedSquad.transform.position, "Target Not In Range");
+            TextPopup.CreateTextStringPopup(squadHighlighter.selectedSquad.transform.position, "Target not in range");
             Reset();
             return;
         }
         else if (squadHighlighter.selectedSquad.deadUnits.Count == 0)
         {
-            TextPopup.CreateTextStringPopup(squadHighlighter.selectedSquad.transform.position, "No Units To Resurrect");
+            TextPopup.CreateTextStringPopup(squadHighlighter.selectedSquad.transform.position, "No units to resurrect");
             Reset();
             return;
         }
@@ -428,11 +428,7 @@ public class AbilityIconController : MonoBehaviour
         if (resourceDisplay.HaveEnoughGold(goldCost) && resourceDisplay.HaveEnoughSupplies(suppliesCost))
         {
             activeAbilitySquad.abilityActive = true;
-            activeAbilitySquad.leader.anim.Play("Resurrect", 0);
-            for (int i = 0; i < activeAbilitySquad.units.Count; i++)
-            {
-                activeAbilitySquad.units[i].anim.Play("Resurrect", 0);
-            }
+            PlayCastSpellAnims_Priests(activeAbilitySquad);
 
             float resurrectAnimationTime = activeAbilitySquad.leader.anim.GetCurrentAnimatorStateInfo(0).length;
 
@@ -458,13 +454,87 @@ public class AbilityIconController : MonoBehaviour
 
     void ResurrectUnitFromSquad(Defender defenderToResurrect, float resurrectAnimationTime)
     {
-        StartCoroutine(defenderToResurrect.health.Resurrect(resurrectAnimationTime, defenderToResurrect.allyScript, null));
+        StartCoroutine(defenderToResurrect.health.Resurrect(resurrectAnimationTime, null));
     }
     
     IEnumerator DeactivateResurrect(float waitTime, Squad activeSquad)
     {
         yield return new WaitForSeconds(waitTime);
         activeSquad.abilityActive = false;
+    }
+
+    void ActivateBless()
+    {
+        if (selectedSquad.rangeCollider.squadsInRange.Count > 0)
+        {
+            InitializeUseAbility(squadData.blessGoldCost, squadData.blessSuppliesCost, true);
+            PlayCastSpellAnims_Priests(selectedSquad);
+            audioManager.PlayRandomSound(audioManager.blessSounds);
+
+            Squad firstSquad = null;
+            Squad secondSquad = null;
+            if (selectedSquad.rangeCollider.squadsInRange.Count > 0)
+                firstSquad = selectedSquad.rangeCollider.squadsInRange[0];
+            if (selectedSquad.rangeCollider.squadsInRange.Count > 1)
+                secondSquad = selectedSquad.rangeCollider.squadsInRange[1];
+
+            StartCoroutine(Bless(selectedSquad, firstSquad, secondSquad));
+        }
+        else
+        {
+            PlayButtonClickSound();
+            TextPopup.CreateTextStringPopup(selectedSquad.transform.position, "No squads in range");
+        }
+    }
+
+    IEnumerator Bless(Squad priestSquad, Squad firstSquad, Squad secondSquad)
+    {
+        yield return new WaitForSeconds(priestSquad.leader.anim.GetCurrentAnimatorStateInfo(0).length);
+
+        for (int i = 0; i < priestSquad.rangeCollider.squadsInRange.Count; i++)
+        {
+            priestSquad.rangeCollider.squadsInRange[i].leader.health.isBlessed = true;
+            for (int j = 0; j < priestSquad.rangeCollider.squadsInRange[i].units.Count; j++)
+            {
+                priestSquad.rangeCollider.squadsInRange[i].units[j].health.isBlessed = true;
+            }
+        }
+
+        StartCoroutine(DeactivateBless(squadData.priestBlessTime, priestSquad, firstSquad, secondSquad));
+    }
+
+    IEnumerator DeactivateBless(float waitTime, Squad priestSquad, Squad firstSquad, Squad secondSquad)
+    {
+        yield return new WaitForSeconds(waitTime);
+
+        priestSquad.abilityActive = false;
+
+        if (firstSquad != null)
+        {
+            firstSquad.leader.health.isBlessed = false;
+            for (int i = 0; i < firstSquad.units.Count; i++)
+            {
+                firstSquad.units[i].health.isBlessed = false;
+            }
+        }
+
+        if (secondSquad != null)
+        {
+            secondSquad.leader.health.isBlessed = false;
+            for (int i = 0; i < secondSquad.units.Count; i++)
+            {
+                secondSquad.units[i].health.isBlessed = false;
+            }
+        }
+    }
+
+    void PlayCastSpellAnims_Priests(Squad priestSquad)
+    {
+        priestSquad.leader.anim.Play("CastSpell", 0);
+        for (int i = 0; i < priestSquad.units.Count; i++)
+        {
+            priestSquad.units[i].anim.Play("CastSpell", 0);
+        }
     }
     #endregion
 

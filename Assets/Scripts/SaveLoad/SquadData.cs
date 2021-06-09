@@ -32,7 +32,7 @@ public class SquadData : MonoBehaviour
     public int priestSuppliesCost;
     public float priestHealth, priestLeaderHealth;
     public float priestHealAmount, priestLeaderHealAmount;
-    public float priestBlessTime;
+    public float priestBlessPercentDamageReduction, priestBlessTime;
     public bool priestResurrectUnlocked, priestBlessUnlocked;
 
     [Header("Spearmen Data")]
@@ -65,6 +65,7 @@ public class SquadData : MonoBehaviour
     public float defaultDoubleTimeTime = 45f;
 
     // Priests
+    public float defaultBlessPercentDamageReduction = 0.75f;
     public float defaultBlessTime = 60f;
 
     // Spearmen
@@ -171,7 +172,7 @@ public class SquadData : MonoBehaviour
             laborerDoubleTimeUnlocked = true;
     }
 
-    public void ApplyPriestData(int gold, int supplies, float health, float leaderHealth, float healAmount, float leaderHealAmount, float blessTime, bool blessUnlocked, bool resurrectUnlocked)
+    public void ApplyPriestData(int gold, int supplies, float health, float leaderHealth, float healAmount, float leaderHealAmount, float blessPercentDamageReduction, float blessTime, bool blessUnlocked, bool resurrectUnlocked)
     {
         priestGoldCost += gold;
         priestSuppliesCost += supplies;
@@ -179,6 +180,7 @@ public class SquadData : MonoBehaviour
         priestLeaderHealth += leaderHealth;
         priestHealAmount += healAmount;
         priestLeaderHealAmount += leaderHealAmount;
+        priestBlessPercentDamageReduction += blessPercentDamageReduction;
         priestBlessTime += blessTime;
 
         if (blessUnlocked)
@@ -459,6 +461,7 @@ public class SquadData : MonoBehaviour
         ES3.Save("priestLeaderHealth", priestLeaderHealth, squadDataSavePath);
         ES3.Save("priestHealAmount", priestHealAmount, squadDataSavePath);
         ES3.Save("priestLeaderHealAmount", priestLeaderHealAmount, squadDataSavePath);
+        ES3.Save("priestBlessPercentDamageReduction", priestBlessPercentDamageReduction, squadDataSavePath);
         ES3.Save("priestBlessTime", priestBlessTime, squadDataSavePath);
         ES3.Save("priestBlessUnlocked", priestBlessUnlocked, squadDataSavePath);
         ES3.Save("priestResurrectUnlocked", priestResurrectUnlocked, squadDataSavePath);
@@ -541,6 +544,7 @@ public class SquadData : MonoBehaviour
         priestLeaderHealth = ES3.Load("priestLeaderHealth", squadDataSavePath, 0f);
         priestHealAmount = ES3.Load("priestHealAmount", squadDataSavePath, 0f);
         priestLeaderHealAmount = ES3.Load("priestLeaderHealAmount", squadDataSavePath, 0f);
+        priestBlessPercentDamageReduction = ES3.Load("priestBlessPercentDamageReduction", squadDataSavePath, defaultBlessPercentDamageReduction);
         priestBlessTime = ES3.Load("priestBlessTime", squadDataSavePath, defaultBlessTime);
         priestBlessUnlocked = ES3.Load("priestBlessUnlocked", squadDataSavePath, false);
         priestResurrectUnlocked = ES3.Load("priestResurrectUnlocked", squadDataSavePath, false);

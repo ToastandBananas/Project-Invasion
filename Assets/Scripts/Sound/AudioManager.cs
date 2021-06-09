@@ -70,6 +70,7 @@ public class AudioManager : MonoBehaviour
     public Sound[] fireballHitSounds;
     public Sound[] healingOrbCastSounds;
     public Sound[] healingOrbHitSounds;
+    public Sound[] blessSounds;
     public Sound[] resurrectSounds;
 
     [Header("Music Sounds")]
@@ -130,6 +131,7 @@ public class AudioManager : MonoBehaviour
         allSounds.Add(fireballHitSounds);
         allSounds.Add(healingOrbCastSounds);
         allSounds.Add(healingOrbHitSounds);
+        allSounds.Add(blessSounds);
         allSounds.Add(resurrectSounds);
         allSounds.Add(goldSounds);
         allSounds.Add(splashScreenMusicSounds);

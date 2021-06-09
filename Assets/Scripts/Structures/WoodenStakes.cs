@@ -41,6 +41,23 @@ public class WoodenStakes : Structure
         transform.GetChild(1).gameObject.SetActive(false);
     }
 
+    void Start()
+    {
+        SetWoodenStakesData();
+    }
+
+    public void SetWoodenStakesData()
+    {
+        for (int i = 0; i < obstacles.Length; i++)
+        {
+            if (squadData.woodenStakesHealth > 0f)
+            {
+                obstacles[i].maxHealth += squadData.woodenStakesHealth;
+                obstacles[i].SetCurrentHealthToMaxHealth();
+            }
+        }
+    }
+
     public override void PlaceNewStructure(Vector2 coordinates)
     {
         base.PlaceNewStructure(coordinates);

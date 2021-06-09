@@ -60,7 +60,8 @@ public class GameManager : MonoBehaviour
             inControlManager.name = "InControl Manager";
         }
 
-        deadCharactersParent = GameObject.Find("Dead Characters").transform;
+        if (SceneManager.GetActiveScene().name == "Upgrade Menu" == false)
+            deadCharactersParent = GameObject.Find("Dead Characters").transform;
     }
 
     void Update()

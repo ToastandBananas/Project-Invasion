@@ -14,12 +14,17 @@ public class Obstacle : MonoBehaviour
 
     void Awake()
     {
-        currentHealth = maxHealth;
+        SetCurrentHealthToMaxHealth();
     }
 
     public float GetCurrentHealth()
     {
         return currentHealth;
+    }
+
+    public void SetCurrentHealthToMaxHealth()
+    {
+        currentHealth = maxHealth;
     }
 
     public void TakeDamage(float damage)

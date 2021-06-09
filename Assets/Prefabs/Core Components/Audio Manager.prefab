@@ -184,12 +184,20 @@ MonoBehaviour:
     randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
+  blessSounds:
+  - soundName: Bless
+    clip: {fileID: 8300000, guid: adf0eb9690d4f164bbdecbb7e938616d, type: 3}
+    volume: 0.5
+    pitch: 1
+    randomVolumeAddOn: 0
+    randomPitchAddOn: 0.05
+    loop: 0
   resurrectSounds:
   - soundName: Resurrect
-    clip: {fileID: 8300000, guid: 6c441bc8f623f3f438d3bfd6b255e896, type: 3}
-    volume: 0.4
+    clip: {fileID: 8300000, guid: 95647a13616b0d04095b3debbf72b377, type: 3}
+    volume: 0.5
     pitch: 1
-    randomVolumeAddOn: 0.05
+    randomVolumeAddOn: 0
     randomPitchAddOn: 0.05
     loop: 0
   splashScreenMusicSounds:

@@ -39,6 +39,11 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     [SerializeField] float doubleTimeTime;
     [SerializeField] bool doubleTimeUnlocked;
 
+    [Header("Priest Only Upgrades")]
+    [SerializeField] float healAmount;
+    [SerializeField] float leaderHealAmount, blessPercentDamageReduction, blessTime;
+    [SerializeField] bool blessUnlocked, resurrectUnlocked;
+
     [Header("Spearmen Only Upgrades")]
     [SerializeField] float longThrowTime;
     [SerializeField] float spearWallTime;
@@ -51,6 +56,7 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
     public bool upgradeUnlocked;
 
     [HideInInspector] public SquadType squadType;
+    [HideInInspector] public StructureType structureType;
 
     AudioManager audioManager;
     SquadData squadData;
@@ -86,17 +92,29 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         {
             switch (squadType)
             {
-                case SquadType.Laborers:
-                    squadData.ApplyLaborerData(gold, supplies, health, miningSpeedMultiplier, doubleTimeTime, doubleTimeUnlocked);
+                case SquadType.Archers:
+                    squadData.ApplyArcherData(gold, supplies, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, fireArrowsDamageMultiplier, fireArrowsTime, rapidFireSpeedMultiplier, rapidFireTime, shouldRetreat, fireArrowsUnlocked, rapidFireUnlocked);
                     break;
                 case SquadType.Knights:
                     squadData.ApplyKnightData(gold, supplies, health, leaderHealth, slashDamage, leaderSlashDamage, inspireMultiplier, inspireTime, thornsDamageMultiplier, thornsTime, inspireUnlocked, thornsUnlocked);
                     break;
+                case SquadType.Laborers:
+                    squadData.ApplyLaborerData(gold, supplies, health, miningSpeedMultiplier, doubleTimeTime, doubleTimeUnlocked);
+                    break;
+                case SquadType.Priests:
+                    squadData.ApplyPriestData(gold, supplies, health, leaderHealth, healAmount, leaderHealAmount, blessPercentDamageReduction, blessTime, blessUnlocked, resurrectUnlocked);
+                    break;
                 case SquadType.Spearmen:
                     squadData.ApplySpearmenData(gold, supplies, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, longThrowTime, spearWallTime, longThrowUnlocked, spearWallUnlocked);
                     break;
-                case SquadType.Archers:
-                    squadData.ApplyArcherData(gold, supplies, health, leaderHealth, piercingDamage, leaderPiercingDamage, rangedPiercingDamage, leaderRangedPiercingDamage, accuracy, leaderAccuracy, fireArrowsDamageMultiplier, fireArrowsTime, rapidFireSpeedMultiplier, rapidFireTime, shouldRetreat, fireArrowsUnlocked, rapidFireUnlocked);
+                default:
+                    break;
+            }
+
+            switch (structureType)
+            {
+                case StructureType.WoodenStakes:
+                    squadData.ApplyWoodenStakesData(gold, supplies, health);
                     break;
                 default:
                     break;
@@ -114,8 +132,66 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         if (upgradeDescription.Equals("") == false)
             upgradeDescription.Clear();
 
+        // Archer Ability Upgrades
+        if (squadType == SquadType.Archers)
+        {
+            // Stand Strong
+            if (shouldRetreat == false)
+                upgradeDescription.Append("<b>" + squadType.ToString() + "</b> will now carry melee weapons and will no longer retreat when enemies enter their square.\n");
+
+            // Fire Arrows
+            if (fireArrowsUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Fire Arrows</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString()
+                    + "</b> will shoot fire arrows for the next " + squadData.defaultFireArrowTime.ToString() + " seconds).\n");
+
+            if (fireArrowsDamageMultiplier > 0f)
+                upgradeDescription.Append("<i>Fire Arrows</i> Damage: <color=green>+" + fireArrowsDamageMultiplier.ToString() + "%</color>.\n");
+
+            if (fireArrowsTime > 0f)
+                upgradeDescription.Append("<i>Fire Arrows</i> Time: <color=green>+" + fireArrowsTime.ToString() + " seconds</color>\n");
+
+            // Rapid Fire
+            if (rapidFireUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Rapid Fire</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString()
+                    + "</b> will shoot twice as fast for the next " + squadData.defaultRapidFireTime.ToString() + " seconds).\n");
+
+            if (rapidFireSpeedMultiplier > 0f)
+                upgradeDescription.Append("<i>Rapid Fire</i> Speed: <color=green>+" + (rapidFireSpeedMultiplier * 100f).ToString() + "%</color>.\n");
+
+            if (rapidFireTime > 0f)
+                upgradeDescription.Append("<i>Rapid Fire</i> Time: <color=green>+" + rapidFireTime.ToString() + " seconds</color>\n");
+        }
+
+        // Knight Ability Upgrades
+        else if (squadType == SquadType.Knights)
+        {
+            // Inspire
+            if (inspireUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Inspire</i> ability for <b>" + squadType.ToString()
+                    + "</b>. (The squad leader will inspire his units and those nearby [in the squares next to his squad in the same lane], increasing their max health and damage by "
+                    + (squadData.defaultInspireMultiplier * 100f).ToString() + "% for " + squadData.defaultInspireTime.ToString() + " seconds).\n");
+
+            if (inspireMultiplier > 0f)
+                upgradeDescription.Append("<i>Inspire</i> Benefits: <color=green>+" + (inspireMultiplier * 100f).ToString() + "%</color>\n");
+
+            if (inspireTime > 0f)
+                upgradeDescription.Append("<i>Inspire</i> Time: <color=green>+" + inspireTime.ToString() + " seconds</color>\n");
+
+            // Thorns
+            if (thornsUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Thorns</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString()
+                    + "</b> will reflect back " + (squadData.defaultThornsDamageMultiplier * 100f).ToString() + "% of the melee damage that they receive for " + squadData.defaultThornsTime.ToString()
+                    + " seconds, ignoring all resistances).\n");
+
+            if (thornsDamageMultiplier > 0f)
+                upgradeDescription.Append("<i>Thorns</i> Damage: <color=green>+" + (thornsDamageMultiplier * 100f).ToString() + "%</color>\n");
+
+            if (thornsTime > 0f)
+                upgradeDescription.Append("<i>Thorns</i> Time: <color=green>+" + thornsTime.ToString() + " seconds</color>\n");
+        }
+
         // Laborer Ability Upgrades
-        if (squadType == SquadType.Laborers)
+        else if (squadType == SquadType.Laborers)
         {
             if (miningSpeedMultiplier > 0f)
                 upgradeDescription.Append("Mining Speed: <color=green>+" + (miningSpeedMultiplier * 100f).ToString() + "%</color>\n");
@@ -129,32 +205,29 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 upgradeDescription.Append("Double Time Time: <color=green>+" + doubleTimeTime.ToString() + " seconds</color>\n");
         }
 
-        // Knight Ability Upgrades
-        else if (squadType == SquadType.Knights)
+        // Priest Ability Upgrades
+        else if (squadType == SquadType.Priests)
         {
-            // Inspire
-            if (inspireUnlocked)
-                upgradeDescription.Append("Unlocks the <i>Inspire</i> ability for <b>" + squadType.ToString() 
-                    + "</b>. (The squad leader will inspire his units and those nearby [in the squares next to his squad in the same lane], increasing their max health and damage by "
-                    + (squadData.defaultInspireMultiplier * 100f).ToString() + "% for " + squadData.defaultInspireTime.ToString() + " seconds).\n");
+            if (healAmount > 0f)
+                upgradeDescription.Append("Healing Power: <color=green>+" + healAmount.ToString() + "</color>\n");
 
-            if (inspireMultiplier > 0f)
-                upgradeDescription.Append("<i>Inspire</i> Benefits: <color=green>+" + (inspireMultiplier * 100f).ToString() + "%</color>\n");
+            if (leaderHealAmount > 0f)
+                upgradeDescription.Append("Leader Healing Power: <color=green>+" + leaderHealAmount.ToString() + "</color>\n");
 
-            if (inspireTime > 0f)
-                upgradeDescription.Append("<i>Inspire</i> Time: <color=green>+" + inspireTime.ToString() + " seconds</color>\n");
+            if (blessUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Bless</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString()
+                    + "</b> will call on the powers above to dramatically reduce incoming damage [by " + (squadData.defaultBlessPercentDamageReduction * 100f).ToString() 
+                    + "%] for allies within range for the next " + squadData.defaultBlessTime.ToString() + " seconds).\n");
 
-            // Thorns
-            if (thornsUnlocked)
-                upgradeDescription.Append("Unlocks the <i>Thorns</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() 
-                    + "</b> will reflect back " + (squadData.defaultThornsDamageMultiplier * 100f).ToString() + "% of the melee damage that they receive for " + squadData.defaultThornsTime.ToString() 
-                    + " seconds, ignoring all resistances).\n");
+            if (blessPercentDamageReduction > 0f)
+                upgradeDescription.Append("Bless Damage Reduction: <color=green>+" + (blessPercentDamageReduction * 100f).ToString() + "%</color>\n");
 
-            if (thornsDamageMultiplier > 0f)
-                upgradeDescription.Append("<i>Thorns</i> Damage: <color=green>+" + (thornsDamageMultiplier * 100f).ToString() + "%</color>\n");
+            if (blessTime > 0f)
+                upgradeDescription.Append("<i>Bless</i> Time: <color=green>+" + blessTime.ToString() + " seconds</color>\n");
 
-            if (thornsTime > 0f)
-                upgradeDescription.Append("<i>Thorns</i> Time: <color=green>+" + thornsTime.ToString() + " seconds</color>\n");
+            if (resurrectUnlocked)
+                upgradeDescription.Append("Unlocks the <i>Resurrect</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString()
+                    + "</b> will plead to their god to perform the miracle of raising their nearby allies from the dead. (The resource cost will depend on the unit type and the quantity being resurrected).\n");
         }
 
         // Spearmen Ability Upgrades
@@ -177,36 +250,6 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
                 upgradeDescription.Append("<i>Spear Wall</i> Time: <color=green>+" + spearWallTime.ToString() + " seconds</color>\n");
         }
 
-        // Archer Ability Upgrades
-        else if (squadType == SquadType.Archers)
-        {
-            // Stand Strong
-            if (shouldRetreat == false)
-                upgradeDescription.Append("<b>" + squadType.ToString() + "</b> will now carry melee weapons and will no longer retreat when enemies enter their square.\n");
-
-            // Fire Arrows
-            if (fireArrowsUnlocked)
-                upgradeDescription.Append("Unlocks the <i>Fire Arrows</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() 
-                    + "</b> will shoot fire arrows for the next " + squadData.defaultFireArrowTime.ToString() + " seconds).\n");
-
-            if (fireArrowsDamageMultiplier > 0f)
-                upgradeDescription.Append("<i>Fire Arrows</i> Damage: <color=green>+" + fireArrowsDamageMultiplier.ToString() + "%</color>.\n");
-
-            if (fireArrowsTime > 0f)
-                upgradeDescription.Append("<i>Fire Arrows</i> Time: <color=green>+" + fireArrowsTime.ToString() + " seconds</color>\n");
-
-            // Rapid Fire
-            if (rapidFireUnlocked)
-                upgradeDescription.Append("Unlocks the <i>Rapid Fire</i> ability for <b>" + squadType.ToString() + "</b>. (<b>" + squadType.ToString() 
-                    + "</b> will shoot twice as fast for the next " + squadData.defaultRapidFireTime.ToString() + " seconds).\n");
-
-            if (rapidFireSpeedMultiplier > 0f)
-                upgradeDescription.Append("<i>Rapid Fire</i> Speed: <color=green>+" + (rapidFireSpeedMultiplier * 100f).ToString() + "%</color>.\n");
-
-            if (rapidFireTime > 0f)
-                upgradeDescription.Append("<i>Rapid Fire</i> Time: <color=green>+" + rapidFireTime.ToString() + " seconds</color>\n");
-        }
-
         // General Upgrades
         if (gold > 0)
             upgradeDescription.Append("Gold Cost: <color=red>+" + gold.ToString() + "</color>\n");
@@ -219,7 +262,12 @@ public class UpgradeIcon : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
             upgradeDescription.Append("Supplies Cost: <color=green>-" + supplies.ToString() + "</color>\n");
 
         if (health > 0f)
-            upgradeDescription.Append("Unit Health: <color=green>+" + health.ToString() + "</color>\n");
+        {
+            if (squadType != SquadType.Null)
+                upgradeDescription.Append("Unit Health: <color=green>+" + health.ToString() + "</color>\n");
+            else if (structureType != StructureType.Null)
+                upgradeDescription.Append("Structure Health: <color=green>+" + health.ToString() + "</color>\n");
+        }
 
         if (leaderHealth > 0f)
             upgradeDescription.Append("Leader Health: <color=green>+" + leaderHealth.ToString() + "</color>\n");

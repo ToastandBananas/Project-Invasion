@@ -9,11 +9,8 @@ public class Archer : Ally
         SetArcherData();
     }
 
-    public override void Update()
+    public override void FixedUpdate()
     {
-        if (defenderScript.health.isDead)
-            this.enabled = false;
-        
         if (defenderScript.squad.shouldRetreatWhenEnemyNear == false && defenderScript.isAttacking == false && defenderScript.currentTargetAttacker != null
             && Vector2.Distance(transform.position, defenderScript.currentTargetAttacker.transform.position) <= defenderScript.minAttackDistance)
         {

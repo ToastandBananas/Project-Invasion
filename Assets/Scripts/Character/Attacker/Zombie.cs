@@ -17,7 +17,7 @@ public class Zombie : Enemy
                 if (random == 0)
                 {
                     hasBeenResurrected = true;
-                    StartCoroutine(attackerScript.health.Resurrect(Random.Range(minResurrectWaitTime, maxResurrectWaitTime), null, this));
+                    StartCoroutine(attackerScript.health.Resurrect(Random.Range(minResurrectWaitTime, maxResurrectWaitTime), this));
                 }
                 else
                     this.enabled = false;

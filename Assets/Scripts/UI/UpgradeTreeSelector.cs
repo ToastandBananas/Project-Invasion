@@ -3,6 +3,7 @@
 public class UpgradeTreeSelector : MonoBehaviour
 {
     public SquadType squadType;
+    public StructureType structureType;
     public GameObject upgradeTree;
 
     Transform upgradeTreesParent;
@@ -18,7 +19,7 @@ public class UpgradeTreeSelector : MonoBehaviour
 
         SetSquadTypeForIcons();
 
-        if (GameManager.instance.squadData.SquadUnlocked(squadType) == false)
+        if (GameManager.instance.squadData.SquadUnlocked(squadType) == false && GameManager.instance.squadData.StructureUnlocked(structureType) == false)
             gameObject.SetActive(false);
     }
 
@@ -46,7 +47,9 @@ public class UpgradeTreeSelector : MonoBehaviour
 
             for (int j = 0; j < upgradeIconsParent.GetChild(i).childCount; j++)
             {
-                upgradeIconsParent.GetChild(i).GetChild(j).GetComponent<UpgradeIcon>().squadType = squadType;
+                upgradeIconsParent.GetChild(i).GetChild(j).TryGetComponent(out UpgradeIcon upgradeIcon);
+                upgradeIcon.squadType = squadType;
+                upgradeIcon.structureType = structureType;
             }
         }
     }

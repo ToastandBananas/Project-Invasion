@@ -18,6 +18,7 @@ public class Structure : MonoBehaviour
 
     [HideInInspector] public AttackerSpawner myLaneSpawner;
     [HideInInspector] public AudioManager audioManager;
+    [HideInInspector] public SquadData squadData;
 
     [HideInInspector] public Color activeColor = new Color(1f, 1f, 1f, 1f); // White
     [HideInInspector] public Color invalidColor = new Color(1f, 0f, 0f, 0.4f); // Red and opaque

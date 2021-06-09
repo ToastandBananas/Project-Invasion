@@ -19,7 +19,7 @@ public class Laborer : Ally
         SetLaborerData();
     }
     
-    public override void Update()
+    public override void FixedUpdate()
     {
         if (defenderScript.health.isDead)
         {

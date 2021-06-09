@@ -799,7 +799,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentStructure: {fileID: 5944504141592070325}
-  maxHealth: 200
+  maxHealth: 150
   attackersNearby: []
 --- !u!1 &5944504140671303730
 GameObject:
@@ -1085,7 +1085,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   parentStructure: {fileID: 5944504141592070325}
-  maxHealth: 200
+  maxHealth: 150
   attackersNearby: []
 --- !u!1 &5944504141059221443
 GameObject:

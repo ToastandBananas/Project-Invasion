@@ -11,11 +11,8 @@ public class Ally : MonoBehaviour
         squadData = GameManager.instance.squadData;
     }
     
-    public virtual void Update()
+    public virtual void FixedUpdate()
     {
-        if (defenderScript.health.isDead)
-            this.enabled = false;
-
         if (defenderScript.isAttacking == false && defenderScript.currentTargetAttacker != null
             && Vector2.Distance(transform.position, defenderScript.currentTargetAttacker.transform.position) <= defenderScript.minAttackDistance)
         {

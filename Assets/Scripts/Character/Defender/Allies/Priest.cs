@@ -6,11 +6,10 @@ public class Priest : Ally
 
         SetPriestData();
     }
-    
-    public override void Update()
+
+    public override void FixedUpdate()
     {
-        if (defenderScript.health.isDead)
-            this.enabled = false;
+        // This is empty because we want to override the base FixedUpdate and prevent it from running
     }
 
     void SetPriestData()
