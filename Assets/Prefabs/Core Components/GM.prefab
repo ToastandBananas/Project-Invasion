@@ -117,6 +117,7 @@ MonoBehaviour:
   priestLeaderHealth: 0
   priestHealAmount: 0
   priestLeaderHealAmount: 0
+  priestBlessPercentDamageReduction: 0
   priestBlessTime: 0
   priestResurrectUnlocked: 0
   priestBlessUnlocked: 0
@@ -142,10 +143,11 @@ MonoBehaviour:
   defaultRapidFireSpeedMultiplier: 2
   defaultInspireMultiplier: 0.25
   defaultInspireTime: 60
-  defaultThornsDamageMultiplier: 0.2
+  defaultThornsDamageMultiplier: 0.5
   defaultThornsTime: 30
   defaultMiningSpeedMultiplier: 1
   defaultDoubleTimeTime: 45
+  defaultBlessPercentDamageReduction: 0.75
   defaultBlessTime: 60
   defaultLongThrowTime: 45
   defaultSpearWallTime: 30

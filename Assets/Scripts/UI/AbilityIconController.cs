@@ -339,11 +339,15 @@ public class AbilityIconController : MonoBehaviour
         InitializeUseAbility(squadData.thornsGoldCost, squadData.thornsSuppliesCost, true);
 
         if (selectedSquad.leader != null)
+        {
             selectedSquad.leader.health.thornsActive = true;
+            selectedSquad.leader.effectAnim3.SetBool("thornsActive", true);
+        }
 
         foreach (Defender unit in selectedSquad.units)
         {
             unit.health.thornsActive = true;
+            unit.effectAnim3.SetBool("thornsActive", true);
         }
 
         StartCoroutine(DeactivateThorns(selectedSquad));
@@ -358,11 +362,15 @@ public class AbilityIconController : MonoBehaviour
             squad.abilityActive = false;
 
             if (squad.leader != null)
+            {
                 squad.leader.health.thornsActive = false;
+                squad.leader.effectAnim3.SetBool("thornsActive", false);
+            }
 
             foreach (Defender unit in squad.units)
             {
                 unit.health.thornsActive = false;
+                unit.effectAnim3.SetBool("thornsActive", false);
             }
         }
     }

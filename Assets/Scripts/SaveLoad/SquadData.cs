@@ -57,7 +57,7 @@ public class SquadData : MonoBehaviour
     // Knights
     public float defaultInspireMultiplier = 0.25f;
     public float defaultInspireTime = 60f;
-    public float defaultThornsDamageMultiplier = 0.2f;
+    public float defaultThornsDamageMultiplier = 0.5f;
     public float defaultThornsTime = 30f;
 
     // Laborers
