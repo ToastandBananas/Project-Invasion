@@ -150,8 +150,10 @@ public class Shooter : MonoBehaviour
         {
             if (isHealer == false) // If not a healer
                 AssignTargetToProjectile(newProjectile, defender.squad.rangeCollider.attackersInRange[randomIndex].transform);
-            else // If healer
+            else if (currentHealingTarget != null) // If healer
                 AssignTargetToProjectile(newProjectile, currentHealingTarget.transform);
+            else
+                newProjectile.Deactivate();
 
             StartCoroutine(newProjectile.ShootProjectile());
         }
