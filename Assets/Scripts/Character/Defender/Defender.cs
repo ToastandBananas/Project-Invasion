@@ -131,9 +131,8 @@ public class Defender : MonoBehaviour
 
             if (squad.squadType == SquadType.Laborers)
             {
-                Laborer laborer = GetComponent<Laborer>();
-                if (laborer.isWorking)
-                    laborer.StopWorking();
+                Laborer laborer = (Laborer)allyScript;
+                laborer.StopWorking();
             }
 
             // While the defender is still within the bounds of the visible map (-1.25 on the x is outside of our camera's view)

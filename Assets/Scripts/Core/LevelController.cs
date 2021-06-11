@@ -105,7 +105,10 @@ public class LevelController : MonoBehaviour
 
         yield return new WaitForSeconds(audioManager.victorySounds[randomIndex].clip.length);
 
-        LevelLoader.instance.LoadUpgradeMenuScene();
+        if (LevelLoader.instance.currentSceneIndex + 1 <= 10)
+            LevelLoader.instance.LoadUpgradeMenuScene();
+        else
+            LevelLoader.instance.LoadThankYouScene();
     }
 
     void ApplyUpgradePointReward()

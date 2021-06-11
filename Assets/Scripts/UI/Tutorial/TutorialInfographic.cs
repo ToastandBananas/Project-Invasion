@@ -39,17 +39,15 @@ public class TutorialInfographic : MonoBehaviour
 
     public void ShowInfographic()
     {
+        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
         transform.GetChild(0).gameObject.SetActive(true);
         isActive = true;
-
-        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
     }
 
     public void HideInfographic()
     {
+        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
         transform.GetChild(0).gameObject.SetActive(false);
         isActive = false;
-
-        audioManager.PlaySound(audioManager.buttonClickSounds, "MouthClick1", Vector3.zero);
     }
 }

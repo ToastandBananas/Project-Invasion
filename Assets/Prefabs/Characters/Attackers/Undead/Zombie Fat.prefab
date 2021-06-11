@@ -115,6 +115,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 973e90782d0648d4dbb0a10008fedf93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  attackerScript: {fileID: 0}
+  health: {fileID: 0}
+  reanimatePercentChance: 0
+  minResurrectWaitTime: 4
+  maxResurrectWaitTime: 10
+  hasBeenResurrected: 0
+  audioManager: {fileID: 0}
 --- !u!114 &5745352578298195462
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -127,9 +134,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73d50838625fd1747af4a0c585ac3685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnPoints: 40
+  spawnPoints: 50
   isLarge: 0
-  suppliesDroppedOnDeath: 3
+  suppliesDroppedOnDeath: 14
   minAttackDistance: 0.08
   maxOpponents: 3
   runSpeed: 0.2

@@ -38,8 +38,6 @@ public class ResourceNode : MonoBehaviour
             goldDeposit.transform.localPosition = possibleDepositSpawnLocations[randomIndex];
             possibleDepositSpawnLocations.Remove(possibleDepositSpawnLocations[randomIndex]);
         }
-
-        //int resourceDepositCount = transform.childCount;
         
         for (int i = 0; i < resourceDepositCount; i++)
         {
@@ -58,7 +56,6 @@ public class ResourceNode : MonoBehaviour
             {
                 int randomIndex = Random.Range(0, gameAssets.goldDepositAnimatorControllers.Count);
                 resourceDeposits[i].anim.runtimeAnimatorController = gameAssets.goldDepositAnimatorControllers[randomIndex];
-                //gameAssets.goldDepositAnimatorControllers.Remove(gameAssets.goldDepositAnimatorControllers[randomIndex]);
             }
 
             int coinToss = Random.Range(0, 2);
@@ -144,11 +141,4 @@ public class ResourceNode : MonoBehaviour
                 Gizmos.DrawIcon(transform.position, "GoldDeposit_Icon.png", true);
         #endif
     }
-
-    /*void OnTriggerExit2D(Collider2D collision)
-    {
-        collision.TryGetComponent(out Attacker attacker);
-        if (attacker != null && attackersAttackingNode.Contains(attacker))
-            attackersAttackingNode.Remove(attacker);
-    }*/
 }

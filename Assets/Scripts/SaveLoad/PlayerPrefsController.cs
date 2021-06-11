@@ -94,7 +94,9 @@ public class PlayerPrefsController : MonoBehaviour
         {
             // Debug.Log("Master difficulty set to " + difficulty);
             PlayerPrefs.SetFloat(DIFFICULTY_KEY, difficulty);
-            CastleHealth.instance.OnDifficultyChanged();
+
+            if (CastleHealth.instance != null)
+                CastleHealth.instance.OnDifficultyChanged();
         }
         else
             Debug.LogError("Difficulty setting is out of range.");

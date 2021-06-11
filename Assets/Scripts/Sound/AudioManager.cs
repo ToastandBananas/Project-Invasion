@@ -284,8 +284,11 @@ public class AudioManager : MonoBehaviour
         {
             if (musicSounds[randomIndex] == musicSounds[i])
             {
+                if (playedFirstSong == false)
+                    playedFirstSong = true;
+
                 PlaySound(musicSounds, musicSounds[i].soundName, Vector3.zero);
-                Invoke("PlayMusic", musicSounds[i].clip.length);
+                Invoke("PlayMusic", musicSounds[i].clip.length + 3f);
                 return;
             }
         }

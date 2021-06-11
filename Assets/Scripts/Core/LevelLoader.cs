@@ -14,7 +14,7 @@ public class LevelLoader : MonoBehaviour
 
     [HideInInspector] public int currentLevel = 1;
 
-    int currentSceneIndex;
+    [HideInInspector] public int currentSceneIndex;
 
     AudioManager audioManager;
 
@@ -109,6 +109,11 @@ public class LevelLoader : MonoBehaviour
     {
         Time.timeScale = 1;
         SceneManager.LoadScene("Main Menu");
+    }
+
+    public void LoadThankYouScene()
+    {
+        SceneManager.LoadScene("Thank You");
     }
 
     public void QuitGame()

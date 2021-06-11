@@ -21,12 +21,6 @@ public class Laborer : Ally
     
     public override void FixedUpdate()
     {
-        if (defenderScript.health.isDead)
-        {
-            StopWorking();
-            this.enabled = false;
-        }
-
         // If the Laborer is not mining, but is close enough to his deposit, then start mining
         if (isWorking == false && targetResourceDeposit != null && Vector2.Distance(transform.localPosition, defenderScript.unitPosition) <= defenderScript.minDistanceFromTargetPosition)
         {

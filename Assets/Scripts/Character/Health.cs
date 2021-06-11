@@ -198,7 +198,15 @@ public class Health : MonoBehaviour
                 defender.myShooter.enabled = false;
 
             if (defender.allyScript != null)
+            {
+                if (defender.squad.squadType == SquadType.Laborers)
+                {
+                    Laborer laborer = (Laborer)defender.allyScript;
+                    laborer.StopWorking();
+                }
+
                 defender.allyScript.enabled = false;
+            }
             
             defender.enabled = false;
         }
