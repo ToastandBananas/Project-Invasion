@@ -50,8 +50,8 @@ public class SquadData : MonoBehaviour
 
     [Header("Defaults")]
     // Archers
-    public float defaultFireArrowTime = 30f;
-    public float defaultRapidFireTime = 20f;
+    public float defaultFireArrowTime = 45f;
+    public float defaultRapidFireTime = 30f;
     public float defaultRapidFireSpeedMultiplier = 2f;
 
     // Knights

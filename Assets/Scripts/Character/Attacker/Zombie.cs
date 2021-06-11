@@ -2,29 +2,23 @@ using UnityEngine;
 
 public class Zombie : Enemy
 {
+    [Range(0f, 1f)] public float reanimatePercentChance;
     public float minResurrectWaitTime = 4f;
     public float maxResurrectWaitTime = 10f;
 
-    bool hasBeenResurrected;
+    [HideInInspector] public bool hasBeenResurrected;
+
+    [HideInInspector] public AudioManager audioManager;
+
+    void Start()
+    {
+        audioManager = AudioManager.instance;
+    }
 
     public override void Update()
     {
         if (health.isDead)
-        {
-            if (hasBeenResurrected == false)
-            {
-                int random = Random.Range(0, 3);
-                if (random == 0)
-                {
-                    hasBeenResurrected = true;
-                    StartCoroutine(attackerScript.health.Resurrect(Random.Range(minResurrectWaitTime, maxResurrectWaitTime), this));
-                }
-                else
-                    this.enabled = false;
-            }
-            else
-                this.enabled = false;
-        }
+            TryReanimate();
 
         if (attackerScript.isAttacking == false)
         {
@@ -40,5 +34,27 @@ public class Zombie : Enemy
                 attackerScript.GetNewTarget();
             }
         }
+    }
+
+    public void TryReanimate()
+    {
+        if (hasBeenResurrected == false)
+        {
+            float random = Random.Range(0f, 1f);
+            if (random <= reanimatePercentChance)
+            {
+                hasBeenResurrected = true;
+                StartCoroutine(attackerScript.health.Resurrect(Random.Range(minResurrectWaitTime, maxResurrectWaitTime), this));
+            }
+            else
+                this.enabled = false;
+        }
+        else
+            this.enabled = false;
+    }
+
+    public void PlayZombieBiteSound()
+    {
+        audioManager.PlayRandomSound(audioManager.zombieBiteSounds);
     }
 }

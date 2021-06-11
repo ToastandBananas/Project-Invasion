@@ -223,7 +223,7 @@ MonoBehaviour:
   isLarge: 0
   meleeWeaponType: 0
   bluntDamage: 0
-  slashDamage: 25
+  slashDamage: 22
   piercingDamage: 0
   fireDamage: 0
   startingBluntDamage: 0
@@ -240,9 +240,15 @@ MonoBehaviour:
   isBeingKnockedBack: 0
   currentTargetAttacker: {fileID: 0}
   currentTargetAttackersHealth: {fileID: 0}
-  anim: {fileID: 0}
   allyScript: {fileID: 0}
+  anim: {fileID: 0}
+  effectAnim1: {fileID: 0}
+  effectAnim2: {fileID: 0}
+  effectAnim3: {fileID: 0}
   sr: {fileID: 0}
+  effectSR1: {fileID: 0}
+  effectSR2: {fileID: 0}
+  effectSR3: {fileID: 0}
   squad: {fileID: 0}
   health: {fileID: 0}
   myShooter: {fileID: 0}
@@ -283,6 +289,7 @@ MonoBehaviour:
   fireResistance: -0.25
   damageEffect: {fileID: 133322267634769747, guid: 0ee854ecd7df51044bd6134c55763069, type: 3}
   isBlessed: 0
+  isInspired: 0
   thornsActive: 0
   thornsDamageMultiplier: 0
   isDead: 0

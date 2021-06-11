@@ -138,8 +138,8 @@ MonoBehaviour:
   woodenStakesGoldCost: 0
   woodenStakesSuppliesCost: 0
   woodenStakesHealth: 0
-  defaultFireArrowTime: 30
-  defaultRapidFireTime: 20
+  defaultFireArrowTime: 45
+  defaultRapidFireTime: 30
   defaultRapidFireSpeedMultiplier: 2
   defaultInspireMultiplier: 0.25
   defaultInspireTime: 60

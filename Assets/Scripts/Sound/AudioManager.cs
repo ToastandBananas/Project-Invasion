@@ -56,6 +56,9 @@ public class AudioManager : MonoBehaviour
     [Header("Ambient Sounds")]
     public Sound[] windSounds;
 
+    [Header("Bite Sounds")]
+    public Sound[] zombieBiteSounds;
+
     [Header("Blunt Weapon Sounds")]
     public Sound[] bluntHitOpponentSounds;
 
@@ -122,6 +125,7 @@ public class AudioManager : MonoBehaviour
         #endregion
 
         allSounds.Add(windSounds);
+        allSounds.Add(zombieBiteSounds);
         allSounds.Add(bluntHitOpponentSounds);
         allSounds.Add(arrowHitOpponentSounds);
         allSounds.Add(arrowHitWallSounds);

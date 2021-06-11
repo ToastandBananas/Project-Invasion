@@ -13,6 +13,7 @@ Sound Credits:
 - Battle Sound Effect by artisticdude (https://opengameart.org/content/battle-sound-effects) Licensed under CC-BY 3.0
 - Bow & bow2 by Hanbaal (https://freesound.org/people/Hanbaal/sounds/178872/)(https://freesound.org/people/Hanbaal/sounds/178873/) Licensed under CC0 1.0
 - Crowbar [pickaxe sounds] by damsur (https://freesound.org/people/damsur/sounds/443243/) Licensed under CC0 1.0
+- Eating Apply Crunches by Koops (https://freesound.org/people/Koops/packs/1238/) Licensed under CC-BY 3.0
 - FadeIn_Choir & FadeIn_Choir_v2 by metmass (https://freesound.org/people/metmass/sounds/123077/)(https://freesound.org/people/metmass/sounds/123078/) Licensed under CC0 1.0
 - Fantasy Sound Effects Library by LittleRobotSoundFactory (https://freesound.org/people/LittleRobotSoundFactory/sounds/270405/) Licensed under CC-BY 3.0
 - Fireball Cast 1 by LiamG_SFX (https://freesound.org/people/LiamG_SFX/sounds/334234/) Licensed under CC-BY 3.0

@@ -146,6 +146,20 @@ public class Health : MonoBehaviour
             defender.squad.Retreat();
     }
 
+    public void InstaKill()
+    {
+        if (PlayerPrefsController.DamagePopupsEnabled())
+            TextPopup.CreateDamagePopup(transform.position + new Vector3(Random.Range(-0.05f, 0.05f), Random.Range(0.05f, 0.15f)), currentHealth, false, defender != null);
+
+        currentHealth = 0;
+
+        if (damageEffect != null)
+            StartCoroutine(TriggerDamageEffect());
+
+        FindNewTargetForOpponent();
+        Die();
+    }
+
     float GetDamageAmount(float damage, float resistance)
     {
         return damage - (damage * resistance);
