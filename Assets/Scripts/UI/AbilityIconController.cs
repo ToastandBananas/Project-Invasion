@@ -231,7 +231,7 @@ public class AbilityIconController : MonoBehaviour
         if (leftSquadCollider != null)
         {
             leftSquad = leftSquadCollider.GetComponent<Squad>();
-            if (leftSquad.leader.health.isInspired == false)
+            if (leftSquad != null && leftSquad.leader != null && leftSquad.leader.health.isInspired == false)
             {
                 Inspire_SetStatsForSquad(leftSquad);
                 inspireCount++;
@@ -241,7 +241,7 @@ public class AbilityIconController : MonoBehaviour
         if (rightSquadCollider != null)
         {
             rightSquad = rightSquadCollider.GetComponent<Squad>();
-            if (rightSquad.leader.health.isInspired == false)
+            if (rightSquad != null && rightSquad.leader != null && rightSquad.leader.health.isInspired == false)
             {
                 Inspire_SetStatsForSquad(rightSquad);
                 inspireCount++;
@@ -509,9 +509,9 @@ public class AbilityIconController : MonoBehaviour
                 secondSquad = selectedSquad.rangeCollider.squadsInRange[1];
 
             int blessCount = 0;
-            if (firstSquad != null && firstSquad.leader.health.isBlessed == false)
+            if (firstSquad != null && firstSquad.leader != null && firstSquad.leader.health.isBlessed == false)
                 blessCount++;
-            if (secondSquad != null && secondSquad.leader.health.isBlessed == false)
+            if (secondSquad != null && secondSquad.leader != null && secondSquad.leader.health.isBlessed == false)
                 blessCount++;
 
             if (blessCount == 0)
