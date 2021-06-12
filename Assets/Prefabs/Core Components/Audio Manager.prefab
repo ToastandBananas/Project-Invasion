@@ -52,44 +52,44 @@ MonoBehaviour:
   zombieBiteSounds:
   - soundName: Bite 1
     clip: {fileID: 8300000, guid: f14b41fbc3af4be4f8f946715e9ad7ba, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
-    randomVolumeAddOn: 0.1
+    randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Bite 2
     clip: {fileID: 8300000, guid: 9aa7f0a8724404742ba6b6579454a07b, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
-    randomVolumeAddOn: 0.1
+    randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Bite 3
     clip: {fileID: 8300000, guid: 8cf6c63deb1dd2649a10cef17ce1762a, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
-    randomVolumeAddOn: 0.1
+    randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Bite 4
     clip: {fileID: 8300000, guid: 1be49f41c459a41418a51bb0ee403914, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
-    randomVolumeAddOn: 0.1
+    randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Bite 5
     clip: {fileID: 8300000, guid: 0a9d9f5132ac0cc4da2d60a00fe28d89, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
-    randomVolumeAddOn: 0.1
+    randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   - soundName: Bite 6
     clip: {fileID: 8300000, guid: cbd56226cfa8be74cb15288839269a51, type: 3}
-    volume: 0.4
+    volume: 0.3
     pitch: 1
-    randomVolumeAddOn: 0.1
+    randomVolumeAddOn: 0.05
     randomPitchAddOn: 0.25
     loop: 0
   bluntHitOpponentSounds:
@@ -252,6 +252,13 @@ MonoBehaviour:
     randomPitchAddOn: 0
     loop: 0
   musicSounds:
+  - soundName: Spring Village
+    clip: {fileID: 8300000, guid: e1d67e063126f45478157c6b9e316632, type: 3}
+    volume: 0.3
+    pitch: 1
+    randomVolumeAddOn: 0
+    randomPitchAddOn: 0
+    loop: 0
   - soundName: Fantasy Music 1
     clip: {fileID: 8300000, guid: 439fbbaaf3d1f7e4fbbac69e3c6ca47e, type: 3}
     volume: 0.3

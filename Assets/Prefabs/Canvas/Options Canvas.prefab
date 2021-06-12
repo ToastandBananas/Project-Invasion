@@ -2848,7 +2848,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &8568558285955436034
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2887,7 +2887,7 @@ MonoBehaviour:
   voicesVolumeSlider: {fileID: 8837767253336477175}
   defaultVoiceVolume: -8
   difficultySlider: {fileID: 2242204807984758558}
-  defaultDifficulty: 0
+  defaultDifficulty: 1
   damagePopupsCheckMark: {fileID: 2176144842509294788}
   optionsMenuOpen: 0
 --- !u!1 &8568558286284473667

@@ -50,7 +50,10 @@ public class LevelLoader : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "Main Menu")
         {
             if (ES3.FileExists("SaveFile.es3") == false)
+            {
                 GameObject.Find("Continue Button").GetComponent<Button>().interactable = false;
+                OptionsController.instance.SetInitialSettings();
+            }
 
             newGameConfirmation = GameObject.Find("New Game Confirmation");
         }

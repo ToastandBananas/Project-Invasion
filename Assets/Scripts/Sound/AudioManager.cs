@@ -288,7 +288,7 @@ public class AudioManager : MonoBehaviour
                     playedFirstSong = true;
 
                 PlaySound(musicSounds, musicSounds[i].soundName, Vector3.zero);
-                Invoke("PlayMusic", musicSounds[i].clip.length + 3f);
+                Invoke("PlayMusic", musicSounds[i].clip.length);
                 return;
             }
         }

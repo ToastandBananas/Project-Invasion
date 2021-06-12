@@ -21,7 +21,7 @@ public class OptionsController : MonoBehaviour
 
     [Header("Difficulty")]
     [SerializeField] Slider difficultySlider;
-    [SerializeField][Range(0, 2)] int defaultDifficulty = 0;
+    [SerializeField][Range(0, 2)] int defaultDifficulty = 1;
 
     [Header("Damage Popups")]
     [SerializeField] Image damagePopupsCheckMark;
@@ -89,6 +89,24 @@ public class OptionsController : MonoBehaviour
         damagePopupsCheckMark.gameObject.SetActive(defaultDamagePopupsEnabled);
 
         audioManager.PlaySound(audioManager.buttonClickSounds, audioManager.buttonClickSounds[0].soundName, Vector3.zero);
+    }
+
+    public void SetInitialSettings()
+    {
+        masterVolumeSlider.value = defaultMasterVolume;
+        musicVolumeSlider.value = defaultMusicVolume;
+        effectsVolumeSlider.value = defaultEffectsVolume;
+        voicesVolumeSlider.value = defaultVoiceVolume;
+        difficultySlider.value = defaultDifficulty;
+        damagePopupsEnabled = defaultDamagePopupsEnabled;
+        damagePopupsCheckMark.gameObject.SetActive(defaultDamagePopupsEnabled);
+
+        PlayerPrefsController.SetMasterVolume(masterVolumeSlider.value);
+        PlayerPrefsController.SetMusicVolume(musicVolumeSlider.value);
+        PlayerPrefsController.SetEffectsVolume(effectsVolumeSlider.value);
+        PlayerPrefsController.SetVoiceVolume(voicesVolumeSlider.value);
+        PlayerPrefsController.SetDifficulty(difficultySlider.value);
+        PlayerPrefsController.SetDamagePopups(damagePopupsEnabled);
     }
 
     public void ToggleOptionsMenu()
